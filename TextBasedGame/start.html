@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Crawlspace</title>
-        <style type="text/css">  
+        <style type="text/css">
             *{
                 box-sizing: border-box;
             }
@@ -9,7 +9,7 @@
             {
                 background-color: #000000;
             }
-            #space, .stars 
+            #space, .stars
             {
                 overflow: hidden;
                 position: absolute;
@@ -19,9 +19,9 @@
                 right: 0;
             }
 
-            .stars  
+            .stars
             {
-                background-image: 
+                background-image:
                     radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
                     radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
                     radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
@@ -34,47 +34,47 @@
                 opacity: 0;
             }
 
-            .stars:nth-child(1) 
+            .stars:nth-child(1)
             {
                 background-position: 50% 50%;
                 animation-delay: 0s;
             }
-            .stars:nth-child(2) 
+            .stars:nth-child(2)
             {
                 background-position: 20% 60%;
                 animation-delay: 1s;
             }
-            .stars:nth-child(3) 
+            .stars:nth-child(3)
             {
                 background-position: -20% -30%;
                 animation-delay: 2s;
             }
-            .stars:nth-child(4) 
+            .stars:nth-child(4)
             {
                 background-position: 40% -80%;
                 animation-delay: 3s;
             }
-            .stars:nth-child(5) 
+            .stars:nth-child(5)
             {
                 background-position: -20% 30%;
                 animation-delay: 4s;
             }
 
-            @keyframes zoom 
+            @keyframes zoom
             {
-                0% 
+                0%
                 {
                     opacity: 0;
                     transform: scale(0.5);
                     animation-timing-function: ease-in;
-                } 
-                85% 
+                }
+                85%
                 {
                     opacity: 1;
                     transform: scale(2.8);
                     animation-timing-function: linear;
                 }
-                100% 
+                100%
                 {
                     opacity: 0;
                     transform: scale(3.5);
@@ -91,8 +91,6 @@
                 margin: auto;
                 background-color: red;
             }
-
-    
 
             #characterNameContainer
             {
