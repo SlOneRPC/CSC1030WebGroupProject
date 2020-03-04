@@ -8,6 +8,7 @@
             body
             {
                 background-color: #000000;
+                overflow: hidden;
             }
             #space, .stars
             {
@@ -83,39 +84,44 @@
 
             #wrapper
             {
-                width: 80%;
+                width: 100%;
                 padding: 25px;
-                justify-content: center;
-                display: flex;
+                display:block;
                 align-items: center;
-                margin: auto;
-                background-color: red;
+                margin: 0 auto;
+                position: absolute;
+                overflow: hidden;
             }
 
             #characterNameContainer
             {
-                float: left;
-                font-size: 0.8em;
-                overflow: hidden;
-                background-color: #0f180e;
                 width: 45em;
                 height: 35em;
-                text-align: left;
+                font-size: 0.8em;
                 border-bottom-left-radius: 25px;
                 border-bottom-right-radius: 25px;
                 border-top-right-radius: 25px;
-                border-top-left-radius: 25px;
                 box-shadow: 0 0 10px 2px red;
+                background-color: #0f180e;
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
-                padding: 20px;
-                margin: auto;
-                top: 10px;
+                margin: 0 auto;
             }
+
+            .vertical-center
+            {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+              }
         </style>
     </head>
     <body>
-        <div id="wrapper">
-            <div id="characterNameContainer"></div>
+        <div id="wrapper" class="vertical-center">
+            <div id="characterNameContainer">
+
+            </div>
         </div>
         <div id="space">
             <div class="stars"></div>
