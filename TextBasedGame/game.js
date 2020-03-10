@@ -1,4 +1,4 @@
-var player = new playerObject(document.getElementById("name").value, charHealth, document.getElementById("charClass") inventory, stats);
+var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
 var stats = new statsObject();
 var inventory = [];
 var item = new itemObject();
@@ -68,5 +68,10 @@ function charStart()
 }
 function addItemInventory(item)
 {
-  
+
 }
+function getPlayerDetails()
+{
+  var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
+}
+alert();
