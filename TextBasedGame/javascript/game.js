@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 var stats = new statsObject(1, 1, 1, 1);
 
 var inventory = [];
 
-=======
-
 var stats = new statsObject(1, 1, 1, 1);
 var inventory = [];
 
-
->>>>>>> e9353efb37a241b074931878205f62792f9e753b
 var item = new itemObject(1,1,11);
 var interactable =  new interactableObject(4);
 
