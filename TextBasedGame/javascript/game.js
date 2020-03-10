@@ -1,7 +1,9 @@
-var stats = new statsObject(1, 1, 1, 1);
+var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
+var stats = new statsObject();
 var inventory = [];
-var item = new itemObject(1,1,11);
-var interactable =  new interactableObject(4);
+var item = new itemObject();
+var interactable =  new interactableObject();
+
 
 var rooms = [];
 
@@ -11,11 +13,11 @@ var roomItems = [];
 var interactableRoomObjects = [];
 var verb = [];
 
-function playerObject(username, health, charClass, currentRoom, inventory, stats)
+function playerObject(username, health, class, currentRoom, inventory, stats)
 {
 
 }
-function statsObjects(areasExplored, endingAchieved, enemiesDefeated, timeLeft)
+function statsObjects(areasExplored, endingAchieved, enemiesDefeated, timeLeft,)
 {
 
 }
@@ -51,33 +53,33 @@ function charHealth()
 
 function charStart()
 {
-  if (document.getElementById("Hacker").checked)
+  var className = document.getElementById("charClass");
+  if (className == "Hacker")
   {
-    return document.getElementById("Hacker").value;
+    return ;
   }
-  else if (document.getElementById("Engineer").checked)
+  else if (classHealth == "Engineer")
   {
-    return document.getElementById("Engineer").value;
+    return ;
   }
   else
   {
-    return document.getElementById("SpaceCowboy").value;
+    return ;
   }
 }
 function addItemInventory(item)
 {
 
-
 }
 
-function createPlayer()
-{
-  var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass"), inventory, stats);
+function startGame(){
+  charStart();
+  document.getElementById("wrapper").style.display = "none";
 }
 
-function nameOutput()
+function getPlayerDetails()
 {
+  var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
   var nameInput = document.getElementById("name").value;
-  var classSelect = charStart();
-  alert(nameInput + " " + classSelect);
-}
+  alert(nameInput);
+};
