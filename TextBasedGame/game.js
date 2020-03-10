@@ -16,7 +16,7 @@ function playerObject(username, health, class, currentRoom, inventory, stats)
 {
 
 }
-function statsObjects(areasExplored, endingAchieved)
+function statsObjects(areasExplored, endingAchieved, enemiesDefeated, timeLeft,)
 {
 
 }
@@ -73,5 +73,6 @@ function addItemInventory(item)
 function getPlayerDetails()
 {
   var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
-}
-alert();
+  var nameInput = document.getElementById("name").value;
+  alert(nameInput);
+};
