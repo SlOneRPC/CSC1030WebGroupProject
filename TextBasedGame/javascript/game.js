@@ -1,4 +1,4 @@
-var player = new playerObject(document.getElementById("name").value, charHealth, document.getElementById("charClass") inventory, stats);
+var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
 var stats = new statsObject();
 var inventory = [];
 var item = new itemObject();
@@ -17,7 +17,7 @@ function playerObject(username, health, class, currentRoom, inventory, stats)
 {
 
 }
-function statsObjects(areasExplored, endingAchieved)
+function statsObjects(areasExplored, endingAchieved, enemiesDefeated, timeLeft,)
 {
 
 }
@@ -70,10 +70,19 @@ function charStart()
 function addItemInventory(item)
 {
 
+<<<<<<< HEAD
 }
 
 function startGame(){
   charStart();
   document.getElementById("wrapper").style.display = "none";
 
+=======
+>>>>>>> 7c3bc27000b52fe8d30bed1ed5967254e98f1dd9
 }
+function getPlayerDetails()
+{
+  var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
+  var nameInput = document.getElementById("name").value;
+  alert(nameInput);
+};
