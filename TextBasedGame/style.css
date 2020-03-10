@@ -72,6 +72,9 @@ body
 
 #description{
   font-size: 0.5em;
+  float:left;
+  margin:auto;
+  overflow:auto;
   background: repeating-linear-gradient(
     180deg,
     #082316,
@@ -93,11 +96,21 @@ body
 
 }
 
+
+#row{
+  clear:left;
+  overflow: auto;
+
+}
+
 #buttonDiv
 {
-  margin: auto;
-  clear: left;
-  float:left;
+  float: right;
+  overflow: auto;
+  padding-top:130px;
+  padding-left: 35px;
+  padding-right:35px;
+  padding-bottom:35px;
 }
 
 
@@ -124,8 +137,28 @@ body
   font-size: 50px;
 }
 
+<<<<<<< HEAD
 #button:hover{
   cursor:pointer;
+=======
+#textDisplay{
+  /*font-size: 0.5em;*/
+  background: repeating-linear-gradient(
+    180deg,
+    #082316,
+    #082316 10px,
+    #05170E 10px,
+    #05170E 20px
+    );
+    border-radius: 10px;
+    border: 0px solid;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    padding: 5px;
+    width: 400px;
+    height: 200px;
+    color: #27910E;
+>>>>>>> e07997b0b4767ea1ca4677376ef54f1769e38b70
 }
 
 @keyframes sway {

@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <title></title>
+      <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
     <style type="text/css">
       *{
         box-sizing: border-box;
@@ -10,29 +11,73 @@
       #wrapper{
         width: 100%;
         overflow: hidden;
+        font-family: verdana;
+      }
+
+      .center{
+        position:absolute; /*it can be fixed too*/
+       left:0; right:0;
+       top:0; bottom:0;
+       margin:auto;
+
+       /*this to solve "the content will not be cut when the window is smaller than the content": */
+       max-width:100%;
+       max-height:100%;
+       overflow:auto;
       }
 
       #main-container{
+        background-color: #111010;
         display: block;
         width: 30%;
         text-align: center;
-        margin: 0 auto;
+        height: 50%;
+        border: 1px solid red;
+        box-shadow: 0 0 10px 2px red;
+        border-radius: 30%;
+        color: white;
+        font-size: 120%;
+      }
 
+      #main-container button{
+        width: 90px;
+        height: 60px;
+        border: 1px solid green;
+        box-shadow: 0 0 10px 2px green;
+        border-radius: 12%;
+        background-color: #504B4A;
+        color: white;
+      }
+
+      #main-container button:hover{
+        border: 1px solid purple;
+        box-shadow: 0 0 10px 2px purple;
+        background-color: grey;
       }
     </style>
+    <link rel="stylesheet" href="styles/spaceBackground.css">
   </head>
   <body>
+    <div id="space">
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>
+    </div>
     <div id="wrapper">
-      <div id="main-container">
-        <h1>Game Over</h1>
-        <h2><u>Stats</u></h2>
+      <div id="main-container" class="center">
+        <h1 style="font-family: 'Orbitron', sans-serif;color: red;">Game Over</h1>
+        <h2>Your Stats</h2>
         <p>
           Overall Time: <span id="timeSpent"></span> <br>
           Enemies Killed: <span id="enemiesKilled"></span> <br>
           Rooms Entered: <span id="roomsEntered"></span> <br>
           Items Collected: <span id="itemsCollected"></span><br>
         </p>
+        <button name="playAgainBtn" onclick="restartGame();">Play Again</button>
       </div>
     </div>
+
   </body>
 </html>

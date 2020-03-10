@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+var player = new playerObject(document.getElementById("name").value, charHealth, document.getElementById("charClass") inventory, stats);
+=======
 var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
+>>>>>>> 7c3bc27000b52fe8d30bed1ed5967254e98f1dd9
 var stats = new statsObject();
 var inventory = [];
 var item = new itemObject();
@@ -16,7 +20,11 @@ function playerObject(username, health, class, currentRoom, inventory, stats)
 {
 
 }
+<<<<<<< HEAD
+function statsObjects(areasExplored, endingAchieved)
+=======
 function statsObjects(areasExplored, endingAchieved, enemiesDefeated, timeLeft,)
+>>>>>>> 7c3bc27000b52fe8d30bed1ed5967254e98f1dd9
 {
 
 }
@@ -66,13 +74,24 @@ function charStart()
     return ;
   }
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c3bc27000b52fe8d30bed1ed5967254e98f1dd9
 function addItemInventory(item)
 {
 
 }
+<<<<<<< HEAD
+=======
 function getPlayerDetails()
 {
   var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
   var nameInput = document.getElementById("name").value;
   alert(nameInput);
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 7c3bc27000b52fe8d30bed1ed5967254e98f1dd9
+>>>>>>> e07997b0b4767ea1ca4677376ef54f1769e38b70
