@@ -137,10 +137,9 @@ body
   font-size: 50px;
 }
 
-<<<<<<< HEAD
 #button:hover{
   cursor:pointer;
-=======
+
 #textDisplay{
   /*font-size: 0.5em;*/
   background: repeating-linear-gradient(
@@ -158,10 +157,10 @@ body
     width: 400px;
     height: 200px;
     color: #27910E;
->>>>>>> e07997b0b4767ea1ca4677376ef54f1769e38b70
 }
 
-@keyframes sway {
+@keyframes sway
+{
   0% {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
