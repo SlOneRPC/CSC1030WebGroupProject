@@ -75,4 +75,4 @@ function getPlayerDetails()
   var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass") inventory, stats);
   var nameInput = document.getElementById("name").value;
   alert(nameInput);
-};
+}

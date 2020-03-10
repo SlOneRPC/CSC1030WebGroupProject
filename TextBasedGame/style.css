@@ -100,6 +100,8 @@ body
   float:left;
 }
 
+
+
 #characterCreator:hover{
   box-shadow: 0 0 10px 2px #4edaf9;
 }
@@ -120,6 +122,10 @@ body
   float: right;
   box-shadow: 0 0 10px 2px purple;
   font-size: 50px;
+}
+
+#button:hover{
+  cursor:pointer;
 }
 
 @keyframes sway {
