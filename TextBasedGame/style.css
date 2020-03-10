@@ -98,6 +98,11 @@ body
   font-size: 50px;
 }
 
+#textDisplay{
+  width: 90%;
+  height: 80%;
+}
+
 @keyframes sway {
   0% {
     -webkit-transform: rotate(0deg);
