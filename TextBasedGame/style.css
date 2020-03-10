@@ -1,0 +1,120 @@
+*{
+  box-sizing: border-box;
+}
+
+body
+{
+  background-color:#0A0A0A;
+  font-family: verdana, white;
+}
+
+#titleContainer
+{
+  margin-top: 50px;
+  overflow: auto;
+  margin: auto;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  text-align: center;
+  width:;
+  border-bottom: 2px white solid;
+}
+
+.centre
+{
+    display: block;
+    margin: auto;
+}
+
+#spaceImg{
+    -webkit-animation: sway 7s ease-in-out infinite;
+    animation: sway 7s ease-in-out infinite;
+}
+
+#characterCreator
+{
+    font-size: 0.8em;
+    overflow: hidden;
+    /*background-color: #0f180e;*/
+    background-color: #111010;
+    width: 850px;
+    height: 500px;
+    text-align: left;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    box-shadow: 0 0 10px 2px red;
+    font-family: 'Rajdhani', sans-serif;
+    padding: 20px;
+    margin: auto;
+    top: 10px;
+    margin-top: 60px;
+    color: #2AAA50;
+    font-size: 3.5em;
+}
+
+.input{
+  font-size: 0.5em;
+  background: repeating-linear-gradient(
+    180deg,
+    #082316,
+    #082316 10px,
+    #05170E 10px,
+    #05170E 20px
+    );
+    border-radius: 10px;
+    border: 0px solid;
+    color: #27910E;
+    font-family: 'Orbitron', sans-serif;
+    padding: 5px;
+}
+
+
+#characterClass
+{
+
+}
+
+#characterCreator:hover{
+  box-shadow: 0 0 10px 2px #4edaf9;
+}
+
+#wrapper
+{
+    width: 80%;
+    padding: 25px;
+}
+
+#button
+{
+  background-color: #383938;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 10px;
+  color: #27910E;
+  border-color: black;
+  float: right;
+  box-shadow: 0 0 10px 2px purple;
+  font-size: 50px;
+}
+
+@keyframes sway {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: translate(-20px, -20px) rotate(3deg);
+            transform: translate(-20px, -20px) rotate(3deg);
+  }
+}
+@-webkit-keyframes sway {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: translate(-20px, -20px) rotate(3deg);
+            transform: translate(-20px, -20px) rotate(3deg);
+  }
+}
