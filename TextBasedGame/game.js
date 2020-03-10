@@ -3,6 +3,7 @@ var stats = new statsObject();
 var inventory = [];
 var item = new itemObject();
 var interactable =  new interactableObject();
+var
 
 var rooms = [];
 
@@ -68,5 +69,11 @@ function charStart()
 }
 function addItemInventory(item)
 {
-  
+
+}
+
+function startGame(){
+  charStart();
+  document.getElementById("wrapper").style.display = "none";
+
 }
