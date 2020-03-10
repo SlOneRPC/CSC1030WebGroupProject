@@ -4,6 +4,25 @@
     <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="javascript/game.js"></script>
+    <script>
+
+    function changeTextDescription(var class){
+      var description;
+      if(class=="hacker"){
+        description="";
+      }
+      if(class=="engineer"){
+        description="";
+      }
+      if(class=="spaceCowboy"){
+        description="";
+      }
+      document.getElementById
+    }
+
+
+    </script>
+
     <meta charset="utf-8">
     <title>CrawlSpace</title>
   </head>
@@ -21,15 +40,15 @@
 
           <div class="characterClass">
             <label for="Class" style= "font-size: 0.75em; color:white" >Class:</label>
-            <input type="radio" name="charClass" value="Hacker">
+            <input type="radio" name="charClass" value="Hacker" onchange="changeTextDescription(hacker)">
             <label for="Class" class="input">Hacker</label>
-            <input type="radio"  name="charClass" value="Engineer">
+            <input type="radio"  name="charClass" value="Engineer" onchange="changeTextDescription(engineer)">
             <label for="Class" class="input">Engineer</label>
-            <input type="radio" name="charClass" value="Space Cowboy">
+            <input type="radio" name="charClass" value="Space Cowboy"onchange="changeTextDescription(spaceCowboy)">
             <label for="Class" class="input">Space Cowboy</label>
-            <label style="font-size: 0.75em; color:white"  >Description:</label>
+            <label style="font-size: 0.75em; color:white; visibility:hidden;">Description:</label>
             <div id ="row">
-              <div id="description">
+              <div id="description" style="visibility:hidden;">
                 <p id="CharacterDesc"></p>
               </div>
               <div id="buttonDiv">
