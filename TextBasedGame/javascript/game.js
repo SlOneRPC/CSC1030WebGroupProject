@@ -58,10 +58,20 @@ function outputCurrentAndNextRoom()
   ;
 }
 
-function loadAlert()
+function commandInput()
 {
-  alert("this is working");
+  var gameInputText = document.getElementById("gameInput").value;
+  alert(gameInputText);
 }
+
+
+
+
+
+
+
+
+
 function charHealth()
 {
   var className = document.getElementById("charClass");
