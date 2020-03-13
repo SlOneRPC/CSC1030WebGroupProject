@@ -106,8 +106,9 @@
         width: 60px;
       }
     </style>
+    <script type="text/javascript" src="javascript/game.js"></script>
   </head>
-  <body>
+  <body onload="outputCurrentAndNextRoom();">
     <div id="wrapper">
       <div id="settings-wrapper">
           <button type="button" style="float:right;">Exit Game</button>
@@ -126,10 +127,7 @@
           <div id="col2">
             <div id="textbox">
               <div id="text-display">
-                <p>Example input 1</p>
-                <p>Example reply 1</p>
-                <p>Example input 2</p>
-                <p>Example reply 2</p>
+
               </div>
               <input type="text" name="cmd" placeholder="Enter your action">
             </div>

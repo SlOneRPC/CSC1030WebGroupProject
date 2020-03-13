@@ -1,12 +1,6 @@
-var stats = new statsObject(1, 1, 1, 1);
-
-var inventory = [];
-
-var stats = new statsObject(1, 1, 1, 1);
-var inventory = [];
-
-var item = new itemObject(1,1,11);
-var interactable =  new interactableObject(4);
+var startRoom = createRoomObject("Starting Room","Room","This is the starting room", 0, [createExitObject(nextRoom, "north")], 0, 0);
+var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject(startRoom, "south")], 0, 0);
+var player = createPlayerObject("Luke", 100, "Hacker", startRoom, [], "yes");
 
 var rooms = [];
 
@@ -16,34 +10,58 @@ var roomItems = [];
 var interactableRoomObjects = [];
 var verb = [];
 
-function playerObject(username, health, charClass, currentRoom, inventory, stats)
+function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue)
 {
-
+  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue};
+  return playerObject;
 }
-function statsObjects(areasExplored, endingAchieved, enemiesDefeated, timeLeft)
+function createStatObject(areasExploredValue, endingAchievedValue, enemiesDefeatedValue, timeLeftValue)
 {
-
+  var statsObject = {areasExplored:areasExploredValue, endingAchieved:endingAchievedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
+  return statsObject;
 }
-function roomObject(name, type, description, enemies, exits, roomItems, interactableRoomObjects)
+function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue)
 {
-
+  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactableRoomObjects:interactableRoomObjectsValue};
+  return roomObject;
 }
-function itemObject(name, type, interactions)
+function createExitObject(exitRoomValue, orientationValue)
 {
-
+  var exitObject = {exitRoom:exitRoomValue, orientation:orientationValue};
+  return exitObject;
 }
-function interactableObject(verb)
+function createItemObject(itemNameValue, itemTypeValue, interactionValue)
 {
-
+  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, interactions:interactionValue};
+  return itemObject;
 }
+function createInteractableObject(verbValue)
+{
+  var interactableObject = {verb:verbValue};
+  return interactableObject;
+}
+
 function addRooms()
 {
-  var startRoom = new roomObject("StartingRoom","Room","This is the starting room", 0, nextRoom, 0, 0);
-  var nextRoom = new roomObject("NextRoom","Room","This is the next room", 0, startRoom, 0, 0);
+  var startRoom = new roomObject("Starting Room","Room","This is the starting room", 0, [exitObject(nextRoom, "north")], 0, 0);
+  var nextRoom = new roomObject("Next Room","Room","This is the next room", 0, [exitObject(startRoom, "south")], 0, 0);
   rooms.push(startRoom);
   rooms.push(nextRoom);
 }
 
+function outputCurrentAndNextRoom()
+{
+  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
+  player.currentRoom.exits.forEach((item, i)=> {
+    document.getElementById("text-display").innerHTML += "</br>" + "There is an exit to the " + item.orientation;
+  });
+  ;
+}
+
+function loadAlert()
+{
+  alert("this is working");
+}
 function charHealth()
 {
   var className = document.getElementById("charClass");
@@ -82,18 +100,12 @@ function addItemInventory(item)
 
 }
 
-function createPlayer()
-{
-  var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass"), startRoom, inventory, stats);
-}
-
 function nameOutput()
 {
   var nameInput = document.getElementById("name").value;
   var classSelect = charStart();
   alert(nameInput + " " + classSelect);
 }
-
 
 function changeTextDescription()
 {
