@@ -61,11 +61,31 @@ function outputCurrentAndNextRoom()
 function commandInput()
 {
   var gameInputText = document.getElementById("gameInput").value;
+  gameInputText.trim();
   document.getElementById("gameInput").value = "";
-  document.getElementById("text-display").innerHTML += "</br><span id='userText'>" +gameInputText+"</span>";
+  if(/^ *$/.test(gameInputText))
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userText'>" +"Doing nothing is not an option"+"</span>";
+  }
+  else
+  {
+    processCommands(gameInputText);
+  }
 }
 
-
+function processCommands(input)
+{
+  var words = input.split(" ");
+  if(words.includes("go") == true)
+  {
+    alert("go action recognised!");
+    document.getElementById("text-display").innerHTML += "</br><span id='userText'>" +input+"</span>";
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userText'>I don't know this command: '" +input+"'</span>";
+  }
+}
 
 
 
