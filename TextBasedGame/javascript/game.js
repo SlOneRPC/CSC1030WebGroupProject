@@ -61,7 +61,7 @@ function outputCurrentAndNextRoom()
 function commandInput()
 {
   var gameInputText = document.getElementById("gameInput").value;
-  alert(gameInputText);
+  document.getElementById("text-display").innerHTML += "</br><span id='userText'>" +gameInputText+"</span>";
 }
 
 
