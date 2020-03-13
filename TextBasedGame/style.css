@@ -31,6 +31,10 @@ body
     animation: sway 7s ease-in-out infinite;
 }
 
+onchange{
+  visibility:visible;
+}
+
 #characterCreator
 {
     font-size: 0.8em;
@@ -82,13 +86,13 @@ body
     #05170E 10px,
     #05170E 20px
     );
-    border-radius: 10px;
-    border: 0px solid;
-    color: white;
-    font-family: 'Orbitron', sans-serif;
-    padding: 5px;
-    width: 400px;
-    height: 200px;
+  border-radius: 10px;
+  border: 0px solid;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  padding: 5px;
+  width: 450px;
+  height: 220px;
 }
 
 #characterClass

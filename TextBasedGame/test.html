@@ -21,16 +21,16 @@
 
           <div class="characterClass">
             <label for="Class" style= "font-size: 0.75em; color:white" >Class:</label>
-            <input type="radio" name="charClass" value="Hacker" id="Hacker" onchange="changeTextDescription">
+            <input type="radio" name="charClass" value="Hacker" id="Hacker" onchange="changeTextDescription();">
             <label for="Class" class="input">Hacker</label>
-            <input type="radio"  name="charClass" value="Engineer" id="Engineer" onchange="changeTextDescription">
+            <input type="radio"  name="charClass" value="Engineer" id="Engineer" onchange="changeTextDescription();">
             <label for="Class" class="input">Engineer</label>
-            <input type="radio" name="charClass" value="SpaceCowboy" id="SpaceCowboy" onchange="changeTextDescription">
+            <input type="radio" name="charClass" value="SpaceCowboy" id="SpaceCowboy" onchange="changeTextDescription();">
             <label for="Class" class="input">Space Cowboy</label>
-            <label style="font-size: 0.75em; color:white; visibility:hidden;">Description:</label>
             <div id ="row">
-              <div id="description" style="visibility:hidden;">
-                <p id="CharacterDesc"></p>
+              <div id="description" style="">
+                <label style="font-size: 0.75em; font-weight:bolder; color: #27910E;">Description:</label>
+                <p id="CharacterDesc" style="font-size: 0.75em;  color: #27910E;"></p>
               </div>
               <div id="buttonDiv">
                 <button id = "button" onclick="nameOutput();">Play</button>

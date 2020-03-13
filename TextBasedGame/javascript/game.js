@@ -64,7 +64,7 @@ function charStart()
   {
     return document.getElementById("Engineer").value;
   }
-  else
+  else if (document.getElementById("SpaceCowboy").value)
   {
     return document.getElementById("SpaceCowboy").value;
   }
@@ -90,16 +90,18 @@ function nameOutput()
 
 function changeTextDescription()
 {
-  if(charStart == "Hacker")
+  var desc = "";
+  if(charStart() == "Hacker")
   {
-    return "Hacks Tings";
+    desc = "Hacks Tings";
   }
-  else if(charStart == "Engineer")
+  else if(charStart() == "Engineer")
   {
-    return "Fix Tings";
+    desc = "Fix Tings";
   }
-  else if(charStar=="SpaceCowboy")
+  else if(charStart() =="SpaceCowboy")
   {
-    return "Kill Tings";
+    desc = "Kill Tings";
   }
+  document.getElementById("CharacterDesc").innerHTML = desc;
 }
