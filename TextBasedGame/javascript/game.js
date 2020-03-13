@@ -24,7 +24,7 @@ function statsObjects(areasExplored, endingAchieved, enemiesDefeated, timeLeft)
 {
 
 }
-function roomObject(type, description, enemies, exits, roomItems, interactableRoomObjects)
+function roomObject(name, type, description, enemies, exits, roomItems, interactableRoomObjects)
 {
 
 }
@@ -35,6 +35,13 @@ function itemObject(name, type, interactions)
 function interactableObject(verb)
 {
 
+}
+function addRooms()
+{
+  var startRoom = new roomObject("StartingRoom","Room","This is the starting room", 0, nextRoom, 0, 0);
+  var nextRoom = new roomObject("NextRoom","Room","This is the next room", 0, startRoom, 0, 0);
+  rooms.push(startRoom);
+  rooms.push(nextRoom);
 }
 
 function charHealth()
@@ -77,7 +84,7 @@ function addItemInventory(item)
 
 function createPlayer()
 {
-  var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass"), inventory, stats);
+  var player = new playerObject(document.getElementById("name").value, charHealth(), document.getElementById("charClass"), startRoom, inventory, stats);
 }
 
 function nameOutput()
