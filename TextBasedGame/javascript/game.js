@@ -1,8 +1,17 @@
-var startRoom = createRoomObject("Starting Room","Room","This is the starting room", 0, [createExitObject(nextRoom, "north")], 0, 0);
-var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject(startRoom, "south")], 0, 0);
-var player = createPlayerObject("Luke", 100, "Hacker", startRoom, [], "yes");
-
+var player = createPlayerObject("Luke", 100, "Hacker", "", [], "yes");
 var rooms = [];
+addRooms();
+
+function addRooms()
+{
+  var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject("Starting Room", "south")], 0, 0);
+  var startRoom = createRoomObject("Starting Room","Room","This is the starting room", 0, [createExitObject("Next Room", "north")], 0, 0);
+
+  rooms.push(nextRoom);
+  rooms.push(startRoom);
+
+  player.currentRoom = startRoom;
+}
 
 var enemies = [];
 var exits = [];
@@ -25,9 +34,9 @@ function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemie
   var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactableRoomObjects:interactableRoomObjectsValue};
   return roomObject;
 }
-function createExitObject(exitRoomValue, orientationValue)
+function createExitObject(exitRoomNameValue, orientationValue)
 {
-  var exitObject = {exitRoom:exitRoomValue, orientation:orientationValue};
+  var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue};
   return exitObject;
 }
 function createItemObject(itemNameValue, itemTypeValue, interactionValue)
@@ -39,14 +48,6 @@ function createInteractableObject(verbValue)
 {
   var interactableObject = {verb:verbValue};
   return interactableObject;
-}
-
-function addRooms()
-{
-  var startRoom = new roomObject("Starting Room","Room","This is the starting room", 0, [exitObject(nextRoom, "north")], 0, 0);
-  var nextRoom = new roomObject("Next Room","Room","This is the next room", 0, [exitObject(startRoom, "south")], 0, 0);
-  rooms.push(startRoom);
-  rooms.push(nextRoom);
 }
 
 function outputCurrentAndNextRoom()
@@ -78,8 +79,8 @@ function processCommands(input)
   var words = input.split(" ");
   if(words.includes("go") == true)
   {
-    alert("go action recognised!");
     document.getElementById("text-display").innerHTML += "</br><span id='userText'>" +input+"</span>";
+    move(words);
   }
   else
   {
@@ -87,11 +88,90 @@ function processCommands(input)
   }
 }
 
+function move(words)
+{
+  var direction = "";
+  var checkDirection = 0;
+  if(words.includes("north") == true)
+  {
+    direction += "north";
+    checkDirection++;
+  }
+  if (words.includes("east") == true)
+  {
+    direction += "east";
+    checkDirection++;
+  }
+  if (words.includes("south") == true)
+  {
+    direction += "south";
+    checkDirection++;
+  }
+  if (words.includes("west") == true)
+  {
+    direction += "west";
+    checkDirection++;
+  }
+  if(checkDirection===1)
+  {
+    goDirection(direction);
+  }
+  else if(checkDirection > 1)
+  {
+    document.getElementById("text-display").innerHTML+= "</br>You can't go in multiple directions...";
+  }
+  else if(checkDirection === 0)
+  {
+    document.getElementById("text-display").innerHTML+= "</br>I guess you're staying here then...</br>";
+    outputCurrentAndNextRoom();
+  }
+}
 
+function goDirection(direction)
+{
+  var exitExistsFlag = 0;
+  var openOrientations = "";
+  var newCurrent = "";
+  player.currentRoom.exits.forEach((item, i) => {
+    openOrientations += item.orientation;
+    openOrientations  += " ";
+  });
+  var possibleExits = openOrientations.split(" ");
 
+  possibleExits.forEach((orientationAvailable, i) => {
+    if(direction===orientationAvailable)
+    {
+      exitExistsFlag++;
+    }
+  });
+var newCurrent = createRoomObject(0,0,0,0,0,0,0)
+  if(exitExistsFlag === 1)
+  {
+      player.currentRoom.exits.forEach((roomExit, i) => {
+          if(roomExit.orientation === direction)
+          {
+            newCurrent = returnNewRoom(roomExit.exitRoomName);
+          }
+      });
+    player.currentRoom = newCurrent;
+    document.getElementById("text-display").innerHTML+= "</br>";
+    outputCurrentAndNextRoom();
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML+= "</br>There is nowhere in that direction..";
+  }
+}
 
-
-
+function returnNewRoom(roomExit)
+{
+  var newRoom =  createRoomObject(0,0,0,0,0,0,0);
+  rooms.forEach((existingRoom, i) => {
+    if(roomExit == existingRoom.roomName)
+      newRoom = existingRoom;
+  });
+  return newRoom;
+}
 
 function charHealth()
 {
