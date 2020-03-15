@@ -4,12 +4,13 @@ addRooms();
 
 function addRooms()
 {
-  var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject("Starting Room", "south")], 0, 0);
+  var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject("Starting Room", "south"), createExitObject("Another Room", "north")], 0, 0);
   var startRoom = createRoomObject("Starting Room","Room","This is the starting room", 0, [createExitObject("Next Room", "north")], 0, 0);
+  var anotherRoom = createRoomObject("Another Room" , "Room", "This is another room", 0 , [createExitObject("Next Room", "south"), createExitObject("Starting Room" , "east")], 0, 0);
 
   rooms.push(nextRoom);
   rooms.push(startRoom);
-
+  rooms.push(anotherRoom);
   player.currentRoom = startRoom;
 }
 
