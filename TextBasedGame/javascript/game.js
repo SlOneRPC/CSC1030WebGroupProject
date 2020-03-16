@@ -7,9 +7,7 @@ addRooms();
 
 // this method populates the string array roomDescriptions
 function addDescriptions(){
-  var quartersDesc = "******, you, have just been sleeping after a long shift fixing the troublesome vacuum seal on\n the ship, the SS Viper, when you are woken up. "
-  + "It is a subtle vibration at first, enough to nudge you into a semi-awakened state. It escalates more and more, with bedding from other beds falling onto the floor, and the very mattress you are on leaping to and fro. "
-  + "You are thrown suddenly to the floor with a bang that could wake the dead.You stumble to your feet, bleary-eyed, with no idea what’s going on, but whatever it is, it isn’t going to be fun.";
+  var quartersDesc = "Wake up cunt";
   roomDescriptions.push(quartersDesc);
 }
 
