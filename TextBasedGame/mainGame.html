@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
     <style type="text/css">
       *{
         box-sizing: border-box;
@@ -105,10 +106,125 @@
         height: 40px;
         width: 60px;
       }
-      #userText{
+      #userTextWrong{
         color: red;
       }
 
+
+      #gameInputButton{
+        color:white;
+        border: 1px solid white;
+        text-transform: uppercase;
+        background-color: transparent;
+      }
+
+      #gameInputButton:hover{
+        color: black;
+        background-color: white;
+        cursor:grab;
+      }
+
+      #game-wrapper{
+        // hide this display: none;
+
+      }
+
+      /* Combat System */
+
+      #combat-wrapper{
+        margin-top: 20px;
+        display: none;
+      }
+
+
+      #player1{
+        float: left;
+        width:30%;
+        height: 200px;
+        border: 1px solid white;
+        overflow: hidden;
+      }
+
+      #round-timer{
+        margin: 0% 5%;
+        width:30%;
+        float: left;
+      //  border: 1px solid white;
+        text-align: center;
+      }
+
+      #countdownTimer{
+        font-size: 6em;
+        font-family: fantasy;
+      }
+
+      #player2{
+        float:right;
+        width:30%;
+        height: 200px;
+        border: 1px solid white;
+        overflow: hidden;
+      }
+
+      .playerImg{
+        width: 35%;
+        height: 95%;
+        margin: 1%;
+        display: inline-block;
+        float: left;
+      }
+
+
+
+      .playerbox-info{
+        float: right;
+      //  border: 1px solid white;
+        height: 95%;
+        margin: 1%;
+        width: 60%;
+      }
+
+      .healthbar{
+        width: 95%;
+        margin: 2%;
+        height: 15%;
+        border: 1px solid white;
+        background-color: green;
+      }
+
+      .playerbox-info .player-name{
+        margin: 2%;
+        font-family: monospace;
+        float: left;
+      }
+
+      .playerbox-info .player-health{
+        margin: 2%;
+        font-family: monospace;
+        float: right;
+      }
+
+
+
+      #userTextRight
+      {
+        color: #27910E;
+      }
+      .input{
+        font-size: 0.5em;
+        background: repeating-linear-gradient(
+          180deg,
+          #082316,
+          #082316 10px,
+          #05170E 10px,
+          #05170E 20px
+          );
+          border-radius: 10px;
+          border: 0px solid;
+          color: #27910E;
+          font-family: 'Orbitron', sans-serif;
+          padding: 5px;
+      }
 
       /* Custom Scrollbar */
       /* Scrollbar width */
@@ -147,9 +263,8 @@
           <div id="col2">
             <div id="textbox">
               <div id="text-display">
-
               </div>
-              <input type="text" name="cmd" placeholder="Enter your action" style="width:80%;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
+              <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
               <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
             </div>
           </div>
@@ -162,7 +277,30 @@
           </div>
         </div>
       </div>
+      <div id="combat-wrapper">
+        <div id="player1">
+          <img src="images/playerIcon.jpg" alt="Player 1" class="playerImg">
+          <div class="playerbox-info">
+            <div class="healthbar">
+            </div>
+            <h1 id="player1Name" class="player-name">Player 1</h1>
+            <h1 id="health1" class="player-health">100HP</h2>
+          </div>
+        </div>
+        <div id="round-timer">
+          <h1 id="countdownTimer">10:00</h1>
+        </div>
+        <div id="player2">
+          <img src="images/playerIcon.jpg" alt="Player 2" class="playerImg">
+          <div class="playerbox-info">
+            <div class="healthbar"></div>
+            <h1 id="player2Name" class="player-name">Player 2</h1>
+            <h1 id="health2" class="player-health">100HP</h2>
+          </div>
+        </div>
+
       </div>
+    </div>
 
   </body>
 </html>
