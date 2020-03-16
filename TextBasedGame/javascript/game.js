@@ -73,6 +73,9 @@ function commandInput()
   {
     processCommands(gameInputText);
   }
+
+  var elem = document.getElementById('text-display');
+  elem.scrollTop = elem.scrollHeight;
 }
 
 function processCommands(input)
