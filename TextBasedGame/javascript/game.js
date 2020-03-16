@@ -1,4 +1,5 @@
 var player = createPlayerObject("Luke", 100, "Hacker", "", [], "yes");
+var item = createItemObject("Gun" , "Weapon" , );
 var rooms = [];
 addRooms();
 
@@ -12,43 +13,6 @@ function addRooms()
   rooms.push(startRoom);
   rooms.push(anotherRoom);
   player.currentRoom = startRoom;
-}
-
-var enemies = [];
-var exits = [];
-var roomItems = [];
-var interactableRoomObjects = [];
-var verb = [];
-
-function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue)
-{
-  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue};
-  return playerObject;
-}
-function createStatObject(areasExploredValue, endingAchievedValue, enemiesDefeatedValue, timeLeftValue)
-{
-  var statsObject = {areasExplored:areasExploredValue, endingAchieved:endingAchievedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
-  return statsObject;
-}
-function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue)
-{
-  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactableRoomObjects:interactableRoomObjectsValue};
-  return roomObject;
-}
-function createExitObject(exitRoomNameValue, orientationValue)
-{
-  var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue};
-  return exitObject;
-}
-function createItemObject(itemNameValue, itemTypeValue, interactionValue)
-{
-  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, interactions:interactionValue};
-  return itemObject;
-}
-function createInteractableObject(verbValue)
-{
-  var interactableObject = {verb:verbValue};
-  return interactableObject;
 }
 
 function outputCurrentAndNextRoom()
@@ -235,4 +199,60 @@ function changeTextDescription()
     desc = "Kill Tings";
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
+}
+
+function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue)
+{
+  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue};
+  return playerObject;
+}
+function createStatObject(areasExploredValue, endingAchievedValue, enemiesDefeatedValue, timeLeftValue)
+{
+  var statsObject = {areasExplored:areasExploredValue, endingAchieved:endingAchievedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
+  return statsObject;
+}
+function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue)
+{
+  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactableRoomObjects:interactableRoomObjectsValue};
+  return roomObject;
+}
+function createExitObject(exitRoomNameValue, orientationValue)
+{
+  var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue};
+  return exitObject;
+}
+function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue)
+{
+  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue};
+  return itemObject;
+}
+function createWeaponObject(itemNameValue, twoHandedValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue)
+{
+  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue), twoHanded:twoHandedValue, damage:damageValue, weaponType:weaponTypeValue, attackKay:attackKeyValue};
+  return weaponObject;
+}
+function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue)
+{
+  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue), bodyPart:bodyPartValue, defense:defenseValue};
+  return armourObject;
+}
+function createGadgetObject(itemNameValue, descriptionValue)
+{
+  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue)};
+  return gadgetObject;
+}
+function createDataPadObject(itemNameValue, descriptionValue, informationValue)
+{
+  var dataPadObject = {item:createItemObject(itemNameValue, "DataPad", descriptionValue), information:informationValue};
+  return dataPadObject;
+}
+function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue)
+{
+  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue), change:changeValue, mechanicChange:mechanicChangeValue};
+  return modifierObject;
+}
+function createInteractableObject(verbValue)
+{
+  var interactableObject = {verb:verbValue};
+  return interactableObject;
 }
