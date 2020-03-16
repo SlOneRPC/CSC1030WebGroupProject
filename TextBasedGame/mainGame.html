@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
     <style type="text/css">
       *{
         box-sizing: border-box;
@@ -105,9 +106,10 @@
         height: 40px;
         width: 60px;
       }
-      #userText{
+      #userTextWrong{
         color: red;
       }
+
 
       #gameInputButton{
         color:white;
@@ -204,6 +206,26 @@
 
 
 
+      #userTextRight
+      {
+        color: #27910E;
+      }
+      .input{
+        font-size: 0.5em;
+        background: repeating-linear-gradient(
+          180deg,
+          #082316,
+          #082316 10px,
+          #05170E 10px,
+          #05170E 20px
+          );
+          border-radius: 10px;
+          border: 0px solid;
+          color: #27910E;
+          font-family: 'Orbitron', sans-serif;
+          padding: 5px;
+      }
+
       /* Custom Scrollbar */
       /* Scrollbar width */
       ::-webkit-scrollbar {
@@ -242,7 +264,7 @@
             <div id="textbox">
               <div id="text-display">
               </div>
-              <input type="text" name="cmd" placeholder="Enter your action" style="width:80%;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
+              <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
               <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
             </div>
           </div>
