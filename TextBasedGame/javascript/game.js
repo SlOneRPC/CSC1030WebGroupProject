@@ -1,4 +1,4 @@
-var player = createPlayerObject("Luke", 100, "Hacker", "", [], "yes");
+var player = createPlayerObject("Luke", 100, "Hacker", "", [], "yes", 0, 0);
 var rooms = [];
 var roomDescriptions = [];
 addRooms();
@@ -7,7 +7,7 @@ addRooms();
 
 // this method populates the string array roomDescriptions
 function addDescriptions(){
-  var quartersDesc = "Wake up cunt";
+  var quartersDesc = "Wake up sir";
   roomDescriptions.push(quartersDesc);
 }
 
@@ -15,7 +15,7 @@ function addRooms()
 {
   addDescriptions();
   // start room instanciation
-  var quarters = createRoomObject("quarters", "Room", roomDescriptions[0], 0, [createExitObject("hallway01", "west")], 0, 0);
+  var quarters = createRoomObject("quarters", "Room", roomDescriptions[0], 0, [createExitObject("hallway01", "west")], [createWeaponObject("Gun", false, 10, "Ranged", ["shoot"], "It is a gun"), createWeaponObject("Gun2", false, 10, "Ranged", ["shoot"], "It is a gun")], 0);
   var armory = createRoomObject("armory","Room","This is the Armory", 0, [createExitObject("hallway08", "north"), createExitObject("hallway09", "south")], 0, 0);
   var computerLab = createRoomObject("computer lab", "Room", "This is the Computer Lab", 0, [createExitObject("hallway04", "north"), createExitObject("rubble 01", "west")], 0, 0);
 
@@ -53,16 +53,7 @@ function addRooms()
   rooms.push(hallway03);
   rooms.push(hallway04);
 
-  // if statement used to assign correct first rooms
-  //if (character == "Hacker"){
-    //player.currentRoom = computerLab;
-  //}
-//  else if (character == "SpaceCowboy"){
-//    player.currentRoom = armory;
-//  }
-//  else{
     player.currentRoom = quarters;
-//  }
 }
 
 function outputCurrentAndNextRoom()
@@ -100,18 +91,22 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
     move(words);
   }
-  else if (words.includes("continue") == true){
-    rooms.forEach((existingRoom, i) => {
-      if(existingRoom.roomName === player.currentRoom.exits[0].exitRoomName){
-        player.currentRoom = player.currentRoom.exits[0];
-      }
-    });
-
+  else if (words.includes("search") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    search(player.currentRoom)
   }
   else
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>I don't know this command: '" +input+"'</span>";
   }
+}
+
+function search(playerRoom)
+{
+  playerRoom.roomItems.forEach((item, i) => {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>You notice a '" +item.item.itemName+"'</span>";
+  });
 }
 
 function move(words)
@@ -262,9 +257,9 @@ function changeTextDescription()
   document.getElementById("CharacterDesc").innerHTML = desc;
 }
 
-function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue)
+function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
 {
-  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue};
+  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
 }
 function createStatObject(areasExploredValue, endingAchievedValue, enemiesDefeatedValue, timeLeftValue)
@@ -289,7 +284,7 @@ function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue)
 }
 function createWeaponObject(itemNameValue, twoHandedValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue)
 {
-  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue), twoHanded:twoHandedValue, damage:damageValue, weaponType:weaponTypeValue, attackKay:attackKeyValue};
+  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue), twoHanded:twoHandedValue, damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
   return weaponObject;
 }
 function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue)

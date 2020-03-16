@@ -92,7 +92,11 @@
           overflow: auto;
           text-align: center;
           font-size: 24px;
+          font-style: monospace;
+      }
 
+      .text{
+        font-style: monospace;
       }
 
       #settings-wrapper{
@@ -109,7 +113,9 @@
       #userTextWrong{
         color: red;
       }
-
+      #userTextBlue{
+        color: lightblue;
+      }
 
       #gameInputButton{
         color:white;
@@ -262,7 +268,7 @@
           </div>
           <div id="col2">
             <div id="textbox">
-              <div id="text-display">
+              <div id="text-display" class="text">
               </div>
               <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
               <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
