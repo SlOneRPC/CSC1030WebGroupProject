@@ -99,12 +99,12 @@ function processCommands(input)
   var words = input.split(" ");
   if(words.includes("go") == true)
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userText'>" +input+"</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
     move(words);
   }
   else
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userText'>I don't know this command: '" +input+"'</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>I don't know this command: '" +input+"'</span>";
   }
 }
 
