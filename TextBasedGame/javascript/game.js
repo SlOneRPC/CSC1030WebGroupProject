@@ -11,7 +11,6 @@ function addDescriptions(){
   + "It is a subtle vibration at first, enough to nudge you into a semi-awakened state. It escalates more and more, with bedding from other beds falling onto the floor, and the very mattress you are on leaping to and fro. "
   + "You are thrown suddenly to the floor with a bang that could wake the dead.You stumble to your feet, bleary-eyed, with no idea what’s going on, but whatever it is, it isn’t going to be fun.";
   roomDescriptions.push(quartersDesc);
-  //alert(roomDescriptions[0]);
 }
 
 function addRooms()
@@ -33,7 +32,7 @@ function addRooms()
   var reactorRoom = createRoomObject("reactor room","Room","This is the reactor room", 0, [createExitObject("door 04", "south"), createExitObject("vent 05", "east"), createExitObject("hallway15", "west")], 0, 0);
 
   // hallway instanciation
-  var hallway01 = createRoomObject("hallway01","Room","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south")], 0, 0);
+  var hallway01 = createRoomObject("hallway01","Room","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south"), createExitObject("quarters", "east")], 0, 0);
   var hallway02 = createRoomObject("hallway02","Room","hallway02", 0, [createExitObject("hallway01", "south")], 0, 0);
   var hallway03 = createRoomObject("hallway03","Room","hallway03", 0, [createExitObject("hallway01", "north"), createExitObject("hallway04", "south"), createExitObject("vent 01", "west")], 0, 0);
   var hallway04 = createRoomObject("hallway04","Room","hallway04", 0, [createExitObject("hallway03", "north"), createExitObject("computer lab", "south"), createExitObject("storage unit 01", "east"), createExitObject("door 01", "west")], 0, 0);
