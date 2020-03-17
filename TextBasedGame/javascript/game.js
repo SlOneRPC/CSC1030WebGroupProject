@@ -140,7 +140,7 @@ function blockedRoom(){
     if (player.currentRoom.type == "Rubble"){
 
       // foreach loop to check player items
-      player.inventory[].forEach((item, i) => {
+      player.inventory.forEach(function (item, i) {
 
         if(item.itemName == "Explosives"){
           // note: immediately lets player og through without prompting them - may need fixed
@@ -153,7 +153,7 @@ function blockedRoom(){
     // for hacker
     else if (player.currentRoom.type == "Door"){
 
-      player.inventory[].forEach((item, i) => {
+      player.inventory.forEach(function (item, i) {
 
         if(item.itemName == "Datapad"){
           player.currentRoom.blocked = false;
@@ -165,7 +165,7 @@ function blockedRoom(){
     //engineer
     else if (player.currentRoom.type == "Vent"){
 
-      player.inventory[].forEach((item, i) => {
+      player.inventory.forEach(function (item, i) {
 
         if(item.itemName == "Blow Torch"){
           player.currentRoom.blocked = false;
@@ -182,7 +182,6 @@ function blockedRoom(){
     // output message/ deny access
   }
 }
-
 
 function outputCurrentAndNextRoom()
 {
