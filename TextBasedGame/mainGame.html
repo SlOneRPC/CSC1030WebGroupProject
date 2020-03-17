@@ -133,7 +133,7 @@
       }
 
       #game-wrapper{
-        // hide this display: none;
+        //display: none;
 
       }
 
@@ -212,7 +212,40 @@
         float: right;
       }
 
+      #healthLost{
+        float: left;
+        color: red;
+      }
 
+      #damageGiven{
+        float:right;
+        color: green;
+      }
+
+      #combatBox{
+        width: 30%;
+        margin: auto;
+      }
+
+      #combat-main{
+        clear: both;
+        height: 250px;
+        border: 1px solid white;
+      }
+
+      #combat-inventory{
+        margin-top: 20px;
+        clear: both;
+        height: 250px;
+        border: 1px solid white;
+      }
+
+      .combatHeader{
+        margin: 0;
+        padding: 10px;
+        background-color: grey;
+        width: 100%;
+      }
 
       #userTextRight
       {
@@ -290,8 +323,7 @@
         <div id="player1">
           <img src="images/playerIcon.jpg" alt="Player 1" class="playerImg">
           <div class="playerbox-info">
-            <div class="healthbar">
-            </div>
+            <div class="healthbar"></div>
             <h1 id="player1Name" class="player-name">Player 1</h1>
             <h1 id="health1" class="player-health">100HP</h2>
           </div>
@@ -307,7 +339,16 @@
             <h1 id="health2" class="player-health">100HP</h2>
           </div>
         </div>
-
+        <h1 id="healthLost"></h1>
+        <div id="combatBox">
+          <div id="combat-main">
+            <h1 class="combatHeader">Combat</h1>
+          </div>
+          <div id="combat-inventory">
+              <h1 class="combatHeader">Inventory</h1>
+          </div>
+        </div>
+        <h1 id="damageGiven"></h1>
       </div>
     </div>
 
