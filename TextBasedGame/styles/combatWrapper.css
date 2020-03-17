@@ -1,0 +1,109 @@
+/* Combat System */
+
+#combat-wrapper{
+  margin-top: 20px;
+  display: none;
+}
+
+
+#player1{
+  float: left;
+  width:30%;
+  height: 200px;
+  border: 1px solid white;
+  overflow: hidden;
+}
+
+#round-timer{
+  margin: 0% 5%;
+  width:30%;
+  float: left;
+//  border: 1px solid white;
+  text-align: center;
+}
+
+#countdownTimer{
+  font-size: 6em;
+  font-family: fantasy;
+}
+
+#player2{
+  float:right;
+  width:30%;
+  height: 200px;
+  border: 1px solid white;
+  overflow: hidden;
+}
+
+.playerImg{
+  width: 35%;
+  height: 95%;
+  margin: 1%;
+  display: inline-block;
+  float: left;
+}
+
+
+
+.playerbox-info{
+  float: right;
+//  border: 1px solid white;
+  height: 95%;
+  margin: 1%;
+  width: 60%;
+}
+
+.healthbar{
+  width: 95%;
+  margin: 2%;
+  height: 15%;
+  border: 1px solid white;
+  background-color: green;
+}
+
+.playerbox-info .player-name{
+  margin: 2%;
+  font-family: monospace;
+  float: left;
+}
+
+.playerbox-info .player-health{
+  margin: 2%;
+  font-family: monospace;
+  float: right;
+}
+
+#healthLost{
+  float: left;
+  color: red;
+}
+
+#damageGiven{
+  float:right;
+  color: green;
+}
+
+#combatBox{
+  width: 30%;
+  margin: auto;
+}
+
+#combat-main{
+  clear: both;
+  height: 250px;
+  border: 1px solid white;
+}
+
+#combat-inventory{
+  margin-top: 20px;
+  clear: both;
+  height: 250px;
+  border: 1px solid white;
+}
+
+.combatHeader{
+  margin: 0;
+  padding: 10px;
+  background-color: grey;
+  width: 100%;
+}

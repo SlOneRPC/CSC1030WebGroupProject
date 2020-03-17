@@ -1,0 +1,136 @@
+#rows{
+  overflow: auto;
+  width: 100%;
+}
+
+#col1{
+  width: 30%;
+  float: left;
+  margin: 10px;
+  margin-right: 3%;
+  margin-left: 0px;
+}
+
+#textbox{
+  clear: both;
+    height: 620px;
+      //background-color: white;
+    border: 1px solid white;
+}
+
+#col2{
+  width: 30%;
+  float: left;
+  margin: 10px;
+  margin-right: 2%;
+}
+
+#map{
+  clear: both;
+  height: 300px;
+  margin-bottom: 30px;
+  //background-color: white;
+    border: 1px solid white;
+}
+
+#other1{
+  clear: both;
+  height: 300px;
+  //background-color: white;
+  border: 1px solid white;
+}
+
+#col3{
+  width: 17%;
+  float:right;
+  margin: 10px;
+  margin-right: 0px;
+}
+
+#inventory{
+  clear: both;
+  height:620px;
+  border: 1px solid white;
+
+  text-align: center;
+}
+
+#textbox input{
+  width: 100%;
+  height: 10%;
+  //background-color: #111010;
+  color: white;
+  font-size: 24px;
+  background-color: grey;//placeholder
+  border-radius: 25px;
+}
+
+#text-display{
+    background-color: #111010;
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    text-align: center;
+    font-size: 24px;
+    font-style: monospace;
+}
+
+.text{
+  font-family:monospace;
+}
+
+#settings-wrapper{
+  width: 100%;
+  height: 50px;
+  border: 1px solid white;
+}
+
+#settings-wrapper button{
+  margin: 5px;
+  height: 40px;
+  width: 60px;
+}
+#userTextWrong{
+  color: red;
+}
+#userTextBlue{
+  color: lightblue;
+}
+
+#gameInputButton{
+  color:white;
+  border: 1px solid white;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+
+#gameInputButton:hover{
+  color: black;
+  background-color: white;
+  cursor:grab;
+}
+
+#game-wrapper{
+  //display: none;
+}
+
+#userTextRight
+{
+  color: #27910E;
+}
+.input{
+  font-size: 0.5em;
+  background: repeating-linear-gradient(
+    180deg,
+    #082316,
+    #082316 10px,
+    #05170E 10px,
+    #05170E 20px
+    );
+    border-radius: 10px;
+    border: 0px solid;
+    color: #27910E;
+    font-family: 'Orbitron', sans-serif;
+    padding: 5px;
+    outline:none;
+}
