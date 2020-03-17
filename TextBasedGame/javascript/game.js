@@ -122,7 +122,16 @@ function addRooms()
   rooms.push(door04);
   rooms.push(door05);
 
-  player.currentRoom = quarters;
+  if (player.charClass == "Hacker"){
+    player.currentRoom = computerLab;
+  }
+  else if (player.charClass == "Engineer"){
+    player.currentRoom = quarters;
+  }
+  else if (player.charClass == "SpaceCowboy"){
+    player.currentRoom = armory;    
+  }
+
 }
 
 function outputCurrentAndNextRoom()
