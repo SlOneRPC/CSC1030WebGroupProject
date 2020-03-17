@@ -67,8 +67,8 @@ function outputCurrentAndNextRoom()
 
 function commandInput()
 {
-  var gameInputText = document.getElementById("gameInput").value;
-  gameInputText.trim();
+  var text = document.getElementById("gameInput").value.trim();
+  var gameInputText = text.toLowerCase();
   document.getElementById("gameInput").value = "";
   if(/^ *$/.test(gameInputText))
   {
