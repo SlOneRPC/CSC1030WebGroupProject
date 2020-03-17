@@ -38,22 +38,91 @@ function addRooms()
   var hallway06 = createRoomObject("hallway06","Room","hallway06", 0, [createExitObject("kitchen", "north"), createExitObject("hallway05", "south"), createExitObject("hallway07", "west")], 0, 0);
   var hallway07 = createRoomObject("hallway07","Room","hallway07", 0, [createExitObject("vent 02", "north"), createExitObject("hallway06", "east"), createExitObject("hallway08", "west")], 0, 0);
   var hallway08 = createRoomObject("hallway08","Room","hallway08", 0, [createExitObject("armory", "south"), createExitObject("hallway07", "east"), createExitObject("rubble 02", "west")], 0, 0);
-  var hallway09 = createRoomObject("hallway09","Room","hallway09", 0, [createExitObject("armory", "north"), createExitObject("hallway07", "east"), createExitObject("rubble 02", "west")], 0, 0);
-  var hallway10 = createRoomObject("Armory","Room","This is the Armory", 0, [createExitObject("Armory", "north"), createExitObject("Armory", "south")], 0, 0);
-  var hallway11 = createRoomObject("Armory","Room","This is the Armory", 0, [createExitObject("Armory", "north"), createExitObject("Armory", "south")], 0, 0);
-  var hallway12 = createRoomObject("Armory","Room","This is the Armory", 0, [createExitObject("Armory", "north"), createExitObject("Armory", "south")], 0, 0);
-  var hallway13 = createRoomObject("Armory","Room","This is the Armory", 0, [createExitObject("Armory", "north"), createExitObject("Armory", "south")], 0, 0);
+  var hallway09 = createRoomObject("hallway09","Room","hallway09", 0, [createExitObject("armory", "north"), createExitObject("rubble 01", "east")], 0, 0);
+  var hallway10 = createRoomObject("hallway10","Room","hallway10", 0, [createExitObject("vent 02", "south"), createExitObject("mess hall", "east"), createExitObject("hallway11", "west")], 0, 0);
+  var hallway11 = createRoomObject("halllway11","Room","hallway11", 0, [createExitObject("maintenance bay ", "north"), createExitObject("hallway10", "east"), createExitObject("hallway12", "west")], 0, 0);
+  var hallway12 = createRoomObject("hallway12","Room","hallway12", 0, [createExitObject("door 03", "north"), createExitObject("rubble 02", "south"), createExitObject("hallway11", "east")], 0, 0);
+  var hallway13 = createRoomObject("hallway13","Room","hallway13", 0, [createExitObject("rubble 03", "north"), createExitObject("hallway14", "east"), createExitObject("door 03", "west")], 0, 0);
+  var hallway14 = createRoomObject("hallway14","Room","hallway14", 0, [createExitObject("vent 04", "north"), createExitObject("vent 03", "south"), createExitObject("vent 03", "south"), createExitObject("hallway16", "east"), createExitObject("hallway13", "west")], 0, 0);
+  var hallway15 = createRoomObject("hallway15","Room","hallway15", 0, [createExitObject("vent 04", "south"), createExitObject("reactor room", "east"), createExitObject("research lab", "west")], 0, 0);
+  var hallway16 = createRoomObject("hallway16","Room","hallway16", 0, [createExitObject("door 04", "north"), createExitObject("hallway17", "south"),createExitObject("rubble 04", "east"), createExitObject("hallway14", "west")], 0, 0);
+  var hallway17 = createRoomObject("hallway17","Room","hallway17", 0, [createExitObject("hallway16", "north"), createExitObject("hallway18", "east"), createExitObject("mess hall", "west")], 0, 0);
+  var hallway18 = createRoomObject("hallway18","Room","hallway18", 0, [createExitObject("hallway19", "south"), createExitObject("door 05", "east"), createExitObject("hallway17", "west")], 0, 0);
+  var hallway19 = createRoomObject("hallway19","Room","hallway19", 0, [createExitObject("hallway18", "north")], 0, 0);
+
+  // vent instanciation
+  var vent01 = createRoomObject("vent 01","Vent","vent 01", 0, [createExitObject("hallway03", "east"), createExitObject("hallway05", "west")], 0, 0);
+  var vent02 = createRoomObject("vent 02","Vent","vent 02", 0, [createExitObject("hallway10", "north"), createExitObject("hallway07", "south")], 0, 0);
+  var vent03 = createRoomObject("vent 03","Vent","vent 03", 0, [createExitObject("hallway14", "north"), createExitObject("maintenance bay", "west")], 0, 0);
+  var vent04 = createRoomObject("vent 04","Vent","vent 04", 0, [createExitObject("hallway15", "north"), createExitObject("hallway14", "south")], 0, 0);
+  var vent05 = createRoomObject("vent 05","Vent","vent 05", 0, [createExitObject("storage unit 01", "south"), createExitObject("reactor room", "west")], 0, 0);
+  // rubble instanciation
+  var rubble01 = createRoomObject("rubble 01","Rubble","rubble 01", 0, [createExitObject("computer lab", "east"), createExitObject("hallway09", "west")], 0, 0);
+  var rubble02 = createRoomObject("rubble 02","Rubble","rubble 02", 0, [createExitObject("hallway12", "north"), createExitObject("hallway08", "south")], 0, 0);
+  var rubble03 = createRoomObject("rubble 03","Rubble","rubble 03", 0, [createExitObject("research lab", "north"), createExitObject("hallway13", "south")], 0, 0);
+  var rubble04 = createRoomObject("rubble 04","Rubble","rubble 04", 0, [createExitObject("storage unit 02", "east"), createExitObject("hallway16", "west")], 0, 0);
+
+  // door instanciation
+  var door01 = createRoomObject("door 01","Door","door 01", 0, [createExitObject("hallway04", "east"), createExitObject("hallway05", "west")], 0, 0);
+  var door02 = createRoomObject("door 02","Door","door 02", 0, [createExitObject("mess hall", "north"), createExitObject("kitchen", "south")], 0, 0);
+  var door03 = createRoomObject("door 03","Door","door 03", 0, [createExitObject("hallway13", "north"), createExitObject("hallway12", "south")], 0, 0);
+  var door04 = createRoomObject("door 04","Door","door 04", 0, [createExitObject("research lab", "north"), createExitObject("hallway16", "south")], 0, 0);
+  var door05 = createRoomObject("door 05","Door","door 05", 0, [createExitObject("storage unit 02", "east"), createExitObject("hallway18", "west")], 0, 0);
+
   // sample room instanciation code
   //var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject("Starting Room", "south")], 0, 0);
   //var startRoom = createRoomObject("Starting Room","Room","This is the starting room", 0, [createExitObject("Next Room", "north")], 0, 0);
 
   rooms.push(quarters);
+  rooms.push(armory);
+  rooms.push(computerLab);
+  rooms.push(storageUnit1);
+  rooms.push(storageUnit2);
+  rooms.push(kitchen);
+  rooms.push(messHall);
+  rooms.push(maintenanceBay);
+  rooms.push(hangerBay);
+  rooms.push(researchLab);
+  rooms.push(reactorRoom);
+
   rooms.push(hallway01);
   rooms.push(hallway02);
   rooms.push(hallway03);
   rooms.push(hallway04);
+  rooms.push(hallway05);
+  rooms.push(hallway06);
+  rooms.push(hallway07);
+  rooms.push(hallway08);
+  rooms.push(hallway09);
+  rooms.push(hallway10);
+  rooms.push(hallway11);
+  rooms.push(hallway12);
+  rooms.push(hallway13);
+  rooms.push(hallway14);
+  rooms.push(hallway15);
+  rooms.push(hallway16);
+  rooms.push(hallway17);
+  rooms.push(hallway18);
+  rooms.push(hallway19);
 
-    player.currentRoom = quarters;
+  rooms.push(vent01);
+  rooms.push(vent02);
+  rooms.push(vent03);
+  rooms.push(vent04);
+  rooms.push(vent05);
+
+  rooms.push(rubble01);
+  rooms.push(rubble02);
+  rooms.push(rubble03);
+  rooms.push(rubble04);
+
+  rooms.push(door01);
+  rooms.push(door02);
+  rooms.push(door03);
+  rooms.push(door04);
+  rooms.push(door05);
+
+  player.currentRoom = quarters;
 }
 
 function outputCurrentAndNextRoom()
