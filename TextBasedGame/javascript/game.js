@@ -132,12 +132,53 @@ function addRooms()
 
 }
 
+// method
 function blockedRoom(){
-  if(player.currentRoom.blocked == true){
+  if (player.currentRoom.blocked == true){
+    // code to unblock if has item
+    // for cowboy
+    if (player.currentRoom.type == "Rubble"){
 
+      // foreach loop to check player items
+      player.inventory[].forEach((item, i) => {
+
+        if(item.itemName == "Explosives"){
+          // note: immediately lets player og through without prompting them - may need fixed
+          player.currentRoom.blocked = false;
+          return;
+        }
+
+      });
+    }
+    // for hacker
+    else if (player.currentRoom.type == "Door"){
+
+      player.inventory[].forEach((item, i) => {
+
+        if(item.itemName == "Datapad"){
+          player.currentRoom.blocked = false;
+          return;
+        }
+
+      });
+    }
+    //engineer
+    else if (player.currentRoom.type == "Vent"){
+
+      player.inventory[].forEach((item, i) => {
+
+        if(item.itemName == "Blow Torch"){
+          player.currentRoom.blocked = false;
+          return;
+        }
+
+      });
+    }
+
+    // error message for if they don't  have the items
+    document.getElementById("text-display").innerHTML += "</br>" + "You cannot pass through here due to not having the correct item";
   }
   else {
-    document.getElementById("text-display").innerHTML += "</br>" + "You cannot pass through here due";
     // output message/ deny access
   }
 }
