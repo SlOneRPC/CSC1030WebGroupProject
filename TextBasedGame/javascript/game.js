@@ -96,17 +96,37 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
     search(player.currentRoom)
   }
+  else if(words[0] == ("pick") && words[1] == ("up"))
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    alert("Yes!");
+  }
+  else if(words[0] == ("take") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    alert("fe");
+  }
   else
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>I don't know this command: '" +input+"'</span>";
   }
 }
 
+function pickUpItems(words)
+{
+  playerRoom.roomItems.forEach((item, i) => {
+    if(item.item.itemSearched = true)
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>"+ i + ". " +item.item.itemName+"'</span>";
+  });
+}
+
 function search(playerRoom)
 {
   playerRoom.roomItems.forEach((item, i) => {
+    item.item.itemSearched = true;
     document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>You notice a '" +item.item.itemName+"'</span>";
   });
+
 }
 
 function move(words)
@@ -277,34 +297,34 @@ function createExitObject(exitRoomNameValue, orientationValue)
   var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue};
   return exitObject;
 }
-function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue)
+function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue)
 {
-  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue};
+  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue};
   return itemObject;
 }
 function createWeaponObject(itemNameValue, twoHandedValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue)
 {
-  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue), twoHanded:twoHandedValue, damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
+  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false), twoHanded:twoHandedValue, damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
   return weaponObject;
 }
 function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue)
 {
-  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue), bodyPart:bodyPartValue, defense:defenseValue};
+  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue, false), bodyPart:bodyPartValue, defense:defenseValue};
   return armourObject;
 }
 function createGadgetObject(itemNameValue, descriptionValue)
 {
-  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue)};
+  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue, false)};
   return gadgetObject;
 }
 function createDataPadObject(itemNameValue, descriptionValue, informationValue)
 {
-  var dataPadObject = {item:createItemObject(itemNameValue, "DataPad", descriptionValue), information:informationValue};
+  var dataPadObject = {item:createItemObject(itemNameValue, "DataPad", descriptionValue, false), information:informationValue};
   return dataPadObject;
 }
 function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue)
 {
-  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue), change:changeValue, mechanicChange:mechanicChangeValue};
+  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false), change:changeValue, mechanicChange:mechanicChangeValue};
   return modifierObject;
 }
 function createInteractableObject(verbValue)
