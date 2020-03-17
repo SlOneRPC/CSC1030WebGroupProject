@@ -17,7 +17,7 @@
         width: 95%;
         margin: auto;
         overflow: auto;
-        padding: 5%;
+        //padding: 5%;
       }
 
       /* Custom Scrollbar */
@@ -90,16 +90,39 @@
             <h1 id="health2" class="player-health">100HP</h2>
           </div>
         </div>
-        <h1 id="healthLost"></h1>
+        <h1 id="healthLost">Lost 20 health..</h1>
+        <h1 id="damageGiven">Damaged for 35..</h1>
         <div id="combatBox">
           <div id="combat-main">
             <h1 class="combatHeader">Combat</h1>
+            <button type="button" name="button" class="combatButton">Attack 1</button>
+            <button type="button" name="button" class="combatButton">Attack 2</button>
+            <button type="button" name="button" class="combatButton">Take Cover</button><br>
+            <h2 id="weaponText" style="float:left;">Weapon: </h2> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="weaponPlaceholder">
           </div>
           <div id="combat-inventory">
-              <h1 class="combatHeader">Inventory</h1>
+              <h1 class="combatHeader">Weapons</h1>
+              <table cellspacing="10">
+                <tr>
+                  <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
+                  <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
+                  <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
+                </tr>
+              </table>
           </div>
         </div>
-        <h1 id="damageGiven"></h1>
+        <div id="overviewBox">
+          <button type="submit" name="button">Next Turn</button>
+          <div id="overview-container">
+            <h1 class="combatHeader">Turn Overview</h1>
+            <p id="">
+              Damage taken: <span id="stat-damageTaken"></span><br>
+              Damage given: <span id="stat-damageGiven"></span><br>
+              Ammo used: <span id="stat-ammoUsed"></span><br>
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
 
