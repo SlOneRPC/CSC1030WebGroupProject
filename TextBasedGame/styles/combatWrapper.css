@@ -23,7 +23,7 @@
 }
 
 #countdownTimer{
-  font-size: 6em;
+  font-size: 4em;
   font-family: fantasy;
 }
 
@@ -74,31 +74,43 @@
 }
 
 #healthLost{
+  font-family: monospace;
+  margin: 20px;
+  clear: both;
   float: left;
+  display:inline-block;
   color: red;
 }
 
 #damageGiven{
-  float:right;
+  font-family: monospace;
+  margin: 20px;
+  float: right;
   color: green;
 }
 
 #combatBox{
+  //display: none;
+  clear: both;
   width: 30%;
   margin: auto;
+  overflow: hidden;
 }
 
 #combat-main{
   clear: both;
   height: 250px;
   border: 1px solid white;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 #combat-inventory{
   margin-top: 20px;
   clear: both;
-  height: 250px;
   border: 1px solid white;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .combatHeader{
@@ -106,4 +118,75 @@
   padding: 10px;
   background-color: grey;
   width: 100%;
+  text-align: center;
+  font-family: monospace;
+}
+
+#combat-inventory table{
+  width: 90%;
+  margin: 1% 5%;
+}
+
+#combat-inventory td{
+  width: 20%;
+  margin-right: 20px;
+  height: 120px;
+  border: 1px solid white;
+}
+
+.inventoryItem{
+  width: 90%;
+  height: 90%;
+  display: inline-block;
+  opacity: 0.2;
+  margin: 5%;
+}
+
+.combatButton{
+  width: 25%;
+  height: 25%;
+  margin: 1%;
+  color: black;
+}
+
+#weaponText{
+  margin: 0px;
+  padding: 4%;
+}
+
+.weaponPlaceholder{
+  float:left;
+  width: 25%;
+  height: 45%;
+  margin-left: 5%;
+  opacity: 0.2;
+  border: 1px solid white;
+  padding: 1%;
+}
+
+#overviewBox{
+  display: none;
+  clear: both;
+  width: 25%;
+  margin: auto;
+  overflow: hidden;
+  //border: 1px solid white;
+  justify-content: center;
+  text-align: center;
+}
+
+#overviewBox button{
+  width: 40%;
+  height: 80px;
+  border-radius: 10%;
+  background-color: red;
+  border: 1px solid grey;
+}
+
+#overview-container{
+  width: 95%;
+  margin-top: 15px;
+  margin: 2.5% 5px 0px 2.5%;
+  border: 1px solid white;
+
 }
