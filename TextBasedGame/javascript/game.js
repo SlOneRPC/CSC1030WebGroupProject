@@ -193,6 +193,7 @@ function processCommands(input)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
     alert("Yes!");
+    pickUpItems(words);
   }
   else if(words[0] == ("take") == true)
   {
@@ -208,11 +209,19 @@ function processCommands(input)
 function pickUpItems(words)
 {
   playerRoom.roomItems.forEach((item, i) => {
-    if(item.item.itemSearched = true)
+    if(words.includes(item.item.itemDescription))
     document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>"+ i + ". " +item.item.itemName+"'</span>";
+    outputCurrentRoomDesc("pickup"+)//////
   });
 }
-
+//Might need to be kept for search function
+///function pickUpItems(words)
+//{
+//  playerRoom.roomItems.forEach((item, i) => {
+//    if(item.item.itemSearched = true)
+//    document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>"+ i + ". " +item.item.itemName+"'</span>";
+//  });
+//}
 function search(playerRoom)
 {
   playerRoom.roomItems.forEach((item, i) => {
