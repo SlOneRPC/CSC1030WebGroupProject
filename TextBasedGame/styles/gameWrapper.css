@@ -1,9 +1,18 @@
-#rows{
+#wrapper
+{
+  width: 95%;
+  height: 80%;
+  padding: 2%;
+  margin: auto;
+}
+
+#container
+{
   overflow: auto;
   width: 100%;
 }
 
-#col1{
+#playerInventory{
   width: 30%;
   float: left;
   margin: 10px;
@@ -11,19 +20,29 @@
   margin-left: 0px;
 }
 
-#textbox{
-  clear: both;
-    height: 620px;
-      //background-color: white;
-    border: 1px solid white;
-}
-
-#col2{
+#userInput{
   width: 30%;
   float: left;
   margin: 10px;
-  margin-right: 2%;
+  text-align: center;
+  background-color: #111010;
+  border-radius: 25px;
 }
+
+#equipMenu{
+  width: 17%;
+  float:right;
+  margin: 10px;
+  margin-right: 0px;
+}
+
+#textbox{
+  clear: both;
+  height: 620px;
+  margin: auto;
+  background-color: ;
+}
+
 
 #map{
   clear: both;
@@ -40,13 +59,6 @@
   border: 1px solid white;
 }
 
-#col3{
-  width: 17%;
-  float:right;
-  margin: 10px;
-  margin-right: 0px;
-}
-
 #inventory{
   clear: both;
   height:620px;
@@ -56,7 +68,7 @@
 }
 
 #textbox input{
-  width: 100%;
+  width: 80%;
   height: 10%;
   //background-color: #111010;
   color: white;
@@ -108,10 +120,6 @@
   color: black;
   background-color: white;
   cursor:grab;
-}
-
-#game-wrapper{
-  //display: none;
 }
 
 #userTextRight
