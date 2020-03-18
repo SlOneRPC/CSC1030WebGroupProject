@@ -105,6 +105,13 @@
 #userTextBlue{
   color: lightblue;
 }
+#userTextYellow{
+  color: yellow;
+}
+#userTextOrange{
+  color: orange;
+}
+
 
 #gameInputButton{
   color:white;
