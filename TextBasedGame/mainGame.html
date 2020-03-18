@@ -17,36 +17,38 @@
         width: 95%;
         margin: auto;
         overflow: auto;
-        padding: 5%;
       }
 
+
       /* Custom Scrollbar */
+      /* Scrollbar width */
       ::-webkit-scrollbar {
         width: 12px;
       }
+      /* Scrollbar Track */
       ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey;
         border-radius: 10px;
       }
+      /* Scrollbar Handle */
       ::-webkit-scrollbar-thumb {
         background: red;
         border-radius: 10px;
       }
     </style>
-    <link rel="stylesheet" href="styles/combatWrapper.css">
-    <link rel="stylesheet" href="styles/gameWrapper.css">
     <script type="text/javascript" src="javascript/game.js"></script>
     <script type="text/javascript" src="javascript/timer.js"></script>
+    <link rel="stylesheet" href="styles/gameWrapper.css">
+    <link rel="stylesheet" href="styles/combatWrapper.css">
   </head>
-  <body onload="outputCurrentAndNextRoom();">
+  <body onload="gameStart();">
     <div id="wrapper">
       <div id="settings-wrapper">
           <button type="button" style="float:right;">Exit Game</button>
           <button type="button" style="float:right;">Pause Game</button>
       </div>
-      <div id="game-wrapper">
-        <div id="rows">
-          <div id="col1">
+      <div id="container">
+          <div id="playerInventory">
             <div id="map">
 
             </div>
@@ -58,7 +60,7 @@
               </script>
             </div>
           </div>
-          <div id="col2">
+          <div id="userInput">
             <div id="textbox">
               <div id="text-display" class="text">
               </div>
@@ -66,20 +68,21 @@
               <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
             </div>
           </div>
-          <div id="col3">
+          <div id="equipMenu">
             <div id="inventory">
               <h1>Inventory</h1>
               <hr style="width: 90%;">
 
             </div>
           </div>
-        </div>
+
       </div>
       <div id="combat-wrapper">
         <div id="player1">
           <img src="images/playerIcon.jpg" alt="Player 1" class="playerImg">
           <div class="playerbox-info">
-            <div class="healthbar"></div>
+            <div class="healthbar">
+            </div>
             <h1 id="player1Name" class="player-name">Player 1</h1>
             <h1 id="health1" class="player-health">100HP</h2>
           </div>
@@ -95,16 +98,7 @@
             <h1 id="health2" class="player-health">100HP</h2>
           </div>
         </div>
-        <h1 id="healthLost"></h1>
-        <div id="combatBox">
-          <div id="combat-main">
-            <h1 class="combatHeader">Combat</h1>
-          </div>
-          <div id="combat-inventory">
-              <h1 class="combatHeader">Inventory</h1>
-          </div>
-        </div>
-        <h1 id="damageGiven"></h1>
+
       </div>
     </div>
 
