@@ -1,6 +1,10 @@
+
+var timeRemaining = "0";
+var passedValue="chess";
+
 function timerOperation(){
   // Set the date we're counting down to
-  var startTime = new Date().getTime() + (5*60*1000);
+  var startTime = new Date().getTime() + (10*1000);
 
   // Update the count down every 1 second
   var x = setInterval(function() {
@@ -20,13 +24,21 @@ function timerOperation(){
     }
 
     // Display the result in the element with id="demo"
-    document.getElementById("timer").innerHTML = minutes + ":" + seconds;
+    var timeRemaining = minutes + ":" + seconds;
+    document.getElementById("timer").innerHTML = timeRemaining;
 
     // If the count down is finished, write some text
-    if (distance < 0) {
+    if (distance < 1000) {
       clearInterval(x);
+      passedValue=timeRemaining;
+      timeRemaining = "test";
       window.location.href = "endScreen.html";
     }
   }, 1000);
 
 }
+/*
+function returnTimeRemaining(){
+  return timeRemaining;
+}
+*/

@@ -56,6 +56,8 @@
       }
     </style>
     <link rel="stylesheet" href="styles/spaceBackground.css">
+    <script type="text/javascript" src="javascript/game.js"></script>
+    <script type="text/javascript" src="javascript/timer.js"></script>
   </head>
   <body>
     <div id="space">
@@ -75,6 +77,9 @@
           Rooms Entered: <span id="roomsEntered"></span> <br>
           Items Collected: <span id="itemsCollected"></span><br>
         </p>
+        <script>
+          gameOverStats();
+        </script>
         <button name="playAgainBtn" onclick="restartGame();">Play Again</button>
       </div>
     </div>

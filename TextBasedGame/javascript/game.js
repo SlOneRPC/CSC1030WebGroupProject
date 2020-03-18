@@ -1,9 +1,11 @@
-var player = createPlayerObject("Luke", 100, "Hacker", "", [], "yes", 0, 0);
+var player = createPlayerObject("Luke", 100, "Hacker", "", [], createStatObject(0, "not finished", 0, 0), 0, 0);
 var roomsVisited = [];
 var rooms =[];
 var roomDescriptions = [];
 
-
+function gameOverStats(){
+  document.getElementById("timeSpent").textContent = passedValue;
+}
 
 function gameStart() {
  ///method will decide and pick between starter rooms based on class
@@ -356,21 +358,9 @@ function charHealth()
   }
 }
 
-function charStart()
-{
-
-}
-
 function addItemInventory(item)
 {
 
-}
-
-function nameOutput()
-{
-  var nameInput = document.getElementById("name").value;
-  var classSelect = charStart();
-  alert(nameInput + " " + classSelect);
 }
 
 function changeTextDescription()
