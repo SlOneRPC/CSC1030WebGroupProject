@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="styles/combatWrapper.css">
     <link rel="stylesheet" href="styles/gameWrapper.css">
     <script type="text/javascript" src="javascript/game.js"></script>
+    <script type="text/javascript" src="javascript/timer.js"></script>
   </head>
   <body onload="outputCurrentAndNextRoom();">
     <div id="wrapper">
@@ -51,7 +52,10 @@
             </div>
             <div id="other1">
               <!--just putting timer in here for 'time' being-->
-              <p id="timer">Timer text</p>
+              <p id="timer">content</p>
+              <script>
+                timerOperation();
+              </script>
             </div>
           </div>
           <div id="col2">
