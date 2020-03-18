@@ -90,7 +90,7 @@
 }
 
 #combatBox{
-  //display: none;
+  display: none;
   clear: both;
   width: 30%;
   margin: auto;
@@ -165,7 +165,7 @@
 }
 
 #overviewBox{
-  display: none;
+  //display: none;
   clear: both;
   width: 25%;
   margin: auto;
@@ -188,5 +188,9 @@
   margin-top: 15px;
   margin: 2.5% 5px 0px 2.5%;
   border: 1px solid white;
+}
 
+#turnOverviewText{
+  font-size: 1.5em;
+  font-family: verdana;
 }
