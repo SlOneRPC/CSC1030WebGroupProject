@@ -20,22 +20,20 @@
 
       }
       /* Custom Scrollbar */
-      /* Scrollbar width */
       ::-webkit-scrollbar {
         width: 12px;
       }
-      /* Scrollbar Track */
       ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey;
         border-radius: 10px;
       }
-      /* Scrollbar Handle */
       ::-webkit-scrollbar-thumb {
         background: red;
         border-radius: 10px;
       }
     </style>
     <script type="text/javascript" src="javascript/game.js"></script>
+    <script type="text/javascript" src="javascript/timer.js"></script>
     <link rel="stylesheet" href="styles/gameWrapper.css">
     <link rel="stylesheet" href="styles/combatWrapper.css">
   </head>
@@ -53,9 +51,11 @@
 
             </div>
             <div id="other1">
-              <!--just putting timer in here for 'time'(fuck up - luke) being-->
-              <p id="timer">Timer text</p>
-
+              <!--just putting timer in here for 'time' being-->
+              <p id="timer">content</p>
+              <script>
+                timerOperation();
+              </script>
             </div>
           </div>
           <div id="userInput">
@@ -97,9 +97,40 @@
             <h1 id="health2" class="player-health">100HP</h2>
           </div>
         </div>
-
+     <h1 id="healthLost">Lost 20 health..</h1>
+     <h1 id="damageGiven">Damaged for 35..</h1>
+     <div id="combatBox">
+       <div id="combat-main">
+         <h1 class="combatHeader">Combat</h1>
+         <button type="button" name="button" class="combatButton">Attack 1</button>
+         <button type="button" name="button" class="combatButton">Attack 2</button>
+         <button type="button" name="button" class="combatButton">Take Cover</button><br>
+         <h2 id="weaponText" style="float:left;">Weapon: </h2> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="weaponPlaceholder">
+       </div>
+       <div id="combat-inventory">
+           <h1 class="combatHeader">Weapons</h1>
+           <table cellspacing="10">
+             <tr>
+               <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
+               <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
+               <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
+             </tr>
+           </table>
+       </div>
+     </div>
+     <div id="overviewBox">
+         <button type="submit" name="button">Next Turn</button>
+         <div id="overview-container">
+           <h1 class="combatHeader">Turn Overview</h1>
+           <p id="turnOverviewText">
+             During this round you took <span id="stat-damageTaken">24</span> damage from <span class="enemyName">enemy</span>
+             and dealt <span id="stat-damageGiven">50</span> damage in return to <span class="enemyName">enemy</span>.
+             You used <span id="stat-ammoUsed">2</span> ammo in order to deal damage<br>
+           </p>
+         </div>
       </div>
     </div>
+  </div>
 
   </body>
 </html>
