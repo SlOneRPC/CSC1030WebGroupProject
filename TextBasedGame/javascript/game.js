@@ -7,9 +7,26 @@ var roomDescriptions = [];
 
 function gameStart() {
  ///method will decide and pick between starter rooms based on class
+ if (document.getElementById("Hacker").checked)
+ {
+   player.charClass = "Hacker";
+   player.currentRoom = "computer lab";
+ }
+ else if (document.getElementById("Engineer").checked)
+ {
+   player.charClass = "Engineer";
+   player.currentRoom = "quarters";
+ }
+ else if (document.getElementById("SpaceCowboy").value)
+ {
+   player.charClass = "SpaceCowboy";
+   player.currentRoom = "armory";
+ }
+
+ window.location.href = "mainGame.html";
 
 
-  outputCurrentRoomDesc("first-entry");
+ outputCurrentRoomDesc("first-entry");
 
 }
 const textDescs = [
@@ -341,18 +358,7 @@ function charHealth()
 
 function charStart()
 {
-  if (document.getElementById("Hacker").checked)
-  {
-    return document.getElementById("Hacker").value;
-  }
-  else if (document.getElementById("Engineer").checked)
-  {
-    return document.getElementById("Engineer").value;
-  }
-  else if (document.getElementById("SpaceCowboy").value)
-  {
-    return document.getElementById("SpaceCowboy").value;
-  }
+
 }
 
 function addItemInventory(item)

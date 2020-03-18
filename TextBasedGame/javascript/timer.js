@@ -25,7 +25,7 @@ function timerOperation(){
     // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("timer").innerHTML = "EXPIRED";
+      window.location.href = "endScreen.html";
     }
   }, 1000);
 
