@@ -108,12 +108,12 @@ function addRooms()
 function getRoomTextDesc(roomName,action)
 {
   var roomDesc
-  document.getElementById("text-display").innerHTML += action;
-  document.getElementById("text-display").innerHTML += roomName;
+  document.getElementById("text-display").innerHTML += ">" + action;
+  document.getElementById("text-display").innerHTML +=  ">" +roomName;
   for (let i = 0; i < textDescs.length; i++) {
     if(textDescs[i].room === roomName && textDescs[i].action === action)
     {
-      document.getElementById("text-display").innerHTML +=textDescs[i].text;
+      document.getElementById("text-display").innerHTML += ">" +textDescs[i].text;
       roomDesc=(textDescs[i].text);
     }
   }
@@ -151,7 +151,7 @@ function commandInput()
   document.getElementById("gameInput").value = "";
   if(/^ *$/.test(gameInputText))
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userText'>" +"Doing nothing is not an option"+"</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userText'>" +">Doing nothing is not an option"+"</span>";
   }
   else
   {
@@ -168,41 +168,41 @@ function processCommands(input)
   var currentRoom=player.currentRoom.roomName;
   if(words.includes("go") == true)
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     move(words);
   }
   else if (words.includes("search") == true)
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     search(player.currentRoom);
   }
   else if (words.includes("examine") == true)
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
   }
   else if (words.includes("look") == true)
   {
-      document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
       outputCurrentRoomDesc("look");
   }
     else if (words.includes("Hint") == true)
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
   }
   else if(words[0] == ("pick") && words[1] == ("up"))
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     alert("Yes!");
     pickUpItems(words);
   }
   else if(words[0] == ("take") == true)
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>" +input+"</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     alert("fe");
   }
   else
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>I don't know this command: '" +input+"'</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>I don't know this command: '" +input+"'</span>";
   }
 }
 
@@ -210,8 +210,8 @@ function pickUpItems(words)
 {
   playerRoom.roomItems.forEach((item, i) => {
     if(words.includes(item.item.itemDescription))
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>"+ i + ". " +item.item.itemName+"'</span>";
-    outputCurrentRoomDesc("pickup"+)//////
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>"+ i + ". " +item.item.itemName+"'</span>";
+    outputCurrentRoomDesc("pick-up")//////
   });
 }
 //Might need to be kept for search function
@@ -226,7 +226,7 @@ function search(playerRoom)
 {
   playerRoom.roomItems.forEach((item, i) => {
     item.item.itemSearched = true;
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>You notice a '" +item.item.itemName+"'</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>You notice a '" +item.item.itemName+"'</span>";
   });
 
 }
@@ -261,12 +261,12 @@ function move(words)
   }
   else if(checkDirection > 1)
   {
-    document.getElementById("text-display").innerHTML+= "</br>You can't go in multiple directions...";
+    document.getElementById("text-display").innerHTML+= "</br>>You can't go in multiple directions...";
   }
   else if(checkDirection === 0)
   {
-    document.getElementById("text-display").innerHTML+= "</br>I guess you're staying here then...</br>";
-    outputCurrentAndNextRoom(words);
+    document.getElementById("text-display").innerHTML+= "</br>>I guess you're staying here then...</br>";
+    //outputCurrentAndNextRoom(words);
   }
 }
 
@@ -308,7 +308,7 @@ var newCurrent = createRoomObject(0,0,0,0,0,0,0)
   }
   else
   {
-    document.getElementById("text-display").innerHTML+= "</br>There is nowhere in that direction..";
+    document.getElementById("text-display").innerHTML+= "</br>>There is nowhere in that direction..";
   }
 }
 

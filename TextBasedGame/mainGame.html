@@ -3,6 +3,8 @@
   <head>
     <title></title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani&display=swap" rel="stylesheet">
     <style type="text/css">
       *{
         box-sizing: border-box;
@@ -13,225 +15,10 @@
         color: white;
       }
 
-      #wrapper{
-        width: 95%;
-        margin: auto;
-        overflow: auto;
-      }
-
-      #rows{
-        overflow: auto;
-        width: 100%;
-      }
-
-      #col1{
-        width: 30%;
-        float: left;
-        margin: 10px;
-        margin-right: 3%;
-        margin-left: 0px;
-      }
-
-      #textbox{
-        clear: both;
-          height: 620px;
-            //background-color: white;
-          border: 1px solid white;
-      }
-
-      #col2{
-        width: 45%;
-        float: left;
-        margin: 10px;
-        margin-right: 2%;
-      }
-
-      #map{
-        clear: both;
-        height: 300px;
-        margin-bottom: 30px;
-        //background-color: white;
-          border: 1px solid white;
-      }
-
-      #other1{
-        clear: both;
-        height: 300px;
-        //background-color: white;
-        border: 1px solid white;
-      }
-
-      #col3{
-        width: 17%;
-        float:right;
-        margin: 10px;
-        margin-right: 0px;
-      }
-
-      #inventory{
-        clear: both;
-        height:620px;
-        border: 1px solid white;
-
-        text-align: center;
-      }
-
-      #textbox input{
-        width: 100%;
-        height: 10%;
-        //background-color: #111010;
-        color: white;
-        font-size: 24px;
-        background-color: grey;//placeholder
-      }
-
-      #text-display{
-          background-color: #111010;
-          width: 100%;
-          height: 90%;
-          overflow: auto;
-          text-align: center;
-          font-size: 24px;
-          font-style: monospace;
-      }
-
-      .text{
-        font-style: monospace;
-      }
-
-      #settings-wrapper{
-        width: 100%;
-        height: 50px;
-        border: 1px solid white;
-      }
-
-      #settings-wrapper button{
-        margin: 5px;
-        height: 40px;
-        width: 60px;
-      }
-      #userTextWrong{
-        color: red;
-      }
-      #userTextBlue{
-        color: lightblue;
-      }
-
-      #gameInputButton{
-        color:white;
-        border: 1px solid white;
-        text-transform: uppercase;
-        background-color: transparent;
-      }
-
-      #gameInputButton:hover{
-        color: black;
-        background-color: white;
-        cursor:grab;
-      }
-
       #game-wrapper{
         // hide this display: none;
 
       }
-
-      /* Combat System */
-
-      #combat-wrapper{
-        margin-top: 20px;
-        display: none;
-      }
-
-
-      #player1{
-        float: left;
-        width:30%;
-        height: 200px;
-        border: 1px solid white;
-        overflow: hidden;
-      }
-
-      #round-timer{
-        margin: 0% 5%;
-        width:30%;
-        float: left;
-      //  border: 1px solid white;
-        text-align: center;
-      }
-
-      #countdownTimer{
-        font-size: 6em;
-        font-family: fantasy;
-      }
-
-      #player2{
-        float:right;
-        width:30%;
-        height: 200px;
-        border: 1px solid white;
-        overflow: hidden;
-      }
-
-      .playerImg{
-        width: 35%;
-        height: 95%;
-        margin: 1%;
-        display: inline-block;
-        float: left;
-      }
-
-
-
-      .playerbox-info{
-        float: right;
-      //  border: 1px solid white;
-        height: 95%;
-        margin: 1%;
-        width: 60%;
-      }
-
-      .healthbar{
-        width: 95%;
-        margin: 2%;
-        height: 15%;
-        border: 1px solid white;
-        background-color: green;
-      }
-
-      .playerbox-info .player-name{
-        margin: 2%;
-        font-family: monospace;
-        float: left;
-      }
-
-      .playerbox-info .player-health{
-        margin: 2%;
-        font-family: monospace;
-        float: right;
-      }
-
-
-
-      #userTextRight
-      {
-        color: #27910E;
-      }
-      .input{
-        font-size: 0.5em;
-        background: repeating-linear-gradient(
-          180deg,
-          #082316,
-          #082316 10px,
-          #05170E 10px,
-          #05170E 20px
-          );
-          border-radius: 10px;
-          border: 0px solid;
-          color: #27910E;
-          font-family: 'Orbitron', sans-serif;
-          padding: 5px;
-      }
-
       /* Custom Scrollbar */
       /* Scrollbar width */
       ::-webkit-scrollbar {
@@ -249,35 +36,36 @@
       }
     </style>
     <script type="text/javascript" src="javascript/game.js"></script>
+    <link rel="stylesheet" href="styles/gameWrapper.css">
+    <link rel="stylesheet" href="styles/combatWrapper.css">
   </head>
-  <body onload="gameStart();">
+  <!--<body onload="gameStart();">-->
+  <body>
     <div id="wrapper">
       <div id="settings-wrapper">
           <button type="button" style="float:right;">Exit Game</button>
           <button type="button" style="float:right;">Pause Game</button>
       </div>
+      <br>
       <div id="container">
+        <div id="userInput">
+          <div id="textbox">
+            <div id="text-display">
+            </div>
+            <input type="text" class="input" name="cmd" placeholder="Enter your action" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
+            <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
+          </div>
+        </div>
           <div id="playerInventory">
             <div id="map">
 
             </div>
             <div id="other1">
-<<<<<<< HEAD
               <!--just putting timer in here for 'time'(fuck up - luke) being-->
               <p id="timer">Timer text</p>
-=======
+            </div>
+          </div>
 
->>>>>>> 4e0e18384fa8782ccbe6be7f4eebd403ab87118d
-            </div>
-          </div>
-          <div id="userInput">
-            <div id="textbox">
-              <div id="text-display" class="text">
-              </div>
-              <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
-              <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
-            </div>
-          </div>
           <div id="equipMenu">
             <div id="inventory">
               <h1>Inventory</h1>
