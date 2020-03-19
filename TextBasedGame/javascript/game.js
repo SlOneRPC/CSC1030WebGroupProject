@@ -7,8 +7,8 @@ function gameOverStats(){
 }
 
 function gameStart() {
- ///method will decide and pick between starter rooms based on class
- /*
+ //method will decide and pick between starter rooms based on class
+
  if (document.getElementById("Hacker").checked)
  {
    player.charClass = "Hacker";
@@ -24,13 +24,14 @@ function gameStart() {
    player.charClass = "SpaceCowboy";
    player.currentRoom = "armory";
  }
-/*/
- //window.location.href = "mainGame.html";
+
+ window.location.href = "mainGame.html";
 
 
  outputCurrentRoomDesc("first-entry");
 
-}function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
+}
+function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
 {
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
@@ -75,15 +76,15 @@ function createDataPadObject(itemNameValue,descriptionValue)
   var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, false)};
   return dataPadObject;
 }
+function createInteractableObjectt(itemNameValue,descriptionValue)
+{
+  var interactableObject =  {item:createItemObject(itemNameValue, "Interact", descriptionValue, false, false)};
+  return interactableObject;
+}
 function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue)
 {
   var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false), change:changeValue, mechanicChange:mechanicChangeValue};
   return modifierObject;
-}
-function createInteractableObject(verbValue)
-{
-  var interactableObject = {verb:verbValue};
-  return interactableObject;
 }
 const textDescs = [
   //quarters
@@ -138,7 +139,6 @@ const textDescs = [
     action: "examine broadcast",
     room: "hallway01",
     text: "You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay",
-
   },
 /*/
   //Hallway02
@@ -187,7 +187,7 @@ function addRooms()
   var reactorRoom = createRoomObject("reactor room","room","This is the reactor room", 0, [createExitObject("door 04", "south"), createExitObject("vent 05", "east"), createExitObject("hallway15", "west")], [], 0,false);
 
   // hallway instanciation
-  var hallway01 = createRoomObject("hallway01","hallway","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south"), createExitObject("quarters", "east")],[createDataPadObject("broadcast","This is a broadcast")], 1,false);
+  var hallway01 = createRoomObject("hallway01","hallway","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south"), createExitObject("quarters", "east")],[createInteractableObject("broadcast","This is a broadcast")], 1,false);
   var hallway02 = createRoomObject("hallway02","hallway","hallway02", 0, [createExitObject("hallway01", "south")], 0, 0,false);
   var hallway03 = createRoomObject("hallway03","hallway","hallway03", 0, [createExitObject("hallway01", "north"), createExitObject("hallway04", "south"), createExitObject("vent 01", "west")], [], 0,false);
   var hallway04 = createRoomObject("hallway04","hallway","hallway04", 0, [createExitObject("hallway03", "north"), createExitObject("computer lab", "south"), createExitObject("storage unit 01", "east"), createExitObject("door 01", "west")], [], 0,false);
@@ -237,9 +237,9 @@ function outputCurrentRoomDesc(action)
   if(action=="first-entry"){
     player.currentRoom.roomDiscovered=true;
   }
-  document.getElementById("text-display").innerHTML += currentRoomName;
-  roomDesc= getRoomTextDesc(currentRoomName,action);
-  document.getElementById("text-display").innerHTML += ">" +roomDesc;
+    document.getElementById("text-display").innerHTML += currentRoomName;
+    roomDesc= getRoomTextDesc(currentRoomName,action);
+    document.getElementById("text-display").innerHTML += ">" +roomDesc;
 //  player.currentRoom.exits.forEach((item, i)=> {
 //  document.getElementById("text-display").innerHTML += "</br>" + "There is an exit to the " + item.orientation;
 //  });
@@ -358,7 +358,7 @@ function search(playerRoom)
       if(item.item.itemType =="Weapon"){
         document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>You notice a '" +item.item.itemName+"'</span>";
       }
-      if(item.item.itemType =="Datapad"){
+      if(item.item.itemType =="Interact"){
         document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>You notice a '" +item.item.itemName+"'</span>";
       }
       item.item.itemSearched = true;
