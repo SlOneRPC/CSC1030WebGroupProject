@@ -2,9 +2,6 @@ var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObjec
 var rooms = [];
 var roomDescriptions = [];
 
-
-
-
 function gameStart()
 {
  //method will decide and pick between starter rooms based on class
@@ -66,39 +63,39 @@ function createExitObject(exitRoomNameValue, orientationValue)
   var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue};
   return exitObject;
 }
-function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue)
+function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue, itemFilePathValue)
 {
-  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue};
+  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue, itemFilePath:itemFilePathValue};
   return itemObject;
 }
-function createWeaponObject(itemNameValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue)
+function createWeaponObject(itemNameValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue, itemFilePathValue)
 {
-  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false, false),  damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
+  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false, itemFilePathValue),  damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
   return weaponObject;
 }
-function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue)
+function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue, itemFilePathValue)
 {
-  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue, false), bodyPart:bodyPartValue, defense:defenseValue};
+  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue, false, itemFilePathValue), bodyPart:bodyPartValue, defense:defenseValue};
   return armourObject;
 }
-function createGadgetObject(itemNameValue, descriptionValue)
+function createGadgetObject(itemNameValue, descriptionValue , itemFilePathValue)
 {
-  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue, false, false)};
+  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue,  false, itemFilePathValue)};
   return gadgetObject;
 }
-function createDataPadObject(itemNameValue,descriptionValue, informationValue)
+function createDataPadObject(itemNameValue,descriptionValue, informationValue, itemFilePathValue)
 {
-  var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, false), information:informationValue};
+  var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, itemFilePathValue), information:informationValue};
   return dataPadObject;
 }
 function createInteractableObject(itemNameValue,descriptionValue)
 {
-  var interactableObject =  {item:createItemObject(itemNameValue, "Interact", descriptionValue, false, false)};
+  var interactableObject =  {item:createItemObject(itemNameValue, "Interact", descriptionValue, false, "")};
   return interactableObject;
 }
 function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue)
 {
-  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false), change:changeValue, mechanicChange:mechanicChangeValue};
+  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false, ""), change:changeValue, mechanicChange:mechanicChangeValue};
   return modifierObject;
 }
 
@@ -167,7 +164,7 @@ function addRooms()
 {
 
   // start room instanciation
-  var quarters = createRoomObject("quarters", "room", /*roomDescriptions[0]*/"This be quearters", 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun"), createGadgetObject("blowtorch","This is a blowtorch")],0,false);
+  var quarters = createRoomObject("quarters", "room", "quarters", 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"), createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png")],0,false);
   var armory = createRoomObject("armory","room","This is the Armory", 0, [createExitObject("hallway08", "north"), createExitObject("hallway09", "south")], [], 0,false);
   var computerLab = createRoomObject("computer lab", "room", "This is the Computer Lab", 0, [createExitObject("hallway04", "north"), createExitObject("rubble 01", "west")], [], 0,false);
 
@@ -316,7 +313,7 @@ function processCommands(input)
   else if(words[0] == ("pick") && words[1] == ("up"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    pickUpItems(player.currentRoom,input,false);
+    pickUpItems(player.currentRoom,words,false);
   }
   else if(words[0] == ("take") == true)
   {
@@ -332,26 +329,20 @@ function processCommands(input)
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon") && !item.item.itemTaken)
+      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"))
       {
-        outputCurrentRoomDesc(words);
-        item.item.itemTaken=true;
         player.inventory.push(item);
+        playerRoom.roomItems.splice(i, 1);
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
-        //alert(item.item.itemFilePath);
         if(!dragged)
           addItemToInventory(item.item);
       }
-      if(words.includes(item.item.itemName) && item.item.itemtaken==true)
-      {
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"You already have that item"+"</span>";
-      }
-      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
+      /*if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"You cannot pick up the "+item.item.itemName +"</span>";
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"Try examining it instead!" +"</span>";
 
-      }
+      }*/
 
   });
 }
@@ -370,35 +361,39 @@ function search(playerRoom)
       if(item.item.itemType =="Gadget"){
         document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>You notice a '" +item.item.itemName+"'</span>";
       }
-      if(item.item.itemType =="Weapon"){
+      else if(item.item.itemType =="Weapon"){
         document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>You notice a '" +item.item.itemName+"'</span>";
       }
-      if(item.item.itemType =="Interact"){
+      else if(item.item.itemType =="Interact"){
         document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>You notice a '" +item.item.itemName+"'</span>";
       }
       item.item.itemSearched = true;
     }
     ////CHANGE SO CALL vicinityON SECOND ENTRY
   });
+  vicinity(playerRoom);
 }
+
 function vicinity(playerRoom)
 {
+  //get the correct table using a query
+  var elements = document.querySelectorAll("#other1 td");
+  var tableIndex = 0;
 
-      playerRoom.roomItems.forEach((item, i) => {
-        if(item.item.itemSearched == true && item.item.itemTaken == false && item.item.itemType!="Interact")
-        {
-          //add inventory item to vicinity
-          var name = item.item.itemName + "_img";
-          elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+ name+">";
-          tableIndex++;
-        }
-        else if(item.item.itemType =="Weapon"){
-          document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>The '" +item.item.itemName+ " is still in the "+playerRoom.type +"</span>";
-        }
-      });
+  playerRoom.roomItems.forEach((item, i) => {
+    if(item.item.itemSearched == true)
+    {
+      //add inventory item to vicinity
+      var name = item.item.itemName + "_img";
+      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+ name+">";
+      tableIndex++;
+    }
+    else{
+    }
+  });
 
 
-      clearVicinity(tableIndex);
+  clearVicinity(tableIndex);
 }
 
 function clearVicinity(startIndex){
@@ -560,9 +555,18 @@ function charStart()
   }
 }
 
-function addItemInventory(item)
-{
+function addItemToInventory(item){
 
+    var elements = document.querySelectorAll("#inventory td");
+
+    for (var i = 0; i < elements.length; i++) {
+      if(elements[i].innerHTML == ''){
+        elements[i].innerHTML += "<img src="+ item.itemFilePath +" alt=" + item.itemDescription+ " class='inventoryItem'>";
+        break;
+      }
+    }
+
+    vicinity(player.currentRoom);
 }
 
 function nameOutput()
