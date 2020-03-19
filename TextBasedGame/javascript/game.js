@@ -76,7 +76,7 @@ function createDataPadObject(itemNameValue,descriptionValue)
   var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, false)};
   return dataPadObject;
 }
-function createInteractableObjectt(itemNameValue,descriptionValue)
+function createInteractableObject(itemNameValue,descriptionValue)
 {
   var interactableObject =  {item:createItemObject(itemNameValue, "Interact", descriptionValue, false, false)};
   return interactableObject;
@@ -331,7 +331,7 @@ function pickUpItems(playerRoom,words)
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"You already have that item"+"</span>";
       }
-      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Datapad"))
+      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"You cannot pick up the "+item.item.itemName +"</span>";
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"Try examining it instead!" +"</span>";
