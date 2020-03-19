@@ -1,6 +1,4 @@
-
-var timeRemaining = "0";
-var passedValue="chess";
+var timeRemaining = 0;
 
 function timerOperation(){
   // Set the date we're counting down to
@@ -30,15 +28,11 @@ function timerOperation(){
     // If the count down is finished, write some text
     if (distance < 1000) {
       clearInterval(x);
-      passedValue=timeRemaining;
-      timeRemaining = "test";
-      //window.location.href = "endScreen.html";
+      sessionStorage.setItem("timeRemaining",timeRemaining);
+      sessionStorage.setItem('stats', JSON.stringify(player.stats));
+
+      window.location.href = "endScreen.html";
     }
   }, 1000);
 
 }
-/*
-function returnTimeRemaining(){
-  return timeRemaining;
-}
-*/

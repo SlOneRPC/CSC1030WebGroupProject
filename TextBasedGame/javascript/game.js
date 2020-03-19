@@ -1,15 +1,16 @@
-var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, "not finished", 0, 0), 0, 0);
-var rooms =[];
+var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0);
+var rooms = [];
 var roomDescriptions = [];
 
-function gameOverStats(){
-  document.getElementById("timeSpent").textContent = passedValue;
-}
+
 
 
 function gameStart()
 {
  //method will decide and pick between starter rooms based on class
+ //player.username = sessionStorage.getItem("name");
+ //player.charClass = sessionStorage.getItem("class");
+
  addRooms();
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
  if (player.charClass == "Hacker")
@@ -50,9 +51,9 @@ function createPlayerObject(usernameValue, healthValue, charClassValue, currentR
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
 }
-function createStatObject(areasExploredValue, endingAchievedValue, enemiesDefeatedValue, timeLeftValue)
+function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeatedValue, timeLeftValue)
 {
-  var statsObject = {areasExplored:areasExploredValue, endingAchieved:endingAchievedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
+  var statsObject = {areasExplored:areasExploredValue, itemsCollected:itemsCollectedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
   return statsObject;
 }
 function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue, lookedValue)
@@ -296,7 +297,7 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     search(player.currentRoom);
   }
-  else if (words.includes("examine") == true)
+  else if (words.includes("examine") == true)//|| words.includes("inspect") == true
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     outputCurrentRoomDesc(words);
@@ -315,12 +316,12 @@ function processCommands(input)
   else if(words[0] == ("pick") && words[1] == ("up"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    pickUpItems(player.currentRoom,input);
+    pickUpItems(player.currentRoom,input,false);
   }
   else if(words[0] == ("take") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    pickUpItems(player.currentRoom,words);
+    pickUpItems(player.currentRoom,words,false);
   }
   else
   {
@@ -328,15 +329,18 @@ function processCommands(input)
   }
 }
 
-function pickUpItems(playerRoom,words)
+function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"))
+      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon") && !item.item.itemTaken)
       {
         outputCurrentRoomDesc(words);
         item.item.itemTaken=true;
         player.inventory.push(item);
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +"Added to inventory"+"</span>";
+        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
+        //alert(item.item.itemFilePath);
+        if(!dragged)
+          addItemToInventory(item.item);
       }
       if(words.includes(item.item.itemName) && item.item.itemtaken==true)
       {
@@ -381,23 +385,28 @@ function vicinity(playerRoom)
 {
 
       playerRoom.roomItems.forEach((item, i) => {
-      if(item.item.itemSearched == true && item.item.itemTaken == false )
-      {
-        if(item.item.itemType =="Gadget"){
-          document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>The '" +item.item.itemName+ " is still in the "+playerRoom.type +"</span>";
+        if(item.item.itemSearched == true && item.item.itemTaken == false && item.item.itemType!="Interact")
+        {
+          //add inventory item to vicinity
+          var name = item.item.itemName + "_img";
+          elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+ name+">";
+          tableIndex++;
         }
         else if(item.item.itemType =="Weapon"){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>The '" +item.item.itemName+ " is still in the "+playerRoom.type +"</span>";
         }
-        else if(item.item.itemType =="Datapad"){
-          document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>The '" +item.item.itemName+ " is still in the "+playerRoom.type +"</span>";
-        }
-        //Update vicinity html not yet added
-      }
-      else{
-      }
-    });
+      });
 
+
+      clearVicinity(tableIndex);
+}
+
+function clearVicinity(startIndex){
+  var elements = document.querySelectorAll("#other1 td");
+  //clear all other inventory items
+  for (var i = startIndex; i < 8; i++) {
+    elements[i].innerHTML = '';
+  }
 }
 
 function move(words)
@@ -470,9 +479,11 @@ function goDirection(direction)
     if(player.currentRoom.roomDiscovered==true)
     {
       document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
+      vicinity(player.currentRoom);
     }
     else
     {
+      clearVicinity(0);
       document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
     }
   }
@@ -481,6 +492,30 @@ function goDirection(direction)
     document.getElementById("text-display").innerHTML+= "</br>>There is nowhere in that direction..";
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function returnNewRoom(roomExit)
 {
