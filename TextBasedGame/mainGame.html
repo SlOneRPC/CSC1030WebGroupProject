@@ -45,20 +45,55 @@
       <div id="settings-wrapper">
           <button type="button" style="float:right;">Exit Game</button>
           <button type="button" style="float:right;">Pause Game</button>
+
+          <!--just putting timer in here for 'time' being-->
+          <script>
+            timerOperation();
+          </script>
+          <p id="timer">5:00</p>
       </div>
       <br>
       <div id="container">
           <div id="playerInventory">
-            <div id="map">
-
+            <div id="inventory">
+              <div id="inventoryHeader">
+                  <h1>Inventory</h1>
+              </div>
+                <table>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </table>
             </div>
             <div id="other1">
-              <!--just putting timer in here for 'time' being-->
-              <script>
-                timerOperation();
-              </script>
-              <p id="timer">5:00</p>
 
+
+              <div id="inventoryHeader">
+                  <h1>Nearby Objects</h1>
+              </div>
+              <table>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
             </div>
           </div>
           <div id="userInput">
@@ -69,11 +104,8 @@
               <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
             </div>
           </div>
-
           <div id="equipMenu">
-            <div id="inventory">
-              <h1>Inventory</h1>
-              <hr style="width: 90%;">
+            <div id="map">
 
             </div>
           </div>
