@@ -8,11 +8,7 @@ function gameOverStats(){
 
 function gameStart() {
  //method will decide and pick between starter rooms based on class
-<<<<<<< HEAD
-/*
-=======
 /*?
->>>>>>> cbf140a73a09f388d4d0afa32b075ef2ef975ceb
  if (document.getElementById("Hacker").checked)
  {
    player.charClass = "Hacker";
@@ -30,11 +26,7 @@ function gameStart() {
  }
 
  window.location.href = "mainGame.html";
-<<<<<<< HEAD
-*/
-=======
 /*/
->>>>>>> cbf140a73a09f388d4d0afa32b075ef2ef975ceb
 
  outputCurrentRoomDesc("first-entry");
 
@@ -59,41 +51,42 @@ function createExitObject(exitRoomNameValue, orientationValue)
   var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue};
   return exitObject;
 }
-function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue,itemTakenValue,itemFilePathValue)
+function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue)
 {
-  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue,itemTaken:itemTakenValue,itemFilePath:itemFilePathValue};
+  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue};
   return itemObject;
 }
-function createWeaponObject(itemNameValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue,filePath)
+function createWeaponObject(itemNameValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue)
 {
-  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false, false,filePath),  damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
+  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false, false),  damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
   return weaponObject;
 }
-function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue,filePath)
+function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue)
 {
-  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue, false,filePath), bodyPart:bodyPartValue, defense:defenseValue};
+  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue, false), bodyPart:bodyPartValue, defense:defenseValue};
   return armourObject;
 }
-function createGadgetObject(itemNameValue, descriptionValue,filePath)
+function createGadgetObject(itemNameValue, descriptionValue)
 {
-  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue, false, false,filePath)};
+  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue, false, false)};
   return gadgetObject;
 }
-function createDataPadObject(itemNameValue,descriptionValue,filePath)
+function createDataPadObject(itemNameValue,descriptionValue)
 {
-  var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, false,filePath)};
+  var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, false)};
   return dataPadObject;
 }
-function createInteractableObject(itemNameValue,descriptionValue,filePath)
+function createInteractableObject(itemNameValue,descriptionValue)
 {
-  var interactableObject =  {item:createItemObject(itemNameValue, "Interact", descriptionValue, false, false,filePath)};
+  var interactableObject =  {item:createItemObject(itemNameValue, "Interact", descriptionValue, false, false)};
   return interactableObject;
 }
-function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue,filePath)
+function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue)
 {
-  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false,filePath), change:changeValue, mechanicChange:mechanicChangeValue};
+  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false), change:changeValue, mechanicChange:mechanicChangeValue};
   return modifierObject;
 }
+
 const textDescs = [
   //quarters
   {
@@ -153,40 +146,14 @@ const textDescs = [
     room: "hallway01",
     text: "You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay",
   },
-  /*/
-  //Hallway02
-  {
-    action:"first-entry",
-    room:"hallway02",
-    text:"",
-  },
-  {
-    action:"second-entry",
-    room:"hallway02",
-    text:"",
-  },
-  //Hallway03
-  {
-    action:,
-    room:,
-    text:,
-  },
-  //Hallway04
-  {
-    action:,
-    room:,
-    text:,
-  },
-/*/
 ]
 addRooms();
-
 
 function addRooms()
 {
 
   // start room instanciation
-  var quarters = createRoomObject("quarters", "room", roomDescriptions[0], 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"), createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png")],0,false);
+  var quarters = createRoomObject("quarters", "room", roomDescriptions[0], 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun"), createGadgetObject("blowtorch","This is a blowtorch")],0,false);
   var armory = createRoomObject("armory","room","This is the Armory", 0, [createExitObject("hallway08", "north"), createExitObject("hallway09", "south")], [], 0,false);
   var computerLab = createRoomObject("computer lab", "room", "This is the Computer Lab", 0, [createExitObject("hallway04", "north"), createExitObject("rubble 01", "west")], [], 0,false);
 
@@ -257,7 +224,7 @@ function outputCurrentRoomDesc(action)
   }
     //document.getElementById("text-display").innerHTML += currentRoomName;
     roomDesc= getRoomTextDesc(currentRoomName,action);
-    document.getElementById("text-display").innerHTML += ">" +roomDesc;
+    document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
 //  });
   //;
 }
@@ -351,12 +318,10 @@ function pickUpItems(playerRoom,words)
       playerRoom.roomItems.forEach((item, i) => {
       if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"))
       {
-        //outputCurrentRoomDesc(words);
+        outputCurrentRoomDesc(words);
         item.item.itemTaken=true;
         player.inventory.push(item);
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
-        //alert(item.item.itemFilePath);
-        addItemToInventory(item.item);
+        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +"Added to inventory"+"</span>";
       }
       if(words.includes(item.item.itemName) && item.item.itemtaken==true)
       {
@@ -371,21 +336,6 @@ function pickUpItems(playerRoom,words)
 
   });
 }
-
-function addItemToInventory(item){
-
-    var elements = document.querySelectorAll("#inventory td");
-
-    for (var i = 0; i < elements.length; i++) {
-      if(elements[i].innerHTML == ''){
-        elements[i].innerHTML += "<img src="+ item.itemFilePath +" alt=" + item.itemDescription+ " class='inventoryItem'>";
-        break;
-      }
-    }
-
-    vicinity(player.currentRoom);
-}
-
 //Might need to be kept for search function
 ///function pickUpItems(words)
 //{
@@ -408,32 +358,29 @@ function search(playerRoom)
         document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>You notice a '" +item.item.itemName+"'</span>";
       }
       item.item.itemSearched = true;
-
     }
     ////CHANGE SO CALL vicinityON SECOND ENTRY
   });
-  vicinity(playerRoom);
 }
 function vicinity(playerRoom){
-      //get the correct table using a query
-      var elements = document.querySelectorAll("#other1 td");
-      var tableIndex = 0;
 
       playerRoom.roomItems.forEach((item, i) => {
-        if(item.item.itemSearched == true && item.item.itemTaken == false )
-        {
-          //add inventory item to vicinity
-          elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem'>";
-          tableIndex++;
+      if(item.item.itemSearched == true && item.item.itemTaken == false )
+      {
+        if(item.item.itemType =="Gadget"){
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>The '" +item.item.itemName+ " is still in the "+playerRoom.type +"</span>";
         }
-        else{
+        else if(item.item.itemType =="Weapon"){
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>The '" +item.item.itemName+ " is still in the "+playerRoom.type +"</span>";
         }
-      });
-
-    //clear all other inventory items
-    for (var i = tableIndex; i < 8; i++) {
-      elements[i].innerHTML = '';
-    }
+        else if(item.item.itemType =="Datapad"){
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>The '" +item.item.itemName+ " is still in the "+playerRoom.type +"</span>";
+        }
+        //Update vicinity html not yet added
+      }
+      else{
+      }
+    });
 
 }
 
@@ -502,21 +449,14 @@ var newCurrent = "";
           }
       });
     player.currentRoom = newCurrent;
-    document.getElementById("text-display").innerHTML+= "</br>";
-    if(newCurrent.roomDiscovered==true){
+    if(player.currentRoom.roomDiscovered==true)
+    {
       outputCurrentRoomDesc("second-entry");
-      document.getElementById("text-display").innerHTML+= "</br>";
-    //  document.getElementById("text-display").innerHTML+= newCurrent.roomDiscovered;
-    //  document.getElementById("text-display").innerHTML+= newCurrent.roomName;
-      //vicinity(newCurrent);
     }
-    if(newCurrent.roomDiscovered==false){
-      document.getElementById("text-display").innerHTML+= "</br>";
-    //  document.getElementById("text-display").innerHTML+= newCurrent.roomDiscovered;
-    //  document.getElementById("text-display").innerHTML+= newCurrent.roomName;
+    else
+    {
       outputCurrentRoomDesc("first-entry");
     }
-
   }
   else
   {
@@ -565,6 +505,11 @@ function charStart()
   {
     return document.getElementById("SpaceCowboy").value;
   }
+}
+
+function addItemInventory(item)
+{
+
 }
 
 function nameOutput()
