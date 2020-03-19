@@ -33,6 +33,8 @@
       }
     </style>
     <script type="text/javascript" src="javascript/game.js"></script>
+    <script type="text/javascript" src="javascript/combat.js"></script>
+
     <script type="text/javascript" src="javascript/timer.js"></script>
     <link rel="stylesheet" href="styles/gameWrapper.css">
     <link rel="stylesheet" href="styles/combatWrapper.css">
@@ -81,7 +83,7 @@
         <div id="player1">
           <img src="images/playerIcon.jpg" alt="Player 1" class="playerImg">
           <div class="playerbox-info">
-            <div class="healthbar">
+            <div class="healthbar"><div id="PlayerHB"></div>
             </div>
             <h1 id="player1Name" class="player-name">Player 1</h1>
             <h1 id="health1" class="player-health">100HP</h2>
@@ -93,23 +95,53 @@
         <div id="player2">
           <img src="images/playerIcon.jpg" alt="Player 2" class="playerImg">
           <div class="playerbox-info">
-            <div class="healthbar"></div>
-            <h1 id="player2Name" class="player-name">Player 2</h1>
+            <div class="healthbar"> <div id="EnemyHB"></div> </div>
+            <h1 id="player2Name" class="player-name">Enemy</h1>
             <h1 id="health2" class="player-health">100HP</h2>
           </div>
         </div>
-     <h1 id="healthLost">Lost 20 health..</h1>
-     <h1 id="damageGiven">Damaged for 35..</h1>
-     <div id="combatBox">
+     <h1 id="healthLost" class="hideMe">Lost 20 health..</h1>
+     <h1 id="damageGiven" class="hideMe">Damaged for 35..</h1>
+     <div id="gameinstructions">
+       <h1 class="combatHeader">Combat Instructions</h1>
+       <ul>
+         <li>Select desired combat type</li>
+         <li>Drag weapon from inventory to weapon slot to change it</li>
+         <li>Type in the hitbox and press enter to finish your turn</li>
+         <li>The faster you complete your turn the more damage you will deal</li>
+       </ul>
+     </div>
+     <div id="hitbox-display"  class="hideMe">
+        <h1 class="combatHeader">Hitboxes</h1>
+        <ul>
+          <li>Head</li>
+          <li>Chest</li>
+          <li>Stomach</li>
+          <li>Arms</li>
+          <li>Legs</li>
+          <li>Feet</li>
+        </ul>
+     </div>
+     <div id="combatBox" class="hideMe">
        <div id="combat-main">
          <h1 class="combatHeader">Combat</h1>
-         <button type="button" name="button" class="combatButton">Attack 1</button>
-         <button type="button" name="button" class="combatButton">Attack 2</button>
-         <button type="button" name="button" class="combatButton">Take Cover</button><br>
-         <h2 id="weaponText" style="float:left;">Weapon: </h2> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="weaponPlaceholder">
+
+         <input type="radio" name="Attack" value="Attack1" class="combatAction">
+         <label for="" class="combatLabel">Aim</label>
+         <input type="radio" name="Attack" value="Attack2" class="combatAction">
+         <label for="" class="combatLabel">Charge enemy</label>
+         <input type="radio" name="Attack" value="TakeCover" class="combatAction">
+         <label for="" class="combatLabel">Take Cover</label>
+         <div id="combat-col1">
+           <h2>Aimpoint:</h2>
+           <input type="text" name="hitbox" placeholder="hitbox" id="hitbox-input" onkeypress="if (event.keyCode === 13) exectuteCombat();">
+         </div>
+         <div id="combat-col2">
+            <h2 id="weaponText">Weapon: </h2> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="weaponPlaceholder">
+         </div>
        </div>
        <div id="combat-inventory">
-           <h1 class="combatHeader">Weapons</h1>
+           <h1 class="combatHeader">Avaliable Weapons</h1>
            <table cellspacing="10">
              <tr>
                <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
@@ -120,13 +152,12 @@
        </div>
      </div>
      <div id="overviewBox">
-         <button type="submit" name="button">Next Turn</button>
-         <div id="overview-container">
-           <h1 class="combatHeader">Turn Overview</h1>
+         <button type="submit" name="button" onclick="nextRound();">Start Combat</button>
+         <div id="overview-container" class="hideMe">
+           <h1 class="combatHeader" id="turnOverview-header">Turn Overview</h1>
            <p id="turnOverviewText">
-             During this round you took <span id="stat-damageTaken">24</span> damage from <span class="enemyName">enemy</span>
+             During this turn you took <span id="stat-damageTaken">24</span> damage from <span class="enemyName">enemy</span>
              and dealt <span id="stat-damageGiven">50</span> damage in return to <span class="enemyName">enemy</span>.
-             You used <span id="stat-ammoUsed">2</span> ammo in order to deal damage<br>
            </p>
          </div>
       </div>
