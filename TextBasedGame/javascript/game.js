@@ -8,7 +8,7 @@ function gameOverStats(){
 
 function gameStart() {
  //method will decide and pick between starter rooms based on class
-
+/*?
  if (document.getElementById("Hacker").checked)
  {
    player.charClass = "Hacker";
@@ -25,14 +25,12 @@ function gameStart() {
    player.currentRoom = "armory";
  }
 
- player.username = document.getElementById("name").value;
  window.location.href = "mainGame.html";
-
+/*/
 
  outputCurrentRoomDesc("first-entry");
 
 }
-
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
 {
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
@@ -138,6 +136,11 @@ const textDescs = [
     text: "You walk out of your quarters and head into the hallway."
   },
   {
+    action: "look",
+    room: "hallway01",
+    text: "You look around the hall and see there is a path to the NORTH and a path to the SOUTH."
+  },
+  {
     action: "examine broadcast",
     room: "hallway01",
     text: "You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay",
@@ -218,8 +221,8 @@ function addRooms()
 function getRoomTextDesc(roomName,action)
 {
   var roomDesc
-  document.getElementById("text-display").innerHTML += ">" + action;
-  document.getElementById("text-display").innerHTML +=  ">" +roomName;
+//  document.getElementById("text-display").innerHTML += ">" + action;
+//  document.getElementById("text-display").innerHTML +=  ">" +roomName;
   for (let i = 0; i < textDescs.length; i++) {
   //  document.getElementById("text-display").innerHTML += ">" +textDescs[i].action;
   //  document.getElementById("text-display").innerHTML += ">" +textDescs[i].room;
@@ -239,7 +242,7 @@ function outputCurrentRoomDesc(action)
   if(action=="first-entry"){
     player.currentRoom.roomDiscovered=true;
   }
-    document.getElementById("text-display").innerHTML += currentRoomName;
+    //document.getElementById("text-display").innerHTML += currentRoomName;
     roomDesc= getRoomTextDesc(currentRoomName,action);
     document.getElementById("text-display").innerHTML += ">" +roomDesc;
 //  player.currentRoom.exits.forEach((item, i)=> {
@@ -537,15 +540,15 @@ function changeTextDescription()
   var desc = "";
   if(charStart() == "Hacker")
   {
-    desc = "Tasked with maintaining the ship’s computer systems, they knows their tech like the back of their hand and will use it to keep themselves up and running from whatever is out there.";
+    desc = "Hacks Tings";
   }
   else if(charStart() == "Engineer")
   {
-    desc = "Armed with their blowtorch, they uses their knowhow to hold the ship together, and with their smarts, they can take on anything in their path.";
+    desc = "Fix Tings";
   }
   else if(charStart() =="SpaceCowboy")
   {
-    desc = "Travelling through space is a risky business, but unlike the rest, they can outshoot bandits, criminals and things that go bump in the night before the monsters have the chance to blink.";
+    desc = "Kill Tings";
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
 }
