@@ -1,34 +1,14 @@
-var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, "not finished", 0, 0), 0, 0);
-var rooms =[];
+var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0);
+var rooms = [];
 var roomDescriptions = [];
 
-function gameOverStats(){
-  document.getElementById("timeSpent").textContent = passedValue;
-}
+
 
 function gameStart() {
- //method will decide and pick between starter rooms based on class
-/*
- if (document.getElementById("Hacker").checked)
- {
-   player.charClass = "Hacker";
-   player.currentRoom = "computer lab";
- }
- else if (document.getElementById("Engineer").checked)
- {
-   player.charClass = "Engineer";
-   player.currentRoom = "quarters";
- }
- else if (document.getElementById("SpaceCowboy").value)
- {
-   player.charClass = "SpaceCowboy";
-   player.currentRoom = "armory";
- }
+  player.username = sessionStorage.getItem("name");
+  player.charClass = sessionStorage.getItem("class");
 
- window.location.href = "mainGame.html";
-*/
-
- outputCurrentRoomDesc("first-entry");
+  outputCurrentRoomDesc("first-entry");
 
 }
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
@@ -36,9 +16,9 @@ function createPlayerObject(usernameValue, healthValue, charClassValue, currentR
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
 }
-function createStatObject(areasExploredValue, endingAchievedValue, enemiesDefeatedValue, timeLeftValue)
+function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeatedValue, timeLeftValue)
 {
-  var statsObject = {areasExplored:areasExploredValue, endingAchieved:endingAchievedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
+  var statsObject = {areasExplored:areasExploredValue, itemsCollected:itemsCollectedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
   return statsObject;
 }
 function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue,roomDiscoveredValue)
