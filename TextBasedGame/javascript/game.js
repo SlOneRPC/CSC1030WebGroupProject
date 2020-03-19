@@ -8,11 +8,7 @@ function gameOverStats(){
 
 function gameStart() {
  //method will decide and pick between starter rooms based on class
-<<<<<<< HEAD
 /*
-=======
-/*?
->>>>>>> cbf140a73a09f388d4d0afa32b075ef2ef975ceb
  if (document.getElementById("Hacker").checked)
  {
    player.charClass = "Hacker";
@@ -30,11 +26,7 @@ function gameStart() {
  }
 
  window.location.href = "mainGame.html";
-<<<<<<< HEAD
 */
-=======
-/*/
->>>>>>> cbf140a73a09f388d4d0afa32b075ef2ef975ceb
 
  outputCurrentRoomDesc("first-entry");
 
