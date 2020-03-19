@@ -7,8 +7,8 @@ function gameOverStats(){
 }
 
 function gameStart() {
- ///method will decide and pick between starter rooms based on class
- /*
+ //method will decide and pick between starter rooms based on class
+
  if (document.getElementById("Hacker").checked)
  {
    player.charClass = "Hacker";
@@ -24,13 +24,17 @@ function gameStart() {
    player.charClass = "SpaceCowboy";
    player.currentRoom = "armory";
  }
-/*/
- //window.location.href = "mainGame.html";
+
+ player.username = document.getElementById("name").value;
+ alert(player.username);
+ window.location.href = "mainGame.html";
 
 
  outputCurrentRoomDesc("first-entry");
 
-}function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
+}
+
+function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
 {
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
@@ -535,15 +539,15 @@ function changeTextDescription()
   var desc = "";
   if(charStart() == "Hacker")
   {
-    desc = "Hacks Tings";
+    desc = "Tasked with maintaining the ship’s computer systems, they knows their tech like the back of their hand and will use it to keep themselves up and running from whatever is out there.";
   }
   else if(charStart() == "Engineer")
   {
-    desc = "Fix Tings";
+    desc = "Armed with their blowtorch, they uses their knowhow to hold the ship together, and with their smarts, they can take on anything in their path.";
   }
   else if(charStart() =="SpaceCowboy")
   {
-    desc = "Kill Tings";
+    desc = "Travelling through space is a risky business, but unlike the rest, they can outshoot bandits, criminals and things that go bump in the night before the monsters have the chance to blink.";
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
 }
