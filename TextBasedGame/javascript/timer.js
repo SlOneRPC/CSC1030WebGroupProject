@@ -32,7 +32,7 @@ function timerOperation(){
       clearInterval(x);
       passedValue=timeRemaining;
       timeRemaining = "test";
-      window.location.href = "endScreen.html";
+      //window.location.href = "endScreen.html";
     }
   }, 1000);
 
