@@ -6,38 +6,44 @@ function gameOverStats(){
   document.getElementById("timeSpent").textContent = passedValue;
 }
 
-function gameStart() {
+
+function gameStart()
+{
  //method will decide and pick between starter rooms based on class
-<<<<<<< HEAD
-/*?
-=======
-/*
->>>>>>> 438ea964aee7e62cce434fe5a23bc4efe8a5ae8b
- if (document.getElementById("Hacker").checked)
+ addRooms();
+ var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
+ if (player.charClass == "Hacker")
  {
-   player.charClass = "Hacker";
-   player.currentRoom = "computer lab";
+   rooms.forEach((item, i) => {
+     if(item.roomName == "computer lab")
+     {
+       newCurrent = item;
+       item.roomDiscovered = true;
+     }
+   });
  }
- else if (document.getElementById("Engineer").checked)
+ else if (player.charClass == "Engineer")
  {
-   player.charClass = "Engineer";
-   player.currentRoom = "quarters";
+   rooms.forEach((item, i) => {
+     if(item.roomName == "quarters")
+     {
+       newCurrent = item;
+       item.roomDiscovered = true;
+     }
+   });
  }
- else if (document.getElementById("SpaceCowboy").value)
+ else if (player.charClass == "SpaceCowboy")
  {
-   player.charClass = "SpaceCowboy";
-   player.currentRoom = "armory";
+   rooms.forEach((item, i) => {
+     if(item.roomName == "armory")
+     {
+       newCurrent = item;
+       item.roomDiscovered = true;
+     }
+   });
  }
-
- window.location.href = "mainGame.html";
-<<<<<<< HEAD
-/*/
-=======
-*/
->>>>>>> 438ea964aee7e62cce434fe5a23bc4efe8a5ae8b
-
- outputCurrentRoomDesc("first-entry");
-
+ player.currentRoom = newCurrent;
+ document.getElementById("text-display").innerHTML += "</br>>" +player.currentRoom.roomName;
 }
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
 {
@@ -49,9 +55,9 @@ function createStatObject(areasExploredValue, endingAchievedValue, enemiesDefeat
   var statsObject = {areasExplored:areasExploredValue, endingAchieved:endingAchievedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
   return statsObject;
 }
-function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue,roomDiscoveredValue)
+function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue, lookedValue)
 {
-  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactableRoomObjects:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue};
+  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactableRoomObjects:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue, looked:lookedValue};
   return roomObject;
 }
 function createExitObject(exitRoomNameValue, orientationValue)
@@ -79,9 +85,9 @@ function createGadgetObject(itemNameValue, descriptionValue)
   var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue, false, false)};
   return gadgetObject;
 }
-function createDataPadObject(itemNameValue,descriptionValue)
+function createDataPadObject(itemNameValue,descriptionValue, informationValue)
 {
-  var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, false)};
+  var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, false), information:informationValue};
   return dataPadObject;
 }
 function createInteractableObject(itemNameValue,descriptionValue)
@@ -155,13 +161,12 @@ const textDescs = [
     text: "You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay",
   },
 ]
-addRooms();
 
 function addRooms()
 {
 
   // start room instanciation
-  var quarters = createRoomObject("quarters", "room", roomDescriptions[0], 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun"), createGadgetObject("blowtorch","This is a blowtorch")],0,false);
+  var quarters = createRoomObject("quarters", "room", /*roomDescriptions[0]*/"This be quearters", 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun"), createGadgetObject("blowtorch","This is a blowtorch")],0,false);
   var armory = createRoomObject("armory","room","This is the Armory", 0, [createExitObject("hallway08", "north"), createExitObject("hallway09", "south")], [], 0,false);
   var computerLab = createRoomObject("computer lab", "room", "This is the Computer Lab", 0, [createExitObject("hallway04", "north"), createExitObject("rubble 01", "west")], [], 0,false);
 
@@ -203,7 +208,6 @@ function addRooms()
   rooms.push(hallway03);
   rooms.push(hallway04);
 
-    player.currentRoom = quarters;
 }
 
 function getRoomTextDesc(roomName,action)
@@ -223,19 +227,20 @@ function getRoomTextDesc(roomName,action)
   return roomDesc;
 }
 
-
-function outputCurrentRoomDesc(action)
-{
-  var currentRoomName=player.currentRoom.roomName;
-  if(action=="first-entry"){
-    player.currentRoom.roomDiscovered=true;
-  }
+//function outputCurrentRoomDesc(action)
+//{
+  //var currentRoomName = player.currentRoom.roomName;
+//  if(action=="first-entry"){
+  //  player.currentRoom.roomDiscovered=true;
+  //}
     //document.getElementById("text-display").innerHTML += currentRoomName;
-    roomDesc= getRoomTextDesc(currentRoomName,action);
-    document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
+    //roomDesc= getRoomTextDesc(currentRoomName,action);
+    //document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
 //  });
   //;
-}
+  //document.getElementById("text-display").innerHTML += "</br>>" +player.currentRoom.roomName;
+//}
+
 function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
@@ -245,14 +250,16 @@ function outputCurrentRoomExits()
      document.getElementById("text-display").innerHTML += "</br>" + "You look around the hallway, ";
    }
    else{
-    document.getElementById("text-display").innerHTML += "</br>" + "You look around the" + player.currentRoom.roomName+",";
+    document.getElementById("text-display").innerHTML += "</br>" + "You look around the " + player.currentRoom.roomName+",";
    }
    player.currentRoom.exits.forEach((item, i)=> {
-   if(currentRoom.type=="hallway"){
-   document.getElementById("text-display").innerHTML += "</br>" + " there is a pathway to the " + item.orientation;
+   if(currentRoom.type=="hallway")
+   {
+     document.getElementById("text-display").innerHTML += "</br>" + " there is a pathway to the " + item.orientation;
    }
-   else{
-   document.getElementById("text-display").innerHTML += "</br>" + " there is an exit to the " + item.orientation;
+   else
+   {
+     document.getElementById("text-display").innerHTML += "</br>" + " there is a doorway to the " + item.orientation;
    }
   });
   ;
@@ -292,7 +299,7 @@ function processCommands(input)
   else if (words.includes("examine") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    outputCurrentRoomDesc(input);
+    outputCurrentRoomDesc(words);
 
   }
   else if (words.includes("look") == true)
@@ -370,7 +377,8 @@ function search(playerRoom)
     ////CHANGE SO CALL vicinityON SECOND ENTRY
   });
 }
-function vicinity(playerRoom){
+function vicinity(playerRoom)
+{
 
       playerRoom.roomItems.forEach((item, i) => {
       if(item.item.itemSearched == true && item.item.itemTaken == false )
@@ -435,6 +443,7 @@ function goDirection(direction)
 {
   var exitExistsFlag = 0;
   var openOrientations = "";
+
   player.currentRoom.exits.forEach((item, i) => {
     openOrientations += item.orientation;
     openOrientations  += " ";
@@ -447,7 +456,8 @@ function goDirection(direction)
       exitExistsFlag++;
     }
   });
-var newCurrent = "";
+
+  var newCurrent = (0,0,0,0,0,0,0,0,0);
   if(exitExistsFlag === 1)
   {
       player.currentRoom.exits.forEach((roomExit, i) => {
@@ -459,11 +469,11 @@ var newCurrent = "";
     player.currentRoom = newCurrent;
     if(player.currentRoom.roomDiscovered==true)
     {
-      outputCurrentRoomDesc("second-entry");
+      document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
     }
     else
     {
-      outputCurrentRoomDesc("first-entry");
+      document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
     }
   }
   else
