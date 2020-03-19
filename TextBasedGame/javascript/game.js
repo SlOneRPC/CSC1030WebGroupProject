@@ -306,7 +306,7 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     search(player.currentRoom);
   }
-  else if (words.includes("examine") == true)
+  else if (words.includes("examine") == true)//|| words.includes("inspect") == true 
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     outputCurrentRoomDesc(input);
@@ -413,7 +413,7 @@ function vicinity(playerRoom){
       var tableIndex = 0;
 
       playerRoom.roomItems.forEach((item, i) => {
-        if(item.item.itemSearched == true && item.item.itemTaken == false )
+        if(item.item.itemSearched == true && item.item.itemTaken == false && item.item.itemType!="Interact")
         {
           //add inventory item to vicinity
           var name = item.item.itemName + "_img";
@@ -424,11 +424,16 @@ function vicinity(playerRoom){
         }
       });
 
-    //clear all other inventory items
-    for (var i = tableIndex; i < 8; i++) {
-      elements[i].innerHTML = '';
-    }
 
+      clearVicinity(tableIndex);
+}
+
+function clearVicinity(startIndex){
+  var elements = document.querySelectorAll("#other1 td");
+  //clear all other inventory items
+  for (var i = startIndex; i < 8; i++) {
+    elements[i].innerHTML = '';
+  }
 }
 
 function move(words)
@@ -500,12 +505,14 @@ var newCurrent = "";
     if(newCurrent.roomDiscovered==true){
       outputCurrentRoomDesc("second-entry");
       document.getElementById("text-display").innerHTML+= "</br>";
+      vicinity(player.currentRoom);
     //  document.getElementById("text-display").innerHTML+= newCurrent.roomDiscovered;
     //  document.getElementById("text-display").innerHTML+= newCurrent.roomName;
       //vicinity(newCurrent);
     }
     if(newCurrent.roomDiscovered==false){
       document.getElementById("text-display").innerHTML+= "</br>";
+      clearVicinity(0);
     //  document.getElementById("text-display").innerHTML+= newCurrent.roomDiscovered;
     //  document.getElementById("text-display").innerHTML+= newCurrent.roomName;
       outputCurrentRoomDesc("first-entry");
