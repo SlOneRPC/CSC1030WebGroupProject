@@ -452,7 +452,6 @@ function goDirection(direction)
 {
   var exitExistsFlag = 0;
   var openOrientations = "";
-  var newCurrent = "";
   player.currentRoom.exits.forEach((item, i) => {
     openOrientations += item.orientation;
     openOrientations  += " ";
@@ -465,7 +464,7 @@ function goDirection(direction)
       exitExistsFlag++;
     }
   });
-var newCurrent = createRoomObject(0,0,0,0,0,0,0)
+var newCurrent = "";
   if(exitExistsFlag === 1)
   {
       player.currentRoom.exits.forEach((roomExit, i) => {
