@@ -93,12 +93,12 @@ const textDescs = [
     room: "quarters",
     text: "you, have just been sleeping after a long shift, when you are thrown suddenly to the floor with a bang that could wake the dead.You stumble to your feet, bleary-eyed, with no idea what’s going on, but whatever it is, it isn’t going to be fun."
   },
-  {
+//  {
     //EXAMINE LOOK
-    action:"look",
-    room:"quarters",
-    text:'You glance quickly around the room, eyes still adjusting the emergency lighting that has now appeared above you. From where you stand now, there is a doorway to the WEST, the only exit to the room you are in.'
-  },
+//    action:"look",
+//    room:"quarters",
+//    text:'You glance quickly around the room, eyes still adjusting the emergency lighting that has now appeared above you. From where you stand now, there is a doorway to the WEST, the only exit to the room you are in.'
+//  },
   {
     //PICK UP blowtorch
     action:"pick up blowtorch",
@@ -145,12 +145,17 @@ const textDescs = [
     room: "hallway01",
     text: "You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay",
   },
-/*/
+  /*/
   //Hallway02
   {
-    action:,
-    room:,
-    text:,
+    action:"first-entry",
+    room:"hallway02",
+    text:"",
+  },
+  {
+    action:"second-entry",
+    room:"hallway02",
+    text:"",
   },
   //Hallway03
   {
@@ -245,19 +250,30 @@ function outputCurrentRoomDesc(action)
     //document.getElementById("text-display").innerHTML += currentRoomName;
     roomDesc= getRoomTextDesc(currentRoomName,action);
     document.getElementById("text-display").innerHTML += ">" +roomDesc;
-//  player.currentRoom.exits.forEach((item, i)=> {
-//  document.getElementById("text-display").innerHTML += "</br>" + "There is an exit to the " + item.orientation;
 //  });
   //;
 }
-//function outputCurrentAndNextRoom()
-//{
+function outputCurrentRoomExits()
+{
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
-//  player.currentRoom.exits.forEach((item, i)=> {
-//    document.getElementById("text-display").innerHTML += "</br>" + "There is an exit to the " + item.orientation;
-//  });
-//  ;
-//}
+   //var currentRoom=player.currentRoom.roomName;
+   var currentRoom=player.currentRoom;
+   if(currentRoom.type=="hallway"){
+     document.getElementById("text-display").innerHTML += "</br>" + "You look around the hallway, ";
+   }
+   else{
+    document.getElementById("text-display").innerHTML += "</br>" + "You look around the" + player.currentRoom.roomName+",";
+   }
+   player.currentRoom.exits.forEach((item, i)=> {
+   if(currentRoom.type=="hallway"){
+   document.getElementById("text-display").innerHTML += "</br>" + " there is a pathway to the " + item.orientation;
+   }
+   else{
+   document.getElementById("text-display").innerHTML += "</br>" + " there is an exit to the " + item.orientation;
+   }
+  });
+  ;
+}
 
 function commandInput()
 {
@@ -299,7 +315,7 @@ function processCommands(input)
   else if (words.includes("look") == true)
   {
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-      outputCurrentRoomDesc("look");
+      outputCurrentRoomExits();
   }
     else if (words.includes("Hint") == true)
   {
@@ -368,6 +384,7 @@ function search(playerRoom)
       }
       item.item.itemSearched = true;
     }
+    ////CHANGE SO CALL vicinityON SECOND ENTRY
   });
 }
 function vicinity(playerRoom){
