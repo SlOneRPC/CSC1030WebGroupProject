@@ -55,7 +55,7 @@ function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeat
 }
 function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue, lookedValue)
 {
-  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactableRoomObjects:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue, looked:lookedValue};
+  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue, looked:lookedValue};
   return roomObject;
 }
 function createExitObject(exitRoomNameValue, orientationValue)
@@ -88,9 +88,9 @@ function createDataPadObject(itemNameValue,descriptionValue, informationValue, i
   var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, itemFilePathValue), information:informationValue};
   return dataPadObject;
 }
-function createInteractableObject(itemNameValue,descriptionValue)
+function createInteractableObject(interactableNameValue, descriptionValue, customCommandValue)
 {
-  var interactableObject =  {item:createItemObject(itemNameValue, "Interact", descriptionValue, false, "")};
+  var interactableObject =  {interactableName:interactableNameValue, description:descriptionValue,customCommand:customCommandValue};
   return interactableObject;
 }
 function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue)
@@ -183,7 +183,7 @@ function addRooms()
   var reactorRoom = createRoomObject("reactor room","room","This is the reactor room", 0, [createExitObject("door 04", "south"), createExitObject("vent 05", "east"), createExitObject("hallway15", "west")], [], 0,false);
 
   // hallway instanciation
-  var hallway01 = createRoomObject("hallway01","hallway","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south"), createExitObject("quarters", "east")],[createInteractableObject("broadcast","This is a broadcast")], 1,false);
+  var hallway01 = createRoomObject("hallway01","hallway","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south"), createExitObject("quarters", "east")],[],[createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay","no")], 1,false);
   var hallway02 = createRoomObject("hallway02","hallway","hallway02", 0, [createExitObject("hallway01", "south")], 0, 0,false);
   var hallway03 = createRoomObject("hallway03","hallway","hallway03", 0, [createExitObject("hallway01", "north"), createExitObject("hallway04", "south"), createExitObject("vent 01", "west")], [], 0,false);
   var hallway04 = createRoomObject("hallway04","hallway","hallway04", 0, [createExitObject("hallway03", "north"), createExitObject("computer lab", "south"), createExitObject("storage unit 01", "east"), createExitObject("door 01", "west")], [], 0,false);
@@ -265,8 +265,8 @@ function outputCurrentRoomExits()
 
 function commandInput()
 {
-  var gameInputText = document.getElementById("gameInput").value;
-  gameInputText.trim();
+  var rawInput = document.getElementById("gameInput").value.trim();
+  var gameInputText = rawInput.toLowerCase();
   document.getElementById("gameInput").value = "";
   if(/^ *$/.test(gameInputText))
   {
@@ -297,8 +297,7 @@ function processCommands(input)
   else if (words.includes("examine") == true)//|| words.includes("inspect") == true
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    outputCurrentRoomDesc(words);
-
+    examineInteractables(player.currentRoom.interactables.length, words);
   }
   else if (words.includes("look") == true)
   {
@@ -325,6 +324,26 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>I don't know this command: '" +input+"'</span>";
   }
 }
+
+
+function examineInteractables(roomInteractables, words)
+{
+  if(roomInteractables >= 1)
+  {
+    player.currentRoom.interactables.forEach((interactable, i) =>
+    {
+      if(words.includes(interactable.interactableName))
+      {
+        document.getElementById("text-display").innerHTML += "</br><span>>"+interactable.description+"</span>";
+      }
+    });
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span>>There is nothing to interact with in this room</span>";
+  }
+}
+
 
 function pickUpItems(playerRoom,words,dragged)
 {
@@ -356,22 +375,35 @@ function pickUpItems(playerRoom,words,dragged)
 //}
 function search(playerRoom)
 {
-  playerRoom.roomItems.forEach((item, i) => {
-    if(item.item.itemTaken != true){
-      if(item.item.itemType =="Gadget"){
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>You notice a '" +item.item.itemName+"'</span>";
-      }
-      else if(item.item.itemType =="Weapon"){
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>You notice a '" +item.item.itemName+"'</span>";
-      }
-      else if(item.item.itemType =="Interact"){
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>You notice a '" +item.item.itemName+"'</span>";
-      }
-      item.item.itemSearched = true;
+  if(playerRoom.roomItems.length >=1)
+  {
+    playerRoom.roomItems.forEach((item, i) => {
+        if(item.item.itemType =="Gadget"){
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>You notice a '" +item.item.itemName+"'</span>";
+        }
+        else if(item.item.itemType =="Weapon"){
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>You notice a '" +item.item.itemName+"'</span>";
+        }
+        item.item.itemSearched = true;
+      });
+      vicinity(playerRoom);
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span>>There are no items in this room</span>";
+  }
+  if(playerRoom.interactables.length >= 1)
+  {
+    playerRoom.interactables.forEach((item, i) => {
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>You notice a '" +item.interactableName+"'</span>";
+    });
+  }
+  else
+  {
+    {
+      document.getElementById("text-display").innerHTML += "</br><span>>There is nothing interesting to look at</span>";
     }
-    ////CHANGE SO CALL vicinityON SECOND ENTRY
-  });
-  vicinity(playerRoom);
+  }
 }
 
 function vicinity(playerRoom)
