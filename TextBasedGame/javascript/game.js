@@ -286,7 +286,7 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     search(player.currentRoom);
   }
-  else if (words.includes("examine") == true)
+  else if (words.includes("examine") == true)//|| words.includes("inspect") == true 
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     outputCurrentRoomDesc(input);
@@ -305,12 +305,12 @@ function processCommands(input)
   else if(words[0] == ("pick") && words[1] == ("up"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    pickUpItems(player.currentRoom,input);
+    pickUpItems(player.currentRoom,input,false);
   }
   else if(words[0] == ("take") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    pickUpItems(player.currentRoom,words);
+    pickUpItems(player.currentRoom,words,false);
   }
   else
   {
@@ -318,17 +318,18 @@ function processCommands(input)
   }
 }
 
-function pickUpItems(playerRoom,words)
+function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"))
+      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon") && !item.item.itemTaken)
       {
         //outputCurrentRoomDesc(words);
         item.item.itemTaken=true;
         player.inventory.push(item);
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
         //alert(item.item.itemFilePath);
-        addItemToInventory(item.item);
+        if(!dragged)
+          addItemToInventory(item.item);
       }
       if(words.includes(item.item.itemName) && item.item.itemtaken==true)
       {
@@ -392,21 +393,27 @@ function vicinity(playerRoom){
       var tableIndex = 0;
 
       playerRoom.roomItems.forEach((item, i) => {
-        if(item.item.itemSearched == true && item.item.itemTaken == false )
+        if(item.item.itemSearched == true && item.item.itemTaken == false && item.item.itemType!="Interact")
         {
           //add inventory item to vicinity
-          elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem'>";
+          var name = item.item.itemName + "_img";
+          elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+ name+">";
           tableIndex++;
         }
         else{
         }
       });
 
-    //clear all other inventory items
-    for (var i = tableIndex; i < 8; i++) {
-      elements[i].innerHTML = '';
-    }
 
+      clearVicinity(tableIndex);
+}
+
+function clearVicinity(startIndex){
+  var elements = document.querySelectorAll("#other1 td");
+  //clear all other inventory items
+  for (var i = startIndex; i < 8; i++) {
+    elements[i].innerHTML = '';
+  }
 }
 
 function move(words)
@@ -478,12 +485,14 @@ var newCurrent = "";
     if(newCurrent.roomDiscovered==true){
       outputCurrentRoomDesc("second-entry");
       document.getElementById("text-display").innerHTML+= "</br>";
+      vicinity(player.currentRoom);
     //  document.getElementById("text-display").innerHTML+= newCurrent.roomDiscovered;
     //  document.getElementById("text-display").innerHTML+= newCurrent.roomName;
       //vicinity(newCurrent);
     }
     if(newCurrent.roomDiscovered==false){
       document.getElementById("text-display").innerHTML+= "</br>";
+      clearVicinity(0);
     //  document.getElementById("text-display").innerHTML+= newCurrent.roomDiscovered;
     //  document.getElementById("text-display").innerHTML+= newCurrent.roomName;
       outputCurrentRoomDesc("first-entry");

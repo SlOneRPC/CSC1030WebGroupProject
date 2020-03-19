@@ -17,7 +17,6 @@
 
       #game-wrapper{
         // hide this display: none;
-
       }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
@@ -34,6 +33,27 @@
     </style>
     <script type="text/javascript"></script>
     <script type="text/javascript" src="javascript/game.js"></script>
+
+    <script type="text/javascript">
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+      }
+
+      function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        //alert(data);
+        if(ev.target.innerHTML === ''){
+          ev.target.appendChild(document.getElementById(data));
+          pickUpItems(player.currentRoom, data.split("_")[0],true);
+        }
+      }
+    </script>
+
     <script type="text/javascript" src="javascript/combat.js"></script>
 
     <script type="text/javascript" src="javascript/timer.js"></script>
@@ -62,16 +82,16 @@
               </div>
                 <table>
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                   </tr>
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'> </td>
                   </tr>
                 </table>
             </div>
@@ -79,7 +99,7 @@
 
 
               <div id="inventoryHeader">
-                  <h1>Nearby Objects</h1>
+                  <h1>Nearby Pickups</h1>
               </div>
               <table>
                 <tr>
