@@ -11,7 +11,7 @@
 {
   overflow: auto;
   width: 100%;
-  //display: none;
+  padding: 2%;
 }
 
 #playerInventory{
@@ -22,14 +22,20 @@
   margin-left: 0px;
 }
 
-#userInput{
-  width: 30%;
-  float: left;
-  margin: 10px;
-  text-align: center;
-  background-color: #111010;
-  border-radius: 25px;
+#userInput
+{
+    width: 33%;
+    float: left;
+    max-width: 80%;
+    height: 80%;
+    padding: 8px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    box-shadow: 0 0 10px 2px #4edaf9;
+    background-color: #111010;
 }
+
 
 #equipMenu{
   width: 17%;
@@ -70,13 +76,7 @@
 }
 
 #textbox input{
-  width: 80%;
-  height: 10%;
-  //background-color: #111010;
-  color: white;
-  font-size: 24px;
-  background-color: grey;//placeholder
-  border-radius: 25px;
+
 }
 
 #text-display{
@@ -84,14 +84,10 @@
     width: 100%;
     height: 90%;
     overflow: auto;
-    text-align: center;
-    font-size: 24px;
-    font-style: monospace;
+    font-size: 1.75em;
+    font-family: 'Rajdhani', sans-serif;
 }
 
-.text{
-  font-family:monospace;
-}
 
 #settings-wrapper{
   width: 100%;
@@ -110,6 +106,13 @@
 #userTextBlue{
   color: lightblue;
 }
+#userTextYellow{
+  color: yellow;
+}
+#userTextOrange{
+  color: orange;
+}
+
 
 #gameInputButton{
   color:white;
@@ -128,8 +131,9 @@
 {
   color: #27910E;
 }
-.input{
-  font-size: 0.5em;
+.input
+{
+  font-size: 1.5em;
   background: repeating-linear-gradient(
     180deg,
     #082316,
@@ -137,10 +141,18 @@
     #05170E 10px,
     #05170E 20px
     );
-    border-radius: 10px;
-    border: 0px solid;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    height: 10%;
     color: #27910E;
     font-family: 'Orbitron', sans-serif;
-    padding: 5px;
+    padding: 2%;
     outline:none;
+    border: none;
+    box-shadow: 0 0 10px 2px black;
+    width:80%;
+}
+::placeholder{
+  color: #424242;
 }

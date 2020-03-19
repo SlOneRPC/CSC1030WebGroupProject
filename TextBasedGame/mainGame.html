@@ -3,6 +3,8 @@
   <head>
     <title></title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani&display=swap" rel="stylesheet">
     <style type="text/css">
       *{
         box-sizing: border-box;
@@ -13,13 +15,10 @@
         color: white;
       }
 
-      #wrapper{
-        width: 95%;
-        margin: auto;
-        overflow: auto;
+      #game-wrapper{
+        // hide this display: none;
+
       }
-
-
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 12px;
@@ -34,24 +33,33 @@
       }
     </style>
     <script type="text/javascript" src="javascript/game.js"></script>
+<<<<<<< HEAD
     <script type="text/javascript" src="javascript/combat.js"></script>
+=======
+    <script type="text/javascript" src="javascript/timer.js"></script>
+>>>>>>> 7a33eef8b0ab1605140ccb03299258c7605dabd6
     <link rel="stylesheet" href="styles/gameWrapper.css">
     <link rel="stylesheet" href="styles/combatWrapper.css">
   </head>
   <body onload="gameStart();">
+  <body>
     <div id="wrapper">
       <div id="settings-wrapper">
           <button type="button" style="float:right;">Exit Game</button>
           <button type="button" style="float:right;">Pause Game</button>
       </div>
+      <br>
       <div id="container">
           <div id="playerInventory">
             <div id="map">
 
             </div>
             <div id="other1">
-              <!--just putting timer in here for 'time'(fuck up - luke) being-->
-              <p id="timer">Timer text</p>
+              <!--just putting timer in here for 'time' being-->
+              <script>
+                timerOperation();
+              </script>
+              <p id="timer">5:00</p>
 
             </div>
           </div>
@@ -63,6 +71,7 @@
               <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
             </div>
           </div>
+
           <div id="equipMenu">
             <div id="inventory">
               <h1>Inventory</h1>
