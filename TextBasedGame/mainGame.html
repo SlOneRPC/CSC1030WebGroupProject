@@ -125,10 +125,27 @@
               <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
             </div>
           </div>
-          <div id="equipMenu">
-            <div id="map">
-
-            </div>
+          <div id="statsContainer">
+                 <div id="mapHeader">
+                   <h2 id="currentRoomDisplay">Current Room:</h2>
+                 </div>
+                 <div id="map">
+                     <img id="gameMap" src="images/gameMap.png" alt="This is the game map"style='height: 100%; width: 100%; object-fit: contain'>
+                 </div>
+                 <div id="playerStatsContainer">
+                   <hr>
+                   <p style="margin:0;">Health:</p>
+                   <p style="margin:0;">Time remaining:</p>
+                   <hr>
+                 </div>
+                 <div id="objectivesContainer">
+                   <h3 style="margin:0;">Objectives:</h3>
+                   <hr>
+                   <ul style="margin:0;">
+                     <li id="objective">Objective 1</li>
+                   </ul>
+                 </div>
+           </div>
           </div>
 
       </div>

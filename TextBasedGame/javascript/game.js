@@ -2,14 +2,46 @@ var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObjec
 var rooms = [];
 var roomDescriptions = [];
 
+function gameStart()
+{
+ //method will decide and pick between starter rooms based on class
+ //player.username = sessionStorage.getItem("name");
+ //player.charClass = sessionStorage.getItem("class");
 
-
-function gameStart() {
-  player.username = sessionStorage.getItem("name");
-  player.charClass = sessionStorage.getItem("class");
-
-  outputCurrentRoomDesc("first-entry");
-
+ addRooms();
+ var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
+ if (player.charClass == "Hacker")
+ {
+   rooms.forEach((item, i) => {
+     if(item.roomName == "computer lab")
+     {
+       newCurrent = item;
+       item.roomDiscovered = true;
+     }
+   });
+ }
+ else if (player.charClass == "Engineer")
+ {
+   rooms.forEach((item, i) => {
+     if(item.roomName == "quarters")
+     {
+       newCurrent = item;
+       item.roomDiscovered = true;
+     }
+   });
+ }
+ else if (player.charClass == "SpaceCowboy")
+ {
+   rooms.forEach((item, i) => {
+     if(item.roomName == "armory")
+     {
+       newCurrent = item;
+       item.roomDiscovered = true;
+     }
+   });
+ }
+ player.currentRoom = newCurrent;
+ document.getElementById("text-display").innerHTML += "</br>>" +player.currentRoom.roomName;
 }
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
 {
@@ -21,9 +53,9 @@ function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeat
   var statsObject = {areasExplored:areasExploredValue, itemsCollected:itemsCollectedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
   return statsObject;
 }
-function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue,roomDiscoveredValue)
+function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue, lookedValue)
 {
-  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactableRoomObjects:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue};
+  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue, looked:lookedValue};
   return roomObject;
 }
 function createExitObject(exitRoomNameValue, orientationValue)
@@ -31,41 +63,42 @@ function createExitObject(exitRoomNameValue, orientationValue)
   var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue};
   return exitObject;
 }
-function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue,itemTakenValue,itemFilePathValue)
+function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue, itemFilePathValue)
 {
-  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue,itemTaken:itemTakenValue,itemFilePath:itemFilePathValue};
+  var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue, itemFilePath:itemFilePathValue};
   return itemObject;
 }
-function createWeaponObject(itemNameValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue,filePath)
+function createWeaponObject(itemNameValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue, itemFilePathValue)
 {
-  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false, false,filePath),  damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
+  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false, itemFilePathValue),  damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
   return weaponObject;
 }
-function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue,filePath)
+function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue, itemFilePathValue)
 {
-  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue, false,filePath), bodyPart:bodyPartValue, defense:defenseValue};
+  var armourObject = {item:createItemObject(itemNameValue, "Armour", descriptionValue, false, itemFilePathValue), bodyPart:bodyPartValue, defense:defenseValue};
   return armourObject;
 }
-function createGadgetObject(itemNameValue, descriptionValue,filePath)
+function createGadgetObject(itemNameValue, descriptionValue , itemFilePathValue)
 {
-  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue, false, false,filePath)};
+  var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue,  false, itemFilePathValue)};
   return gadgetObject;
 }
-function createDataPadObject(itemNameValue,descriptionValue,filePath)
+function createDataPadObject(itemNameValue,descriptionValue, informationValue, itemFilePathValue)
 {
-  var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, false,filePath)};
+  var dataPadObject =  {item:createItemObject(itemNameValue, "Datapad", descriptionValue, false, itemFilePathValue), information:informationValue};
   return dataPadObject;
 }
-function createInteractableObject(itemNameValue,descriptionValue,filePath)
+function createInteractableObject(interactableNameValue, descriptionValue, customCommandValue)
 {
-  var interactableObject =  {item:createItemObject(itemNameValue, "Interact", descriptionValue, false, false,filePath)};
+  var interactableObject =  {interactableName:interactableNameValue, description:descriptionValue,customCommand:customCommandValue};
   return interactableObject;
 }
-function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue,filePath)
+function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue)
 {
-  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false,filePath), change:changeValue, mechanicChange:mechanicChangeValue};
+  var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false, ""), change:changeValue, mechanicChange:mechanicChangeValue};
   return modifierObject;
 }
+
 const textDescs = [
   //quarters
   {
@@ -125,40 +158,13 @@ const textDescs = [
     room: "hallway01",
     text: "You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay",
   },
-  /*/
-  //Hallway02
-  {
-    action:"first-entry",
-    room:"hallway02",
-    text:"",
-  },
-  {
-    action:"second-entry",
-    room:"hallway02",
-    text:"",
-  },
-  //Hallway03
-  {
-    action:,
-    room:,
-    text:,
-  },
-  //Hallway04
-  {
-    action:,
-    room:,
-    text:,
-  },
-/*/
 ]
-addRooms();
-
 
 function addRooms()
 {
 
   // start room instanciation
-  var quarters = createRoomObject("quarters", "room", roomDescriptions[0], 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"), createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png")],0,false);
+  var quarters = createRoomObject("quarters", "room", "quarters", 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"), createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png")],0,false);
   var armory = createRoomObject("armory","room","This is the Armory", 0, [createExitObject("hallway08", "north"), createExitObject("hallway09", "south")], [], 0,false);
   var computerLab = createRoomObject("computer lab", "room", "This is the Computer Lab", 0, [createExitObject("hallway04", "north"), createExitObject("rubble 01", "west")], [], 0,false);
 
@@ -177,7 +183,7 @@ function addRooms()
   var reactorRoom = createRoomObject("reactor room","room","This is the reactor room", 0, [createExitObject("door 04", "south"), createExitObject("vent 05", "east"), createExitObject("hallway15", "west")], [], 0,false);
 
   // hallway instanciation
-  var hallway01 = createRoomObject("hallway01","hallway","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south"), createExitObject("quarters", "east")],[createInteractableObject("broadcast","This is a broadcast")], 1,false);
+  var hallway01 = createRoomObject("hallway01","hallway","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south"), createExitObject("quarters", "east")],[],[createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay","no")], 1,false);
   var hallway02 = createRoomObject("hallway02","hallway","hallway02", 0, [createExitObject("hallway01", "south")], 0, 0,false);
   var hallway03 = createRoomObject("hallway03","hallway","hallway03", 0, [createExitObject("hallway01", "north"), createExitObject("hallway04", "south"), createExitObject("vent 01", "west")], [], 0,false);
   var hallway04 = createRoomObject("hallway04","hallway","hallway04", 0, [createExitObject("hallway03", "north"), createExitObject("computer lab", "south"), createExitObject("storage unit 01", "east"), createExitObject("door 01", "west")], [], 0,false);
@@ -200,7 +206,6 @@ function addRooms()
   rooms.push(hallway03);
   rooms.push(hallway04);
 
-    player.currentRoom = quarters;
 }
 
 function getRoomTextDesc(roomName,action)
@@ -220,19 +225,20 @@ function getRoomTextDesc(roomName,action)
   return roomDesc;
 }
 
-
-function outputCurrentRoomDesc(action)
-{
-  var currentRoomName=player.currentRoom.roomName;
-  if(action=="first-entry"){
-    player.currentRoom.roomDiscovered=true;
-  }
+//function outputCurrentRoomDesc(action)
+//{
+  //var currentRoomName = player.currentRoom.roomName;
+//  if(action=="first-entry"){
+  //  player.currentRoom.roomDiscovered=true;
+  //}
     //document.getElementById("text-display").innerHTML += currentRoomName;
-    roomDesc= getRoomTextDesc(currentRoomName,action);
-    document.getElementById("text-display").innerHTML += ">" +roomDesc;
+    //roomDesc= getRoomTextDesc(currentRoomName,action);
+    //document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
 //  });
   //;
-}
+  //document.getElementById("text-display").innerHTML += "</br>>" +player.currentRoom.roomName;
+//}
+
 function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
@@ -242,14 +248,16 @@ function outputCurrentRoomExits()
      document.getElementById("text-display").innerHTML += "</br>" + "You look around the hallway, ";
    }
    else{
-    document.getElementById("text-display").innerHTML += "</br>" + "You look around the" + player.currentRoom.roomName+",";
+    document.getElementById("text-display").innerHTML += "</br>" + "You look around the " + player.currentRoom.roomName+",";
    }
    player.currentRoom.exits.forEach((item, i)=> {
-   if(currentRoom.type=="hallway"){
-   document.getElementById("text-display").innerHTML += "</br>" + " there is a pathway to the " + item.orientation;
+   if(currentRoom.type=="hallway")
+   {
+     document.getElementById("text-display").innerHTML += "</br>" + " there is a pathway to the " + item.orientation;
    }
-   else{
-   document.getElementById("text-display").innerHTML += "</br>" + " there is an exit to the " + item.orientation;
+   else
+   {
+     document.getElementById("text-display").innerHTML += "</br>" + " there is a doorway to the " + item.orientation;
    }
   });
   ;
@@ -257,8 +265,8 @@ function outputCurrentRoomExits()
 
 function commandInput()
 {
-  var gameInputText = document.getElementById("gameInput").value;
-  gameInputText.trim();
+  var rawInput = document.getElementById("gameInput").value.trim();
+  var gameInputText = rawInput.toLowerCase();
   document.getElementById("gameInput").value = "";
   if(/^ *$/.test(gameInputText))
   {
@@ -286,11 +294,10 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     search(player.currentRoom);
   }
-  else if (words.includes("examine") == true)//|| words.includes("inspect") == true 
+  else if (words.includes("examine") == true)//|| words.includes("inspect") == true
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    outputCurrentRoomDesc(input);
-
+    examineInteractables(player.currentRoom.interactables.length, words);
   }
   else if (words.includes("look") == true)
   {
@@ -305,7 +312,7 @@ function processCommands(input)
   else if(words[0] == ("pick") && words[1] == ("up"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    pickUpItems(player.currentRoom,input,false);
+    pickUpItems(player.currentRoom,words,false);
   }
   else if(words[0] == ("take") == true)
   {
@@ -318,47 +325,46 @@ function processCommands(input)
   }
 }
 
+
+function examineInteractables(roomInteractables, words)
+{
+  if(roomInteractables >= 1)
+  {
+    player.currentRoom.interactables.forEach((interactable, i) =>
+    {
+      if(words.includes(interactable.interactableName))
+      {
+        document.getElementById("text-display").innerHTML += "</br><span>>"+interactable.description+"</span>";
+      }
+    });
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span>>There is nothing to interact with in this room</span>";
+  }
+}
+
+
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon") && !item.item.itemTaken)
+      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"))
       {
-        //outputCurrentRoomDesc(words);
-        item.item.itemTaken=true;
         player.inventory.push(item);
+        playerRoom.roomItems.splice(i, 1);
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
-        //alert(item.item.itemFilePath);
         if(!dragged)
           addItemToInventory(item.item);
       }
-      if(words.includes(item.item.itemName) && item.item.itemtaken==true)
-      {
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"You already have that item"+"</span>";
-      }
-      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
+      /*if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"You cannot pick up the "+item.item.itemName +"</span>";
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"Try examining it instead!" +"</span>";
 
-      }
+      }*/
 
   });
 }
-
-function addItemToInventory(item){
-
-    var elements = document.querySelectorAll("#inventory td");
-
-    for (var i = 0; i < elements.length; i++) {
-      if(elements[i].innerHTML == ''){
-        elements[i].innerHTML += "<img src="+ item.itemFilePath +" alt=" + item.itemDescription+ " class='inventoryItem'>";
-        break;
-      }
-    }
-
-    vicinity(player.currentRoom);
-}
-
 //Might need to be kept for search function
 ///function pickUpItems(words)
 //{
@@ -369,43 +375,57 @@ function addItemToInventory(item){
 //}
 function search(playerRoom)
 {
-  playerRoom.roomItems.forEach((item, i) => {
-    if(item.item.itemTaken != true){
-      if(item.item.itemType =="Gadget"){
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>You notice a '" +item.item.itemName+"'</span>";
-      }
-      if(item.item.itemType =="Weapon"){
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>You notice a '" +item.item.itemName+"'</span>";
-      }
-      if(item.item.itemType =="Interact"){
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>You notice a '" +item.item.itemName+"'</span>";
-      }
-      item.item.itemSearched = true;
-
-    }
-    ////CHANGE SO CALL vicinityON SECOND ENTRY
-  });
-  vicinity(playerRoom);
-}
-function vicinity(playerRoom){
-      //get the correct table using a query
-      var elements = document.querySelectorAll("#other1 td");
-      var tableIndex = 0;
-
-      playerRoom.roomItems.forEach((item, i) => {
-        if(item.item.itemSearched == true && item.item.itemTaken == false && item.item.itemType!="Interact")
-        {
-          //add inventory item to vicinity
-          var name = item.item.itemName + "_img";
-          elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+ name+">";
-          tableIndex++;
+  if(playerRoom.roomItems.length >=1)
+  {
+    playerRoom.roomItems.forEach((item, i) => {
+        if(item.item.itemType =="Gadget"){
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextBlue'>>You notice a '" +item.item.itemName+"'</span>";
         }
-        else{
+        else if(item.item.itemType =="Weapon"){
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextYellow'>>You notice a '" +item.item.itemName+"'</span>";
         }
+        item.item.itemSearched = true;
       });
+      vicinity(playerRoom);
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span>>There are no items in this room</span>";
+  }
+  if(playerRoom.interactables.length >= 1)
+  {
+    playerRoom.interactables.forEach((item, i) => {
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextOrange'>>You notice a '" +item.interactableName+"'</span>";
+    });
+  }
+  else
+  {
+    {
+      document.getElementById("text-display").innerHTML += "</br><span>>There is nothing interesting to look at</span>";
+    }
+  }
+}
+
+function vicinity(playerRoom)
+{
+  //get the correct table using a query
+  var elements = document.querySelectorAll("#other1 td");
+  var tableIndex = 0;
+
+  playerRoom.roomItems.forEach((item, i) => {
+    if(item.item.itemSearched == true)
+    {
+      //add inventory item to vicinity
+      var name = item.item.itemName + "_img";
+      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+ name+">";
+      tableIndex++;
+    }
+    else{
+    }
+  });
 
 
-      clearVicinity(tableIndex);
+  clearVicinity(tableIndex);
 }
 
 function clearVicinity(startIndex){
@@ -459,6 +479,7 @@ function goDirection(direction)
 {
   var exitExistsFlag = 0;
   var openOrientations = "";
+
   player.currentRoom.exits.forEach((item, i) => {
     openOrientations += item.orientation;
     openOrientations  += " ";
@@ -471,7 +492,8 @@ function goDirection(direction)
       exitExistsFlag++;
     }
   });
-var newCurrent = "";
+
+  var newCurrent = (0,0,0,0,0,0,0,0,0);
   if(exitExistsFlag === 1)
   {
       player.currentRoom.exits.forEach((roomExit, i) => {
@@ -481,29 +503,46 @@ var newCurrent = "";
           }
       });
     player.currentRoom = newCurrent;
-    document.getElementById("text-display").innerHTML+= "</br>";
-    if(newCurrent.roomDiscovered==true){
-      outputCurrentRoomDesc("second-entry");
-      document.getElementById("text-display").innerHTML+= "</br>";
+    if(player.currentRoom.roomDiscovered==true)
+    {
+      document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
       vicinity(player.currentRoom);
-    //  document.getElementById("text-display").innerHTML+= newCurrent.roomDiscovered;
-    //  document.getElementById("text-display").innerHTML+= newCurrent.roomName;
-      //vicinity(newCurrent);
     }
-    if(newCurrent.roomDiscovered==false){
-      document.getElementById("text-display").innerHTML+= "</br>";
+    else
+    {
       clearVicinity(0);
-    //  document.getElementById("text-display").innerHTML+= newCurrent.roomDiscovered;
-    //  document.getElementById("text-display").innerHTML+= newCurrent.roomName;
-      outputCurrentRoomDesc("first-entry");
+      document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
     }
-
   }
   else
   {
     document.getElementById("text-display").innerHTML+= "</br>>There is nowhere in that direction..";
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function returnNewRoom(roomExit)
 {
@@ -546,6 +585,20 @@ function charStart()
   {
     return document.getElementById("SpaceCowboy").value;
   }
+}
+
+function addItemToInventory(item){
+
+    var elements = document.querySelectorAll("#inventory td");
+
+    for (var i = 0; i < elements.length; i++) {
+      if(elements[i].innerHTML == ''){
+        elements[i].innerHTML += "<img src="+ item.itemFilePath +" alt=" + item.itemDescription+ " class='inventoryItem'>";
+        break;
+      }
+    }
+
+    vicinity(player.currentRoom);
 }
 
 function nameOutput()
