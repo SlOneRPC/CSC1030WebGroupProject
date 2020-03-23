@@ -23,7 +23,7 @@ function timerOperation(){
 
     // Display the result in the element with id="demo"
     var timeRemaining = minutes + ":" + seconds;
-    document.getElementById("timer").innerHTML = timeRemaining;
+    document.getElementById("timer").innerHTML ="Time remaining: " + timeRemaining;
 
     // If the count down is finished, write some text
     if (distance < 1000) {

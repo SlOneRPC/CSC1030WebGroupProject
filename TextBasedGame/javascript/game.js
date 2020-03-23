@@ -1,6 +1,6 @@
 var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0);
 var rooms = [];
-var roomDescriptions = [];
+
 
 function gameStart()
 {
@@ -16,6 +16,7 @@ function gameStart()
      if(item.roomName == "computer lab")
      {
        newCurrent = item;
+        document.getElementById("text-display").innerHTML +="Hacker Starter Text"
        item.roomDiscovered = true;
      }
    });
@@ -25,6 +26,7 @@ function gameStart()
    rooms.forEach((item, i) => {
      if(item.roomName == "quarters")
      {
+       document.getElementById("text-display").innerHTML += "you, have just been sleeping after a long shift, when you are thrown suddenly to the floor with a bang that could wake the dead.You stumble to your feet, bleary-eyed, with no idea what’s going on, but whatever it is, it isn’t going to be fun."
        newCurrent = item;
        item.roomDiscovered = true;
      }
@@ -35,13 +37,14 @@ function gameStart()
    rooms.forEach((item, i) => {
      if(item.roomName == "armory")
      {
+       document.getElementById("text-display").innerHTML +="SpaceCowboy Starter Text"
        newCurrent = item;
        item.roomDiscovered = true;
      }
    });
  }
  player.currentRoom = newCurrent;
- document.getElementById("text-display").innerHTML += "</br>>" +player.currentRoom.roomName;
+ document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
 }
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
 {
@@ -55,7 +58,7 @@ function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeat
 }
 function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue, lookedValue)
 {
-  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescription:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue, looked:lookedValue};
+  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescriptions:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue, looked:lookedValue};
   return roomObject;
 }
 function createExitObject(exitRoomNameValue, orientationValue)
@@ -68,9 +71,9 @@ function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, it
   var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue, itemFilePath:itemFilePathValue};
   return itemObject;
 }
-function createWeaponObject(itemNameValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue, itemFilePathValue)
+function createWeaponObject(itemNameValue, ammoValue, magSizeValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue, itemFilePathValue)
 {
-  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false, itemFilePathValue),  damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
+  var weaponObject = {item:createItemObject(itemNameValue, "Weapon", descriptionValue, false, itemFilePathValue),ammo:ammoValue,magSize:magSizeValue,  damage:damageValue, weaponType:weaponTypeValue, attackKey:attackKeyValue};
   return weaponObject;
 }
 function createArmourObject(itemNameValue, bodyPartValue, defenseValue, descriptionValue, itemFilePathValue)
@@ -82,6 +85,18 @@ function createGadgetObject(itemNameValue, descriptionValue , itemFilePathValue)
 {
   var gadgetObject = {item:createItemObject(itemNameValue, "Gadget", descriptionValue,  false, itemFilePathValue)};
   return gadgetObject;
+}
+function createDescriptionObject(actionValue,textValue){
+  var descriptionObject ={action:actionValue,text:textValue};
+  return descriptionObject;
+}
+function createAmmoObject(itemNameValue,descriptionValue,itemFilePathValue,amountValue){
+  var ammoObject={item:createItemObject(itemNameValue, "Ammo", descriptionValue, false, itemFilePathValue), amount:amountValue};
+  return ammoObject;
+}
+function createHealthObject(itemNameValue,descriptionValue,itemFilePathValue,sizeValue){
+  var healthObject={item:createItemObject(itemNameValue, "Health", descriptionValue, false, itemFilePathValue), size:sizeValue};
+  return healthObject;
 }
 function createDataPadObject(itemNameValue,descriptionValue, informationValue, itemFilePathValue)
 {
@@ -98,7 +113,7 @@ function createModifierObject(itemNameValue, descriptionValue, changeValue, mech
   var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false, ""), change:changeValue, mechanicChange:mechanicChangeValue};
   return modifierObject;
 }
-
+/*/
 const textDescs = [
   //quarters
   {
@@ -149,53 +164,513 @@ const textDescs = [
     text: "You walk out of your quarters and head into the hallway."
   },
   {
-    action: "look",
+    action: "look", //Done in Function
     room: "hallway01",
     text: "You look around the hall and see there is a path to the NORTH and a path to the SOUTH."
   },
   {
-    action: "examine broadcast",
+    action: "examine broadcast",//Done in Function
     room: "hallway01",
     text: "You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay",
   },
 ]
+/*/
+
+// other room instanciation
+//createWeaponObject(itemNameValue, ammoValue, magSizeValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue, itemFilePathValue
+//createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue,roomDiscoveredValue)
+//createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue, itemFilePathValue)
+//createDataPadObject(itemNameValue, descriptionValue, informationValue)
+//createHealthObject(itemNameValue,descriptionValue,itemFilePathValue,sizeValue)
+//createAmmoObject(itemNameValue,descriptionValue,itemFilePathValue,amountValue)
+//createDescriptionObject(actionValue,textValue)
 
 function addRooms()
 {
 
   // start room instanciation
-  var quarters = createRoomObject("quarters", "room", "quarters", 0, [createExitObject("hallway01", "west")], [createWeaponObject("pistol",  10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"), createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png")],0,false);
-  var armory = createRoomObject("armory","room","This is the Armory", 0, [createExitObject("hallway08", "north"), createExitObject("hallway09", "south")], [], 0,false);
-  var computerLab = createRoomObject("computer lab", "room", "This is the Computer Lab", 0, [createExitObject("hallway04", "north"), createExitObject("rubble 01", "west")], [], 0,false);
+  var quarters =
+  createRoomObject
+  (
+    "quarters", //Room Name
+    "room", //Room Type
+    [ //Room Descriptions
+      createDescriptionObject
+      (
+        "first-entry",
+        "You see beds lining the room, all with the bedding strewn about the place. It smells a tad like stale socks, and there isn’t anyone to be seen."
+      ),
+      createDescriptionObject
+      (
+        "second-entry",
+        "You re-enter the quarters finding them exactly as you left it."
+      )
+    ],
+     0, //Enemies Value
+    [ //Exits to current room
+      createExitObject("hallway01", "west")
+    ],
+    [ //Items in the current room
+      createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
+      createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png"),
+      createAmmoObject("energy cell","This is an energy cell","images/energycell.png",5)
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var armory =
+  createRoomObject
+  (
+    "armory",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+      createDescriptionObject
+      (
+        "first-entry",
+        "You walk into the room, and see different kinds of weaponry in various stages of development, with bits of guns strewn about the tables they rest on. This must be the Armory."
+      ),
+      createDescriptionObject
+      (
+        "second-entry",
+        "You re-enter the armory, finding the same weapon parts strewn on the floor"
+      )
+    ],
+     0,//Enemies Value
+    [ //Exits to current room
+      createExitObject("hallway08", "north"),
+      createExitObject("hallway09", "south")
+    ],
+    [//Items in the current room
+      createWeaponObject("laserRevolver",6,6, 25,"Ranged", ["shoot"],"It is a gun","images/laserrevolver.png"),
+      createGadgetObject("explosives","These are explosives","images/explosives.png"),
+      createAmmoObject("energy cell","This is an energy cell","images/energycell.png",5)
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
 
-  // other room instanciation
-  //createWeaponObject(itemNameValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue)
-  //createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue,roomDiscoveredValue)
-  //createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue,itemTakenValue)
-  //createDataPadObject(itemNameValue, descriptionValue, informationValue)
-  var storageUnit1 = createRoomObject("storage unit 01","room","This is storage unit 1", 0, [createExitObject("hallway04", "west")], [], 0,false);
-  var storageUnit2 = createRoomObject("storage unit 02","room","This is storage unit 2", 0, [createExitObject("vent 05", "north"), createExitObject("door 05", "south"), createExitObject("rubble 04", "west")], [], 0,false);
-  var kitchen = createRoomObject("kitchen","room","This is the kitchen", 0, [createExitObject("mess hall", "north"), createExitObject("hallway06", "south")], [], 0,false);
-  var messHall = createRoomObject("mess hall","room","This is the mess hall", 0, [createExitObject("hallway17", "north"), createExitObject("kitchen", "south"), createExitObject("hallway10", "west")], [], 0,false);
-  var maintenanceBay  = createRoomObject("maintenance bay","room","This is the maintenance bay", 0, [createExitObject("vent 03", "north"), createExitObject("hallway11", "south")], [], 0,false);
-  var hangerBay  = createRoomObject("hanger bay","room","This is the hanger bay", 0, [createExitObject("hallway12", "east"), createExitObject("exit", "west")], [], 0,false);
-  var researchLab  = createRoomObject("research lab","room","This is the research lab", 0, [createExitObject("rubble 03", "south"), createExitObject("hallway17", "east")], [], 0,false);
-  var reactorRoom = createRoomObject("reactor room","room","This is the reactor room", 0, [createExitObject("door 04", "south"), createExitObject("vent 05", "east"), createExitObject("hallway15", "west")], [], 0,false);
+  var computerLab =
+  createRoomObject
+  (
+    "computer lab",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+      createDescriptionObject
+      (
+        "first-entry",
+        "You step into the room and are greeted by a low hum of machines, you notice several computer panels dotting the walls, in the center of the room lies the ship's servers This must be the Computer Lab"
+      ),
+      createDescriptionObject
+      (
+        "second-entry",
+        "You re-enter into the Computer Lab and are one again greeted by flashing displays and the hum of the servers. "
+      )
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("hallway04", "north"),
+      createExitObject("rubble 01", "west")
+    ],
+    [//Items in the current room
+      createWeaponObject("pistol", 9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
+      createGadgetObject("hacking tool","This is a hacking tool","images/hackingtool.png"),
+      createAmmoObject("energy cell","This is an energy cell","images/energycell.png",5)
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+
+  var storageUnit1 =
+  createRoomObject
+  (
+    "storage unit 01",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+      createDescriptionObject
+      (
+        "first-entry",
+        "As you walk into the room, you realise it is little more than a glorified broom closet, with little space to move about , and only one way in or out."
+      ),
+      createDescriptionObject
+      (
+        "second-entry",
+        "You re-enter the storage unit finding the crates undisturbed. "
+      )
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("hallway04", "west")
+    ],
+    [//Items in the current room
+      createAmmoObject("energy cell","This is an energy cell","images/energycell.png",4)
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var storageUnit2 =
+  createRoomObject
+  (
+    "storage unit 02",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("vent 05", "north"),
+      createExitObject("door 05", "south"),
+      createExitObject("rubble 04", "west")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var kitchen =
+  createRoomObject
+  (
+    "kitchen",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+    ],
+     0,//Enemies Value
+     [//Exits to current room
+       createExitObject("mess hall", "north"),
+       createExitObject("hallway06", "south")
+     ],
+     [//Items in the current room
+     ],
+     0, //Number of interactable items in the room
+     false //Has Room been entered/Discovered?
+  );
+  var messHall =
+  createRoomObject
+  (
+    "mess hall",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("hallway17", "north"),
+      createExitObject("kitchen", "south"),
+      createExitObject("hallway10", "west")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var maintenanceBay  =
+  createRoomObject
+  (
+    "maintenance bay",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+    ],
+     0,//Enemies Value
+    [//Exits to current room
+      createExitObject("vent 03", "north"),
+      createExitObject("hallway11", "south")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hangerBay  =
+   createRoomObject
+   (
+     "hanger bay",//Room Name
+     "room",//Room Type
+     [//Room Descriptions
+     ],
+     0,//Enemies Value
+     [//Exits to current room
+       createExitObject("hallway12", "east"),
+       createExitObject("exit", "west")
+     ],
+     [//Items in the current room
+     ],
+     0, //Number of interactable items in the room
+     false //Has Room been entered/Discovered?
+   );
+  var researchLab  =
+  createRoomObject
+  (
+    "research lab",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("rubble 03", "south"),
+      createExitObject("hallway17", "east")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var reactorRoom =
+  createRoomObject
+  (
+    "reactor room",//Room Name
+    "room",//Room Type
+    [//Room Descriptions
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("door 04", "south"),
+      createExitObject("vent 05", "east"),
+      createExitObject("hallway15", "west")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
 
   // hallway instanciation
-  var hallway01 = createRoomObject("hallway01","hallway","hallway01", 0, [createExitObject("hallway02", "north"), createExitObject("hallway03", "south"), createExitObject("quarters", "east")],[],[createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay","no")], 1,false);
-  var hallway02 = createRoomObject("hallway02","hallway","hallway02", 0, [createExitObject("hallway01", "south")], 0, 0,false);
-  var hallway03 = createRoomObject("hallway03","hallway","hallway03", 0, [createExitObject("hallway01", "north"), createExitObject("hallway04", "south"), createExitObject("vent 01", "west")], [], 0,false);
-  var hallway04 = createRoomObject("hallway04","hallway","hallway04", 0, [createExitObject("hallway03", "north"), createExitObject("computer lab", "south"), createExitObject("storage unit 01", "east"), createExitObject("door 01", "west")], [], 0,false);
-  var hallway05 = createRoomObject("hallway05","hallway","hallway05", 0, [createExitObject("hallway06", "north"), createExitObject("door 01", "south"), createExitObject("vent 01", "east")], [], 0,false);
-  var hallway06 = createRoomObject("hallway06","hallway","hallway06", 0, [createExitObject("kitchen", "north"), createExitObject("hallway05", "south"), createExitObject("hallway07", "west")], [], 0,false);
-  var hallway07 = createRoomObject("hallway07","hallway","hallway07", 0, [createExitObject("vent 02", "north"), createExitObject("hallway06", "east"), createExitObject("hallway08", "west")], [], 0,false);
-  var hallway08 = createRoomObject("hallway08","hallway","hallway08", 0, [createExitObject("armory", "south"), createExitObject("hallway07", "east"), createExitObject("rubble 02", "west")], [], 0,false);
-  var hallway09 = createRoomObject("hallway09","hallway","hallway09", 0, [createExitObject("armory", "north"), createExitObject("hallway07", "east"), createExitObject("rubble 02", "west")], [], 0,false);
-  var hallway10 = createRoomObject("Armory","Room","This is the Armory", 0, [createExitObject("Armory", "north"), createExitObject("Armory", "south")], [], 0,false);
-  var hallway11 = createRoomObject("Armory","Room","This is the Armory", 0, [createExitObject("Armory", "north"), createExitObject("Armory", "south")], [], 0,false);
-  var hallway12 = createRoomObject("Armory","Room","This is the Armory", 0, [createExitObject("Armory", "north"), createExitObject("Armory", "south")], [], 0,false);
-  var hallway13 = createRoomObject("Armory","Room","This is the Armory", 0, [createExitObject("Armory", "north"), createExitObject("Armory", "south")], [], 0,false);
+
+  var hallway01 =
+  createRoomObject
+  (
+    "hallway01",//Room Name
+    "hallway",//Room Type
+     [//Room Descriptions
+     ],
+     0,//Enemies Value
+     [//Exits to current room
+       createExitObject("hallway02", "north"),
+       createExitObject("hallway03", "south"),
+       createExitObject("quarters", "east")
+     ],
+     [//Items in the current room
+       createInteractableObject
+       ("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay","no")
+     ],
+     1, //Number of interactable items in the room
+     false //Has Room been entered/Discovered?
+   );
+  var hallway02 =
+  createRoomObject
+  (
+    "hallway02",//Room Name
+    "hallway",//Room Type
+    [//Room Descriptions
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("hallway01", "south")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway03 =
+  createRoomObject
+  (
+    "hallway03",//Room Name
+    "hallway",//Room Type
+    [//Room Descriptions
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("hallway01", "north"),
+      createExitObject("hallway04", "south"),
+      createExitObject("vent 01", "west")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway04 =
+  createRoomObject
+  (
+    "hallway04",//Room Name
+    "hallway",//Room Type
+    [//Room Descriptions
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("hallway03", "north"),
+      createExitObject("computer lab", "south"),
+      createExitObject("storage unit 01", "east"),
+      createExitObject("door 01", "west")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway05 =
+  createRoomObject
+  (
+    "hallway05",//Room Name
+    "hallway",//Room Type
+    [//Room Descriptions
+    ],
+     0,//Enemies Value
+     [//Exits to current room
+       createExitObject("hallway06", "north"),
+       createExitObject("door 01", "south"),
+       createExitObject("vent 01", "east")
+     ],
+     [//Items in the current room
+     ],
+     0, //Number of interactable items in the room
+     false //Has Room been entered/Discovered?
+   );
+  var hallway06 =
+  createRoomObject(
+    "hallway06",//Room Name
+    "hallway",//Room Type
+    [//Room Descriptions
+    ],
+     0,//Enemies Value
+     [//Exits to current room
+       createExitObject("kitchen", "north"),
+       createExitObject("hallway05", "south"),
+       createExitObject("hallway07", "west")
+     ],
+     [//Items in the current room
+     ],
+     0, //Number of interactable items in the room
+     false //Has Room been entered/Discovered?
+   );
+  var hallway07 =
+  createRoomObject
+  (
+    "hallway07",//Room Name
+    "hallway",//Room Type
+    [//Room Descriptions
+    ],
+    0,//Enemies Value
+    [//Exits to current room
+      createExitObject("vent 02", "north"),
+      createExitObject("hallway06", "east"),
+      createExitObject("hallway08", "west")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway08 =
+  createRoomObject
+  (
+    "hallway08",//Room Name
+    "hallway",//Room Type
+    [//Room Descriptions
+    ],
+    0, //Enemies Value
+    [//Exits to current room
+      createExitObject("armory", "south"),
+      createExitObject("hallway07", "east"),
+      createExitObject("rubble 02", "west")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway09 =
+  createRoomObject
+  (
+    "hallway09",//Room Name
+    "hallway",//Room Type
+    [//Room Descriptions
+    ],
+    0, //Enemies Value
+    [//Exits to current room
+      createExitObject("armory", "north"),
+      createExitObject("hallway07", "east"),
+      createExitObject("rubble 02", "west")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway10 =
+  createRoomObject
+  (
+    "Armory",//Room Name
+    "Room",//Room Type
+    [//Room Descriptions
+    ],
+    0, //Enemies Value
+    [//Exits to current room
+      createExitObject("Armory", "north"),
+      createExitObject("Armory", "south")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway11 =
+  createRoomObject
+  (
+    "Armory",//Room Name
+    "Room",//Room Type
+    [//Room Descriptions
+    ],
+    0, //Enemies Value
+    [//Exits to current room
+      createExitObject("Armory", "north"),
+      createExitObject("Armory", "south")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway12 =
+  createRoomObject
+  (
+    "Armory",//Room Name
+    "Room",//Room Type
+    [//Room Descriptions
+    ],
+    0, //Enemies Value
+    [//Exits to current room
+      createExitObject("Armory", "north"),
+      createExitObject("Armory", "south")
+    ],
+    [//Items in the current room
+    ],
+    0, //Number of interactable items in the room
+    false //Has Room been entered/Discovered?
+  );
+  var hallway13 =
+  createRoomObject
+  (
+    "Armory",//Room Name
+    "Room",//Room Type
+    [//Room Descriptions
+    ],
+     0, //Enemies Value
+     [//Exits to current room
+       createExitObject("Armory", "north"),
+       createExitObject("Armory", "south")
+     ],
+     [//Items in the current room
+     ],
+     0, //Number of interactable items in the room
+     false //Has Room been entered/Discovered?
+   );
+  var rubble01
+  var rubble02
+  var rubble03
+  var rubble04
+  var vent01
+  var vent02
+  var vent03
+  var vent04
+  var vent05
   // sample room instanciation code
   //var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject("Starting Room", "south")], 0, 0);
   //var startRoom = createRoomObject("Starting Room","Room","This is the starting room", 0, [createExitObject("Next Room", "north")], 0, 0);
@@ -208,36 +683,31 @@ function addRooms()
 
 }
 
-function getRoomTextDesc(roomName,action)
+function getRoomTextDesc(currentRoom,entry)
 {
-  var roomDesc
-//  document.getElementById("text-display").innerHTML += ">" + action;
-//  document.getElementById("text-display").innerHTML +=  ">" +roomName;
+  var roomDesc="";
+  var textDescs= currentRoom.roomDescriptions;
   for (let i = 0; i < textDescs.length; i++) {
-  //  document.getElementById("text-display").innerHTML += ">" +textDescs[i].action;
-  //  document.getElementById("text-display").innerHTML += ">" +textDescs[i].room;
-    if(textDescs[i].room === roomName && textDescs[i].action === action)
+    if(textDescs[i].action === entry )
     {
-    //  document.getElementById("text-display").innerHTML += ">" +textDescs[i].text;
       roomDesc=(textDescs[i].text);
     }
   }
   return roomDesc;
 }
 
-//function outputCurrentRoomDesc(action)
-//{
-  //var currentRoomName = player.currentRoom.roomName;
-//  if(action=="first-entry"){
-  //  player.currentRoom.roomDiscovered=true;
-  //}
-    //document.getElementById("text-display").innerHTML += currentRoomName;
-    //roomDesc= getRoomTextDesc(currentRoomName,action);
-    //document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
-//  });
-  //;
-  //document.getElementById("text-display").innerHTML += "</br>>" +player.currentRoom.roomName;
-//}
+function outputCurrentRoomDesc()
+{
+  var currentRoom = player.currentRoom;
+  if(player.currentRoom.roomDiscovered==false)
+  {
+    roomDesc= getRoomTextDesc(currentRoom,"first-entry");
+  }
+  else{
+    roomDesc= getRoomTextDesc(currentRoom,"second-entry");
+  }
+  document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
+}
 
 function outputCurrentRoomExits()
 {
@@ -348,11 +818,18 @@ function examineInteractables(roomInteractables, words)
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"))
+      if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"))
       {
         player.inventory.push(item);
         playerRoom.roomItems.splice(i, 1);
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
+        if(item.item.itemType=="Ammo")
+        {
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.item.amount +""+ item.item.itemName +" added to inventory"+"</span>";
+        }
+        if(item.item.itemType!="Ammo")
+        {
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
+        }
         if(!dragged)
           addItemToInventory(item.item);
       }
@@ -471,7 +948,6 @@ function move(words)
   else if(checkDirection === 0)
   {
     document.getElementById("text-display").innerHTML+= "</br>>I guess you're staying here then...</br>";
-    //outputCurrentAndNextRoom(words);
   }
 }
 
@@ -513,37 +989,14 @@ function goDirection(direction)
       clearVicinity(0);
       document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
     }
+    outputCurrentRoomDesc();
+    document.getElementById("currentRoomDisplay").innerHTML ="Current Room: "+ player.currentRoom.roomName;
   }
   else
   {
     document.getElementById("text-display").innerHTML+= "</br>>There is nowhere in that direction..";
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function returnNewRoom(roomExit)
 {
   var newRoom =  createRoomObject(0,0,0,0,0,0,0);
