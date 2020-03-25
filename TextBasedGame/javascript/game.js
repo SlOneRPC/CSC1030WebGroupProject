@@ -187,7 +187,6 @@ const textDescs = [
 
 function addRooms()
 {
-
   // start room instanciation
   var quarters =
   createRoomObject
@@ -662,15 +661,15 @@ function addRooms()
      0, //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
-  var rubble01
-  var rubble02
-  var rubble03
-  var rubble04
-  var vent01
-  var vent02
-  var vent03
-  var vent04
-  var vent05
+//  var rubble01
+//  var rubble02
+  //var rubble03
+  //var rubble04
+  //var vent01
+  //var vent02
+  //var vent03
+  //var vent04
+  //var vent05
   // sample room instanciation code
   //var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject("Starting Room", "south")], 0, 0);
   //var startRoom = createRoomObject("Starting Room","Room","This is the starting room", 0, [createExitObject("Next Room", "north")], 0, 0);
@@ -698,13 +697,13 @@ function getRoomTextDesc(currentRoom,entry)
 
 function outputCurrentRoomDesc()
 {
-  var currentRoom = player.currentRoom;
   if(player.currentRoom.roomDiscovered==false)
   {
-    roomDesc= getRoomTextDesc(currentRoom,"first-entry");
+    roomDesc= getRoomTextDesc(player.currentRoom,"first-entry");
   }
-  else{
-    roomDesc= getRoomTextDesc(currentRoom,"second-entry");
+  else
+  {
+    roomDesc= getRoomTextDesc(player.currentRoom,"second-entry");
   }
   document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
 }
@@ -713,15 +712,14 @@ function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
    //var currentRoom=player.currentRoom.roomName;
-   var currentRoom=player.currentRoom;
-   if(currentRoom.type=="hallway"){
+   if(player.currentRoom.type=="hallway"){
      document.getElementById("text-display").innerHTML += "</br>" + "You look around the hallway, ";
    }
    else{
     document.getElementById("text-display").innerHTML += "</br>" + "You look around the " + player.currentRoom.roomName+",";
    }
    player.currentRoom.exits.forEach((item, i)=> {
-   if(currentRoom.type=="hallway")
+   if(player.currentRoom.type=="hallway")
    {
      document.getElementById("text-display").innerHTML += "</br>" + " there is a pathway to the " + item.orientation;
    }
