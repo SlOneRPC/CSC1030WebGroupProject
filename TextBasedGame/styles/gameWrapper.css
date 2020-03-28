@@ -20,6 +20,8 @@
   margin: 10px;
   margin-right: 3%;
   margin-left: 0px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: bolder;
 }
 
 #playerInventory td{
@@ -44,28 +46,31 @@
     background-color: #111010;
 }
 #statsContainer{
-  overflow: auto;
+  /*overflow: auto;*/
   width: 30%;
-  height:620px;
-  max-width: 60%;
+  height:80%;
+  max-width: 80%;
   padding: 8px;
   clear: right;
   float:left;
-  margin :10px;
-  margin-left: 20px;
-  border: 2px solid white;
+  /*margin :10px;*/
+  margin-left: 3%;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
-  box-shadow: 0 0 10px 2px #4edaf9;
+  box-shadow: 0px 0px 10px 2px #F827A6;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: bolder;
+  background-color: #0A1C24;
+  color: #4edaf9;
 }
 
 #mapHeader{
   margin:auto;
   overflow:auto;
   clear: both;
-  border: 1px solid white;
+  /*border: 1px solid white;*/
   padding:10px;
   text-align: center;
 }
@@ -128,6 +133,7 @@
   background-color: #7E7D7D;
   border: 2px solid black;
   text-align: center;
+
 }
 
 
