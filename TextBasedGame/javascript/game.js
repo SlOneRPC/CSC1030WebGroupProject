@@ -462,7 +462,6 @@ function addRooms()
   );
 
   // hallway instanciation
-
   var hallway01 =
   createRoomObject
   (
@@ -844,18 +843,24 @@ function addRooms()
      false //Has Room been entered/Discovered?
    );
 
+   //rubble instanciation
 //  var rubble01
 //  var rubble02
   //var rubble03
   //var rubble04
+  //door instanciation
+  //var door01
+  //var door02
+  //var door03
+  //var door04
+  //var door05
+  //vent instanciation
   //var vent01
   //var vent02
   //var vent03
   //var vent04
   //var vent05
-  // sample room instanciation code
-  //var nextRoom = createRoomObject("Next Room","Room","This is the next room", 0, [createExitObject("Starting Room", "south")], 0, 0);
-  //var startRoom = createRoomObject("Starting Room","Room","This is the starting room", 0, [createExitObject("Next Room", "north")], 0, 0);
+
 
   rooms.push(quarters);
   rooms.push(computerLab);
