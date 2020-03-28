@@ -162,17 +162,21 @@
   height: 40px;
   width: 60px;
 }
+
 #userTextWrong{
   color: red;
 }
-#userTextBlue{
+#userTextGadget{
   color: lightblue;
 }
-#userTextYellow{
+#userTextWeapon{
   color: yellow;
 }
-#userTextOrange{
+#userTextInteractable{
   color: orange;
+}
+#userTextPuzzle{
+  color:purple;
 }
 
 
