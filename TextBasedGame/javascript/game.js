@@ -98,10 +98,6 @@ function createHealthObject(itemNameValue,descriptionValue,itemFilePathValue,hea
   var healthObject={item:createItemObject(itemNameValue, "Health", descriptionValue, false, itemFilePathValue), healthGain:healthGainValue};
   return healthObject;
 }
-function createBlockedPathObject(exitRoomNameValue,orientationValue,descriptionValue,blockedValue,gadgetRequiredValue){
-  var blockedPathObject={exit:createExitObject(exitRoomNameValue,orientationValue,descriptionValue), blocked:blockedValue, gadgetRequired:gadgetRequiredValue};
-  return blockedPathObject;
-}
 function createPuzzleKeyObject(itemNameValue,descriptionValue,itemFilePathValue,puzzleMatchValue){
   var puzzleKeyObject={item:createItemObject(itemNameValue,"Puzzle",descriptionValue,false,itemFilePathValue),puzzleMatch:puzzleMatchValue};
   return puzzleKeyObject;
@@ -124,14 +120,17 @@ function createInteractableObject(interactableNameValue, descriptionValue, custo
   var interactableObject =  {interactableName:interactableNameValue, description:descriptionValue,customCommand:customCommandValue};
   return interactableObject;
 }
+function createBlockedPathObject(interactableNameValue, descriptionValue, customCommandValue,exitRoomNameValue){
+  var blockedPathObject={interactableName:interactableNameValue, description:descriptionValue, customCommand:customCommandValue, exitRoomName:exitRoomNameValue};
+  return blockedPathObject;
+}
+
 function createModifierObject(itemNameValue, descriptionValue, changeValue, mechanicChangeValue)
 {
   var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false, ""), change:changeValue, mechanicChange:mechanicChangeValue};
   return modifierObject;
 }
 
-
-// other room instanciation
 //createWeaponObject(itemNameValue, ammoValue, magSizeValue, damageValue, weaponTypeValue, attackKeyValue, descriptionValue, itemFilePathValue
 //createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue,roomDiscoveredValue)
 //createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue, itemFilePathValue)
@@ -171,7 +170,7 @@ function addRooms()
       createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png"),
       createAmmoObject("energy cell","This is an energy cell","images/energycell.png",Math.floor((Math.random() * 10) + 1) )
     ],
-    0, //Number of interactable items in the room
+    [], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var armory =
@@ -201,7 +200,7 @@ function addRooms()
       createGadgetObject("explosives","These are explosives","images/explosives.png"),
       createAmmoObject("energy cell","This is an energy cell","images/energycell.png",Math.floor((Math.random() * 10) + 1) )
     ],
-    0, //Number of interactable items in the room
+    [], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
 
@@ -232,7 +231,7 @@ function addRooms()
       createGadgetObject("hacking tool","This is a hacking tool","images/hackingtool.png"),
       createAmmoObject("energy cell","This is an energy cell","images/energycell.png",Math.floor((Math.random() * 10) + 1) )
     ],
-    0, //Number of interactable items in the room
+    [], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
 
@@ -260,7 +259,7 @@ function addRooms()
     [//Items in the current room
       createAmmoObject("energy cell","This is an energy cell","images/energycell.png",4)
     ],
-    0, //Number of interactable items in the room
+    [], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var storageUnit2 =
@@ -290,7 +289,7 @@ function addRooms()
       createAmmoObject("energy cell","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health pack","This is a health pack","images/healthpack.png", 25)
     ],
-    0, //Number of interactable items in the room
+    [], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var kitchen =
@@ -316,7 +315,7 @@ function addRooms()
      [//Items in the current room
        createAmmoObject("energy cell","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
      ],
-     0, //Number of interactable items in the room
+     [], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
   );
   //FINISH DESCRIPTION
@@ -347,7 +346,7 @@ function addRooms()
       createAmmoObject("energy cell","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health kit","This is a health kit","images/healthkit.png", 50)
     ],
-    0, //Number of interactable items in the room
+    [], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var maintenanceBay  =
@@ -375,7 +374,7 @@ function addRooms()
       createWeaponObject("smg",20,20,35,"Ranged",["shoot"],"It is a gun","images/lasersmg.png"),
       //createDataPadObject("")
     ],
-    0, //Number of interactable items in the room
+    [], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var hangerBay  =
@@ -402,7 +401,9 @@ function addRooms()
      [//Items in the current room
 
      ],
-     1, //Number of interactable items in the room
+     [
+
+     ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
   var researchLab  =
@@ -429,7 +430,9 @@ function addRooms()
       createAmmoObject("energy cell","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createPuzzleKeyObject("data card","This is a data card","images/datacard.png","reactor console")
     ],
-    0, //Number of interactable items in the room
+    [
+
+    ], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var reactorRoom =
@@ -449,15 +452,17 @@ function addRooms()
     ],
     3,//Enemies Value
     [//Exits to current room
-      createExitObject("door 04", "south","",true),
-      createExitObject("vent 05", "east","",true),
+      createExitObject("door04", "south", " ",true),
+      createExitObject("vent05", "east"," ",true),
       createExitObject("hallway14", "west","You leave the research lab and enter into the corridor.",false)
     ],
     [//Items in the current room
       createPuzzleLockObject("reactor console","You inspect the reactor room console, and see a flashing yellow screen along with an error message:ERROR MISSING DATACARD","","data card"),
       createDataPadObject("sticky note","A sticky note about the missing data card","The note reads: “Control panel broken 17:09, new data card required, there may be a spare in the research lab – Ensign Shrew","images/stickynote.png")
     ],
-    1, //Number of interactable items in the room
+    [
+
+    ], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
 
@@ -485,9 +490,12 @@ function addRooms()
        createExitObject("hallway03","south", "You head south down the hallway and reach a junction",false)
      ],
      [//Items in the current room
-       createInteractableObject("Broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay","no")
+
      ],
-     1, //Number of interactable items in the room
+     [
+       createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay","no"),
+       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","vent01")
+     ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
   var hallway02 =
@@ -512,7 +520,7 @@ function addRooms()
     [//Items in the current room
       createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space","no")
     ],
-    0, //Number of interactable items in the room
+    1, //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var hallway03 =
@@ -979,7 +987,7 @@ function processCommands(input)
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
       outputCurrentRoomExits();
   }
-    else if (words.includes("Hint") == true)
+    else if (words.includes("hint") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
 
@@ -988,6 +996,11 @@ function processCommands(input)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     pickUpItems(player.currentRoom,words,false);
+  }
+  else if(words[0] == ("use") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    useItem(words);
   }
   else if(words[0] == ("take") == true)
   {
@@ -998,6 +1011,55 @@ function processCommands(input)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>I don't know this command: '" +input+"'</span>";
   }
+}
+
+function reload()
+{
+
+}
+function clearPath(interactable)
+{
+  for(var i = 0; i < rooms.length; i++)
+  {
+    //document.getElementById("text-display").innerHTML += "<br>"+ "ROOM:"+ rooms[i].roomName;
+    for(var j = 0; j < rooms[i].exits.length; j++)
+    {
+    //  document.getElementById("text-display").innerHTML += "<br>"+ "EXIT:";
+      if(rooms[i].exits[j].exitRoomName === interactable.exitRoomName)
+      {
+         //document.getElementById("text-display").innerHTML +=  "<br>"+"MATCH";
+         rooms[i].exits[j].blocked=false;
+      }
+    }
+  }
+}
+
+function useItem(words){
+  //Health packs
+  //Health Kits
+  if(words.includes("health-kit")){
+
+  }
+  if(words.includes("health-pack")){
+
+  }
+
+  if( words.includes("blowtorch") || words.includes("explosive") || words.includes("hacking-tool")  ){
+      document.getElementById("text-display").innerHTML += "<br>"+ "TEST1";
+      player.currentRoom.interactables.forEach((interactable, i) =>
+      {
+        document.getElementById("text-display").innerHTML +=  "<br>"+"TEST2"
+        if(words.join(" ") == interactable.customCommand)
+        {
+          clearPath(interactable);
+        }
+      });
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>I don't know that command: </span>";
+  }
+
 }
 
 
@@ -1178,25 +1240,36 @@ function goDirection(direction)
   if(exitExistsFlag === 1)
   {
       player.currentRoom.exits.forEach((roomExit, i) => {
-          if(roomExit.orientation === direction)
+          if(roomExit.orientation === direction && roomExit.blocked === false)
           {
             newCurrent = returnNewRoom(roomExit.exitRoomName);
             document.getElementById("text-display").innerHTML +="</br>>"+ roomExit.description;
+            player.currentRoom = newCurrent;
+            if(player.currentRoom.roomDiscovered==true)
+            {
+            //  document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
+              vicinity(player.currentRoom);
+            }
+            else
+            {
+              clearVicinity(0);
+            //  document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
+            }
+            outputCurrentRoomDesc();
+            document.getElementById("currentRoomDisplay").innerHTML ="Current Room: "+ player.currentRoom.roomName;
+          }
+          if(roomExit.orientation === direction && roomExit.blocked===true){
+              if(roomExit.exitRoomName.includes("vent")){
+                  document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>"+ "You cannot go that way it is blocked by a vent.";
+              }
+              if(roomExit.exitRoomName.includes("rubble")){
+                  document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>"+ "You cannot go that way it is blocked by rubble and debris.";
+              }
+              if(roomExit.exitRoomName.includes("door")){
+                  document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>"+ "You cannot go that way it is blocked by a locked door.";
+              }
           }
       });
-    player.currentRoom = newCurrent;
-    if(player.currentRoom.roomDiscovered==true)
-    {
-    //  document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
-      vicinity(player.currentRoom);
-    }
-    else
-    {
-      clearVicinity(0);
-    //  document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
-    }
-    outputCurrentRoomDesc();
-    document.getElementById("currentRoomDisplay").innerHTML ="Current Room: "+ player.currentRoom.roomName;
   }
   else
   {
