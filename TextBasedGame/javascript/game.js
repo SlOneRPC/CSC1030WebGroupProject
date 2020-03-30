@@ -1083,6 +1083,14 @@ function search(playerRoom)
   }
 }
 
+function getDetailsOfItem(imgPath){
+  player.currentRoom.roomItems.forEach((item, i) => {
+      if(imgPath.includes(item.item.itemFilePath)){
+        document.getElementById('hoverInfo').innerHTML = item.item.itemDescription;
+      }
+    });
+}
+
 function vicinity(playerRoom)
 {
   //get the correct table using a query
@@ -1094,7 +1102,7 @@ function vicinity(playerRoom)
     {
       //add inventory item to vicinity
       var name = item.item.itemName + "_img";
-      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription+ " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+ name+">";
+      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' id="+ name+">";
       tableIndex++;
     }
     else{
@@ -1108,7 +1116,7 @@ function vicinity(playerRoom)
 function clearVicinity(startIndex){
   var elements = document.querySelectorAll("#other1 td");
   //clear all other inventory items
-  for (var i = startIndex; i < 8; i++) {
+  for (var i = startIndex; i < 4; i++) {
     elements[i].innerHTML = '';
   }
 }
@@ -1247,7 +1255,7 @@ function addItemToInventory(item){
 
     for (var i = 0; i < elements.length; i++) {
       if(elements[i].innerHTML == ''){
-        elements[i].innerHTML += "<img src="+ item.itemFilePath +" alt=" + item.itemDescription+ " class='inventoryItem'>";
+        elements[i].innerHTML += "<img src="+ item.itemFilePath +" alt=" + item.itemDescription + " class='inventoryItem'>";
         break;
       }
     }
