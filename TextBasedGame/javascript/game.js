@@ -1,13 +1,12 @@
 var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
-
+var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)])
 
 function gameStart()
 {
  //method will decide and pick between starter rooms based on class
  //player.username = sessionStorage.getItem("name");
  //player.charClass = sessionStorage.getItem("class");
-
  addRooms();
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
  if (player.charClass == "Hacker")
@@ -106,9 +105,13 @@ function createPuzzleLockObject(interactableNameValue, descriptionValue, customC
   var puzzleLockObject={item:createInteractableObject(interactableNameValue, descriptionValue, customCommandValue),puzzleMatch:puzzleMatchValue};
   return puzzleLockObject;
 }
-function createEnemyObject(enemyTypeValue,descriptionValue,filePathValue,healthValue,damagePerAttackValue){
-  var enemyObject={enemyType:enemyTypeValue,description:descriptionValue,filePath:filePathValue,health:healthValue,damagePerAttack:damagePerAttackValue};
+function createEnemyObject(enemyTypeValue,descriptionValue,filePathValue,healthValue,damagePerAttackValue,weaponValue, bodyPartsValue){
+  var enemyObject={enemyType:enemyTypeValue,description:descriptionValue,filePath:filePathValue,health:healthValue,damagePerAttack:damagePerAttackValue, weapon:weaponValue, bodyParts:bodyPartsValue};
   return enemyObject;
+}
+function createBodyPartObject(partNameValue,filePathValue,damagePerHitValue, percentageToHitValue, descriptionValue){
+  var bodyPartObject={partName:partNameValue, description:descriptionValue,baseDamagePerHit:damagePerHitValue,percentageToHit:percentageToHitValue, filePath:filePathValue};
+  return bodyPartObject;
 }
 function createDataPadObject(itemNameValue,descriptionValue, informationValue, itemFilePathValue)
 {
@@ -161,7 +164,7 @@ function addRooms()
         "You re-enter the quarters finding them exactly as you left it."
       )
     ],
-     0, //Enemies Value
+     [headcrab], //Enemies Value
     [ //Exits to current room
       createExitObject("hallway01", "west", "You step out of the quarters and into one of the ships long dark hallways.",false)
     ],
@@ -910,6 +913,17 @@ function getRoomTextDesc(currentRoom,entry)
   return roomDesc;
 }
 
+function displayAllEnemies()
+{
+  if(player.currentRoom.enemies.length > 0)
+  {
+    player.currentRoom.enemies.forEach((item, i) => {
+      document.getElementById("text-display").innerHTML += "</br>>" +item.enemyType;
+    });
+
+  }
+}
+
 function outputCurrentRoomDesc()
 {
   if(player.currentRoom.roomDiscovered==false)
@@ -1148,6 +1162,7 @@ function search(playerRoom)
       document.getElementById("text-display").innerHTML += "</br><span>>There is nothing interesting to look at</span>";
     }
   }
+  displayAllEnemies();
 }
 
 function getDetailsOfItem(imgPath){
@@ -1175,8 +1190,6 @@ function vicinity(playerRoom)
     else{
     }
   });
-
-
   clearVicinity(tableIndex);
 }
 
