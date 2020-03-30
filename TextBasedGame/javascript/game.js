@@ -563,7 +563,7 @@ function addRooms()
     0,//Enemies Value
     [//Exits to current room
       createExitObject("hallway01", "north","You head north up the hallway",false),
-      createExitObject("storage Unit 1", "west","You head west towards the storage unit",false),
+      createExitObject("storage Unit 01", "west","You head west towards the storage unit",false),
       createExitObject("computer lab", "south","You head south towards the computer lab",false),
       createExitObject("hallway04","east","",true),
 
