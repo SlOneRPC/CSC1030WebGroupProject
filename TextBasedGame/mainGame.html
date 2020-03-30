@@ -45,11 +45,37 @@
       function drop(ev) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
-        //alert(data);
-        if(ev.target.innerHTML === ''){
+        if(event.target.tagName.toUpperCase() == "TD"){
           ev.target.appendChild(document.getElementById(data));
           pickUpItems(player.currentRoom, data.split("_")[0],true);
         }
+        else{
+          document.getElementById('text-display').innerHTML += "<br> <span id='userTextWrong'>>Slot is already taken</span>";
+          var elem = document.getElementById('text-display');
+          elem.scrollTop = elem.scrollHeight;
+        }
+      }
+
+      var currentTimeout = false;
+      function displayInfo(ev){
+        currentTimeout = false;
+        var imgElement = document.getElementById('hoverImg');
+        imgElement.src = ev.src;
+        imgElement.style.opacity = '1';
+        getDetailsOfItem(ev.src);
+      }
+
+      function hideInfo(ev){
+        var src = ev.src;
+        currentTimeout = true;
+        setTimeout(function () { //add a timeout
+          if(document.getElementById('hoverImg').src == src && currentTimeout){
+            //if the hovered item hasnt changed revert back to default state
+            var imgElement = document.getElementById('hoverImg');
+            imgElement.src = ''; imgElement.alt = ''; imgElement.style.opacity = '0.2';
+            document.getElementById('hoverInfo').innerHTML = 'Hover over an item for info here';
+          }
+        }, 900);
       }
     </script>
 
@@ -106,13 +132,11 @@
                   <td></td>
                   <td></td>
                 </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
               </table>
+
+              <img src="" alt="" id="hoverImg">
+              <h3 id="hoverInfo">Hover over an item for info here</h3>
+
             </div>
           </div>
           <div id="userInput">
