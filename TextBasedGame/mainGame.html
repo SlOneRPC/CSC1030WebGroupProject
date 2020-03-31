@@ -58,11 +58,12 @@
 
       var currentTimeout = false;
       function displayInfo(ev){
-        currentTimeout = false;
-        var imgElement = document.getElementById('hoverImg');
-        imgElement.src = ev.src;
-        imgElement.style.opacity = '1';
-        getDetailsOfItem(ev.src);
+        if(getDetailsOfItem(ev.src)){
+          currentTimeout = false;
+          var imgElement = document.getElementById('hoverImg');
+          imgElement.src = ev.src;
+          imgElement.style.opacity = '1';
+        }
       }
 
       function hideInfo(ev){
