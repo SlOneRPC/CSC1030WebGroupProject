@@ -1232,7 +1232,6 @@ function pickUpItems(playerRoom,words,dragged)
       playerRoom.roomItems.forEach((item, i) => {
       if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"))
       {
-        alert(item.item.itemType);
         player.inventory.push(item);
         playerRoom.roomItems.splice(i, 1);
         if(item.item.itemType=="Ammo")
