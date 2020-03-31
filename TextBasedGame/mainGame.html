@@ -34,6 +34,7 @@
     <script type="text/javascript"></script>
     <script type="text/javascript" src="javascript/game.js"></script>
     <script type="text/javascript">
+      /*Page specific scripts*/
       function allowDrop(ev) {
         ev.preventDefault();
       }
@@ -91,7 +92,7 @@
     <div id="wrapper">
       <div id="settings-wrapper">
           <button type="button" style="float:right;">Exit Game</button>
-          <button type="button" style="float:right;">Pause Game</button>
+          <button type="button" style="float:right;" onclick="pause();" id="pausebtn">Pause Game</button>
 
           <!--just putting timer in here for 'time' being (FUCK OFF DAVID (LUKE))-->
           <script>
