@@ -1,38 +1,48 @@
-var timeRemaining = 0;
-
+var timeRemaining = 300;
+var startTime;
+var timer;
+var paused = false;
 function timerOperation(){
-  // Set the date we're counting down to
-  var startTime = new Date().getTime() + (5*60*1000) + (1*1000);
-
   // Update the count down every 1 second
-  var x = setInterval(function() {
+  timer = setInterval(onTimer, 1000);
+}
 
-    // Get today's date and time
-    var now = new Date().getTime();
+function onTimer(){
+  // Time calculations for days, hours, minutes and seconds
+  var minutes = Math.floor(timeRemaining/60);
+  var seconds = timeRemaining-(minutes*60);
 
-    // Find the distance between now and the count down date
-    var distance = startTime - now;
+  if(seconds < 10){
+    seconds = "0" + seconds;
+  }
 
-    // Time calculations for days, hours, minutes and seconds
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  // Display the result in the element with id="demo"
+  var timeLeft = minutes + ":" + seconds;
+  document.getElementById("timer").innerHTML ="Time remaining: " + timeLeft;
 
-    if(seconds < 10){
-      seconds = "0" + seconds;
-    }
+  //take away a second
+  timeRemaining -= 1;
+  //alert(timeRemaining);
+  // If the count down is finished, write some text
+  if (timeRemaining <= 0) {
+    clearInterval(x);
+    sessionStorage.setItem("timeRemaining",timeRemaining);
+    sessionStorage.setItem('stats', JSON.stringify(player.stats));
 
-    // Display the result in the element with id="demo"
-    var timeRemaining = minutes + ":" + seconds;
-    document.getElementById("timer").innerHTML ="Time remaining: " + timeRemaining;
+    window.location.href = "endScreen.html";
+  }
+}
 
-    // If the count down is finished, write some text
-    if (distance < 1000) {
-      clearInterval(x);
-      sessionStorage.setItem("timeRemaining",timeRemaining);
-      sessionStorage.setItem('stats', JSON.stringify(player.stats));
-
-      window.location.href = "endScreen.html";
-    }
-  }, 1000);
-
+function pause(){
+  if(!paused){
+    //if the timer is currently not paused clear the interval
+    clearInterval(timer);
+    paused = true;
+    document.getElementById('pausebtn').innerHTML = 'unpause';
+  }
+  else{
+    timer = setInterval(onTimer, 1000);
+    paused = false;
+    document.getElementById('pausebtn').innerHTML = 'pause';
+  }
 }
