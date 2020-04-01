@@ -172,10 +172,7 @@ function addRooms()
     [ //Items in the current room
       createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
       createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png"),
-
-    //  createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",4 )
-
-      createAmmoObject("energy cell","This is an energy cell","images/energycell.png",Math.floor((Math.random() * 10) + 1))
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1) )
 
     ],
     [
@@ -208,7 +205,7 @@ function addRooms()
     [//Items in the current room
       createWeaponObject("revolver",6,6, 25,"Ranged", ["shoot"],"It is a gun","images/laserrevolver.png"),
       createGadgetObject("explosives","These are explosives","images/explosives.png"),
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",5 )
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1) )
     ],
     [
 
@@ -241,7 +238,7 @@ function addRooms()
     [//Items in the current room
       createWeaponObject("pistol", 9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
       createGadgetObject("hacking-tool","This is a hacking tool","images/hackingtool.png"),
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", 4 )
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) )
     ],
     [
       createBlockedPathObject("rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway06","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble01"),
@@ -273,7 +270,7 @@ function addRooms()
       createExitObject("hallway03", "east","You step out of the storage unit into a hallway and arrive at a junction. ",false)
     ],
     [//Items in the current room
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",6)
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1))
     ],
     [
 
@@ -304,7 +301,7 @@ function addRooms()
       createExitObject("hallway11", "west","You walk past the cleared rubble and out of the room",true)
     ],
     [//Items in the current room
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", 8 ),
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health pack","This is a health pack","images/healthpack.png", 25)
     ],
     [
@@ -335,7 +332,7 @@ function addRooms()
        createExitObject("hallway04", "south"," You slip out of the kitchen back into one of the ship's long hallways",false)
      ],
      [//Items in the current room
-       createAmmoObject("energy cells","This is an energy cell","images/energycell.png",3 ),
+       createAmmoObject("energy cells","This is an energy cell","images/energycell.png",Math.floor((Math.random() * 10) + 1) ),
      ],
      [
        createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","mess hall","Using your hacking-tool you succesfully hack into the door controls and open the door.","door02"),
@@ -367,7 +364,7 @@ function addRooms()
     [//Items in the current room
       createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hanger bay.","images/tornmap.png"),
       createWeaponObject("shotgun",5,5,35,"Ranged",["shoot"],"It is a gun","images/lasershotgun.png"),
-      createAmmoObject("energy cells","This is an energy cell","images/energycell.png", 6 ),
+      createAmmoObject("energy cells","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health kit","This is a health kit","images/healthkit.png", 50)
     ],
     [
@@ -396,7 +393,7 @@ function addRooms()
       createExitObject("hallway08", "south","You leave the maintence bay and enter back into the hallway.",false)
     ],
     [//Items in the current room
-      createAmmoObject("energy cells","This is an energy cell","images/energycell.png", 2 ),
+      createAmmoObject("energy cells","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createWeaponObject("smg",20,20,35,"Ranged",["shoot"],"It is a gun","images/lasersmg.png"),
       //createDataPadObject("")
     ],
@@ -608,7 +605,7 @@ function addRooms()
 
     ],
     [//Items in the current room
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", 6 ),
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health pack","This is a health pack","images/healthpack.png", 25)
     ],
     [
@@ -668,7 +665,7 @@ function addRooms()
        createExitObject("computer lab", "west","",true)
      ],
      [//Items in the current room
-       createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", 4 ),
+       createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
        createHealthObject("health kit","This is a health kit","images/healthkit.png", 50)
      ],
      [
@@ -847,7 +844,7 @@ function addRooms()
     ],
     [//Items in the current room
 
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", 5 ),
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
     ],
     [
       createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","storage unit 02","Using your hacking-tool you succesfully hack into the door controls and open the door.","door05"),
@@ -877,7 +874,7 @@ function addRooms()
        createExitObject("vent04", "south","",true)
      ],
      [//Items in the current room
-        createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", 4),
+        createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1)),
         createHealthObject("health kit","This is a health kit","images/healthkit.png", 50)
      ],
      [
@@ -905,7 +902,7 @@ function addRooms()
        createExitObject("hanger bay", "west","You head west into the hanger bay.",false),
      ],
      [//Items in the current room
-        createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", 6 ),
+        createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
         createHealthObject("health kit","This is a health kit","images/healthkit.png", 50),
         createHealthObject("health pack","This is a health pack","images/healthpack.png", 50)
      ],
@@ -1371,7 +1368,7 @@ function pickUpItems(playerRoom,words,dragged)
 //<<<<<<< HEAD
         //  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
 //=======
-          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +"s added to inventory"+"</span>";
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
 //>>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
         }
         if(item.item.itemType!="Ammo")
