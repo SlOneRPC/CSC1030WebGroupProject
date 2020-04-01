@@ -172,11 +172,11 @@ function addRooms()
     [ //Items in the current room
       createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
       createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png"),
-<<<<<<< HEAD
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",4 )
-=======
+
+    //  createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",4 )
+
       createAmmoObject("energy cell","This is an energy cell","images/energycell.png",Math.floor((Math.random() * 10) + 1))
->>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
+
     ],
     [
 
@@ -1358,22 +1358,21 @@ function examineInteractables(roomInteractables, words)
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-<<<<<<< HEAD
-
-      if( words.includes(item.item.itemName) && item.item.itemSearched == true && ( item.item.itemType=="Gadget" || item.item.itemType=="Weapon" ||item.item.itemType=="Ammo" ||item.item.itemType=="Health" ))
-=======
+//
+      //if( words.includes(item.item.itemName) && item.item.itemSearched == true && ( item.item.itemType=="Gadget" || item.item.itemType=="Weapon" ||item.item.itemType=="Ammo" ||item.item.itemType=="Health" ))
+//=======
       if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"))
->>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
+//>>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
       {
         player.inventory.push(item);
         playerRoom.roomItems.splice(i, 1);
         if(item.item.itemType === "Ammo")
         {
-<<<<<<< HEAD
-          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
-=======
+//<<<<<<< HEAD
+        //  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
+//=======
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +"s added to inventory"+"</span>";
->>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
+//>>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
         }
         if(item.item.itemType!="Ammo")
         {
@@ -1402,16 +1401,16 @@ function search(playerRoom)
         else if(item.item.itemType == "Weapon" ){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWeapon'>>You notice a '" +item.item.itemName+"'</span>";
         }
-<<<<<<< HEAD
+//<<<<<<< HEAD
         else if(item.item.itemType == "Ammo" ){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWeapon'>>You notice some '" +item.item.itemName+"'</span>";
         }
         else if(item.item.itemType == "Health" ){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextHealth'>>You notice a '" +item.item.itemName+"'</span>";
-=======
-        else if(item.item.itemType =="Ammo"){
-            document.getElementById("text-display").innerHTML += "</br><span id='userTextWeapon'>>You notice a '" +item.item.itemName+"'</span>";
->>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
+//=======
+    //    else if(item.item.itemType =="Ammo"){
+      //      document.getElementById("text-display").innerHTML += "</br><span id='userTextWeapon'>>You notice a '" +item.item.itemName+"'</span>";
+//>>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
         }
         item.item.itemSearched = true;
       });
