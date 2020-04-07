@@ -1113,19 +1113,19 @@ function outputCurrentRoomExits()
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
    //var currentRoom=player.currentRoom.roomName;
    if(player.currentRoom.type=="hallway"){
-     document.getElementById("text-display").innerHTML += "</br>" + "You look around the hallway, ";
+     document.getElementById("text-display").innerHTML += "</br>>" + "You look around the hallway, ";
    }
    else{
-    document.getElementById("text-display").innerHTML += "</br>" + "You look around the " + player.currentRoom.roomName+",";
+    document.getElementById("text-display").innerHTML += "</br>>" + "You look around the " + player.currentRoom.roomName+",";
    }
    player.currentRoom.exits.forEach((item, i)=> {
    if(player.currentRoom.type=="hallway")
    {
-     document.getElementById("text-display").innerHTML += "</br>" + " there is a pathway to the " + item.orientation;
+     document.getElementById("text-display").innerHTML += "</br>>" + "there is a pathway to the " + item.orientation;
    }
    else
    {
-     document.getElementById("text-display").innerHTML += "</br>" + " there is a doorway to the " + item.orientation;
+     document.getElementById("text-display").innerHTML += "</br>>" + "there is a doorway to the " + item.orientation;
    }
   });
   ;
@@ -1208,7 +1208,6 @@ function clearExit(blockedPath,room)
         if(room.exits[j].exitRoomName === blockedPath.exitRoomName)
         {
             room.exits[j].blocked=false;
-
         }
       }
 }
