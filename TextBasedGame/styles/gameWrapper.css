@@ -324,7 +324,7 @@
 #gameInputButton:hover{
   color: black;
   background-color: white;
-  cursor:grab;
+  cursor:pointer;
 }
 
 #userTextRight
