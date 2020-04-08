@@ -1210,16 +1210,13 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     words.splice(0,1);
     var pickedUpItem = words.toString().replace(/,/g," ");
-<<<<<<< HEAD
+
     pickUpItems(player.currentRoom,pickedUpItem,false);
   }
 
   else if(customCommandInput(words.toString().replace(/,/g," "))!=null){
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
-=======
-    pickUpItems(player.currentRoom,words,false);
->>>>>>> c4dcf8bc100b9343874e8b74e07056137321b0a4
   }
 
   else
@@ -1486,23 +1483,16 @@ function examineInteractables(roomInteractables, words)
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-<<<<<<< HEAD
-      if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"||item.item.itemType=="Puzzle"||item.item.itemType=="Data"))
-=======
-      //if( words.includes(item.item.itemName) && item.item.itemSearched == true && ( item.item.itemType=="Gadget" || item.item.itemType=="Weapon" ||item.item.itemType=="Ammo" ||item.item.itemType=="Health" ))
-      if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"))
 
->>>>>>> c4dcf8bc100b9343874e8b74e07056137321b0a4
+      if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"||item.item.itemType=="Puzzle"||item.item.itemType=="Data"))
       {
         player.inventory.push(item);
         playerRoom.roomItems.splice(i, 1);
         if(item.item.itemType === "Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
-<<<<<<< HEAD
-=======
           pickUpAmmoSound.play();
->>>>>>> c4dcf8bc100b9343874e8b74e07056137321b0a4
+
         }
         else if(item.item.itemType!="Ammo")
         {
@@ -1535,7 +1525,6 @@ function search(playerRoom)
         else if(item.item.itemType == "Weapon" ){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWeapon'>>You notice a '" +item.item.itemName+"'</span>";
         }
-//<<<<<<< HEAD
         else if(item.item.itemType == "Ammo" ){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWeapon'>>You notice some '" +item.item.itemName+"'</span>";
         }
