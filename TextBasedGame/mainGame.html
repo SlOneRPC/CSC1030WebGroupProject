@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="styles/timer.css">
     <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rajdhani&display=swap" rel="stylesheet">
@@ -20,10 +21,10 @@
       }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
-        width: 12px;
+        width: 6px;
       }
       ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey;
+        box-shadow: inset 0 0 2px grey;
         border-radius: 10px;
       }
       ::-webkit-scrollbar-thumb {
@@ -148,10 +149,37 @@
               <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
               <button type="button" name="button" style="float:right; width:20%; height: 62px;" id = "gameInputButton" onclick="commandInput();">Go</button>
             </div>
+            <div id = "easyButtons">
+              <div id="compass">
+                <div class="buttonsContainer">
+                  <div id="compassRow">
+                    <div id="left" class="cellAnimation">></div>
+                    <div id="left"><button type="button" name="north" class="compassButtons" onclick="move('north');">North</button></div>
+                    <div id="left" class="cellAnimation"><</div>
+                  </div>
+                  <div id="compassRow">
+                    <div id="left"><button type="button" name="west" class="compassButtons" onclick="move('west');">West</button></div>
+                    <div id="imageLeft"><img src="images/compass idea.png" alt="compass"></div>
+                    <div id="left"><button type="button" name="east" class="compassButtons" onclick="move('east');">East</button></div>
+                  </div>
+                  <div id="compassRow">
+                    <div id="left" class="cellAnimation">></div>
+                    <div id="left"><button type="button" name="south" class="compassButtons" onclick="move('south');">South</button></div>
+                    <div id="left" class="cellAnimation"><</div>
+                  </div>
+                </div>
+              </div>
+              <div id="quickButtons">
+                <div><button type="button" name="Look" class="utilityButtons" onclick="outputCurrentRoomExits();">Look</button></div>
+                <br>
+                <div><button type="button" name="Search" class="utilityButtons" onclick="search(player.currentRoom);">Search</button></div>
+              </div>
+            </div>
+
           </div>
           <div id="statsContainer">
                  <div id="mapHeader">
-                   <h1 id="currentRoomDisplay" class="text">>Current Room: </h1>
+                   <h1 id="currentRoomDisplay" class="text" style="border-bottom:2px solid green">>Current Room: </h1>
                  </div>
                  <div id="map">
                      <img id="gameMap" src="images/gameMap.png" alt="This is the game map"style='height: 80%; width: 80%; object-fit: contain'>
@@ -159,7 +187,7 @@
                  <div id="playerStatsContainer">
                    <hr>
                    <p style="margin:0;">Health:</p>
-                   <p style="margin:0;" id="timer"</p>Time remaining: 5:00</p>
+                   <span style="margin:0;" class="blinking" id="timer">Time remaining: 5:00</span>
                    <hr>
                  </div>
                  <div id="objectivesContainer">
@@ -171,7 +199,6 @@
                  </div>
            </div>
           </div>
-
       </div>
       <div id="combat-wrapper">
         <div id="player1">

@@ -8,27 +8,32 @@ function timerOperation(){
 }
 
 function onTimer(){
-  // Time calculations for days, hours, minutes and seconds
+  // time calculations for minutes and seconds remaining
   var minutes = Math.floor(timeRemaining/60);
   var seconds = timeRemaining-(minutes*60);
 
+  // fixes display of timer for single digit seconds
   if(seconds < 10){
     seconds = "0" + seconds;
   }
 
-  // Display the result in the element with id="demo"
+  // displays time in item with id "timer"
   var timeLeft = minutes + ":" + seconds;
   document.getElementById("timer").innerHTML ="Time remaining: " + timeLeft;
 
   //take away a second
   timeRemaining -= 1;
-  //alert(timeRemaining);
-  // If the count down is finished, write some text
-  if (timeRemaining <= 0) {
-    clearInterval(x);
-    sessionStorage.setItem("timeRemaining",timeRemaining);
-    sessionStorage.setItem('stats', JSON.stringify(player.stats));
 
+  // code to change display at certain intervals
+  //if (timeRemaining == )
+
+
+
+  // If the count down is finished, end game
+  if (timeRemaining <= -1) {
+    clearInterval(timeRemaining);
+    sessionStorage.setItem("timeSpent",timeLeft);
+    sessionStorage.setItem('stats', JSON.stringify(player.stats));
     window.location.href = "endScreen.html";
   }
 }

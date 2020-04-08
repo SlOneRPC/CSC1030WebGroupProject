@@ -1,6 +1,8 @@
 var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
 var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)])
+var pickUpItemSound;
+var pickUpAmmoSound;
 
 function gameStart()
 {
@@ -8,6 +10,8 @@ function gameStart()
  //player.username = sessionStorage.getItem("name");
  //player.charClass = sessionStorage.getItem("class");
  addRooms();
+ pickUpItemSound = new sound("sounds/pickUpItem.mp3");
+ pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
  if (player.charClass == "Hacker")
  {
@@ -1076,6 +1080,7 @@ function addRooms()
   */
 
 }
+
 function getRoomTextDesc(currentRoom,entry)
 {
   var roomDesc="";
@@ -1112,6 +1117,7 @@ function outputCurrentRoomDesc()
     roomDesc= getRoomTextDesc(player.currentRoom,"second-entry");
   }
   document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
+  randomPlaceHolderText();
 }
 
 function outputCurrentRoomExits()
@@ -1119,19 +1125,19 @@ function outputCurrentRoomExits()
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
    //var currentRoom=player.currentRoom.roomName;
    if(player.currentRoom.type=="hallway"){
-     document.getElementById("text-display").innerHTML += "</br>" + "You look around the hallway, ";
+     document.getElementById("text-display").innerHTML += "</br>>" + "You look around the hallway, ";
    }
    else{
-    document.getElementById("text-display").innerHTML += "</br>" + "You look around the " + player.currentRoom.roomName+",";
+    document.getElementById("text-display").innerHTML += "</br>>" + "You look around the " + player.currentRoom.roomName+",";
    }
    player.currentRoom.exits.forEach((item, i)=> {
    if(player.currentRoom.type=="hallway")
    {
-     document.getElementById("text-display").innerHTML += "</br>" + " there is a pathway to the " + item.orientation;
+     document.getElementById("text-display").innerHTML += "</br>>" + "there is a pathway to the " + item.orientation;
    }
    else
    {
-     document.getElementById("text-display").innerHTML += "</br>" + " there is a doorway to the " + item.orientation;
+     document.getElementById("text-display").innerHTML += "</br>>" + "there is a doorway to the " + item.orientation;
    }
   });
   ;
@@ -1204,12 +1210,16 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     words.splice(0,1);
     var pickedUpItem = words.toString().replace(/,/g," ");
+<<<<<<< HEAD
     pickUpItems(player.currentRoom,pickedUpItem,false);
   }
 
   else if(customCommandInput(words.toString().replace(/,/g," "))!=null){
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
+=======
+    pickUpItems(player.currentRoom,words,false);
+>>>>>>> c4dcf8bc100b9343874e8b74e07056137321b0a4
   }
 
   else
@@ -1476,20 +1486,34 @@ function examineInteractables(roomInteractables, words)
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
+<<<<<<< HEAD
       if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"||item.item.itemType=="Puzzle"||item.item.itemType=="Data"))
+=======
+      //if( words.includes(item.item.itemName) && item.item.itemSearched == true && ( item.item.itemType=="Gadget" || item.item.itemType=="Weapon" ||item.item.itemType=="Ammo" ||item.item.itemType=="Health" ))
+      if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"))
+
+>>>>>>> c4dcf8bc100b9343874e8b74e07056137321b0a4
       {
         player.inventory.push(item);
         playerRoom.roomItems.splice(i, 1);
         if(item.item.itemType === "Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
+<<<<<<< HEAD
+=======
+          pickUpAmmoSound.play();
+>>>>>>> c4dcf8bc100b9343874e8b74e07056137321b0a4
         }
-        if(item.item.itemType!="Ammo")
+        else if(item.item.itemType!="Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
+          pickUpItemSound.play();
         }
         if(!dragged)
+        {
           addItemToInventory(item.item);
+          pickUpItemSound.play();
+        }
 
       }
       /*if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
@@ -1766,4 +1790,50 @@ function changeTextDescription()
     desc = "Travelling through space is a risky business to most, but unlike the rest, he can outshoot bandits, criminals and things that go bump in the night before they have the chance to blink.";
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
+}
+
+function randomNumber(range)
+{
+  return Math.round(Math.random() * range) + 1;
+}
+
+function randomPlaceHolderText()
+{
+  var number = randomNumber(5);
+
+  if (number === 1)
+  {
+    document.getElementById("gameInput").placeholder = "Enter your action";
+  }
+  else if (number === 2)
+  {
+    document.getElementById("gameInput").placeholder = "Do your worst";
+  }
+  else if (number === 3)
+  {
+    document.getElementById("gameInput").placeholder = "What is happening";
+  }
+  else if (number === 4)
+  {
+    document.getElementById("gameInput").placeholder = "Enemies = bad";
+  }
+  else if (number === 5)
+  {
+    document.getElementById("gameInput").placeholderr = "Did you pick it up?";
+  }
+}
+
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
 }
