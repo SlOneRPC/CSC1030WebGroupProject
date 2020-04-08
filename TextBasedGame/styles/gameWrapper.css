@@ -198,7 +198,13 @@
   color: orange;
 }
 #userTextPuzzle{
-  color:purple;
+  color: purple;
+}
+#userTextHealth{
+  color: salmon;
+}
+#userTextDatapad{
+  color:navy;
 }
 
 
