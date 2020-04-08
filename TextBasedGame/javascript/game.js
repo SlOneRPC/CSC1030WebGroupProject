@@ -1,6 +1,7 @@
 var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
 var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)])
+var pickUpItemSound;
 
 function gameStart()
 {
@@ -8,6 +9,7 @@ function gameStart()
  //player.username = sessionStorage.getItem("name");
  //player.charClass = sessionStorage.getItem("class");
  addRooms();
+ pickUpItemSound = new sound("sounds/pickUpItem.mp3");
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
  if (player.charClass == "Hacker")
  {
@@ -1070,6 +1072,7 @@ function addRooms()
   rooms.push(vent05);
 
 }
+
 function getRoomTextDesc(currentRoom,entry)
 {
   var roomDesc="";
@@ -1106,6 +1109,7 @@ function outputCurrentRoomDesc()
     roomDesc= getRoomTextDesc(player.currentRoom,"second-entry");
   }
   document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
+  randomPlaceHolderText();
 }
 
 function outputCurrentRoomExits()
@@ -1192,6 +1196,8 @@ function processCommands(input)
   else if(words[0] == ("take") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    words.splice(0,1);
+    var pickedUpItem = words.toString().replace(/,/g," ");
     pickUpItems(player.currentRoom,words,false);
   }
   else
@@ -1354,28 +1360,27 @@ function examineInteractables(roomInteractables, words)
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-//
       //if( words.includes(item.item.itemName) && item.item.itemSearched == true && ( item.item.itemType=="Gadget" || item.item.itemType=="Weapon" ||item.item.itemType=="Ammo" ||item.item.itemType=="Health" ))
-//=======
       if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"))
-//>>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
+
       {
         player.inventory.push(item);
         playerRoom.roomItems.splice(i, 1);
         if(item.item.itemType === "Ammo")
         {
-//<<<<<<< HEAD
-        //  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
-//=======
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
-//>>>>>>> edbd0ee718618382dbdc33711fb0d155ab14b01f
+          pickUpItemSound.play();
         }
-        if(item.item.itemType!="Ammo")
+        else if(item.item.itemType!="Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
+          pickUpItemSound.play();
         }
         if(!dragged)
+        {
           addItemToInventory(item.item);
+          pickUpItemSound.play();
+        }
 
       }
       /*if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
@@ -1648,4 +1653,50 @@ function changeTextDescription()
     desc = "Travelling through space is a risky business to most, but unlike the rest, he can outshoot bandits, criminals and things that go bump in the night before they have the chance to blink.";
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
+}
+
+function randomNumber(range)
+{
+  return Math.round(Math.random() * range) + 1;
+}
+
+function randomPlaceHolderText()
+{
+  var number = randomNumber(5);
+
+  if (number === 1)
+  {
+    document.getElementById("gameInput").placeholder = "Enter your action";
+  }
+  else if (number === 2)
+  {
+    document.getElementById("gameInput").placeholder = "Do your worst";
+  }
+  else if (number === 3)
+  {
+    document.getElementById("gameInput").placeholder = "What is happening";
+  }
+  else if (number === 4)
+  {
+    document.getElementById("gameInput").placeholder = "Enemies = bad";
+  }
+  else if (number === 5)
+  {
+    document.getElementById("gameInput").placeholderr = "Did you pick it up?";
+  }
+}
+
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
 }
