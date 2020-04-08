@@ -2,6 +2,7 @@ var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObjec
 var rooms = [];
 var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)])
 var pickUpItemSound;
+var pickUpAmmoSound;
 
 function gameStart()
 {
@@ -10,6 +11,7 @@ function gameStart()
  //player.charClass = sessionStorage.getItem("class");
  addRooms();
  pickUpItemSound = new sound("sounds/pickUpItem.mp3");
+ pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
  if (player.charClass == "Hacker")
  {
@@ -1369,7 +1371,7 @@ function pickUpItems(playerRoom,words,dragged)
         if(item.item.itemType === "Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
-          pickUpItemSound.play();
+          pickUpAmmoSound.play();
         }
         else if(item.item.itemType!="Ammo")
         {
