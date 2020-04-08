@@ -1,4 +1,4 @@
-var timeRemaining = 10;
+var timeRemaining = 300;
 var startTime;
 var timer;
 var paused = false;
