@@ -1,6 +1,6 @@
 var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
-var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)])
+var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
 var pickUpItemSound;
 var pickUpAmmoSound;
 
@@ -49,9 +49,9 @@ function gameStart()
  player.currentRoom = newCurrent;
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
 }
-function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue,detectedValue)
+function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
 {
-  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue, detected:detectedValue};
+  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
 }
 function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeatedValue, timeLeftValue)
@@ -110,8 +110,8 @@ function createPuzzleLockObject(interactableNameValue, descriptionValue, customC
   var puzzleLockObject={interactableName:interactableNameValue, description:descriptionValue, customCommand:customCommandValue,descriptionUnlocked:descriptionUnlockedValue};
   return puzzleLockObject;
 }
-function createEnemyObject(enemyTypeValue,descriptionValue,filePathValue,healthValue,damagePerAttackValue,weaponValue, bodyPartsValue){
-  var enemyObject={enemyType:enemyTypeValue,description:descriptionValue,filePath:filePathValue,health:healthValue,damagePerAttack:damagePerAttackValue, weapon:weaponValue, bodyParts:bodyPartsValue};
+function createEnemyObject(enemyTypeValue,descriptionValue,filePathValue,healthValue,damagePerAttackValue,weaponValue, bodyPartsValue, detectionValue){
+  var enemyObject={enemyType:enemyTypeValue,description:descriptionValue,filePath:filePathValue,health:healthValue,damagePerAttack:damagePerAttackValue, weapon:weaponValue, bodyParts:bodyPartsValue, detection:detectionValue};
   return enemyObject;
 }
 function createLeverObject(interactableNameValue, descriptionValue, customCommandValue, pulledStateValue ,pulledDescriptionValue){
@@ -169,7 +169,7 @@ function addRooms()
         "You re-enter the quarters finding them exactly as you left it."
       )
     ],
-     [headcrab], //Enemies Value
+     [], //Enemies Value
     [ //Exits to current room
       createExitObject("hallway01", "east", "You step out of the quarters and into one of the ships long dark hallways.",false)
     ],
@@ -512,7 +512,7 @@ function addRooms()
          "The hallway lies quiet."
        ),
      ],
-     [],//Enemies Value
+     [headcrab],//Enemies Value
      [//Exits to current room
        createExitObject("hallway02", "north", "You countinue up the hallway north.",false),
        createExitObject("hallway04", "east","You crawl into the vent,it is dark and narrow with very little room to move, pushing forward you emerge in a hallway.",true),
@@ -1117,6 +1117,23 @@ function outputCurrentRoomDesc()
     roomDesc= getRoomTextDesc(player.currentRoom,"second-entry");
   }
   document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
+  if(player.currentRoom.enemies.length > 0)
+  {
+    var roll = randomNumber(100);
+    player.currentRoom.enemies.forEach((item, i) =>
+    {
+      if(roll <= item.detection)
+      {
+        document.getElementById("text-display").innerHTML += "</br>> Enemy has spotted you";
+        document.getElementById("text-display").innerHTML += "</br>> It rolled: " + roll;
+      }
+    });
+    document.getElementById("text-display").innerHTML += "</br>>" + roll;
+  }
+  else
+  {
+
+  }
   randomPlaceHolderText();
 }
 
@@ -1540,7 +1557,6 @@ function search(playerRoom)
         }
         item.item.itemSearched = true;
       });
-
       vicinity(playerRoom);
   }
   else
@@ -1556,10 +1572,9 @@ function search(playerRoom)
   else
   {
     {
-      document.getElementById("text-display").innerHTML += "</br><span>>There is nothing interesting to look at</span>";
+      document.getElementById("text-display").innerHTML += "</br><span>>There is nothing interesting to interact with</span>";
     }
   }
-  displayAllEnemies();
 }
 
 function getDetailsOfItem(imgPath){
