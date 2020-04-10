@@ -31,7 +31,7 @@ function onTimer(){
 
   // If the count down is finished, end game
   if (timeRemaining <= -1) {
-    clearInterval(timeRemaining);
+    clearInterval(timer);
     sessionStorage.setItem("timeSpent",timeLeft);
     sessionStorage.setItem('stats', JSON.stringify(player.stats));
     window.location.href = "endScreen.html";
@@ -39,15 +39,15 @@ function onTimer(){
 }
 
 function pause(){
-  if(!paused){
-    //if the timer is currently not paused clear the interval
+  if(!paused){  //if the timer is currently not paused clear the interval
     clearInterval(timer);
-    paused = true;
-    document.getElementById('pausebtn').innerHTML = 'unpause';
+    document.getElementById('pauseContainer').classList.remove('hideMe');
+    document.getElementById('wrapper').classList.add('disabledbutton');
   }
-  else{
+  else{ //if the timer is currently paused restart the timer
     timer = setInterval(onTimer, 1000);
-    paused = false;
-    document.getElementById('pausebtn').innerHTML = 'pause';
+    document.getElementById('pauseContainer').classList.add('hideMe');
+    document.getElementById('wrapper').classList.remove('disabledbutton');
   }
+  paused = !paused;//change paused state
 }
