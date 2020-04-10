@@ -47,7 +47,7 @@
       function drop(ev) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
-        if(event.target.tagName.toUpperCase() == "TD"){
+        if(event.target.tagName.toUpperCase() == "TD" && event.target.innerHTML == ''){
           ev.target.appendChild(document.getElementById(data));
           pickUpItems(player.currentRoom, data.split("_")[0],true);
         }
@@ -287,7 +287,7 @@
   <div id="pauseContainer" class="hideMe">
       <h1>Paused!</h3>
       <hr style="width:80%;">
-      <button type="button" style="" onclick="pause();" id="pausebtn">Unpause Game</button>
+      <button type="button" onclick="pause();" id="pausebtn">Unpause Game</button>
   </div>
   </body>
 </html>
