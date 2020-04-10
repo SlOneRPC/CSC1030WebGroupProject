@@ -301,6 +301,9 @@
 #userTextWrong{
   color: red;
 }
+#userTextCaution{
+  color: purple;
+}
 #userTextGadget{
   color: lightblue;
 }
