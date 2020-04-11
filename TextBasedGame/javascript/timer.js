@@ -26,7 +26,15 @@ function onTimer(){
 
   // code to change display at certain intervals
   //if (timeRemaining == )
+  //if (timeRemaining%60 == 0)
+  if (timeRemaining == 295){
+    document.getElementById("timer").className = "blinking";
 
+  }/*
+  else{
+    document.getElementById("timer").className = "notBlinking";
+  }
+*/
 
 
   // If the count down is finished, end game
