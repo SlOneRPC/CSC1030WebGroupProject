@@ -1,4 +1,4 @@
-var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0,false);
+var player = createPlayerObject("Luke", 25, "Engineer", "", [],createWeaponObject(0,0,0,0,0,0,0,0), createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
 var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
 var pickUpItemSound;
@@ -10,6 +10,7 @@ function gameStart()
  //player.username = sessionStorage.getItem("name");
  //player.charClass = sessionStorage.getItem("class");
  addRooms();
+ document.getElementById("healthStat").innerHTML = "Health: "+ player.health +"%";
  pickUpItemSound = new sound("sounds/pickUpItem.mp3");
  pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
@@ -49,9 +50,9 @@ function gameStart()
  player.currentRoom = newCurrent;
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
 }
-function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, statsValue, attackValue, defenseValue)
+function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, equippedWeaponValue, statsValue, attackValue, defenseValue)
 {
-  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
+  var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue,equippedWeapon:equippedWeaponValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
 }
 function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeatedValue, timeLeftValue)
@@ -64,9 +65,9 @@ function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemie
   var roomObject = {roomName:roomNameValue, type:typeValue, roomDescriptions:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue, looked:lookedValue};
   return roomObject;
 }
-function createExitObject(exitRoomNameValue, orientationValue,descriptionValue,blockedValue)
+function createExitObject(exitRoomNameValue, orientationValue,descriptionValue,blockedValue,blockedDescriptionValue)
 {
-  var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue, description:descriptionValue, blocked:blockedValue};
+  var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue, description:descriptionValue, blocked:blockedValue,blockedDescription:blockedDescriptionValue};
   return exitObject;
 }
 function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue, itemFilePathValue)
@@ -171,7 +172,7 @@ function addRooms()
     ],
      [], //Enemies Value
     [ //Exits to current room
-      createExitObject("hallway01", "east", "You step out of the quarters and into one of the ships long dark hallways.",false)
+      createExitObject("hallway01", "east", "You step out of the quarters and into one of the ships long dark hallways.",false,"")
     ],
     [ //Items in the current room
       createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
@@ -203,8 +204,8 @@ function addRooms()
     ],
     [],//Enemies Value
     [ //Exits to current room
-      createExitObject("hallway05", "north", "You exit the armory and enter into the hallway and see a junction.",false),
-      createExitObject("hallway06", "south", "You creep out of the armory and enter into a dimly lit hallway.",false)
+      createExitObject("hallway05", "north", "You exit the armory and enter into the hallway and see a junction.",false,""),
+      createExitObject("hallway06", "south", "You creep out of the armory and enter into a dimly lit hallway.",false,"")
     ],
     [//Items in the current room
       createWeaponObject("revolver",6,6, 25,"Ranged", ["shoot"],"It is a gun","images/laserrevolver.png"),
@@ -236,8 +237,8 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway03", "north","You step out of the computer lab into a hallway and arrive at a junction. ",false),
-      createExitObject("hallway06", "west","",true)
+      createExitObject("hallway03", "north","You step out of the computer lab into a hallway and arrive at a junction. ",false,""),
+      createExitObject("hallway06", "west","",true,"You cannot go that way it has been blocked by fallen debris and rubble from the upper level. ")
     ],
     [//Items in the current room
       createWeaponObject("pistol", 9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
@@ -271,7 +272,7 @@ function addRooms()
 
     ],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway03", "east","You step out of the storage unit into a hallway and arrive at a junction. ",false)
+      createExitObject("hallway03", "east","You step out of the storage unit into a hallway and arrive at a junction. ",false,"")
     ],
     [//Items in the current room
       createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1))
@@ -300,9 +301,9 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway12", "south","You walk through the doorway and enter into the hallway",true),
-      createExitObject("reactor room", "north","You crawl into the dark vent,crawling forward into the vent, you hear a distant low hum.",true),
-      createExitObject("hallway11", "west","You walk past the cleared rubble and out of the room",true)
+      createExitObject("hallway12", "south","You walk through the doorway and enter into the hallway",true,"A locked door prevents your passage."),
+      createExitObject("reactor room", "north","You crawl into the dark vent,crawling forward into the vent, you hear a distant low hum.",true,"A vent blocks the way."),
+      createExitObject("hallway11", "west","You walk past the cleared rubble and out of the room",true,"Fallen rubble and debris block your exit, looks like youre not going that way.")
     ],
     [//Items in the current room
       createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
@@ -332,8 +333,8 @@ function addRooms()
     ],
      [],//Enemies Value
      [//Exits to current room
-       createExitObject("mess hall","north","You walk out of the kitchen through the unlocked door into another room.",true),
-       createExitObject("hallway04", "south"," You slip out of the kitchen back into one of the ship's long hallways",false)
+       createExitObject("mess hall","north","You walk out of the kitchen through the unlocked door into another room.",true,"A locked door prevents your passage."),
+       createExitObject("hallway04", "south"," You slip out of the kitchen back into one of the ship's long hallways",false,"")
      ],
      [//Items in the current room
        createAmmoObject("energy cells","This is an energy cell","images/energycell.png",Math.floor((Math.random() * 10) + 1) ),
@@ -361,9 +362,9 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway12", "north","You step out of the mess hall into another one of the ship's long corridors.",false),
-      createExitObject("kitchen","south","",true),
-      createExitObject("hallway8", "west","You leave the mess hall and head into another hallway.",false)
+      createExitObject("hallway12", "north","You step out of the mess hall into another one of the ship's long corridors.",false,""),
+      createExitObject("kitchen","south","",true,"A locked door prevents your passage."),
+      createExitObject("hallway8", "west","You leave the mess hall and head into another hallway.",false,"")
     ],
     [//Items in the current room
       createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hanger bay.","images/tornmap.png"),
@@ -393,8 +394,8 @@ function addRooms()
     ],
      [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway10", "east","As you crawl forward into the vent, you hear it creak as you slowly crawl through it, lets hope nothing hears that.",true),
-      createExitObject("hallway08", "south","You leave the maintence bay and enter back into the hallway.",false)
+      createExitObject("hallway10", "west","As you crawl forward into the vent, you hear it creak as you slowly crawl through it, lets hope nothing hears that.",true,"A vent blocks the way."),
+      createExitObject("hallway08", "south","You leave the maintence bay and enter back into the hallway.",false,"")
     ],
     [//Items in the current room
       createAmmoObject("energy cells","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
@@ -452,8 +453,8 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway09", "south","",false),
-      createExitObject("hallway13", "east","You leave the research lab and enter back into the hallway.",false)
+      createExitObject("hallway09", "south","",false,""),
+      createExitObject("hallway13", "west","You leave the research lab and enter back into the hallway.",false,"")
     ],
     [//Items in the current room
       createAmmoObject("energy cells","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1), ),
@@ -481,9 +482,9 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway11", "south", " ",true),
-      createExitObject("storage unit 02", "east","You crawl into the dark vent, and hear the hum of the reactor fade.",true),
-      createExitObject("hallway13", "west","You leave the research lab and enter into the corridor.",false)
+      createExitObject("hallway11", "south", " ",true,"A locked door barrs your exit from the room."),
+      createExitObject("storage unit 02", "west","You crawl into the dark vent, and hear the hum of the reactor fade.",true,"A vent stands in your way. You cant go that way."),
+      createExitObject("hallway13", "east","You leave the research lab and enter into the corridor.",false,"")
     ],
     [//Items in the current room
 
@@ -514,10 +515,10 @@ function addRooms()
      ],
      [headcrab],//Enemies Value
      [//Exits to current room
-       createExitObject("hallway02", "north", "You countinue up the hallway north.",false),
-       createExitObject("hallway04", "east","You crawl into the vent,it is dark and narrow with very little room to move, pushing forward you emerge in a hallway.",true),
-       createExitObject("quarters", "west", "You head west through the hallway into the quarters",false),
-       createExitObject("hallway03","south", "You head south down the hallway and reach a junction",false)
+       createExitObject("hallway02", "north", "You countinue up the hallway north.",false,""),
+       createExitObject("hallway04", "east","You crawl into the vent,it is dark and narrow with very little room to move, pushing forward you emerge in a hallway.",true,"A vent stands in your way you cannot countinue this path."),
+       createExitObject("quarters", "west", "You head west through the hallway into the quarters",false,""),
+       createExitObject("hallway03","south", "You head south down the hallway and reach a junction",false,"")
      ],
      [//Items in the current room
 
@@ -545,7 +546,7 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway01", "south", "You head south down the hallway.",false)
+      createExitObject("hallway01", "south", "You head south down the hallway.",false,"")
     ],
     [//Items in the current room
       createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space","no")
@@ -570,10 +571,10 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway01", "north","You head north up the hallway",false),
-      createExitObject("storage unit 01", "west","You head west towards the storage unit",false),
-      createExitObject("computer lab", "south","You head south towards the computer lab",false),
-      createExitObject("hallway04","east","With the door now opened you head east into another hallway.",true),
+      createExitObject("hallway01", "north","You head north up the hallway",false,""),
+      createExitObject("storage unit 01", "west","You head west towards the storage unit",false,""),
+      createExitObject("computer lab", "south","You head south towards the computer lab",false,""),
+      createExitObject("hallway04","east","With the door now opened you head east into another hallway.",true,"A locked door blocks your path you cannot go that way, you might be able to open it with sommething?"),
 
     ],
     [//Items in the current room
@@ -603,10 +604,10 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("kitchen", "north","You head north to the end of the hallway into a room.",false),
-      createExitObject("hallway05", "east","You head east into another one of the ships long hallways. ",false),
-      createExitObject("hallway01", "west","You crawl into the vent,it is dark and narrow with very little room to move, pushing forward you emerge in a hallway.",true),
-      createExitObject("hallway03","south","With the door opened you head south into another hallway.",true)
+      createExitObject("kitchen", "north","You head north to the end of the hallway into a room.",false,""),
+      createExitObject("hallway05", "east","You head east into another one of the ships long hallways. ",false,""),
+      createExitObject("hallway01", "west","You crawl into the vent,it is dark and narrow with very little room to move, pushing forward you emerge in a hallway.",true,"The way is blocked by vent you can't go that direction."),
+      createExitObject("hallway03","south","With the door opened you head south into another hallway.",true,"A locked door blocks your path.You can't go that way.")
 
     ],
     [//Items in the current room
@@ -636,10 +637,10 @@ function addRooms()
     ],
      [],//Enemies Value
      [//Exits to current room
-       createExitObject("hallway04", "west","You head north to the end of the hallway into a room.",false),
-       createExitObject("armory","south","You step out of the hallway and walk into a room.",false),
-       createExitObject("hallway07", "east","",true),
-       createExitObject("hallway08", "north","You crawl into the dark vent, and slowly move through it,you emerge into a long hallway.",true)
+       createExitObject("hallway04", "west","You head north to the end of the hallway into a room.",false,""),
+       createExitObject("armory","south","You step out of the hallway and walk into a room.",false,""),
+       createExitObject("hallway07", "east","With the rubble cleared and your ears still ringing, you make your way east doen the hall into another corridor.",true,"You can't go that way debris and rubble from the hallway's panelling blocks your path."),
+       createExitObject("hallway08", "north","You crawl into the dark vent, and slowly move through it,you emerge into a long hallway.",true,"A vent blocks your path you can't go that way.")
      ],
      [//Items in the current room
 
@@ -667,8 +668,8 @@ function addRooms()
     ],
      [],//Enemies Value
      [//Exits to current room
-       createExitObject("armory", "north","you head north out of the dim hallway back into the armory.",false),
-       createExitObject("computer lab", "west","",true)
+       createExitObject("armory", "north","you head north out of the dim hallway back into the armory.",false,""),
+       createExitObject("computer lab", "west","With the rubble cleared you head out of the hallway into another room.",true,"You cannot go that way large rubble and debris block the path.")
      ],
      [//Items in the current room
        createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
@@ -696,15 +697,15 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway14", "west","You countinue west further into the hallway",true),
-      createExitObject("hallway09", "north","",true),
-      createExitObject("hallway08", "east","You head east down the hallway",false),
-      createExitObject("hallway05", "south","",true)
+      createExitObject("hallway14", "west","You countinue west further into the hallway",true,"You can't go that way a powerless door prevents your passage, it needs to be powered in order to be opened."),
+      createExitObject("hallway09", "north","",true,"A locked door blocks your path you cannot go that way, you might be able to open it with sommething?"),
+      createExitObject("hallway08", "east","You head east down the hallway",false,""),
+      createExitObject("hallway05", "south","With the rubble cleared and your hearing damaged, you make your way east doen the hall into another corridor. Maybe get ear muffs next time?",true,"You cannot go that way large rubble and debris block the path.")
     ],
     [//Items in the current room
       createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway09","Using your hacking-tool you succesfully hack into the door controls and open the door.","door03"),
       createBlockedPathObject("rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway05","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble02"),
-      createInteractableObject("Sign-post","You examine the sign post and and see that the hanger bay is to the east end of the hall, the research lab is towards the north end of the hall,the armory is towards the south and the maintenance bay and mess hall are to the east.","no"),
+      createInteractableObject("Sign","You examine the sign and and see that the hanger bay is to the east end of the hall, the research lab is towards the north end of the hall,the armory is towards the south and the maintenance bay and mess hall are to the east.","no"),
       createInteractableObject("Powered Door","You examine the door and and see that it is blocking access to the hanger bay. It might open if the ship's power is restored.","no")
     ],
     [], //Number of interactable items in the room
@@ -727,10 +728,10 @@ function addRooms()
     ],
     [], //Enemies Value
     [//Exits to current room
-      createExitObject("maintenance bay", "north"," You head north out of the hallway into a room",false),
-      createExitObject("mess hall", "east"," You head east down the hallway towards a room",false),
-      createExitObject("hallway07", "west","You head west down the hallway towards a junction",false),
-      createExitObject("hallway05","south","You crawl into the dark vent, and slowly move through it,and emerge into a long hallway.",true,)
+      createExitObject("maintenance bay", "north"," You head north out of the hallway into a room",false,""),
+      createExitObject("mess hall", "east"," You head east down the hallway towards a room",false,""),
+      createExitObject("hallway07", "west","You head west down the hallway towards a junction",false,""),
+      createExitObject("hallway05","south","You crawl into the dark vent, and slowly move through it,and emerge into a long hallway.",true,"You cannot go that way a vent blocks your path.")
     ],
     [//Items in the current room
       createHealthObject("health pack","This is a health pack","images/healthpack.png", 25)
@@ -758,9 +759,9 @@ function addRooms()
     ],
     [], //Enemies Value
     [//Exits to current room
-      createExitObject("research lab", "north","",true),
-      createExitObject("hallway07", "south","",true),
-      createExitObject("hallway10", "west","You countinue west down the hallway",false)
+      createExitObject("research lab", "north","You head north down the hall ",true,"You attempt to head north down the hall but are halted by a large pile of debris and metal scrap.You cannot go that way."),
+      createExitObject("hallway07", "south","",true,"You attempt to head south down the hall but arrive at a locked door blocking your path."),
+      createExitObject("hallway10", "west","You countinue west down the hallway",false,"")
     ],
     [//Items in the current room
     ],
@@ -787,15 +788,15 @@ function addRooms()
     ],
     [], //Enemies Value
     [//Exits to current room
-      createExitObject("maintenance bay", "south","You crawl into the vent and make your way slowly through the tight space.",true),
-      createExitObject("hallway13", "north","You crawl slowly though the vent, the light from the hallway infront of you illuminating your path.",true),
-      createExitObject("hallway11","west","You countinue west down the hallway towards a junction.",false)
+      createExitObject("maintenance bay", "south","You crawl into the vent and make your way slowly through the tight space.",true,"You cannot go that way a vent blocks the way."),
+      createExitObject("hallway13", "north","You crawl slowly though the vent, the light from the hallway infront of you illuminating your path.",true,"You cannot go that way a damaged vent blocks the way."),
+      createExitObject("hallway11","west","You countinue west down the hallway towards a junction.",false,"")
     ],
     [//Items in the current room
     ],
     [
       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","maintenance bay","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent03"),
-      createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway13","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent04"),
+      createBlockedPathObject("damaged vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on damaged vent","hallway13","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent04"),
     ], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
@@ -816,10 +817,10 @@ function addRooms()
     ],
     [], //Enemies Value
     [//Exits to current room
-      createExitObject("reactor room", "north","",true),
-      createExitObject("storage unit 02", "west","",true),
-      createExitObject("hallway10", "east", "you countinue east down the hallway.",false),
-      createExitObject("hallway12", "south", "you countinue south down the hallway and see another junction",false)
+      createExitObject("reactor room", "north","",true,""),
+      createExitObject("storage unit 02", "west","",true,"You attempt to head west downn the hall but are stopped by a large pile of burnt metal and debris you cannot go that way."),
+      createExitObject("hallway10", "east", "you countinue east down the hallway.",false,""),
+      createExitObject("hallway12", "south", "you countinue south down the hallway and see another junction",false."")
     ],
     [//Items in the current room
     ],
@@ -846,9 +847,9 @@ function addRooms()
     ],
     [], //Enemies Value
     [//Exits to current room
-      createExitObject("hallway11", "north","You head north up the hallway.",false),
-      createExitObject("storage unit 02", "west","",true),
-      createExitObject("mess hall", "south","You head south down the hallway and enter into a room.",false)
+      createExitObject("hallway11", "north","You head north up the hallway.",false,""),
+      createExitObject("storage unit 02", "west","",true,"You attempt to go west up the hallway and are stopped by a locked dorr you can't go that way."),
+      createExitObject("mess hall", "south","You head south down the hallway and enter into a room.",false,"")
     ],
     [//Items in the current room
 
@@ -877,9 +878,9 @@ function addRooms()
     ],
      [], //Enemies Value
      [//Exits to current room
-       createExitObject("research lab", "west","You head west down the hallway into the Research lab.",false),
-       createExitObject("reactor room", "east","You head east down the hallway into the Reactor room.",false),
-       createExitObject("hallway10", "south","You crawl slowly though the vent, and notice a hallway at the end of the vent.",true)
+       createExitObject("research lab", "west","You head west down the hallway into the Research lab.",false,""),
+       createExitObject("reactor room", "east","You head east down the hallway into the Reactor room.",false,""),
+       createExitObject("hallway10", "south","You crawl slowly though the vent, and notice a hallway at the end of the vent.",true,"You cannot go that way a vent blocks your path.")
      ],
      [//Items in the current room
         createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1)),
@@ -907,8 +908,8 @@ function addRooms()
     ],
      [], //Enemies Value
      [//Exits to current room
-       createExitObject("hanger bay", "west","You head west into the hanger bay.", false),
-       createExitObject("hallway07", "east","You head east back into the hallway.", false),
+       createExitObject("hanger bay", "west","You head west into the hanger bay.", false,""),
+       createExitObject("hallway07", "east","You head east back into the hallway.", false,""),
      ],
      [//Items in the current room
         createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
@@ -918,134 +919,7 @@ function addRooms()
      [], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
-/*
-  //vent instanciation
-  var vent01=createRoomObject
-  (
-    "vent01",//Room Name
-    "vent",//Room Type
-    [//Room Descriptions
-      createDescriptionObject(
-        "first-entry",
-        "The vent is dark and narrow with very little room to move about in."
-      ),
-      createDescriptionObject(
-        "second-entry",
-        "The vent is dark and narrow with very little room to move about in."
-      ),
-    ],
-     [], //Enemies Value
-     [//Exits to current room
-       createExitObject("hallway04", "east","You crawl east out of the vent and emerge in a hallway.",false),
-       createExitObject("hallway01", "west","You crawl west out of the vent and emerge in a hallway.",false),
-     ],
-     [//Items in the current room
 
-     ],
-     [], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
-   );
-  var vent02 = createRoomObject
-  (
-    "vent02",//Room Name
-    "vent",//Room Type
-    [//Room Descriptions
-      createDescriptionObject(
-        "first-entry",
-        "vent02 first-entry placeholder "
-      ),
-      createDescriptionObject(
-        "second-entry",
-        "vent02 second-entry placeholder"
-      ),
-    ],
-     [], //Enemies Value
-     [//Exits to current room
-       createExitObject("hallway05", "south","You crawl south out of the vent and emerge in a hallway.",false),
-       createExitObject("hallway08", "north","You crawl north out of the vent and emerge in a hallway.",false),
-     ],
-     [//Items in the current room
-
-     ],
-     [], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
-   );
-  var vent03 = createRoomObject
-  (
-    "vent03",//Room Name
-    "vent",//Room Type
-    [//Room Descriptions
-      createDescriptionObject(
-        "first-entry",
-        "As you crawl forward into the vent, you hear it creak as you slowly crawl through it, lets hope nothing hears that. "
-      ),
-      createDescriptionObject(
-        "second-entry",
-        "You crawl once more through the vent greeted once more by the creaking metal."
-      ),
-    ],
-     [], //Enemies Value
-     [//Exits to current room
-       createExitObject("maintenance bay", "east","You crawl east out of the vent and emerge in the maintance bay.",false),
-       createExitObject("hallway10", "north","You crawl north out of the vent and emerge in a hallway.",false),
-     ],
-     [//Items in the current room
-
-     ],
-     [], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
-   );
-  var vent04 = createRoomObject
-  (
-    "vent04",//Room Name
-    "vent",//Room Type
-    [//Room Descriptions
-      createDescriptionObject(
-        "first-entry",
-        "You crawl slowly though the vent you see the light from the hallway infront of you illuminating your path."
-      ),
-      createDescriptionObject(
-        "second-entry",
-        "You enter the dimly lit vent once more, hearing nothing but the quiet thud of your movement agaisnt the metal"
-      ),
-    ],
-     [], //Enemies Value
-     [//Exits to current room
-       createExitObject("hallway13", "north","You crawl north out of the vent and emerge in a hallway.",false),
-       createExitObject("hallway10", "south","You crawl south out of the vent and emerge in a hallway.",false),
-     ],
-     [//Items in the current room
-
-     ],
-     [], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
-   );
-  var vent05 =  createRoomObject
-  (
-    "vent05",//Room Name
-    "vent",//Room Type
-    [//Room Descriptions
-      createDescriptionObject(
-        "first-entry",
-        "crawling forward into the vent, you hear a distant low hum."
-      ),
-      createDescriptionObject(
-        "second-entry",
-        "crawling forward into the vent, you hear a distant low hum"
-      ),
-    ],
-     [], //Enemies Value
-     [//Exits to current room
-       createExitObject("reactor room", "east","You crawl east out of the vent and emerge in the ruined reactor room.",false),
-       createExitObject("storage unit 02", "south","You crawl south out of the vent and emerge in a large room.",false),
-     ],
-     [//Items in the current room
-
-     ],
-     [], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
-   );
-*/
 
   rooms.push(quarters);
   rooms.push(computerLab);
@@ -1072,12 +946,7 @@ function addRooms()
   rooms.push(hallway12);
   rooms.push(hallway13);
   rooms.push(hallway14);
-/*  rooms.push(vent01);
-  rooms.push(vent02);
-  rooms.push(vent03);
-  rooms.push(vent04);
-  rooms.push(vent05);
-  */
+
 
 }
 
@@ -1150,11 +1019,11 @@ function outputCurrentRoomExits()
    player.currentRoom.exits.forEach((item, i)=> {
    if(player.currentRoom.type=="hallway")
    {
-     document.getElementById("text-display").innerHTML += "</br>>" + "there is a pathway to the " + item.orientation;
+     document.getElementById("text-display").innerHTML += "</br>>" + "there is a path to the " + item.orientation;
    }
    else
    {
-     document.getElementById("text-display").innerHTML += "</br>>" + "there is a doorway to the " + item.orientation;
+     document.getElementById("text-display").innerHTML += "</br>>" + "there is a door to the " + item.orientation;
    }
   });
   ;
@@ -1203,11 +1072,23 @@ function processCommands(input)
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
       outputCurrentRoomExits();
   }
-    else if (words.includes("hint") == true)
+  else if (words.includes("hint") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     giveHint();
 
+  }
+  else if (words.includes("reload") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    reload();
+  }
+  else if (words.includes("equip") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    words.splice(0,1);
+    var weaponToBeEquipped = words.toString().replace(/,/g," ");
+    equipWeapon(weaponToBeEquipped);
   }
   else if(words[0] == ("pick") && words[1] == ("up"))
   {
@@ -1221,6 +1102,13 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     var itemBeingUsed = words.toString().replace(/,/g," ");
     useItem(itemBeingUsed);
+  }
+  else if(words[0] == ("drop"))
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    words.splice(0,1);
+    var itemBeingDropped = words.toString().replace(/,/g," ");
+    dropItem(itemBeingDropped);
   }
   else if(words[0] == ("take"))
   {
@@ -1242,14 +1130,103 @@ function processCommands(input)
   }
 }
 
-function removeItem()
-{
+function dropItem(itemName){
+  if(checkInventory(itemName)){
+    if(itemName===player.equippedWeapon.item.itemName){
+      var none=createWeaponObject(0,0,0,0,0,0,0,0);
+      player.equippedWeapon=none;
+    }
+    item=player.inventory[getItemPosFromInventory(itemName)];
+    removeItemFromInventory(item);
+    player.currentRoom.roomItems.push(item);
+    document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'>>Dropped "+itemName+"</span>";
+  }
+  else{
+    document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that item in your inventory!</span>";
+  }
+}
 
+function removeItem(itemName)
+{
+  for(var i=0;i<player.inventory.length; i ++)
+  {
+    if(player.inventory[i].item.itemName === itemName){
+      removeItemFromInventory(player.inventory[i])
+      player.inventory.splice(i,1)
+    }
+  }
+}
+function removeItemFromInventory(item){
+  var elements = document.querySelectorAll("#inventory td");
+  imageToBeRemoved = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription + " class='inventoryItem'>";
+  for (var i = 0; i < elements.length; i++) {
+    //document.getElementById("text-display").innerHTML+=elements[i].innerHTML.getAttribute("src");
+   //document.getElementById("text-display").innerHTML+=elements[i].innerHTML;
+    if((elements[i].innerHTML).includes(item.item.itemFilePath)){
+    //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
+      //document.getElementById("text-display").innerHTML+="MATCH"
+
+      elements[i].innerHTML ="  ";
+    //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
+      break;
+    }
+  }
+  vicinity(player.currentRoom);
 }
 
 function reload()
 {
+    if(checkInventory("energy cells")){
+      var energyCellPos = getItemPosFromInventory("energy cells");
+      var cellsNeeded=  player.equippedWeapon.magSize-player.equippedWeapon.ammo;//As in to reload weapon completely
+      if(player.inventory[energyCellPos].amount >= cellsNeeded){
+        player.inventory[energyCellPos].amount-cellsNeeded;
+        player.equippedWeapon.ammo= player.equippedWeapon.ammo + cellsNeeded;
+      }
+      else{
+        player.inventory[energyCellPos].amount=0;
+        player.equippedWeapon.ammo= player.equippedWeapon.ammo +enerycell.amount;
+      }
+    }
+    else{
+      document.getElementById("text-diplay").innerHTML +="</br><span id='userTextWrong'>> You dont have any energy cells to reload!"
+    }
+}
 
+function equipWeapon(weaponName)
+{
+  if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
+    if(checkInventory(weaponName)){
+      player.equippedWeapon = player.inventory[getItemPosFromInventory(weaponName)];
+      document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'> Equipped "+weaponName+"."+"</span>";
+      document.getElementById("currentWeapon").innerHTML="Equipped Weapon: "+weaponName;
+      document.getElementById("currentWeaponMag").innerHTML="Current mag: "+player.equippedWeapon.ammo;
+    }
+    else{
+      document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You haven't picked up that weapon!</span>";
+    }
+  }
+  else{
+    document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You can't equip that!</span>";
+  }
+}
+
+function getItemPosFromInventory(itemName){
+  for(var i=0; i<player.inventory.length;i++){
+    //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+    if(player.inventory[i].item.itemName === itemName){
+      return i;
+    }
+  }
+}
+
+function removeInteractable(interactableName){
+  for(var i=0; i<player.currentRoom.interactables.length;i++){
+    //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+    if(player.currentRoom.interactables[i].item.interactableName === interactableName){
+        player.currentRoom.interactables.splice(i,1);
+    }
+  }
 }
 
 function giveHint()
@@ -1265,8 +1242,9 @@ function processCustomCommand(interactable)
   {
     if(checkInventory("data card") && player.currentRoom.roomName === "reactor room")
     {
-      removeItem();
+      removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
+      removeInteractable("console");
       player.currentRoom.interactables.push(createInteractableObject("Alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET POWER GENERATORS BETA, GAMMA, DELTA, AND PULL MASTER SWITCH'","no"));
       player.currentRoom.interactables.push(createLeverObject("DELTA Lever","You inspect the lever, pulling it should restart the generator.","pull delta lever",false, "You pull the lever, and the generator begins to slowly rumble."));
       player.currentRoom.interactables.push(createLeverObject("BETA Lever","You inspect the lever, pulling it should restart the generator.","pull beta lever",false, "You pull the lever, and the generator begins to slowly rumble."));
@@ -1327,7 +1305,6 @@ function checkLever(room)
     return false;
   }
 }
-
 function clearExit(blockedPath,room)
 {
       for(var j = 0; j < room.exits.length; j++)
@@ -1376,11 +1353,10 @@ function removeBlockage(blockedPath)
   }
 }
 
-function checkInventory(item){
+function checkInventory(item){/////////////////////////////////////////////
   for(var i=0; i<player.inventory.length;i++){
-    document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+    //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
     if(player.inventory[i].item.itemName === item){
-
       return true;
     }
   }
@@ -1391,19 +1367,31 @@ function useItem(words)
   //Health packs
   //Health Kits
   document.getElementById("text-display").innerHTML+="<br>>"+ words;
-  if(words.includes("health-kit"))
+  if(words.includes("health kit"))
   {
-      if(checkInventory("health-kit"))
+      if(checkInventory("health kit"))
       {
+        removeItem("health kit");
+        var newHealth = player.health + 50;
+        if(newHealth>100){
+          newHealth=100;
+        }
+        document.getElementById("healthStat").innerHTML= "Health: "+newHealth;
       }
       else{
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have that item</span>";
       }
   }
-  else if(words.includes("health-pack"))
+  else if(words.includes("health pack"))
   {
-      if(checkInventory("health-pack"))
+      if(checkInventory("health pack"))
       {
+        removeItem("health pack");
+        var newHealth = player.health + 25;
+        if(newHealth>100){
+          newHealth=100;
+        }
+        document.getElementById("healthStat").innerHTML= "Health: "+newHealth;
       }
       else{
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have that item</span>";
@@ -1503,21 +1491,29 @@ function pickUpItems(playerRoom,words,dragged)
 
       if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"||item.item.itemType=="Puzzle"||item.item.itemType=="Data"))
       {
-        player.inventory.push(item);
-        playerRoom.roomItems.splice(i, 1);
         if(item.item.itemType === "Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
           pickUpAmmoSound.play();
-
+          if(checkInventory("energy cells")){
+            player.inventory[getItemPosFromInventory("energy cells")].amount+item.amount;
+          }
+          else{
+            player.inventory.push(item);
+            playerRoom.roomItems.splice(i, 1);
+          }
         }
         else if(item.item.itemType!="Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
           pickUpItemSound.play();
+          player.inventory.push(item);
+          playerRoom.roomItems.splice(i, 1);
         }
         if(!dragged)
         {
+          player.inventory.push(item);
+          playerRoom.roomItems.splice(i, 1);
           addItemToInventory(item.item);
           pickUpItemSound.play();
         }
@@ -1697,15 +1693,8 @@ function goDirection(direction)
           }
           //CHANGE
           if(roomExit.orientation === direction && roomExit.blocked===true){
-              if(roomExit.exitRoomName.includes("vent")){
-                  document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>"+ "You cannot go that way it is blocked by a vent.";
-              }
-              if(roomExit.exitRoomName.includes("rubble")){
-                  document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>"+ "You cannot go that way it is blocked by rubble and debris.";
-              }
-              if(roomExit.exitRoomName.includes("door")){
-                  document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>"+ "You cannot go that way it is blocked by a locked door.";
-              }
+                  document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>"+ roomExit.blockedDescription;
+
           }
       });
   }
@@ -1767,7 +1756,6 @@ function addItemToInventory(item){
         break;
       }
     }
-
     vicinity(player.currentRoom);
 }
 
