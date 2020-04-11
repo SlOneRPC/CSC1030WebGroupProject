@@ -1,6 +1,6 @@
 var player = createPlayerObject("Luke", 100, "Engineer", "", [], createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
-var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
+//var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
 var pickUpItemSound;
 var pickUpAmmoSound;
 
@@ -110,8 +110,8 @@ function createPuzzleLockObject(interactableNameValue, descriptionValue, customC
   var puzzleLockObject={interactableName:interactableNameValue, description:descriptionValue, customCommand:customCommandValue,descriptionUnlocked:descriptionUnlockedValue};
   return puzzleLockObject;
 }
-function createEnemyObject(enemyTypeValue,descriptionValue,filePathValue,healthValue,damagePerAttackValue,weaponValue, bodyPartsValue, detectionValue){
-  var enemyObject={enemyType:enemyTypeValue,description:descriptionValue,filePath:filePathValue,health:healthValue,damagePerAttack:damagePerAttackValue, weapon:weaponValue, bodyParts:bodyPartsValue, detection:detectionValue};
+function createEnemyObject(enemyTypeValue,descriptionValue, ambientDescriptionValue, filePathValue,healthValue,damagePerAttackValue,weaponValue, bodyPartsValue, detectionValue){
+  var enemyObject={enemyType:enemyTypeValue,description:descriptionValue, ambientDescription: ambientDescriptionValue,filePath:filePathValue,health:healthValue,damagePerAttack:damagePerAttackValue, weapon:weaponValue, bodyParts:bodyPartsValue, detection:detectionValue};
   return enemyObject;
 }
 function createLeverObject(interactableNameValue, descriptionValue, customCommandValue, pulledStateValue ,pulledDescriptionValue){
@@ -512,7 +512,7 @@ function addRooms()
          "The hallway lies quiet."
        ),
      ],
-     [headcrab],//Enemies Value
+     [createEnemyObject("Headcrab","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)],//Enemies Value
      [//Exits to current room
        createExitObject("hallway02", "north", "You countinue up the hallway north.",false),
        createExitObject("hallway04", "east","You crawl into the vent,it is dark and narrow with very little room to move, pushing forward you emerge in a hallway.",true),
@@ -1119,23 +1119,105 @@ function outputCurrentRoomDesc()
   document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
   if(player.currentRoom.enemies.length > 0)
   {
-    var roll = randomNumber(100);
-    player.currentRoom.enemies.forEach((item, i) =>
-    {
-      if(roll <= item.detection)
-      {
-        document.getElementById("text-display").innerHTML += "</br>> Enemy has spotted you";
-        document.getElementById("text-display").innerHTML += "</br>> It rolled: " + roll;
-      }
-    });
-    document.getElementById("text-display").innerHTML += "</br>>" + roll;
+    enemyDetectionRoll();
   }
   else
   {
 
   }
   randomPlaceHolderText();
+  scrollBarAnchor();
 }
+
+function outputSmallEnemyDescriptions()
+{
+  var smallEnemyDescriptions = ["You can hear something scuttling along the hallway", "Small sinister screeches bounce off the walls simply piercing your ears", "You feel another presence in the area"]
+  var length = smallEnemyDescriptions.length;
+  var pickedNumber = randomNumberForArray(length);
+
+  if(pickedNumber >= smallEnemyDescriptions.length)
+  {
+    pickedNumber = pickedNumber -1;
+  }
+
+  //document.getElementById("text-display").innerHTML += "</br><span>>"+pickedNumber+"</span>"; - use for debugging
+  document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>"+ smallEnemyDescriptions[pickedNumber] +"</span>";
+  //, if you're not bleeding it definitely hasn't detected you yet
+
+}
+
+function outputBigEnemyDescriptions()
+{
+  var bigEnemyDescriptions = ["You hear the heavy breath of something somewhere within the vicinity", "You hear the rambling of intelligent noises that you are certain you have never heard before", "As you enter the hallway you can see a large creature moping against a box"];
+  var length = bigEnemyDescriptions.length;
+  var pickedNumber = randomNumberForArray(length);
+
+  if(pickedNumber >= bigEnemyDescriptions.length)
+  {
+    pickedNumber = pickedNumber -1;
+  }
+    //document.getElementById("text-display").innerHTML += "</br><span>>"+pickedNumber+"</span>"; - use for debugging
+  document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>" + bigEnemyDescriptions[pickedNumber]+"</span>";
+}
+
+function enemyAwarenessDescription(typeArray)
+{
+  if(typeArray.length == 1)
+  {
+    if(typeArray[0] == 1)
+    {
+      outputSmallEnemyDescriptions();
+    }
+    else
+    {
+      outputBigEnemyDescriptions();
+    }
+  }
+}
+
+function enemyDetection()
+{
+  var typeArray = [];
+  player.currentRoom.enemies.forEach((item, i) => {
+    if(item.enemyType == "Headcrab")
+    {
+      typeArray.push(1);
+    }
+    else
+    {
+      typeArray.push(2);
+    }
+  });
+  enemyAwarenessDescription(typeArray);
+}
+
+function enemyDetectionRoll()
+{
+  var roll = randomNumber(100);
+  var spotted = false;
+  player.currentRoom.enemies.forEach((item, i) =>
+  {
+    if(roll <= item.detection)
+    {
+      document.getElementById("text-display").innerHTML += "</br>> Enemy has spotted you";
+      document.getElementById("text-display").innerHTML += "</br>> It rolled: " + roll;
+      //call method to beign combat system
+    }
+    else
+    {
+      if(item.ambientDescription === 0)
+      {
+        enemyDetection();
+      }
+      else
+      {
+        document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>"+ item.ambientDescription +"</span>";
+      }
+    }
+  });
+  document.getElementById("text-display").innerHTML += "</br>>" + roll;
+}
+
 
 function outputCurrentRoomExits()
 {
@@ -1158,6 +1240,7 @@ function outputCurrentRoomExits()
    }
   });
   ;
+  scrollBarAnchor();
 }
 
 function commandInput()
@@ -1488,6 +1571,14 @@ function examineInteractables(roomInteractables, words)
       if(words === interactable.interactableName)
       {
         document.getElementById("text-display").innerHTML += "</br><span>>"+interactable.description+"</span>";
+        if(player.currentRoom.enemies.length > 0)
+        {
+          enemyDetectionRoll();
+        }
+        else
+        {
+
+        }
       }
     });
   }
@@ -1495,6 +1586,7 @@ function examineInteractables(roomInteractables, words)
   {
     document.getElementById("text-display").innerHTML += "</br><span>>There is nothing to interact with in this room</span>";
   }
+  scrollBarAnchor();
 }
 
 function pickUpItems(playerRoom,words,dragged)
@@ -1521,14 +1613,21 @@ function pickUpItems(playerRoom,words,dragged)
           addItemToInventory(item.item);
           pickUpItemSound.play();
         }
+        if(player.currentRoom.enemies.length > 0)
+        {
+          enemyDetectionRoll();
+        }
+        else
+        {
 
+        }
       }
       /*if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"You cannot pick up the "+item.item.itemName +"</span>";
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>" +"Try examining it instead!" +"</span>";
       }*/
-
+      scrollBarAnchor();
     });
 }
 function search(playerRoom)
@@ -1575,6 +1674,7 @@ function search(playerRoom)
       document.getElementById("text-display").innerHTML += "</br><span>>There is nothing interesting to interact with</span>";
     }
   }
+  scrollBarAnchor();
 }
 
 function getDetailsOfItem(imgPath){
@@ -1652,6 +1752,7 @@ function move(words)
   {
     document.getElementById("text-display").innerHTML+= "</br>>I guess you're staying here then...</br>";
   }
+  scrollBarAnchor();
 }
 
 function goDirection(direction)
@@ -1713,6 +1814,7 @@ function goDirection(direction)
   {
     document.getElementById("text-display").innerHTML+= "</br>>There is nowhere in that direction..";
   }
+  scrollBarAnchor();
 }
 function returnNewRoom(roomExit)
 {
@@ -1801,6 +1903,11 @@ function randomNumber(range)
   return Math.round(Math.random() * range) + 1;
 }
 
+function randomNumberForArray(range)
+{
+  return Math.round(Math.random() * range);
+}
+
 function randomPlaceHolderText()
 {
   var number = randomNumber(5);
@@ -1815,15 +1922,15 @@ function randomPlaceHolderText()
   }
   else if (number === 3)
   {
-    document.getElementById("gameInput").placeholder = "What is happening";
+    document.getElementById("gameInput").placeholder = "The end is never";
   }
   else if (number === 4)
   {
-    document.getElementById("gameInput").placeholder = "Enemies = bad";
+    document.getElementById("gameInput").placeholder = "Enter your command";
   }
   else if (number === 5)
   {
-    document.getElementById("gameInput").placeholderr = "Did you pick it up?";
+    document.getElementById("gameInput").placeholderr = "Dont mess yourself up some";
   }
 }
 
@@ -1840,4 +1947,9 @@ function sound(src) {
   this.stop = function(){
     this.sound.pause();
   }
+}
+function scrollBarAnchor()
+{
+  var elem = document.getElementById('text-display');
+  elem.scrollTop = elem.scrollHeight;
 }
