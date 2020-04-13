@@ -820,7 +820,7 @@ function addRooms()
       createExitObject("reactor room", "north","",true,""),
       createExitObject("storage unit 02", "west","",true,"You attempt to head west downn the hall but are stopped by a large pile of burnt metal and debris you cannot go that way."),
       createExitObject("hallway10", "east", "you countinue east down the hallway.",false,""),
-      createExitObject("hallway12", "south", "you countinue south down the hallway and see another junction",false."")
+      createExitObject("hallway12", "south", "you countinue south down the hallway and see another junction",false,"")
     ],
     [//Items in the current room
     ],
