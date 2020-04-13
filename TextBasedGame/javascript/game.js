@@ -1602,7 +1602,6 @@ function pickUpItems(playerRoom,words,dragged)
         {
 
         }
-
         if(item.item.itemType === "Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
