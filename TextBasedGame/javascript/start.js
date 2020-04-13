@@ -1,4 +1,4 @@
-// this method is used to  
+// this method is used to instantiate the player's details  
 function startGame(){
   sessionStorage.setItem("name", document.getElementById("name").value);
 

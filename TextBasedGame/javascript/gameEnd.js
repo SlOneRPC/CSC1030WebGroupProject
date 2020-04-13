@@ -9,7 +9,7 @@ function gameOverStats(){
   document.getElementById("itemsCollected").textContent = stats.itemsCollected;
 }
 
-// method used to restart the game
+// method used to restart the game - loads start page
 function restartGame(){
-
+  window.location.href = "test.html";
 }
