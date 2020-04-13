@@ -988,7 +988,7 @@ function outputCurrentRoomDesc()
   document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
   if(player.currentRoom.enemies.length > 0)
   {
-    enemyDetectionRoll();
+    enemyDetectionRoll(0);
   }
   else
   {
@@ -1060,7 +1060,7 @@ function enemyDetection()
   enemyAwarenessDescription(typeArray);
 }
 
-function enemyDetectionRoll()
+function enemyDetectionRoll(reRollFlag)
 {
   var roll = randomNumber(100);
   var spotted = false;
@@ -1074,13 +1074,24 @@ function enemyDetectionRoll()
     }
     else
     {
-      if(item.ambientDescription === 0)
+      if(reRollFlag === 0)
       {
-        enemyDetection();
+        if(item.ambientDescription === 0)
+        {
+          enemyDetection();
+        }
+        else
+        {
+          document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>"+ item.ambientDescription +"</span>";
+        }
       }
-      else
+      else if (reRollFlag === 1)
       {
-        document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>"+ item.ambientDescription +"</span>";
+        document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>You pick up the item without getting spotted by the creature in your room</span>";
+      }
+      else {
+        document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>You examine the item without getting spotted by the creature in your room</span>";
+
       }
     }
   });
@@ -1558,15 +1569,15 @@ function examineInteractables(roomInteractables, words)
     {
       if(words === interactable.interactableName)
       {
-        document.getElementById("text-display").innerHTML += "</br><span>>"+interactable.description+"</span>";
         if(player.currentRoom.enemies.length > 0)
         {
-          enemyDetectionRoll();
+          enemyDetectionRoll(2);
         }
         else
         {
 
         }
+        document.getElementById("text-display").innerHTML += "</br><span>>"+interactable.description+"</span>";
       }
     });
   }
@@ -1583,6 +1594,15 @@ function pickUpItems(playerRoom,words,dragged)
 
       if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"||item.item.itemType=="Puzzle"||item.item.itemType=="Data"))
       {
+        if(player.currentRoom.enemies.length > 0)
+        {
+          enemyDetectionRoll(1);
+        }
+        else
+        {
+
+        }
+
         if(item.item.itemType === "Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
@@ -1608,14 +1628,6 @@ function pickUpItems(playerRoom,words,dragged)
           playerRoom.roomItems.splice(i, 1);
           addItemToInventory(item.item);
           pickUpItemSound.play();
-        }
-        if(player.currentRoom.enemies.length > 0)
-        {
-          enemyDetectionRoll();
-        }
-        else
-        {
-
         }
       }
       /*if(words.includes(item.item.itemName) && item.item.itemSearched==true && (item.item.itemType=="Interact"))
