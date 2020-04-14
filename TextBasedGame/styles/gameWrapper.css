@@ -76,11 +76,12 @@
 
 #easyButtons
 {
-  width: 95%;
+  width: 97%;
   display: block;
   margin: auto;
   text-align: center;
   overflow: hidden;
+  border-radius: 25px;
 }
 
 #left
@@ -119,22 +120,35 @@
   border-bottom-left-radius: 25px;
   /*border-bottom-right-radius: 25px;*/
   border-top-right-radius: 25px;
-  font-size: 1.5em;
-  color: #2EA6BF;
-  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.35em;
+  /* font-size: 1.5em; */
+  /* color: #2EA6BF;
+  font-family: 'Rajdhani', sans-serif; */
+  color: #27910E;
+  font-family: 'Orbitron', sans-serif;
   border: 2px solid black;
-  font-weight: bolder;
+  /* font-weight: bolder; */
   cursor: pointer;
   outline: none;
 
-  background: repeating-linear-gradient(
+  /* background: repeating-linear-gradient(
     180deg,
     #041114,
     #041114 10px,
     #09252B 10px,
     #09252B 20px
-    );
+    ); */
+    background: repeating-linear-gradient(
+      180deg,
+      #082316,
+      #082316 10px,
+      #05170E 10px,
+      #05170E 20px
+      );
 }
+
+
+
 
 .utilityButtons
 {
@@ -148,14 +162,21 @@
   font-weight: bolder;
   cursor: pointer;
   outline: none;
-
-  background: repeating-linear-gradient(
+  color: #2EA6BF;
+  /* background: repeating-linear-gradient(
     180deg,
     #25082A,
     #25082A 10px,
     #44174C 10px,
     #44174C 20px
-    );
+    ); */
+    background: repeating-linear-gradient(
+      180deg,
+      #041114,
+      #041114 10px,
+      #09252B 10px,
+      #09252B 20px
+      );
 }
 
 
@@ -309,6 +330,17 @@
     overflow: auto;
     font-size: 1.75em;
     font-family: 'Rajdhani', sans-serif;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    background: repeating-linear-gradient(
+      45deg,
+      #1B1A1A,
+      #1B1A1A 10px,
+      #0F0F0F 10px,
+      #0F0F0F 20px
+      );
 }
 
 
@@ -328,7 +360,7 @@
   color: red;
 }
 #userTextCaution{
-  color: purple;
+  color: #861BD4;
 }
 #userTextGadget{
   color: lightblue;
@@ -348,17 +380,23 @@
 #userTextDatapad{
   color:navy;
 }
+#userAvailableDirection{
+  color: #1B8ED4;
+}
+
 
 #gameInputButton{
   color:white;
-  border: 1px solid white;
+  border: none;
   text-transform: uppercase;
   background-color: transparent;
+  font-size: 2.5em;
+  color: #27910E;
+  font-family: 'Pixelicious', sans-serif;
+  text-align: center;
 }
 
 #gameInputButton:hover{
-  color: black;
-  background-color: white;
   cursor:pointer;
 }
 

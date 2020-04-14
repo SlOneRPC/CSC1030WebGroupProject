@@ -2,34 +2,34 @@ var timeRemaining = 300;
 var startTime;
 var timer;
 var paused = false;
-function timerOperation(){
-  // Update the count down every 1 second
+
+// Update the count down every 1 second
+function timerOperation()
+{
   timer = setInterval(onTimer, 1000);
 }
 
-function onTimer(){
+function onTimer()
+{
   // time calculations for minutes and seconds remaining
   var minutes = Math.floor(timeRemaining/60);
   var seconds = timeRemaining-(minutes*60);
-
   // fixes display of timer for single digit seconds
-  if(seconds < 10){
+  if(seconds < 10)
+  {
     seconds = "0" + seconds;
   }
-
   // displays time in item with id "timer"
   var timeLeft = minutes + ":" + seconds;
   document.getElementById("timer").innerHTML ="Time remaining: " + timeLeft;
-
   //take away a second
   timeRemaining -= 1;
-
   // code to change display at certain intervals
   //if (timeRemaining == )
   //if (timeRemaining%60 == 0)
-  if (timeRemaining == 295){
+  if (timeRemaining == 295)
+  {
     document.getElementById("timer").className = "blinking";
-
   }/*
   else{
     document.getElementById("timer").className = "notBlinking";
@@ -38,7 +38,8 @@ function onTimer(){
 
 
   // If the count down is finished, end game
-  if (timeRemaining <= -1) {
+  if (timeRemaining <= -1)
+  {
     clearInterval(timer);
     sessionStorage.setItem("timeSpent",timeLeft);
     sessionStorage.setItem('stats', JSON.stringify(player.stats));
