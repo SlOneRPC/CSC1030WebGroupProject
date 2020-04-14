@@ -163,8 +163,7 @@ onchange{
     color: #27910E;
 }
 
-@keyframes sway
-{
+@keyframes sway{
   0% {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
