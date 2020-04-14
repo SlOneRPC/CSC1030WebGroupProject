@@ -1,7 +1,15 @@
+/*class for making content blink*/
 .blinking{
-
-    animation:blinkingText 1.2s;
+  color: #4edaf9;
+    animation:blinkingText 1.5s;
+    animation-iteration-count: 1;
 }
+
+/*class for making content not blink*/
+.notBlinking{
+    color: #ff0000;
+}
+
 @keyframes blinkingText{
     0%{     color: #4edaf9;    }
     49%{    color: #4edaf9; }

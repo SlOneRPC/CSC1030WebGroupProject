@@ -30,7 +30,7 @@ function gameStart()
    rooms.forEach((item, i) => {
      if(item.roomName == "quarters")
      {
-       document.getElementById("text-display").innerHTML += "you, have just been sleeping after a long shift, when you are thrown suddenly to the floor with a bang that could wake the dead.You stumble to your feet, bleary-eyed, with no idea what's going on, but whatever it is, it isn't going to be fun."
+       document.getElementById("text-display").innerHTML += ">You've been sleeping after a long shift, when you are suddenly thrown to the floor with a bang that could wake the dead. Stumbling to your feet, bleary-eyed, with no idea what's going on you realise everyone around you is missing. Whatever is going on, it isn't going to be fun."
        newCurrent = item;
        item.roomDiscovered = true;
      }
@@ -1104,19 +1104,19 @@ function outputCurrentRoomExits()
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
    //var currentRoom=player.currentRoom.roomName;
    if(player.currentRoom.type=="hallway"){
-     document.getElementById("text-display").innerHTML += "</br>>" + "You look around the hallway, ";
+     document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>" + ">You look around the hallway, "+ "</span>";
    }
    else{
-    document.getElementById("text-display").innerHTML += "</br>>" + "You look around the " + player.currentRoom.roomName+",";
+    document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>" + ">You look around the " + player.currentRoom.roomName+"," + "</span>";
    }
    player.currentRoom.exits.forEach((item, i)=> {
    if(player.currentRoom.type=="hallway")
    {
-     document.getElementById("text-display").innerHTML += "</br>>" + "there is a path to the " + item.orientation;
+     document.getElementById("text-display").innerHTML += "</br>>" + "there is a path to the <span id= 'userAvailableDirection'>" + item.orientation  + "</span>";
    }
    else
    {
-     document.getElementById("text-display").innerHTML += "</br>>" + "there is a door to the " + item.orientation;
+     document.getElementById("text-display").innerHTML += "</br>>" + "there is a door to the <span id= 'userAvailableDirection'>" + item.orientation + "</span>";
    }
   });
   ;
@@ -1602,7 +1602,6 @@ function pickUpItems(playerRoom,words,dragged)
         {
 
         }
-
         if(item.item.itemType === "Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
@@ -1668,7 +1667,7 @@ function search(playerRoom)
   }
   else
   {
-    document.getElementById( "text-display" ).innerHTML += "</br><span>>There are no items in this room</span>";
+    document.getElementById( "text-display" ).innerHTML += "</br><span id ='userTextWeapon'>>There are no items in this room</span>";
   }
   if(playerRoom.interactables.length >= 1)
   {
@@ -1679,7 +1678,7 @@ function search(playerRoom)
   else
   {
     {
-      document.getElementById("text-display").innerHTML += "</br><span>>There is nothing interesting to interact with</span>";
+      document.getElementById("text-display").innerHTML += "</br><span id = 'userTextInteractable'>>There is nothing interesting to interact with</span>";
     }
   }
   scrollBarAnchor();
@@ -1754,11 +1753,11 @@ function move(words)
   }
   else if(checkDirection > 1)
   {
-    document.getElementById("text-display").innerHTML+= "</br>>You can't go in multiple directions...";
+    document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You can't go in multiple directions...</span>";
   }
   else if(checkDirection === 0)
   {
-    document.getElementById("text-display").innerHTML+= "</br>>I guess you're staying here then...</br>";
+    document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>I guess you're staying here then...</span></br>";
   }
   scrollBarAnchor();
 }
@@ -1789,7 +1788,7 @@ function goDirection(direction)
           {
 
             newCurrent = returnNewRoom(roomExit.exitRoomName);
-            document.getElementById("text-display").innerHTML +="</br>>"+ roomExit.description;
+            document.getElementById("text-display").innerHTML +="</br><span id = 'userTextRight'>>"+ roomExit.description + "</span>";
             player.currentRoom = newCurrent;
             if(player.currentRoom.roomDiscovered==true)
             {
