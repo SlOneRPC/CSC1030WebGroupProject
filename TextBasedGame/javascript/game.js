@@ -1640,9 +1640,10 @@ function pickUpItems(playerRoom,words,dragged)
 }
 function search(playerRoom)
 {
+  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Searching the vicinity you find that...</span>";
+
   if(playerRoom.roomItems.length >=1)
   {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Searching the vicinity you find that...</span>";
     playerRoom.roomItems.forEach((item, i) => {
         if(item.item.itemType == "Gadget" ){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextGadget'>>You notice a '" +item.item.itemName+"'</span>";
