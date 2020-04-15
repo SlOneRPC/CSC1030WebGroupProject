@@ -176,8 +176,9 @@ function addRooms()
     ],
     [ //Items in the current room
       createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
-      createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png"),
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1) )
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1)),
+      createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png")
+
 
     ],
     [
