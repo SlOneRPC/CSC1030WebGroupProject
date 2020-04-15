@@ -34,6 +34,7 @@
     </style>
     <script type="text/javascript"></script>
     <script type="text/javascript" src="javascript/game.js"></script>
+    <script type="text/javascript" src="javascript/tooltip.js"></script>
     <script type="text/javascript">
       /*Page specific scripts*/
       function allowDrop(ev) {
@@ -151,17 +152,17 @@
                   <div class="buttonsContainer">
                     <div id="compassRow">
                       <div id="left" class="cellAnimation">></div>
-                      <div id="left"><button type="button" name="north" class="compassButtons" onclick="move('north');">North</button></div>
+                      <div id="left"><button type="button" name="north" class="compassButtons" onclick="move('north');" id ="north">North</button></div>
                       <div id="left" class="cellAnimation"><</div>
                     </div>
                     <div id="compassRow">
-                      <div id="left"><button type="button" name="west" class="compassButtons" onclick="move('west');">West</button></div>
+                      <div id="left"><button type="button" name="west" class="compassButtons" onclick="move('west');" id ="west">West</button></div>
                       <div id="imageLeft"><img src="images/compass idea.png" alt="compass"></div>
-                      <div id="left"><button type="button" name="east" class="compassButtons" onclick="move('east');">East</button></div>
+                      <div id="left"><button type="button" name="east" class="compassButtons" onclick="move('east');" id ="east">East</button></div>
                     </div>
                     <div id="compassRow">
                       <div id="left" class="cellAnimation">></div>
-                      <div id="left"><button type="button" name="south" class="compassButtons" onclick="move('south');">South</button></div>
+                      <div id="left"><button type="button" name="south" class="compassButtons" onclick="move('south');" id ="south">South</button></div>
                       <div id="left" class="cellAnimation"><</div>
                     </div>
                   </div>

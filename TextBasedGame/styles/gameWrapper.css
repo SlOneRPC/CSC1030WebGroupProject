@@ -112,6 +112,7 @@
   text-align: center;
   width: 100%;
 }
+
 .compassButtons
 {
   width: 100%;
@@ -122,31 +123,32 @@
   /*border-top-right-radius: 25px; */
   font-size: 1.35em;
   /* font-size: 1.5em; */
-  /* color: #2EA6BF;
-  font-family: 'Rajdhani', sans-serif; */
-  color: #27910E;
+   color: #2EA6BF;
+  /*font-family: 'Rajdhani', sans-serif; */
+  /* color: #27910E; */
   font-family: 'Orbitron', sans-serif;
   border: 2px solid black;
   /* font-weight: bolder; */
   cursor: pointer;
   outline: none;
 
-  /* background: repeating-linear-gradient(
+  background: repeating-linear-gradient(
     180deg,
     #041114,
     #041114 10px,
     #09252B 10px,
     #09252B 20px
-    ); */
-    background: repeating-linear-gradient(
+    );
+    /* background: repeating-linear-gradient(
       180deg,
       #082316,
       #082316 10px,
       #05170E 10px,
       #05170E 20px
       );
-      padding: 1%;
+      padding: 1%; */
 }
+
 
 #eastButton
 {
@@ -440,6 +442,7 @@
 ::placeholder{
   color: #434443;
 }
+
 
 @keyframes fadeInOut {
   0% {

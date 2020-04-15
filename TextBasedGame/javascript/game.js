@@ -996,6 +996,7 @@ function outputCurrentRoomDesc()
 
   }
   randomPlaceHolderText();
+  directionColourResetBlue()
   scrollBarAnchor();
 }
 
@@ -1104,6 +1105,7 @@ function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
    //var currentRoom=player.currentRoom.roomName;
+   var availableDirections = [];
    if(player.currentRoom.type=="hallway"){
      document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>" + ">You look around the hallway, "+ "</span>";
    }
@@ -1119,9 +1121,51 @@ function outputCurrentRoomExits()
    {
      document.getElementById("text-display").innerHTML += "</br>>" + "there is a door to the <span id= 'userAvailableDirection'>" + item.orientation + "</span>";
    }
+   availableDirections.push(item.orientation);
   });
   ;
+  directionColourAllRed();
+  scanning(availableDirections);
   scrollBarAnchor();
+}
+
+function scanning(availableDirections)
+{
+  if(availableDirections.includes("east"))
+  {
+    document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
+  }
+  if(availableDirections.includes("north"))
+  {
+    document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
+  }
+  if(availableDirections.includes("south"))
+  {
+    document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
+  }
+  if(availableDirections.includes("west"))
+  {
+    document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
+  }
+}
+//green "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E"
+//red "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313"
+
+function directionColourResetBlue()
+{
+  document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
+  document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
+  document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
+  document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
+}
+
+function directionColourAllRed()
+{
+  document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
+  document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
+  document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
+  document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
+
 }
 
 function commandInput()
@@ -1641,7 +1685,6 @@ function pickUpItems(playerRoom,words,dragged)
 function search(playerRoom)
 {
   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Searching the vicinity you find that...</span>";
-
   if(playerRoom.roomItems.length >=1)
   {
     playerRoom.roomItems.forEach((item, i) => {
