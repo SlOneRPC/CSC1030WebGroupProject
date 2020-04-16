@@ -137,44 +137,63 @@
 {
   width: 100%;
   height: 50px;
-  /*border-radius: 25px;*/
-  border-bottom-left-radius: 25px;
+  border-radius: 25px;
+  /* border-bottom-left-radius: 25px;
   /*border-bottom-right-radius: 25px;*/
-  border-top-right-radius: 25px;
+  /*border-top-right-radius: 25px; */
   font-size: 1.35em;
   /* font-size: 1.5em; */
-  /* color: #2EA6BF;
-  font-family: 'Rajdhani', sans-serif; */
-  color: #27910E;
+   color: #2EA6BF;
+  /*font-family: 'Rajdhani', sans-serif; */
+  /* color: #27910E; */
   font-family: 'Orbitron', sans-serif;
   border: 2px solid black;
   /* font-weight: bolder; */
   cursor: pointer;
   outline: none;
 
-  /* background: repeating-linear-gradient(
+  background: repeating-linear-gradient(
     180deg,
     #041114,
     #041114 10px,
     #09252B 10px,
     #09252B 20px
-    ); */
-    background: repeating-linear-gradient(
+    );
+    /* background: repeating-linear-gradient(
       180deg,
       #082316,
       #082316 10px,
       #05170E 10px,
       #05170E 20px
       );
+      padding: 1%; */
 }
 
+<<<<<<< HEAD
+=======
+
+#eastButton
+{
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+#westButton
+{
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+}
+
+>>>>>>> b2a8a604b39219f382b3e6898874d05508e3016a
 .utilityButtons
 {
   width: 90%;
   height: 50px;
   border-radius: 25px;
   font-size: 1.5em;
-  color: #C14CD6;
+  /* color: #C14CD6; */
   font-family: 'Rajdhani', sans-serif;
   border: 2px solid black;
   font-weight: bolder;
@@ -535,12 +554,12 @@
     width: 100%;
     height: 90%;
     overflow: auto;
-    font-size: 1.75em;
+    font-size: 1.6em;
     font-family: 'Rajdhani', sans-serif;
     border-top-left-radius: 0px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
+    border-bottom-left-radius: 0px;
     background: repeating-linear-gradient(
       45deg,
       #1B1A1A,
@@ -590,16 +609,18 @@
 #userAvailableDirection{
   color: #1B8ED4;
 }
-
+#userTextRight
+{
+  color: #27910E;
+}
 
 #gameInputButton{
-  color:white;
   border: none;
   text-transform: uppercase;
   background-color: transparent;
-  font-size: 2.5em;
+  font-size: 3.0em;
   color: #27910E;
-  font-family: 'Pixelicious', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   text-align: center;
 }
 
@@ -607,10 +628,6 @@
   cursor:pointer;
 }
 
-#userTextRight
-{
-  color: #27910E;
-}
 .input
 {
   font-size: 1.5em;
@@ -629,10 +646,22 @@
     font-family: 'Orbitron', sans-serif;
     padding: 2%;
     outline:none;
-    border: none;
-    box-shadow: 0 0 10px 2px black;
+    border: 2px solid black;
+    /* box-shadow: 0 0 10px 2px black; */
     width:80%;
+    margin-left: 1%;
 }
 ::placeholder{
-  color: #424242;
+  color: #434443;
+}
+
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

@@ -176,8 +176,9 @@ function addRooms()
     ],
     [ //Items in the current room
       createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
-      createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png"),
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1) )
+      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1)),
+      createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png")
+
 
     ],
     [
@@ -995,6 +996,7 @@ function outputCurrentRoomDesc()
 
   }
   randomPlaceHolderText();
+  directionColourResetBlue()
   scrollBarAnchor();
 }
 
@@ -1103,6 +1105,7 @@ function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
    //var currentRoom=player.currentRoom.roomName;
+   var availableDirections = [];
    if(player.currentRoom.type=="hallway"){
      document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>" + ">You look around the hallway, "+ "</span>";
    }
@@ -1118,9 +1121,106 @@ function outputCurrentRoomExits()
    {
      document.getElementById("text-display").innerHTML += "</br>>" + "there is a door to the <span id= 'userAvailableDirection'>" + item.orientation + "</span>";
    }
+   availableDirections.push(item.orientation);
   });
   ;
+  directionColourAllRed();
+  scanning(availableDirections);
   scrollBarAnchor();
+}
+
+function scanning(availableDirections)
+{
+  if(availableDirections.includes("east"))
+  {
+    document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
+  }
+  if(availableDirections.includes("north"))
+  {
+    document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
+  }
+  if(availableDirections.includes("south"))
+  {
+    document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
+  }
+  if(availableDirections.includes("west"))
+  {
+    document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
+  }
+  directionEnemyCaution(availableDirections);
+}
+//green "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E"
+//red "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313"
+
+function directionEnemyCaution(availableDirections)
+{
+  player.currentRoom.exits.forEach((item, i) =>
+  {
+    if(availableDirections.includes(item.orientation))
+    {
+       rooms.forEach((room, i) =>{
+         if(item.exitRoomName === room.roomName)
+         {
+           if(room.enemies.length > 0)
+           {
+             if(item.orientation === "north")
+             {
+               document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+
+             }
+             if(item.orientation === "west")
+             {
+               document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+
+             }
+             if(item.orientation === "south")
+             {
+               document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+
+             }
+             if(item.orientation === "east")
+             {
+               document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+             }
+           }
+         }
+       });
+    }
+  });
+}
+
+function roomDetectionCalculator(room)
+{
+  var highestChance = 0;
+  room.enemies.forEach((item, i) =>
+  {
+    if(item.detection > highestChance)
+    {
+      highestChance = item.detection;
+    }
+  });
+  return highestChance;
+}
+
+function directionColourResetBlue()
+{
+  document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
+  document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
+  document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
+  document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
+}
+
+function directionColourAllRed()
+{
+  document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
+  document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
+  document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
+  document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
+
 }
 
 function commandInput()
@@ -1642,6 +1742,7 @@ function pickUpItems(playerRoom,words,dragged)
 }
 function search(playerRoom)
 {
+  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Searching the vicinity you find that...</span>";
   if(playerRoom.roomItems.length >=1)
   {
     playerRoom.roomItems.forEach((item, i) => {
