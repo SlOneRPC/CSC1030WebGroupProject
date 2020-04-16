@@ -1250,6 +1250,7 @@ function removeItem(itemName)
     }
   }
 }
+
 function removeItemFromInventory(item){
   var elements = document.querySelectorAll("#inventory td");
   imageToBeRemoved = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription + " class='inventoryItem'>";
@@ -1382,6 +1383,7 @@ function processCustomCommand(interactable)
     }
   }
 }
+
 function checkLever(room)
 {
   var check =0;
@@ -1399,6 +1401,7 @@ function checkLever(room)
     return false;
   }
 }
+
 function clearExit(blockedPath,room)
 {
       for(var j = 0; j < room.exits.length; j++)

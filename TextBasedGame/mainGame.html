@@ -34,8 +34,30 @@
     </style>
     <script type="text/javascript"></script>
     <script type="text/javascript" src="javascript/game.js"></script>
+    <script src ="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript">
       /*Page specific scripts*/
+      $(document).ready(function(){
+        $("#ShowStats").click(function(){
+           $("#map").css("display","none");
+            $("#hints").css("display","none");
+           $("#playerStats").css("display","block");
+        });
+        $("#ShowMap").click(function(){
+           $("#playerStats").css("display","none");
+           $("#hints").css("display","none");
+           $("#map").css("display","block");
+        });
+        $("#ShowHints").click(function(){
+           $("#playerStats").css("display","none");
+           $("#map").css("display","none");
+           $("#hints").css("display","block");
+        });
+
+
+      });
+
+
       function allowDrop(ev) {
         ev.preventDefault();
       }
@@ -92,8 +114,8 @@
   <body>
     <div id="wrapper">
       <div id="settings-wrapper">
-          <button type="button" style="float:right;">Exit Game</button>
-          <button type="button" style="float:right;" onclick="pause();" id="pausebtn">Pause Game</button>
+          <button type="button" style="float:right; cursor:pointer;">Exit Game</button>
+          <button type="button" style="float:right; cursor:pointer;" onclick="pause();" id="pausebtn">Pause Game</button>
 
           <!--just putting timer in here for 'time' being (FUCK OFF DAVID (LUKE))-->
           <script>
@@ -102,6 +124,42 @@
       </div>
       <br>
       <div id="container">
+        <div id="userInput">
+          <div id="textbox">
+            <div id="text-display" class="text">
+            </div>
+            <div id = "easyButtons">
+              <div id="compass">
+                <div class="buttonsContainer">
+                  <div id="compassRow">
+                    <div id="left" class="cellAnimation">></div>
+                    <div id="left"><button type="button" name="north" class="compassButtons" onclick="move('north');">North</button></div>
+                    <div id="left" class="cellAnimation"><</div>
+                  </div>
+                  <div id="compassRow">
+                    <div id="left"><button type="button" name="west" class="compassButtons" onclick="move('west');">West</button></div>
+                    <div id="imageLeft"><img src="images/compass idea.png" alt="compass"></div>
+                    <div id="left"><button type="button" name="east" class="compassButtons" onclick="move('east');">East</button></div>
+                  </div>
+                  <div id="compassRow">
+                    <div id="left" class="cellAnimation">></div>
+                    <div id="left"><button type="button" name="south" class="compassButtons" onclick="move('south');">South</button></div>
+                    <div id="left" class="cellAnimation"><</div>
+                  </div>
+                </div>
+              </div>
+              <div id="quickButtons">
+                <div><button type="button" name="Look" class="utilityButtons" onclick="outputCurrentRoomExits();">Look</button></div>
+                <br>
+                <div><button type="button" name="Search" class="utilityButtons" onclick="search(player.currentRoom);">Search</button></div>
+              </div>
+            </div>
+            <br>
+            <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
+            <button type="button" name="button" style="float:right; width:20%; height: 58px;" id = "gameInputButton" onclick="commandInput();">></button>
+          </div>
+        </div>
+        <div id="playerContainer">
           <div id="playerInventory">
             <div id="inventory">
               <div id="inventoryHeader">
@@ -142,41 +200,6 @@
 
             </div>
           </div>
-          <div id="userInput">
-            <div id="textbox">
-              <div id="text-display" class="text">
-              </div>
-              <div id = "easyButtons">
-                <div id="compass">
-                  <div class="buttonsContainer">
-                    <div id="compassRow">
-                      <div id="left" class="cellAnimation">></div>
-                      <div id="left"><button type="button" name="north" class="compassButtons" onclick="move('north');">North</button></div>
-                      <div id="left" class="cellAnimation"><</div>
-                    </div>
-                    <div id="compassRow">
-                      <div id="left"><button type="button" name="west" class="compassButtons" onclick="move('west');">West</button></div>
-                      <div id="imageLeft"><img src="images/compass idea.png" alt="compass"></div>
-                      <div id="left"><button type="button" name="east" class="compassButtons" onclick="move('east');">East</button></div>
-                    </div>
-                    <div id="compassRow">
-                      <div id="left" class="cellAnimation">></div>
-                      <div id="left"><button type="button" name="south" class="compassButtons" onclick="move('south');">South</button></div>
-                      <div id="left" class="cellAnimation"><</div>
-                    </div>
-                  </div>
-                </div>
-                <div id="quickButtons">
-                  <div><button type="button" name="Look" class="utilityButtons" onclick="outputCurrentRoomExits();">Look</button></div>
-                  <br>
-                  <div><button type="button" name="Search" class="utilityButtons" onclick="search(player.currentRoom);">Search</button></div>
-                </div>
-              </div>
-              <br>
-              <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
-              <button type="button" name="button" style="float:right; width:20%; height: 58px;" id = "gameInputButton" onclick="commandInput();">></button>
-            </div>
-          </div>
           <div id="statsContainer">
                  <div id="mapHeader">
                    <h1 id="currentRoomDisplay" class="text" style="border-bottom:2px solid green">>Current Room: </h1>
@@ -184,23 +207,72 @@
                  <div id="map">
                      <img id="gameMap" src="images/gameMap.png" alt="This is the game map"style='height: 80%; width: 80%; object-fit: contain'>
                  </div>
-                 <div id="playerStatsContainer">
-                   <hr>
-                   <p style="margin:0;"id="currentWeapon">Equipped Weapon:</p>
-                   <p style="margin:0;"id="currentWeaponMag">Current mag:</p>
-                   <p style="margin:0;" id="healthStat">Health:</p>
-                   <span style="margin:0;" class="blinking" id="timer">Time remaining: 5:00</span>
-                   <hr>
+                 <div id="hints" style="display:none; border-style:solid;">
+                   <p style="font-weight:bold;font-size:1.4vw;">HINTS</p>
+                   <p>Test</p>
                  </div>
-                 <div id="objectivesContainer">
+                 <div id="playerStats" style="display:none; border-style:solid;">
+                   <div id="playerProfile">
+                        <div id=playerCharStat>
+                          <img style=" float:left; min-width:35%; min-height:35%; max-height:100%; max-width:100%;" id="playerImg" src="images/playerIcon.jpg" alt="player image"></img>
+                        </div>
+                        <div id=playerInfoStat>
+                          <p style="margin:0; text-align:left;"id="playerNameStat">Name:</p>
+                          <p style="margin:0; text-align:left; "id="playerClassStat">Occupation:</p>
+                        </div>
+                  </div>
+
+                    <div id="playerStatus">
+                      <div id="playerHealthStats">
+                        <p style="margin:0;" id="healthStat">Health:</p>
+                        <div id="playerHealth">
+                            <div id="healthBar"> </div>
+                        </div>
+                        <button id="healthKitBtn"style=" cursor:pointer ;margin-top:5px;height:15%; width:46%;">Use Health Kit</button>
+                        <button id="healthPackBtn" style=" cursor:pointer; margin-top:5px; height:15%; width:50%;">Use Health Pack</button>
+                      </div>
+                      <div id="playerWeaponStatus">
+                        <p style="margin:0;padding:5px;"id="currentWeapon">Equipped Weapon:</p>
+                        <div style="position:relative; bottom:30px;">
+                          <p style="margin:0;"id="currentWeaponMag">/</p>
+                          <button id="reloadBtn"style="  cursor:pointer; margin-top:5px; height:35%; width:35%;" >Reload</button>
+                          <img style="height:60%; width:55%;" id= "equippedWeaponImg" src="images/emptyinventoryslot.png" alt="Empty Weapon Slot"></img>
+                        </div>
+                      </div>
+                   </div>
+
+                   <div id="playerConsumables">
+                      <div id="playerEnergyCellsStat">
+                          <img style="height:40%; width:40%;"id="energyCellsStat" src="images/energycellStat.png" alt="Energy cell image"></img>
+                          <p style="float:right;margin:0;"id="energyCellCount">x 0</p>
+                      </div>
+                      <div id="playerHealthPackStat">
+                          <img style=" height:40%; width:40%;"id ="healthPackStat" src="images/healthPackStat.png" alt="image of a health pack"></img>
+                          <p style="float:right;margin:0;"id="healthPackCount">x 0</p>
+                      </div>
+                      <div id="playerHealthKitStat">
+                          <img style=" height:40%; width:40%;" id="healthKitStat" src="images/healthkitStat.png" alt="image of a health kit"></img>
+                          <p style="float:right;margin:0;"id="healthKitCount">x 0</p>
+                      </div>
+                  </div>
+
+              </div>
+                <div id="buttonStat">
+                  <button style="cursor:pointer;" id="ShowStats">Stats</button>
+                  <button style="cursor:pointer;"id="ShowMap">Map</button>
+                  <button style="cursor:pointer;" id="ShowHints">Hints</button>
+                </div>
+                  <div id="timerStat">
+                      <span style="margin:0;" class="blinking" id="timer">Time remaining: 5:00</span>
+                  </div>
+                 <div id="objectivesStat">
                    <h3 style="margin:0;">Objectives:</h3>
                    <hr>
                    <ul style="margin:0;">
                      <li id="objective">Objective 1</li>
                    </ul>
                  </div>
-           </div>
-          </div>
+        </div>
       </div>
       <div id="combat-wrapper">
         <div id="player1">
