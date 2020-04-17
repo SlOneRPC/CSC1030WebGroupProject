@@ -4,6 +4,30 @@ var rooms = [];
 var pickUpItemSound;
 var pickUpAmmoSound;
 
+function statUpdate(){
+  // enemies killed - once player returns from combat, +1 to killed value
+  // rooms Entered - use Room.roomDiscovered value - boolean
+  rooms.forEach((item, i) => {
+    if(item.roomDiscovered){
+      player.stats.areasExplored++;
+    }
+  });
+  // items collected - length of item inventory - may adjust
+  player.inventory.forEach((item, i) => {
+    alert(item.itemName);
+    player.stats.itemsCollected++;
+  });
+  // time spent - this worked out as time counts down in timer.js
+}
+
+// this method is called when the used completes the game
+function gameFinished(){
+  statUpdate();
+  sessionStorage.setItem('stats', JSON.stringify(player.stats));
+  window.location.href = "endScreen.html";
+  // usere completes the game when they exit the hangar in an escape pod ersum
+}
+
 function gameStart()
 {
  //method will decide and pick between starter rooms based on class
@@ -368,7 +392,7 @@ function addRooms()
       createExitObject("hallway8", "west","You leave the mess hall and head into another hallway.",false,"")
     ],
     [//Items in the current room
-      createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hanger bay.","images/tornmap.png"),
+      createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hangar bay.","images/tornmap.png"),
       createWeaponObject("shotgun",5,5,35,"Ranged",["shoot"],"It is a gun","images/lasershotgun.png"),
       createAmmoObject("energy cells","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health kit","This is a health kit","images/healthkit.png", 50)
@@ -408,24 +432,24 @@ function addRooms()
     ], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
-  var hangerBay  =
+  var hangarBay  =
    createRoomObject
    (
-     "hanger bay",//Room Name
+     "hangar bay",//Room Name
      "room",//Room Type
      [//Room Descriptions
        createDescriptionObject(
          "first-entry",
-         "You quickly enter the hanger bay hoping for an escape, the room is oddly quiet"
+         "You quickly enter the hangar bay hoping for an escape, the room is oddly quiet"
        ),
        createDescriptionObject(
          "second-entry",
-         "Yor renter the hanger bay."
+         "Yor renter the hangar bay."
        ),
      ],
      [],//Enemies Value
      [//Exits to current room
-       createExitObject("hallway14", "east","You leave the hanger bay and enter back into the hallway.",false),
+       createExitObject("hallway14", "east","You leave the hangar bay and enter back into the hallway.",false),
        createExitObject("exit", "west","",false)
       // createExitObject("escape pod","south")
      ],
@@ -525,7 +549,7 @@ function addRooms()
 
      ],
      [
-       createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP' That doesn't sound good better try and make it to the hanger bay","no"),
+       createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP' That doesn't sound good better try and make it to the hangar bay","no"),
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway04","using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent01")
      ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
@@ -582,7 +606,7 @@ function addRooms()
 
     ],
     [
-      createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay","no"),
+      createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hangar bay","no"),
       createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway04","Using your hacking-tool you succesfully hack into the door controls and open the door.","door01"),
       createInteractableObject("Sign-post","You examine the sign post and and see that the computer lab is to the south, a storage unit lies to the west, and a hallway to the mess hall is to the east.")
     ], //Number of interactable items in the room
@@ -649,7 +673,7 @@ function addRooms()
      [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway08","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent02"),
        createBlockedPathObject("rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway07","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble02"),
-       createInteractableObject("Broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hanger bay","no")
+       createInteractableObject("Broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hangar bay","no")
      ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
@@ -706,8 +730,8 @@ function addRooms()
     [//Items in the current room
       createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway09","Using your hacking-tool you succesfully hack into the door controls and open the door.","door03"),
       createBlockedPathObject("rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway05","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble02"),
-      createInteractableObject("Sign","You examine the sign and and see that the hanger bay is to the east end of the hall, the research lab is towards the north end of the hall,the armory is towards the south and the maintenance bay and mess hall are to the east.","no"),
-      createInteractableObject("Powered Door","You examine the door and and see that it is blocking access to the hanger bay. It might open if the ship's power is restored.","no")
+      createInteractableObject("Sign","You examine the sign and and see that the hangar bay is to the east end of the hall, the research lab is towards the north end of the hall,the armory is towards the south and the maintenance bay and mess hall are to the east.","no"),
+      createInteractableObject("Powered Door","You examine the door and and see that it is blocking access to the hangar bay. It might open if the ship's power is restored.","no")
     ],
     [], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
@@ -900,16 +924,16 @@ function addRooms()
     [//Room Descriptions
       createDescriptionObject(
         "first-entry",
-        "You enter into the hallway though the now powered door and see a sign for the hanger bay."
+        "You enter into the hallway though the now powered door and see a sign for the hangar bay."
       ),
       createDescriptionObject(
         "second-entry",
-        "You enter into the hallway though the now powered door and see a sign for the hanger bay."
+        "You enter into the hallway though the now powered door and see a sign for the hangar bay."
       ),
     ],
      [], //Enemies Value
      [//Exits to current room
-       createExitObject("hanger bay", "west","You head west into the hanger bay.", false,""),
+       createExitObject("hangar bay", "west","You head west into the hangar bay.", false,""),
        createExitObject("hallway07", "east","You head east back into the hallway.", false,""),
      ],
      [//Items in the current room
@@ -930,7 +954,7 @@ function addRooms()
   rooms.push(messHall);
   rooms.push(kitchen);
   rooms.push(maintenanceBay);
-  rooms.push(hangerBay);
+  rooms.push(hangarBay);
   rooms.push(reactorRoom);
   rooms.push(researchLab);
   rooms.push(hallway01);
@@ -1388,7 +1412,7 @@ function processCustomCommand(interactable)
       player.currentRoom.interactables.push(createLeverObject("DELTA Lever","You inspect the lever, pulling it should restart the generator.","pull delta lever",false, "You pull the lever, and the generator begins to slowly rumble."));
       player.currentRoom.interactables.push(createLeverObject("BETA Lever","You inspect the lever, pulling it should restart the generator.","pull beta lever",false, "You pull the lever, and the generator begins to slowly rumble."));
       player.currentRoom.interactables.push(createLeverObject("GAMMA Lever","You inspect the lever, pulling it should restart the generator. ","pull gamma lever",false, "You pull the lever, and the generator begins to slowly rumble."));
-      player.currentRoom.interactables.push(createLeverObject("Master Switch", "You Inspect the switch, pulling it should reset the ship's power once all the levers have been pulled.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hanger bay door is open now."));
+      player.currentRoom.interactables.push(createLeverObject("Master Switch", "You Inspect the switch, pulling it should reset the ship's power once all the levers have been pulled.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
     }
   }
   else if(interactable.interactableName === "DELTA Lever" )
