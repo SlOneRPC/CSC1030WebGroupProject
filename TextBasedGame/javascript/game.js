@@ -1171,9 +1171,64 @@ function scanning(availableDirections)
   {
     document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E";
   }
+  directionEnemyCaution(availableDirections);
 }
 //green "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E"
 //red "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313"
+
+function directionEnemyCaution(availableDirections)
+{
+  player.currentRoom.exits.forEach((item, i) =>
+  {
+    if(availableDirections.includes(item.orientation))
+    {
+       rooms.forEach((room, i) =>{
+         if(item.exitRoomName === room.roomName)
+         {
+           if(room.enemies.length > 0)
+           {
+             if(item.orientation === "north")
+             {
+               document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+
+             }
+             if(item.orientation === "west")
+             {
+               document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+
+             }
+             if(item.orientation === "south")
+             {
+               document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+
+             }
+             if(item.orientation === "east")
+             {
+               document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+             }
+           }
+         }
+       });
+    }
+  });
+}
+
+function roomDetectionCalculator(room)
+{
+  var highestChance = 0;
+  room.enemies.forEach((item, i) =>
+  {
+    if(item.detection > highestChance)
+    {
+      highestChance = item.detection;
+    }
+  });
+  return highestChance;
+}
 
 function directionColourResetBlue()
 {
@@ -1319,6 +1374,7 @@ function removeItem(itemName)
     }
   }
 }
+
 function removeItemFromInventory(item){
   var elements = document.querySelectorAll("#inventory td");
   imageToBeRemoved = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription + " class='inventoryItem'>";
@@ -1451,6 +1507,7 @@ function processCustomCommand(interactable)
     }
   }
 }
+
 function checkLever(room)
 {
   var check =0;
@@ -1468,6 +1525,7 @@ function checkLever(room)
     return false;
   }
 }
+
 function clearExit(blockedPath,room)
 {
       for(var j = 0; j < room.exits.length; j++)

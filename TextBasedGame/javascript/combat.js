@@ -3,6 +3,14 @@ var timer;
 var localHealth = 100;
 var enemyHealth = 100;
 
+function combatSetup(player,enemy)
+{
+
+
+  document.getElementById('container').classList.add('hideMe');
+  document.getElementById('combat-wrapper').classList.remove('hideMe');
+}
+
 function nextRound(){
   //show combat hide overview
   document.getElementById('overviewBox').classList.add('hideMe');
