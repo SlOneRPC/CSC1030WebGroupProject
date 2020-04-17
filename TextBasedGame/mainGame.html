@@ -114,7 +114,7 @@
   <body>
     <div id="wrapper">
       <div id="settings-wrapper">
-          <button type="button" style="float:right; cursor:pointer;">Exit Game</button>
+          <button type="button" style="float:right; cursor:pointer;" onclick="combatSetup();">Test combat</button>
           <button type="button" style="float:right; cursor:pointer;" onclick="pause();" id="pausebtn">Pause Game</button>
 
           <!--just putting timer in here for 'time' being (FUCK OFF DAVID (LUKE))-->
@@ -312,7 +312,8 @@
                  </div>
         </div>
       </div>
-      <div id="combat-wrapper">
+      </div>
+      <div id="combat-wrapper" class="hideMe">
         <div id="player1">
           <img src="images/playerIcon.jpg" alt="Player 1" class="playerImg">
           <div class="playerbox-info">
@@ -395,7 +396,6 @@
          </div>
       </div>
     </div>
-  </div>
   <div id="pauseContainer" class="hideMe">
       <h1>Paused!</h3>
       <hr style="width:80%;">
