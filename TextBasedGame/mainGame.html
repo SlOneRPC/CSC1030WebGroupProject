@@ -133,17 +133,17 @@
                 <div class="buttonsContainer">
                   <div id="compassRow">
                     <div id="left" class="cellAnimation">></div>
-                    <div id="left"><button type="button" name="north" class="compassButtons" onclick="move('north');">North</button></div>
+                    <div id="left"><button type="button" name="north" class="compassButtons" onclick="move('north');" id ="north">North</button></div>
                     <div id="left" class="cellAnimation"><</div>
                   </div>
                   <div id="compassRow">
-                    <div id="left"><button type="button" name="west" class="compassButtons" onclick="move('west');">West</button></div>
+                    <div id="left"><button type="button" name="west" class="compassButtons" onclick="move('west');" id ="west">West</button></div>
                     <div id="imageLeft"><img src="images/compass idea.png" alt="compass"></div>
-                    <div id="left"><button type="button" name="east" class="compassButtons" onclick="move('east');">East</button></div>
+                    <div id="left"><button type="button" name="east" class="compassButtons" onclick="move('east');" id ="east">East</button></div>
                   </div>
                   <div id="compassRow">
                     <div id="left" class="cellAnimation">></div>
-                    <div id="left"><button type="button" name="south" class="compassButtons" onclick="move('south');">South</button></div>
+                    <div id="left"><button type="button" name="south" class="compassButtons" onclick="move('south');" id ="south">South</button></div>
                     <div id="left" class="cellAnimation"><</div>
                   </div>
                 </div>
@@ -156,7 +156,7 @@
             </div>
             <br>
             <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
-            <button type="button" name="button" style="float:right; width:20%; height: 58px;" id = "gameInputButton" onclick="commandInput();">></button>
+            <button type="button" name="button" style="float:right; width:17%; height: 58px;" id = "gameInputButton" onclick="commandInput();">></button>
           </div>
         </div>
         <div id="playerContainer">
@@ -176,7 +176,7 @@
                     <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                     <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                     <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'> </td>
+                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
                   </tr>
                 </table>
             </div>
@@ -200,44 +200,8 @@
 
             </div>
           </div>
-<<<<<<< HEAD
-=======
-          <div id="userInput">
-            <div id="textbox">
-              <div id="text-display" class="text">
-              </div>
-              <div id = "easyButtons">
-                <div id="compass">
-                  <div class="buttonsContainer">
-                    <div id="compassRow">
-                      <div id="left" class="cellAnimation">></div>
-                      <div id="left"><button type="button" name="north" class="compassButtons" onclick="move('north');" id ="north">North</button></div>
-                      <div id="left" class="cellAnimation"><</div>
-                    </div>
-                    <div id="compassRow">
-                      <div id="left"><button type="button" name="west" class="compassButtons" onclick="move('west');" id ="west">West</button></div>
-                      <div id="imageLeft"><img src="images/compass idea.png" alt="compass"></div>
-                      <div id="left"><button type="button" name="east" class="compassButtons" onclick="move('east');" id ="east">East</button></div>
-                    </div>
-                    <div id="compassRow">
-                      <div id="left" class="cellAnimation">></div>
-                      <div id="left"><button type="button" name="south" class="compassButtons" onclick="move('south');" id ="south">South</button></div>
-                      <div id="left" class="cellAnimation"><</div>
-                    </div>
-                  </div>
-                </div>
-                <div id="quickButtons">
-                  <div><button type="button" name="Look" class="utilityButtons" onclick="outputCurrentRoomExits();">Look</button></div>
-                  <br>
-                  <div><button type="button" name="Search" class="utilityButtons" onclick="search(player.currentRoom);">Search</button></div>
-                </div>
-              </div>
-              <br>
-              <input type="text" class="input" name="cmd" placeholder="Enter your action" style="width:80%; color: #27910E;" id = "gameInput" onkeypress="if (event.keyCode === 13) document.getElementById('gameInputButton').click()">
-              <button type="button" name="button" style="float:right; width:17%; height: 58px;" id = "gameInputButton" onclick="commandInput();">></button>
-            </div>
-          </div>
->>>>>>> b2a8a604b39219f382b3e6898874d05508e3016a
+
+
           <div id="statsContainer">
                  <div id="mapHeader">
                    <h1 id="currentRoomDisplay" class="text" style="border-bottom:2px solid green">>Current Room: </h1>
@@ -247,7 +211,17 @@
                  </div>
                  <div id="hints" style="display:none; border-style:solid;">
                    <p style="font-weight:bold;font-size:1.4vw;">HINTS</p>
-                   <p>Test</p>
+                   <ul>
+                     <li>To pick up items, type pick up followed by the item name E.g "pick up ******".</li>
+                     <li>You can search a room for items by typing "search" or clicking the search button. Nearby items will then be displayed to you.</li>
+                     <li>Exits in the current room can be output to you by typing "look" or by clicking the look button.</li>
+                     <li>To equip a weapon, type equip followed by the weapn name E.g "equip ******".The item will appear in the stats tab along with your ammo count.</li>
+                     <li>To drop items, type drop followed by the item name E.g "drop ******".The item will stay in the room you dropped it in.</li>
+                     <li></li>
+                     <li></li>
+                     <li></li>
+                    <li></li>
+                  </ul>
                  </div>
                  <div id="playerStats" style="display:none; border-style:solid;">
                    <div id="playerProfile">
@@ -264,16 +238,16 @@
                       <div id="playerHealthStats">
                         <p style="margin:0;" id="healthStat">Health:</p>
                         <div id="playerHealth">
-                            <div id="healthBar"> </div>
+                            <div id="healthBar"></div>
                         </div>
-                        <button id="healthKitBtn"style=" cursor:pointer ;margin-top:5px;height:15%; width:46%;">Use Health Kit</button>
-                        <button id="healthPackBtn" style=" cursor:pointer; margin-top:5px; height:15%; width:50%;">Use Health Pack</button>
+                        <button onclick="useItem('health kit')" id="healthKitBtn"style=" cursor:pointer ;margin-top:5px;height:15%; width:46%;">Use Health Kit</button>
+                        <button onclick="useItem('health pack')"id="healthPackBtn" style=" cursor:pointer; margin-top:5px; height:15%; width:50%;">Use Health Pack</button>
                       </div>
                       <div id="playerWeaponStatus">
                         <p style="margin:0;padding:5px;"id="currentWeapon">Equipped Weapon:</p>
                         <div style="position:relative; bottom:30px;">
                           <p style="margin:0;"id="currentWeaponMag">/</p>
-                          <button id="reloadBtn"style="  cursor:pointer; margin-top:5px; height:35%; width:35%;" >Reload</button>
+                          <button  onclick="reload();"id="reloadBtn"style="  cursor:pointer; margin-top:5px; height:35%; width:35%;" >Reload</button>
                           <img style="height:60%; width:55%;" id= "equippedWeaponImg" src="images/emptyinventoryslot.png" alt="Empty Weapon Slot"></img>
                         </div>
                       </div>
