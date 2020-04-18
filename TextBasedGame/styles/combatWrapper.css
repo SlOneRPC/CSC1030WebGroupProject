@@ -160,7 +160,7 @@
 
 .inventoryItem{
   width: 90%;
-  height: 90%;
+  height: 70%;
   display: inline-block;
   //opacity: 0.2;
   margin: 5%;
@@ -180,14 +180,14 @@
 }
 
 #combat-col1{
-  margin-left: 5%;
-  width: 60%;
+  margin: 5%;
+  width: 40%;
   float: left;
 }
 
 
 #combat-col2{
-  width: 35%;
+  width: 40%;
   float:right;
   height: 100%;
 }

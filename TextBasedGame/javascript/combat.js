@@ -6,6 +6,7 @@ var currentCombat = "Weapon Attack";
 var hitchance;
 var maxDamage;
 var maxDamageRecieved;
+var weaponDisabled = false;
 
 function combatSetup()
 {
@@ -19,6 +20,7 @@ function combatSetup()
   //setup health bars
   localHealth = window.player.health;
   //enemyHealth = enemyObj.health;
+  updateCombatType(0);
 
   document.getElementById('currentCombat').innerHTML = 'Weapon Attack';//base attack
   calculateInfo();
@@ -55,11 +57,15 @@ function updateWeapons(){
 
   //if the player has no weapons
   if(tableIndex === 0){
-    //todo use fists
+    document.getElementById('wepButton').disabled = true;
+    weaponDisabled = true;
+    updateCombatType(1);
   }
 }
 
 function updateCombatType(type){
+
+
   //if heal combat type was last selected then hide it
   if(currentCombat === "Heal" && type != 2){
     document.getElementById('CurrentHealthGained').classList.add('hideMe');
@@ -68,7 +74,9 @@ function updateCombatType(type){
   //based on the button pressed selected the combat type
   switch (type) {
     case 0:
-      currentCombat = "Weapon Attack";
+      if(weaponDisabled == false){
+        currentCombat = "Weapon Attack";
+      }
       break;
     case 1:
       currentCombat = "Melee Attack";
@@ -107,24 +115,67 @@ function calculateInfo(){
       document.getElementById('HealthGainedValue').innerHTML = "50HP";
       break;
   }
-
+  updateHitbox();
   //if damage can be given to the enemy from the selected attack
   if(damageGiven){
+    document.getElementById('Currenthitchance').classList.remove('hideMe');
     document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
     document.getElementById('MaxDamageValue').innerHTML = maxDamage + "HP";
     document.getElementById('CurrentDamageGiven').classList.remove('hideMe');
     document.getElementById('hitboxes').classList.remove('hideMe');
     document.getElementById('hitbox-label').classList.remove('hideMe');
+    document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
   }
   else{
     //damage cant be given
     document.getElementById('CurrentDamageGiven').classList.add('hideMe');
     document.getElementById('hitboxes').classList.add('hideMe');
     document.getElementById('hitbox-label').classList.add('hideMe');
+    document.getElementById('Currenthitchance').classList.add('hideMe');
   }
-  document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
   document.getElementById('MaxDamageRecievedValue').innerHTML = maxDamageRecieved + "HP";
 }
+
+function updateHitbox(){
+  var hitchanceChange;
+  var maxDmgChange;
+  switch(document.getElementById("hitboxes").selectedIndex){
+    case 0://head
+      hitchanceChange =- 2;
+      maxDmgChange =10;
+      break;
+    case 1://chest
+      hitchanceChange =5;
+      maxDmgChange =4;
+      break;
+    case 2://arms
+      hitchanceChange =4;
+      maxDmgChange =5;
+      break;
+    case 3://torso
+      hitchanceChange =4;
+      maxDmgChange =5;
+      break;
+    case 4://legs
+      hitchanceChange =3;
+      maxDmgChange =7;
+      break;
+  }
+  if(hitchanceChange >= 0){
+      document.getElementById('addHitchance').innerHTML = '+' + hitchanceChange;
+      document.getElementById('addHitchance').style.color = "lime";
+  }
+  else{
+    document.getElementById('addHitchance').innerHTML = hitchanceChange;
+    document.getElementById('addHitchance').style.color = "red";
+  }
+
+  document.getElementById('addMaxDamage').innerHTML = '+' + maxDmgChange;
+
+  hitchance+=hitchanceChange;
+  maxDamage+=maxDmgChange;
+}
+
 
 //combat start button press
 function nextRound(){
@@ -200,7 +251,7 @@ function exectuteCombat(){
 function countdownTimer(){
   if(countdown <= 0){
     clearInterval(timer);
-    exectuteCombat();
+    //exectuteCombat();
   }
   else{
     countdown = countdown-1;

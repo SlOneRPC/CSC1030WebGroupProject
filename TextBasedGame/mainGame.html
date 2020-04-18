@@ -301,7 +301,8 @@
             <div class="healthbar" id="healthBar1"><div id="PlayerHB"></div>
             </div>
             <h1 id="player1Name" class="player-name">Player 1</h1>
-            <h1 id="health1" class="player-health">100HP</h2>
+            <h1 id="health1" class="player-health">100HP</h1>
+            <h1 id="healthLost" class="hideMe">Lost 20 health..</h1>
           </div>
         </div>
         <div id="round-timer">
@@ -312,18 +313,19 @@
           <div class="playerbox-info">
             <div class="healthbar" id="healthBar2"> <div id="EnemyHB"></div> </div>
             <h1 id="player2Name" class="player-name">Enemy</h1>
-            <h1 id="health2" class="player-health">100HP</h2>
+            <h1 id="health2" class="player-health">100HP</h1>
+            <h1 id="damageGiven" class="hideMe">Damaged for 35..</h1>
           </div>
         </div>
-     <h1 id="healthLost" class="hideMe">Lost 20 health..</h1>
-     <h1 id="damageGiven" class="hideMe">Damaged for 35..</h1>
+
+
      <div id="combatInfo-display" class="hideMe">
           <h1 class="combatHeader">Turn Info</h1>
           <h2>Combat Type : <span id=currentCombat></span></h2>
-          <h2 id="Currenthitchance">Hitchance : <span id=hitchanceValue></span></h2>
-          <h2 id="CurrentDamageGiven">Max Damage Given : <span id=MaxDamageValue></span></h2>
-          <h2 id="CurrentDamageRecieved">Max Damage Recieved: <span id=MaxDamageRecievedValue></span></h2>
-          <h2 id="CurrentHealthGained" class="hideMe">Health Gained: <span id=HealthGainedValue></span></h2>
+          <h3 id="Currenthitchance">Hitchance : <span id=hitchanceValue></span> <span id="addHitchance"style="color:lime;"></span> </h3>
+          <h3 id="CurrentDamageGiven">Max Damage Given : <span id=MaxDamageValue></span>  <span id="addMaxDamage"style="color:lime;"></h3>
+          <h3 id="CurrentDamageRecieved">Max Damage Recieved: <span id=MaxDamageRecievedValue></span></h3>
+          <h3 id="CurrentHealthGained" class="hideMe">Health Gained: <span id=HealthGainedValue></span></h3>
      </div>
      <div id="gameinstructions">
        <h1 class="combatHeader">Combat Instructions</h1>
@@ -339,13 +341,13 @@
          <h1 class="combatHeader">Combat</h1>
          <div id="combat-actions">
            <h2>Combat Options:</h2>
-           <button type="button" name="WeaponAttack" class="combatButtons" onclick="updateCombatType(0);">WeaponAttack</button>
+           <button type="button" name="WeaponAttack" class="combatButtons" id="wepButton" onclick="updateCombatType(0);">WeaponAttack</button>
            <button type="button" name="meleeAttack" class="combatButtons" onclick="updateCombatType(1);">Melee Attack</button>
            <button type="button" name="heal" class="combatButtons" onclick="updateCombatType(2);">Heal</button>
            <button type="button" name="leave" class="combatButtons" onclick="updateCombatType(3);">Run Away</button>
 
            <label for="hitboxes" id="hitbox-label">Hitbox</label>
-           <select id="hitboxes" name="hitboxes">
+           <select id="hitboxes" name="hitboxes" onchange="updateHitbox();">
             <option value="head">head | -2% hitchance | +10 max damage</option>
             <option value="chest">chest | +5% hitchance | +4 max damage</option>
             <option value="arms">arms | +4% hitchance | +5 max damage</option>
@@ -356,9 +358,10 @@
          </div>
        </div>
        <div id="combat-inventory">
-           <h1 class="combatHeader">Avaliable Weapons</h1>
+           <h1 class="combatHeader">Weapons</h1>
            <table cellspacing="10">
              <tr>
+               <td style="border: 2px solid red;"><img src="images/fist.png" alt="Empty Slot" class="inventoryItem"></td>
                <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
                <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
                <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
