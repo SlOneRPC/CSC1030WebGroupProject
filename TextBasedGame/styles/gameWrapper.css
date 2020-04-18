@@ -23,7 +23,6 @@
   width: 50%;
   display: block;
   float: left;
-  margin: ;
   font-family: 'Rajdhani', sans-serif;
   font-weight: bolder;
 }
@@ -254,7 +253,7 @@
   overflow:auto;
   clear: both;
   /*border: 1px solid white;*/
-  padding:10px;
+  padding:0.2%;
   text-align: center;
   font-size: 1.1vw;
 }
@@ -280,7 +279,7 @@
   clear: both;
   margin:auto;
   overflow:auto;
-
+  height: auto;
   text-align: center;
 }
 
@@ -334,10 +333,8 @@
 #playerProfile{
 
   border: 1px solid white;
-  padding: 20px;
   padding-left: 0px;
-  height:27%;
-
+  padding: 5%;
 }
 
 #playerCharStat{
@@ -459,13 +456,8 @@
   clear: both;
   margin:auto;
   overflow:auto;
-  height:60%;
-  padding:10px;
-  padding-bottom:15px;
+  height:450px;
   display: block;
-  max-height: 370px;
-  min-width: 236px;
-  min-height: 245px;
 }
 
 
