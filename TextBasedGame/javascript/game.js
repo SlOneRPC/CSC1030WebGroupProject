@@ -398,7 +398,7 @@ function addRooms()
     ],
     [//Items in the current room
 
-      createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hanger bay.","images/tornmap.png"),
+      createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hangar bay.","images/tornmap.png"),
       createWeaponObject("shotgun",5,5,35,"Ranged",["shoot"],"A shotgun, good for turning anything 2 metres in front of you to dust Mag Size: 5","images/lasershotgun.png"),
       createAmmoObject("energy cells","An energy cell, it can be used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health kit","A health kit it can be used to heal you by 50%","images/healthkit.png", 50,1)
@@ -447,17 +447,17 @@ function addRooms()
      [//Room Descriptions
        createDescriptionObject(
          "first-entry",
-         "You quickly enter the hanger bay hoping for an escape, the room is oddly quiet, looking around the room you see many ships, all in desperate need of repair, at the end of the bay you see a lone escape pod."
+         "You quickly enter the hangar bay hoping for an escape, the room is oddly quiet, looking around the room you see many ships, all in desperate need of repair, at the end of the bay you see a lone escape pod."
        ),
        createDescriptionObject(
          "second-entry",
-         "You re-enter the hanger bay, and notice one last escape pod."
+         "You re-enter the hangar bay, and notice one last escape pod."
        ),
      ],
      [],//Enemies Value
      [//Exits to current room
 
-       createExitObject("hallway14", "east","You leave the hanger bay and enter back into the hallway.",false),
+       createExitObject("hallway14", "east","You leave the hangar bay and enter back into the hallway.",false),
        //createExitObject("exit", "west","",false)
       // createExitObject("escape pod","south")
      ],
@@ -558,7 +558,7 @@ function addRooms()
      ],
      [
 
-       createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hanger bay","no"),
+       createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hangar bay","no"),
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway04","using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent01")
      ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
@@ -682,7 +682,7 @@ function addRooms()
      [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway08","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent02"),
        createBlockedPathObject("rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway07","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble02"),
-       createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hanger bay","no"),
+       createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hangar bay","no"),
      ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
