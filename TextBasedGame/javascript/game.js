@@ -14,7 +14,6 @@ function statUpdate(){
   });
   // items collected - length of item inventory - may adjust
   player.inventory.forEach((item, i) => {
-    alert(item.itemName);
     player.stats.itemsCollected++;
   });
   // time spent - this worked out as time counts down in timer.js
