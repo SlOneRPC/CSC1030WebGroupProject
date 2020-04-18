@@ -622,7 +622,7 @@ function addRooms()
     [
       createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hangar bay","no"),
       createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway04","Using your hacking-tool you succesfully hack into the door controls and open the door.","door01"),
-      createInteractableObject("Sign","You examine the sign and and see that the computer lab is to the south, a storage unit lies to the west, and a hallway to the mess hall is to the east.")
+      createInteractableObject("sign","You examine the sign and and see that the computer lab is to the south, a storage unit lies to the west, and a hallway to the mess hall is to the east.")
     ], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
