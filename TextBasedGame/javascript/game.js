@@ -14,7 +14,6 @@ function statUpdate(){
   });
   // items collected - length of item inventory - may adjust
   player.inventory.forEach((item, i) => {
-    alert(item.itemName);
     player.stats.itemsCollected++;
   });
   // time spent - this worked out as time counts down in timer.js
@@ -175,6 +174,11 @@ function createModifierObject(itemNameValue, descriptionValue, changeValue, mech
   var modifierObject = {item:createItemObject(itemNameValue, "Modifier", descriptionValue, false, ""), change:changeValue, mechanicChange:mechanicChangeValue};
   return modifierObject;
 }
+function createTerminalObject(interactableNameValue, descriptionValue, customCommandValue)
+{
+  var interactableObject =  {interactableName :interactableNameValue, description:descriptionValue, customCommand:customCommandValue, password:generatePasswordPad()};
+  return interactableObject;
+}
 //createDataPadObject(itemNameValue, descriptionValue, informationValue)
 //createHealthObject(itemNameValue,descriptionValue,itemFilePathValue,sizeValue)
 //createAmmoObject(itemNameValue,descriptionValue,itemFilePathValue,amountValue)
@@ -269,7 +273,7 @@ function addRooms()
     [],//Enemies Value
     [//Exits to current room
       createExitObject("hallway03", "north","You step out of the computer lab into a hallway and arrive at a junction. ",false,""),
-      createExitObject("hallway06", "west","",true,"You cannot go that way it has been blocked by fallen debris and rubble from the upper level. ")
+      createExitObject("hallway06", "east","",true,"You cannot go that way it has been blocked by fallen debris and rubble from the upper level. ")
     ],
     [//Items in the current room
       createWeaponObject("pistol", 9, 9, 10, "Ranged", ["shoot"], "A reliable Pistol good for dealing with foes. Mag Size: 9" ,"images/laserpistol.png"),
@@ -981,6 +985,13 @@ function addRooms()
   rooms.push(hallway13);
   rooms.push(hallway14);
 
+  rooms.forEach((item, i) => {
+     if(item.roomName === "computer lab")
+     {
+       item.interactables.push(createTerminalObject("terminal", "A terminal flickers in the corner of the computer lab with the words 'password required' on the screen", "", ""));
+     }
+  });
+
 
 }
 
@@ -1199,25 +1210,25 @@ function directionEnemyCaution(availableDirections)
              if(item.orientation === "north")
              {
                document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
-               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
 
              }
              if(item.orientation === "west")
              {
                document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
-               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
 
              }
              if(item.orientation === "south")
              {
                document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
-               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
 
              }
              if(item.orientation === "east")
              {
                document.getElementById("east").style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
-               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the east with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
              }
            }
          }
@@ -1324,20 +1335,19 @@ function processCommands(input)
     var pickedUpItem = words.toString().replace(/,/g," ");
     pickUpItems(player.currentRoom,pickedUpItem,false);
   }
-  else if(words[0] == ("use"))
+  else if(words.includes("use"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    var itemBeingUsed = words.toString().replace(/,/g," ");
-    useItem(itemBeingUsed);
+    useItem(words);
   }
-  else if(words[0] == ("drop"))
+  else if(words.includes("drop"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     words.splice(0,1);
     var itemBeingDropped = words.toString().replace(/,/g," ");
     dropItem(itemBeingDropped);
   }
-  else if(words[0] == ("take"))
+  else if(words.includes("take"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     words.splice(0,1);
@@ -1640,7 +1650,7 @@ function useItem(words)
     {
       player.currentRoom.interactables.forEach((interactable, i) =>
       {
-        if(words === interactable.customCommand)
+        if(words.includes(interactable.interactableName) && interactable.interactableName === "vent")
         {
             removeBlockage(interactable);
             match=true;
@@ -1654,16 +1664,15 @@ function useItem(words)
       document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have that item.</span>";
     }
   }
-  else if(words.includes("explosive"))
+  else if(words.includes("explosive") || words.includes("explosives"))
   {
     var match = false;
     if(checkInventory("explosive"))
     {
       player.currentRoom.interactables.forEach((interactable, i) =>
       {
-        if(words === interactable.customCommand)
+        if(words.includes(interactable.interactableName) && interactable.interactableName === "rubble")
         {
-
             removeBlockage(interactable);
             match=true;
         }
@@ -1676,15 +1685,14 @@ function useItem(words)
       document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have that item.</span>";
     }
   }
-  else if(words.includes("hacking-tool")  ){
+  else if(words.includes("hacking tool") || words.includes("hack") || words.includes("tool")){
     var match = false;
-    if(checkInventory("hacking-tool"))
+    if(checkInventory("hacking tool"))
     {
       player.currentRoom.interactables.forEach((interactable, i) =>
       {
-        if(words === interactable.customCommand)
+        if(words.includes(interactable.interactableName) && interactable.interactableName === "door")
         {
-
             removeBlockage(interactable);
             match=true;
         }
@@ -1692,6 +1700,17 @@ function useItem(words)
       if(match==false){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You can't use that item on that.</span>";
       }
+    }
+    else if (words.includes("terminal"))
+    {
+      player.currentRoom.interactables.forEach((item, i) => {
+        if(item.interactableName==="terminal")
+        {
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>></span>";
+
+        }
+      });
+
     }
     else{
       document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have that item.</span>";
@@ -2104,7 +2123,7 @@ function randomPlaceHolderText()
   }
   else if (number === 5)
   {
-    document.getElementById("gameInput").placeholderr = "Dont mess yourself up some";
+    document.getElementById("gameInput").placeholder = "Dont mess yourself up some";
   }
 }
 
@@ -2127,4 +2146,18 @@ function scrollBarAnchor()
 {
   var elem = document.getElementById('text-display');
   elem.scrollTop = elem.scrollHeight;
+}
+function generatePasswordPad()
+{
+  var passwordArray = ["password117", "meaningoflife42", "gizzardlizard", "iamcool12", "spaceshipduties101", "unguessable5", "terminalpassword", "darkestsoul", "whatisapassword"];
+  var roomSelector = ["quarters"];
+  var selectedRoomName = roomSelector[randomNumberForArray(roomSelector.length)];
+  var password = passwordArray[randomNumberForArray(passwordArray.length)];
+  rooms.forEach((item, i) => {
+    if(item.roomName === selectedRoomName)
+    {
+      item.roomItems.push(createDataPadObject("Password Pad", "A datapad containing useful information for accessing a terminal", "The password for the terminal in the is"+ password, ""))
+    }
+  });
+  return password;
 }
