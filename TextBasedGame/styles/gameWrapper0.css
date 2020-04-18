@@ -20,16 +20,40 @@
 }
 
 #playerInventory{
-  width: 50%;
+  width: 100%;
+  margin: auto;
   display: block;
   float: left;
   font-family: 'Rajdhani', sans-serif;
   font-weight: bolder;
+  border-radius: 25px;
+  margin: 0 auto;
+  /* transform: skewY(3deg); */
+}
+
+#playerInventory table{
+
 }
 
 #playerInventory td{
   width: 200px;
   height: 100px;
+  border: 1px solid black;
+  /* background: repeating-linear-gradient(
+    135deg,
+    black,
+    black 10px,
+    #2F2F2F 10px,
+    #2F2F2F 20px
+    ); */
+    background-color: #272727;
+  position: relative;
+  border-radius: 5px;
+}
+
+#playerInventory tr{
+  width: 100%;
+  height: 50%;
   border: 1px solid white;
   background-color: #262626;
 }
@@ -194,6 +218,44 @@
       );
 }
 
+.profileButtons
+{
+  width: 90%;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  /* color: #C14CD6; */
+  font-family: 'Rajdhani', sans-serif;
+  border: 2px solid black;
+  font-weight: bolder;
+  cursor: pointer;
+  outline: none;
+  /* color: #2EA6BF; */
+  color: #27910E;
+
+  /* background: repeating-linear-gradient(
+    180deg,
+    #25082A,
+    #25082A 10px,
+    #44174C 10px,
+    #44174C 20px
+    ); */
+    /* background: repeating-linear-gradient(
+      180deg,
+      #041114,
+      #041114 10px,
+      #09252B 10px,
+      #09252B 20px
+      ); */
+      background: repeating-linear-gradient(
+        180deg,
+        #082316,
+        #082316 10px,
+        #05170E 10px,
+        #05170E 20px
+        );
+}
+
 #compass
 {
   width: 60%;
@@ -220,31 +282,37 @@
 }
 
 #playerContainer{
-
   overflow:auto;
-  width:60%;
+  width:33%;
   float:left;
-  height:750px;
-  background-color: #0A1C24;
+  height:760px;
+  /* background-color: #0A1C24; */
+  /* background: #09252B; */
+  background: repeating-linear-gradient(
+    45deg,
+    #041114,
+    #041114 500px,
+    #09252B 500px,
+    #09252B 1000px
+    );
   padding: 8px;
   border: 2px solid black;
   margin-left:3%;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  border-top-left-radius: 25px;
-  box-shadow: 0px 0px 10px 2px #F827A6;
+  border-top-right-radius: 25px;
+  box-shadow: 0px 0px 10px 2px #4edaf9;
   display: block;
 }
 
 #statsContainer{
-  overflow: auto;
-  /* margin-top: 2%; */
-  width: 50%;
-  height: auto;
+  overflow: hidden;
+  /* margin-top: 2%;  */
+  height: 400px;
+  width: 100%;
   float:left;
-  font-family: 'Rajdhani', sans-serif;
   font-weight: bolder;
-  background-color: #0A1C24;
+  font-family: 'Rajdhani', sans-serif;
   color: #4edaf9;
 }
 
@@ -337,19 +405,27 @@
 
 }
 
+#playerStatusContainer
+{
+  margin-top: 7%;
+  width: 100%;
+  height: 250px;
+  display: block;
+}
+
 #playerProfile{
   /* border: 1px solid white; */
-  padding-left: 0px;
-  padding: 5%;
+  width: auto;
+  height: 80px;
+  padding-left: 1%;
+  padding-right: 5%;
+  padding-top: 1%;
+  padding-bottom: 3%;
 }
 
 #playerCharStat{
   float:left;
-  max-width: 74px;
-  width:30%;
-  min-width:50px;
-  height:100%;
-  padding-left: 3%;
+  width:20%;
 }
 
 #playerInfoStat{
@@ -373,10 +449,9 @@
 }
 
 #playerStatus{
-  width:65%;
-  height: auto;
+  width:60%;
+  height: 250px;
   float:left;
-  margin:auto;
 }
 
 #playerWeaponStatus{
@@ -402,31 +477,45 @@
 }
 
 #playerHealthStats{
-  height:45%;
-  max-height: 103px;
   /* border: 1px solid grey; */
   padding:3%;
+  width: 100%;
 }
 
 #playerHealth{
   border: black 3px solid;
-  height:15px;
+  border-radius: 25px;
+  height:23px;
   background-color: red;
 }
 
 #healthBar{
   height:100%;
   width:100%;
-  background-color:green;
+  /* background-color:#27910E; */
+  background: repeating-linear-gradient(
+    45deg,
+    #27910E,
+    #27910E 10px,
+    #144F05 10px,
+    #144F05 20px
+    );
+    border-radius: 25px;
 }
 
 #playerConsumables{
-  margin:auto;
   overflow:auto;
-  width:35%;
+  width:40%;
   float:left;
-  border: 1px solid grey;
-  background-color: black;
+  border: 2px solid #4edaf9;
+  border-radius: 25px;
+  background: repeating-linear-gradient(
+    130deg,
+    #041114,
+    #041114 10px,
+    #09252B 10px,
+    #09252B 20px
+    );
 }
 
 #playerConsumables p{
@@ -438,25 +527,32 @@
 
 #playerHealthKitStat{
   height:33%;
-  border: 1px solid grey;
+  border-top: 2px solid #4edaf9;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 #playerHealthPackStat{
   height:33%;
-  border: 1px solid grey;
+  /* border: 1px solid #4edaf9; */
+  border-top: 2px solid #4edaf9;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 #playerEnergyCellsStat{
   height:33%;
-  border: 1px solid grey;
-
+  /* border: 1px solid #4edaf9; */
+  /* border-top: 1px solid #4edaf9; */
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 #playerStats{
   clear: both;
   margin:auto;
   overflow:auto;
-  height:450px;
+  height:400px;
   display: block;
 }
 
@@ -468,6 +564,10 @@
   margin-right: 0px;
 }
 
+.curvedRadius
+{
+  border-radius: 10px;
+}
 #textbox{
   clear: both;
   height: 500px;
@@ -478,10 +578,15 @@
   clear: both;
   //height: 300px;
   //background-color: white;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   overflow: auto;
 }
 
+
+#hoverContainer
+{
+
+}
 #hoverImg{
   float:left;
   width: 70px;
@@ -496,6 +601,7 @@
 #hoverInfo{
   float:left; margin-left: 5%;
   margin-top: 7%;
+  width: 60%;
 }
 
 #playerInventory td:hover{
@@ -504,21 +610,39 @@
 
 #inventory{
   clear: both;
-  //height: 300px;
-  margin-bottom: 30px;
-  //background-color: white;
-    border: 1px solid white;
+  /* height: 300px; */
+  margin: 0 auto;
+  /* background-color: white; */
+  border-radius: 25px;
 }
 
 #inventoryHeader{
-  padding-left: 10%;
-  padding: 5px;
+  /* padding-left: 5%; */
   background-color: #7E7D7D;
-  border: 2px solid black;
-  text-align: center;
-
+  /* border: 2px solid black; */
+  border-radius: 25px;
+  text-align: left;
+  /* background: repeating-linear-gradient(
+    45deg,
+    #1B1A1A,
+    #1B1A1A 10px,
+    #0F0F0F 10px,
+    #0F0F0F 20px
+    ); */
+    background: transparent;
+    color: #4edaf9;
+    width: 100%;
 }
 
+#inventoryTitle{
+  width: 30%;
+  float: left;
+}
+
+#inventoryHover{
+  width: 70%;
+  float: left;
+}
 
 #textbox input{
 
@@ -629,7 +753,13 @@
 ::placeholder{
   color: #434443;
 }
-
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
 
 @keyframes fadeInOut {
   0% {

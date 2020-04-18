@@ -30,8 +30,8 @@ function gameFinished(){
 function gameStart()
 {
  //method will decide and pick between starter rooms based on class
- player.username = sessionStorage.getItem("name");
- player.charClass = sessionStorage.getItem("class");
+ //player.username = sessionStorage.getItem("name");
+ //player.charClass = sessionStorage.getItem("class");
  addRooms();
  document.getElementById("healthBar").style.width=player.health;
  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
@@ -622,7 +622,7 @@ function addRooms()
     [
       createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hangar bay","no"),
       createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway04","Using your hacking-tool you succesfully hack into the door controls and open the door.","door01"),
-      createInteractableObject("sign","You examine the sign and and see that the computer lab is to the south, a storage unit lies to the west, and a hallway to the mess hall is to the east.")
+      createInteractableObject("Sign","You examine the sign and and see that the computer lab is to the south, a storage unit lies to the west, and a hallway to the mess hall is to the east.")
     ], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
@@ -1378,9 +1378,7 @@ function dropItem(itemName){
     removeItemFromInventory(item);
     player.currentRoom.roomItems.push(item);
     document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'>>Dropped "+itemName+"</span>";
-    vicinity(player.currentRoom);
   }
-
   else{
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that item in your inventory!</span>";
   }
@@ -1407,7 +1405,7 @@ function removeItemFromInventory(item){
     //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
       //document.getElementById("text-display").innerHTML+="MATCH"
 
-      elements[i].innerHTML ="";
+      elements[i].innerHTML ="  ";
     //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
       break;
     }
@@ -1993,7 +1991,7 @@ function goDirection(direction)
             }
             else
             {
-              vicinity(player.currentRoom);
+              clearVicinity(0);
             //  document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
             }
             outputCurrentRoomDesc();
