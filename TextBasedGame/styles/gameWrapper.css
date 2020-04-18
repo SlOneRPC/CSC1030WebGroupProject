@@ -7,25 +7,23 @@
   padding: 2%;
   padding-top: 1%;
   margin: auto;
-  border: 2px solid #2b2828;
-  background-color: #171717;
+  /* border: 2px solid #2b2828; */
+  /* background-color: #171717; */
 }
 
 #container
 {
   overflow: auto;
   width: 100%;
-  padding: 1%;
+  padding: 0.5%;
   height:100%;
 }
 
 #playerInventory{
   width: 50%;
-  max width:auto;
-  min-width: 260px;
+  display: block;
   float: left;
-  margin: 10px;
-  margin-right: 3%;
+  margin: ;
   font-family: 'Rajdhani', sans-serif;
   font-weight: bolder;
 }
@@ -66,7 +64,7 @@
 
 #userInput
 {
-    width: 33%;
+    width: 36%;
     float: left;
     max-width: 80%;
     height: 80%;
@@ -74,23 +72,8 @@
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
-    border-top-left-radius: 25px;
     box-shadow: 0 0 10px 2px #4edaf9;
     background-color: #111010;
-}
-#playerContainer{
-
-  overflow:auto;
-  width:65%;
-  float:left;
-  height:80%;
-  background-color: #1a1815;
-  padding: 8px;
-  border: 2px solid black;
-  margin-left:1%;
-  box-shadow: 0 0 10px 2px #4d0000;
-
-
 }
 
 #easyButtons
@@ -169,9 +152,6 @@
       padding: 1%; */
 }
 
-<<<<<<< HEAD
-=======
-
 #eastButton
 {
   border-bottom-left-radius: 25px;
@@ -186,7 +166,6 @@
   border-top-left-radius: 25px;
 }
 
->>>>>>> b2a8a604b39219f382b3e6898874d05508e3016a
 .utilityButtons
 {
   width: 90%;
@@ -241,20 +220,29 @@
   padding: 5%;
 }
 
-#statsContainer{
-  overflow: auto;
-  margin-top: 2%;
-  width: 45%;
-  max-width: 500px;
-  max-height:700px;
-  min-width: 237px;
-  height:100%;
+#playerContainer{
+
+  overflow:auto;
+  width:60%;
   float:left;
+  height:750px;
+  background-color: #0A1C24;
+  padding: 8px;
+  border: 2px solid black;
+  margin-left:3%;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  border-top-right-radius: 25px;
   border-top-left-radius: 25px;
   box-shadow: 0px 0px 10px 2px #F827A6;
+  display: block;
+}
+
+#statsContainer{
+  overflow: auto;
+  /* margin-top: 2%; */
+  width: 50%;
+  height: auto;
+  float:left;
   font-family: 'Rajdhani', sans-serif;
   font-weight: bolder;
   background-color: #0A1C24;
@@ -265,7 +253,6 @@
   margin:auto;
   overflow:auto;
   clear: both;
-  height:20%;
   /*border: 1px solid white;*/
   padding:10px;
   text-align: center;
@@ -293,7 +280,7 @@
   clear: both;
   margin:auto;
   overflow:auto;
-  height:60%;
+
   text-align: center;
 }
 

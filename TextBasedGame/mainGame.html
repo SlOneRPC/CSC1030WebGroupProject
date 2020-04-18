@@ -160,46 +160,7 @@
           </div>
         </div>
         <div id="playerContainer">
-          <div id="playerInventory">
-            <div id="inventory">
-              <div id="inventoryHeader">
-                  <h1>Inventory</h1>
-              </div>
-                <table>
-                  <tr>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                  </tr>
-                  <tr>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                    <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
-                  </tr>
-                </table>
-            </div>
-            <div id="other1">
 
-
-              <div id="inventoryHeader">
-                  <h1>Nearby Pickups</h1>
-              </div>
-              <table>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
-
-              <img src="" alt="" id="hoverImg">
-              <h3 id="hoverInfo">Hover over an item for info here</h3>
-
-            </div>
-          </div>
           <div id="statsContainer">
                  <div id="mapHeader">
                    <h1 id="currentRoomDisplay" class="text" style="border-bottom:2px solid green">>Current Room: </h1>
@@ -251,7 +212,6 @@
                         </div>
                       </div>
                    </div>
-
                    <div id="playerConsumables">
                       <div id="playerEnergyCellsStat">
                           <img style="height:40%; width:40%;"id="energyCellsStat" src="images/energycellStat.png" alt="Energy cell image"></img>
@@ -283,6 +243,46 @@
                      <li id="objective">Objective 1</li>
                    </ul>
                  </div>
+        </div>
+        <div id="playerInventory">
+          <div id="inventory">
+            <div id="inventoryHeader">
+                <h1>Inventory</h1>
+            </div>
+              <table>
+                <tr>
+                  <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                  <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                  <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                  <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                </tr>
+                <tr>
+                  <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                  <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                  <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                  <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                </tr>
+              </table>
+          </div>
+          <div id="other1">
+
+
+            <div id="inventoryHeader">
+                <h1>Nearby Pickups</h1>
+            </div>
+            <table>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+
+            <img src="" alt="" id="hoverImg">
+            <h3 id="hoverInfo">Hover over an item for info here</h3>
+
+          </div>
         </div>
       </div>
       </div>

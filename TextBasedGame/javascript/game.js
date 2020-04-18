@@ -1688,7 +1688,7 @@ function useItem(words)
   }
   else if(words.includes("hacking tool") || words.includes("hack") || words.includes("tool")){
     var match = false;
-    if(checkInventory("hacking tool"))
+    if(checkInventory("hacking-tool"))
     {
       player.currentRoom.interactables.forEach((interactable, i) =>
       {
