@@ -24,26 +24,12 @@ function onTimer()
   document.getElementById("timer").innerHTML ="Time remaining: " + timeLeft;
   //take away a second
   timeRemaining -= 1;
-  // code to change display at certain intervals
-  //if (timeRemaining == )
-  //if (timeRemaining%60 == 0)
-  if (timeRemaining == 295)
-  {
-    document.getElementById("timer").className = "blinking";
-  }/*
-  else{
-    document.getElementById("timer").className = "notBlinking";
-  }
-*/
-
-
+  sessionStorage.setItem("timeSpent",timeLeft);
   // If the count down is finished, end game
   if (timeRemaining <= -1)
   {
     clearInterval(timer);
-    sessionStorage.setItem("timeSpent",timeLeft);
-    sessionStorage.setItem('stats', JSON.stringify(player.stats));
-    window.location.href = "endScreen.html";
+    gameFinished();
   }
 }
 
