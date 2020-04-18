@@ -35,7 +35,6 @@ function gameStart()
  addRooms();
 
  var width = document.getElementById('playerHealth').offsetWidth;
- alert(width);
  document.getElementById("healthBar").style.width= Math.floor((width/100) * player.health) + 'px';
  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
  document.getElementById("currentWeaponMag").innerHTML="0/0";
