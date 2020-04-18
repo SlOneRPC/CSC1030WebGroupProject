@@ -25,7 +25,7 @@ function gameFinished(){
   statUpdate();
   sessionStorage.setItem('stats', JSON.stringify(player.stats));
   window.location.href = "endScreen.html";
-  // usere completes the game when they exit the hangar in an escape pod ersum
+  // user completes the game when they exit the hangar in an escape pod ersum
 }
 
 function gameStart()
@@ -397,17 +397,12 @@ function addRooms()
       createExitObject("hallway8", "west","You leave the mess hall and head into another hallway.",false,"")
     ],
     [//Items in the current room
-<<<<<<< HEAD
-      createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hangar bay.","images/tornmap.png"),
-      createWeaponObject("shotgun",5,5,35,"Ranged",["shoot"],"It is a gun","images/lasershotgun.png"),
-      createAmmoObject("energy cells","This is an energy cell","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
-      createHealthObject("health kit","This is a health kit","images/healthkit.png", 50)
-=======
+
       createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hanger bay.","images/tornmap.png"),
       createWeaponObject("shotgun",5,5,35,"Ranged",["shoot"],"A shotgun, good for turning anything 2 metres in front of you to dust Mag Size: 5","images/lasershotgun.png"),
       createAmmoObject("energy cells","An energy cell, it can be used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health kit","A health kit it can be used to heal you by 50%","images/healthkit.png", 50,1)
->>>>>>> ec04b82e780b22fcd904f0cf72785a537863c746
+
     ],
     [
       createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","kitchen","Using your hacking-tool you succesfully hack into the door controls and open the door.","door02"),
@@ -452,30 +447,18 @@ function addRooms()
      [//Room Descriptions
        createDescriptionObject(
          "first-entry",
-<<<<<<< HEAD
-         "You quickly enter the hangar bay hoping for an escape, the room is oddly quiet"
-       ),
-       createDescriptionObject(
-         "second-entry",
-         "Yor renter the hangar bay."
-=======
          "You quickly enter the hanger bay hoping for an escape, the room is oddly quiet, looking around the room you see many ships, all in desperate need of repair, at the end of the bay you see a lone escape pod."
        ),
        createDescriptionObject(
          "second-entry",
          "You re-enter the hanger bay, and notice one last escape pod."
->>>>>>> ec04b82e780b22fcd904f0cf72785a537863c746
        ),
      ],
      [],//Enemies Value
      [//Exits to current room
-<<<<<<< HEAD
-       createExitObject("hallway14", "east","You leave the hangar bay and enter back into the hallway.",false),
-       createExitObject("exit", "west","",false)
-=======
+
        createExitObject("hallway14", "east","You leave the hanger bay and enter back into the hallway.",false),
        //createExitObject("exit", "west","",false)
->>>>>>> ec04b82e780b22fcd904f0cf72785a537863c746
       // createExitObject("escape pod","south")
      ],
      [//Items in the current room
@@ -574,11 +557,8 @@ function addRooms()
 
      ],
      [
-<<<<<<< HEAD
-       createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP' That doesn't sound good better try and make it to the hangar bay","no"),
-=======
+
        createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hanger bay","no"),
->>>>>>> ec04b82e780b22fcd904f0cf72785a537863c746
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway04","using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent01")
      ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
@@ -702,11 +682,7 @@ function addRooms()
      [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway08","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent02"),
        createBlockedPathObject("rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway07","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble02"),
-<<<<<<< HEAD
-       createInteractableObject("Broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hangar bay","no")
-=======
        createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hanger bay","no"),
->>>>>>> ec04b82e780b22fcd904f0cf72785a537863c746
      ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
