@@ -211,9 +211,11 @@ function addRooms()
       createExitObject("hallway01", "east", "You step out of the quarters and into one of the ships long dark hallways.",false,"")
     ],
     [ //Items in the current room
+
       createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "A reliable Pistol good for dealing with foes. Mag Size: 9 ","images/laserpistol.png"),
       createAmmoObject("energy cells","An energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1)),
       createGadgetObject("blowtorch","A blowtorch,very useful for burning through metal and vents.","images/blowtorch.png")
+
     ],
     [
 
@@ -561,7 +563,6 @@ function addRooms()
 
      ],
      [
-
        createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hangar bay","no"),
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway04","using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent01")
      ], //Number of interactable items in the room
@@ -1469,7 +1470,8 @@ function getItemPosFromInventory(itemName){
   }
 }
 
-function removeInteractable(interactableName){
+function removeInteractable(interactableName)
+{
   for(var i=0; i<player.currentRoom.interactables.length;i++){
     //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
     if(player.currentRoom.interactables[i].item.interactableName === interactableName){
@@ -1477,7 +1479,6 @@ function removeInteractable(interactableName){
     }
   }
 }
-
 
 function processCustomCommand(interactable)
 {
