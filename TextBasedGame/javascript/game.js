@@ -33,8 +33,14 @@ function gameStart()
  player.username = sessionStorage.getItem("name");
  player.charClass = sessionStorage.getItem("class");
  addRooms();
+<<<<<<< HEAD
  document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
  document.getElementById("healthBar").style.width=player.health;
+=======
+
+ var width = document.getElementById('playerHealth').offsetWidth;
+ document.getElementById("healthBar").style.width= Math.floor((width/100) * player.health) + 'px';
+>>>>>>> 1b40e8c9f105d3100ebbe9fb8f724a6eaa922899
  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
  document.getElementById("currentWeaponMag").innerHTML="0/0";
  document.getElementById("playerNameStat").innerHTML="Name: "+player.username;
