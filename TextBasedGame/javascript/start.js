@@ -33,6 +33,9 @@ function inputValidation(){
     desc = "You must select a class before you begin";
     issue = true;
   }
+  else{
+    desc = "empty";
+  }
   document.getElementById("CharacterDesc").innerHTML = desc;
 
   return issue;
