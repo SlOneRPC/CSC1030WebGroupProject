@@ -33,7 +33,9 @@ function gameStart()
  //player.username = sessionStorage.getItem("name");
  //player.charClass = sessionStorage.getItem("class");
  addRooms();
- document.getElementById("healthBar").style.width=player.health;
+ document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
+ var width = document.getElementById('playerHealth').offsetWidth;
+ document.getElementById("healthBar").style.width= Math.floor((width/100) * player.health) + 'px';
  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
  document.getElementById("currentWeaponMag").innerHTML="0/0";
  document.getElementById("playerNameStat").innerHTML="Name: "+player.username;
@@ -400,7 +402,7 @@ function addRooms()
     [//Exits to current room
       createExitObject("hallway12", "north","You step out of the mess hall into another one of the ship's long corridors.",false,""),
       createExitObject("kitchen","south","",true,"A locked door prevents your passage."),
-      createExitObject("hallway8", "west","You leave the mess hall and head into another hallway.",false,"")
+      createExitObject("hallway08", "east","You leave the mess hall and head into another hallway.",false,"")
     ],
     [//Items in the current room
 
@@ -736,18 +738,20 @@ function addRooms()
     ],
     [],//Enemies Value
     [//Exits to current room
-      createExitObject("hallway14", "west","You countinue west further into the hallway",true,"You can't go that way a powerless door prevents your passage, it needs to be powered in order to be opened."),
+      createExitObject("hallway14", "east","You countinue west further into the hallway",true,"You can't go that way a powered door prevents your passage, it needs to be powered in order to be opened."),
       createExitObject("hallway09", "north","",true,"A locked door blocks your path you cannot go that way, you might be able to open it with sommething?"),
-      createExitObject("hallway08", "east","You head east down the hallway",false,""),
+      createExitObject("hallway08", "west","You head east down the hallway",false,""),
       createExitObject("hallway05", "south","With the rubble cleared and your hearing damaged, you make your way east doen the hall into another corridor. Maybe get ear muffs next time?",true,"You cannot go that way large rubble and debris block the path.")
     ],
     [//Items in the current room
+
+    ],
+    [
       createBlockedPathObject("door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway09","Using your hacking-tool you succesfully hack into the door controls and open the door.","door03"),
       createBlockedPathObject("rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway05","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble02"),
-      createInteractableObject("Sign","You examine the sign and and see that the hangar bay is to the east end of the hall, the research lab is towards the north end of the hall,the armory is towards the south and the maintenance bay and mess hall are to the east.","no"),
-      createInteractableObject("Powered Door","You examine the door and and see that it is blocking access to the hangar bay. It might open if the ship's power is restored.","no")
-    ],
-    [], //Number of interactable items in the room
+      createInteractableObject("sign","You examine the sign and and see that the hangar bay is to the east end of the hall, the research lab is towards the north end of the hall,the armory is towards the south and the maintenance bay and mess hall are to the east.","no"),
+      createInteractableObject("powered door","You examine the door and and see that it is blocking access to the hangar bay. It might open if the ship's power is restored.","no")
+    ], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var hallway08 =
@@ -768,8 +772,8 @@ function addRooms()
     [], //Enemies Value
     [//Exits to current room
       createExitObject("maintenance bay", "north"," You head north out of the hallway into a room",false,""),
-      createExitObject("mess hall", "east"," You head east down the hallway towards a room",false,""),
-      createExitObject("hallway07", "west","You head west down the hallway towards a junction",false,""),
+      createExitObject("mess hall", "west"," You head east down the hallway towards a room",false,""),
+      createExitObject("hallway07", "east","You head west down the hallway towards a junction",false,""),
       createExitObject("hallway05","south","You crawl into the dark vent, and slowly move through it,and emerge into a long hallway.",true,"You cannot go that way a vent blocks your path.")
     ],
     [//Items in the current room
@@ -829,7 +833,8 @@ function addRooms()
     [//Exits to current room
       createExitObject("maintenance bay", "south","You crawl into the vent and make your way slowly through the tight space.",true,"You cannot go that way a vent blocks the way."),
       createExitObject("hallway13", "north","You crawl slowly though the vent, the light from the hallway infront of you illuminating your path.",true,"You cannot go that way a damaged vent blocks the way."),
-      createExitObject("hallway11","west","You countinue west down the hallway towards a junction.",false,"")
+      createExitObject("hallway11","west","You countinue west down the hallway towards a junction.",false,""),
+      createExitObject("hallway09","east","You countinue east down the hallway.",false,"")
     ],
     [//Items in the current room
     ],
@@ -877,11 +882,11 @@ function addRooms()
     [//Room Descriptions
       createDescriptionObject(
         "first-entry",
-        "Hallway12 first entry text placeholder"
+        "You enter into the hallway and arrive at a junction with multiple paths."
       ),
       createDescriptionObject(
         "second-entry",
-        "Hallway12 second entry text placeholder"
+        "You enter into the hallway and arrive at a junction with multiple paths."
       ),
     ],
     [], //Enemies Value
@@ -917,8 +922,8 @@ function addRooms()
     ],
      [], //Enemies Value
      [//Exits to current room
-       createExitObject("research lab", "west","You head west down the hallway into the Research lab.",false,""),
-       createExitObject("reactor room", "east","You head east down the hallway into the Reactor room.",false,""),
+       createExitObject("research lab", "east","You head west down the hallway into the Research lab.",false,""),
+       createExitObject("reactor room", "west","You head east down the hallway into the Reactor room.",false,""),
        createExitObject("hallway10", "south","You crawl slowly though the vent, and see the light from a hallway at the end of the vent.",true,"You cannot go that way a vent blocks your path.")
      ],
      [//Items in the current room
@@ -947,8 +952,8 @@ function addRooms()
     ],
      [], //Enemies Value
      [//Exits to current room
-       createExitObject("hangar bay", "west","You head west into the hangar bay.", false,""),
-       createExitObject("hallway07", "east","You head east back into the hallway.", false,""),
+       createExitObject("hangar bay", "east","You head west into the hangar bay.", false,""),
+       createExitObject("hallway07", "west","You head east back into the hallway.", false,""),
      ],
      [//Items in the current room
         createAmmoObject("energy cells","An energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
@@ -958,7 +963,6 @@ function addRooms()
      [], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
-
 
   rooms.push(quarters);
   rooms.push(computerLab);
@@ -994,6 +998,22 @@ function addRooms()
   });
 
 
+}
+
+function updateObjectives(){
+
+  if(rooms[getRoomPos("hangar bay")].roomDiscovered==true && player.currentRoom.roomName=="hangar bay"&& document.getElementById("escapeObj")==null){
+      document.getElementById("hangarObj").style.display="none";
+      document.getElementById("objectivesList").innerHTML+="<li id='escapeObj'>Escape!</li>";
+  }
+  if(rooms[getRoomPos("hallway07")].roomDiscovered==true && player.currentRoom.roomName=="hallway07" && document.getElementById("doorObj")==null){
+     document.getElementById("startObj").style.display="none";
+     document.getElementById("objectivesList").innerHTML+="<li id='doorObj'>Go to the reactor room to bring the power back online.</li>";
+  }
+  if(rooms[getRoomPos("reactor room")].roomDiscovered==true && player.currentRoom.roomName=="reactor room" && document.getElementById("powerObj")==null){
+     document.getElementById("doorObj").style.display="none";
+     document.getElementById("objectivesList").innerHTML+="<li id='powerObj'>Find a way to bring the power back online.</li>";
+  }
 }
 
 function getRoomTextDesc(currentRoom,entry)
@@ -1294,6 +1314,26 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     move(words);
   }
+  else if (words.includes("west") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    move(words);
+  }
+  else if (words.includes("east") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    move(words);
+  }
+  else if (words.includes("north") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    move(words);
+  }
+  else if (words.includes("south") == true)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    move(words);
+  }
   else if (words.includes("search") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
@@ -1470,12 +1510,21 @@ function getItemPosFromInventory(itemName){
   }
 }
 
-function removeInteractable(interactableName)
-{
-  for(var i=0; i<player.currentRoom.interactables.length;i++){
+function getRoomPos(roomName){
+  for(var i=0; i<rooms.length;i++){
     //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
-    if(player.currentRoom.interactables[i].item.interactableName === interactableName){
-        player.currentRoom.interactables.splice(i,1);
+    if(rooms[i].roomName === roomName){
+      return i;
+    }
+  }
+}
+
+function removeInteractable(interactableName,room)
+{
+  for(var i=0; i< room.interactables.length;i++){
+    //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+    if(room.interactables[i].interactableName === interactableName){
+        room.interactables.splice(i,1);
     }
   }
 }
@@ -1490,66 +1539,27 @@ function processCustomCommand(interactable)
     {
       removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
-      removeInteractable("console");
-      player.currentRoom.interactables.push(createInteractableObject("Alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET POWER GENERATORS BETA, GAMMA, DELTA, AND PULL MASTER SWITCH'","no"));
-      player.currentRoom.interactables.push(createLeverObject("DELTA Lever","You inspect the lever, pulling it should restart the generator.","pull delta lever",false, "You pull the lever, and the generator begins to slowly rumble."));
-      player.currentRoom.interactables.push(createLeverObject("BETA Lever","You inspect the lever, pulling it should restart the generator.","pull beta lever",false, "You pull the lever, and the generator begins to slowly rumble."));
-      player.currentRoom.interactables.push(createLeverObject("GAMMA Lever","You inspect the lever, pulling it should restart the generator. ","pull gamma lever",false, "You pull the lever, and the generator begins to slowly rumble."));
-      player.currentRoom.interactables.push(createLeverObject("Master Switch", "You Inspect the switch, pulling it should reset the ship's power once all the levers have been pulled.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
-    }
-  }
-  else if(interactable.interactableName === "DELTA Lever" )
-  {
-    if( player.currentRoom.roomName === "reactor room")
-    {
-       interactable.pulledState=true;
-       document.getElementById("text-display").innerHTML += "<br>>" + interactable.pulledDescription;
-    }
-  }
-  else if(interactable.interactableName === "BETA Lever" )
-  {
-    if( player.currentRoom.roomName === "reactor room")
-    {
-       interactable.pulledState=true;
-       document.getElementById("text-display").innerHTML += "<br>>" + interactable.pulledDescription;
-    }
-  }
-  else if(interactable.interactableName === "GAMMA Lever" )
-  {
-    if( player.currentRoom.roomName === "reactor room" )
-    {
-      interactable.pulledState=true;
-      document.getElementById("text-display").innerHTML += "<br>>" + interactable.pulledDescription;
+      removeInteractable("console",player.currentRoom);
+      document.getElementById("powerObj").style.display="none";
+      player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
+      player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
+      document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
     }
   }
   else if(interactable.interactableName === "Master Switch" )
   {
-    if( player.currentRoom.roomName === "reactor room" && checkLever(player.currentRoom) )
+    if( player.currentRoom.roomName === "reactor room" )
     {
+      document.getElementById("switchObj").style.display="none";
       interactable.pulledState=true;
       document.getElementById("text-display").innerHTML += "<br>>" + interactable.pulledDescription;
       var blockedPath={exitRoomName:"hallway14"};
-      clearExit(blockedPath,hallway07);
-
+      clearExit(blockedPath,rooms[getRoomPos("hallway07")]);
+      removeInteractable("powered door",rooms[getRoomPos("hallway07")]);
+      removeInteractable("master switch",player.currentRoom);
+      removeInteractable("alert",player.currentRoom);
+      document.getElementById("objectivesList").innerHTML="<li id='hangarObj'>Return to the hanger bay.</li>";
     }
-  }
-}
-
-function checkLever(room)
-{
-  var check =0;
-  for(var i = 0; i < room.interactables.length; i++)
-    {
-      if(room.interactables[i].pulledState == true)
-      {
-        check++;
-      }
-    }
-  if(check == 3 ){
-    return true;
-  }
-  else{
-    return false;
   }
 }
 
@@ -1601,7 +1611,7 @@ function removeBlockage(blockedPath)
   }
 }
 
-function checkInventory(item){/////////////////////////////////////////////
+function checkInventory(item){
   for(var i=0; i<player.inventory.length;i++){
     //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
     if(player.inventory[i].item.itemName === item){
@@ -2009,6 +2019,7 @@ function goDirection(direction)
     document.getElementById("text-display").innerHTML+= "</br>>There is nowhere in that direction..";
   }
   scrollBarAnchor();
+  updateObjectives();
 }
 function returnNewRoom(roomExit)
 {
