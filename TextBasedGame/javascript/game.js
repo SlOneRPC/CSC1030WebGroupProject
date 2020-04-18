@@ -1670,7 +1670,7 @@ function useItem(words)
   else if(words.includes("explosive") || words.includes("explosives"))
   {
     var match = false;
-    if(checkInventory("explosive"))
+    if(checkInventory("explosives"))
     {
       player.currentRoom.interactables.forEach((interactable, i) =>
       {
