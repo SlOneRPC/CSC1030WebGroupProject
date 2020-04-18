@@ -30,8 +30,8 @@ function gameFinished(){
 function gameStart()
 {
  //method will decide and pick between starter rooms based on class
- //player.username = sessionStorage.getItem("name");
- //player.charClass = sessionStorage.getItem("class");
+ player.username = sessionStorage.getItem("name");
+ player.charClass = sessionStorage.getItem("class");
  addRooms();
  document.getElementById("healthBar").style.width=player.health;
  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
@@ -1378,7 +1378,9 @@ function dropItem(itemName){
     removeItemFromInventory(item);
     player.currentRoom.roomItems.push(item);
     document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'>>Dropped "+itemName+"</span>";
+    vicinity(player.currentRoom);
   }
+
   else{
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that item in your inventory!</span>";
   }
@@ -1405,7 +1407,7 @@ function removeItemFromInventory(item){
     //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
       //document.getElementById("text-display").innerHTML+="MATCH"
 
-      elements[i].innerHTML ="  ";
+      elements[i].innerHTML ="";
     //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
       break;
     }
@@ -1991,7 +1993,7 @@ function goDirection(direction)
             }
             else
             {
-              clearVicinity(0);
+              vicinity(player.currentRoom);
             //  document.getElementById("text-display").innerHTML+= "</br>>" +player.currentRoom.roomDescription;
             }
             outputCurrentRoomDesc();
