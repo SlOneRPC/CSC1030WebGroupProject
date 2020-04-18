@@ -310,42 +310,42 @@
         </div>
      <h1 id="healthLost" class="hideMe">Lost 20 health..</h1>
      <h1 id="damageGiven" class="hideMe">Damaged for 35..</h1>
+     <div id="combatInfo-display" class="hideMe">
+          <h1 class="combatHeader">Turn Info</h1>
+          <h2>Combat Type : <span id=currentCombat></span></h2>
+          <h2 id="Currenthitchance">Hitchance : <span id=hitchanceValue></span></h2>
+          <h2 id="CurrentDamageGiven">Max Damage Given : <span id=MaxDamageValue></span></h2>
+          <h2 id="CurrentDamageRecieved">Max Damage Recieved: <span id=MaxDamageRecievedValue></span></h2>
+          <h2 id="CurrentHealthGained" class="hideMe">Health Gained: <span id=HealthGainedValue></span></h2>
+     </div>
      <div id="gameinstructions">
        <h1 class="combatHeader">Combat Instructions</h1>
        <ul>
          <li>Select desired combat type</li>
          <li>Drag weapon from inventory to weapon slot to change it</li>
-         <li>Type in the hitbox and press enter to finish your turn</li>
-         <li>The faster you complete your turn the more damage you will deal</li>
+         <li>Select your desired hitbox</li>
+         <li>End your turn when finished</li>
        </ul>
-     </div>
-     <div id="hitbox-display"  class="hideMe">
-        <h1 class="combatHeader">Hitboxes</h1>
-        <ul>
-          <li>Head</li>
-          <li>Chest</li>
-          <li>Stomach</li>
-          <li>Arms</li>
-          <li>Legs</li>
-          <li>Feet</li>
-        </ul>
      </div>
      <div id="combatBox" class="hideMe">
        <div id="combat-main">
          <h1 class="combatHeader">Combat</h1>
+         <div id="combat-actions">
+           <h2>Combat Options:</h2>
+           <button type="button" name="WeaponAttack" class="combatButtons" onclick="updateCombatType(0);">WeaponAttack</button>
+           <button type="button" name="meleeAttack" class="combatButtons" onclick="updateCombatType(1);">Melee Attack</button>
+           <button type="button" name="heal" class="combatButtons" onclick="updateCombatType(2);">Heal</button>
+           <button type="button" name="leave" class="combatButtons" onclick="updateCombatType(3);">Run Away</button>
 
-         <input type="radio" name="Attack" value="Attack1" class="combatAction">
-         <label for="" class="combatLabel">Aim</label>
-         <input type="radio" name="Attack" value="Attack2" class="combatAction">
-         <label for="" class="combatLabel">Charge enemy</label>
-         <input type="radio" name="Attack" value="TakeCover" class="combatAction">
-         <label for="" class="combatLabel">Take Cover</label>
-         <div id="combat-col1">
-           <h2>Aimpoint:</h2>
-           <input type="text" name="hitbox" placeholder="hitbox" id="hitbox-input" onkeypress="if (event.keyCode === 13) exectuteCombat();">
-         </div>
-         <div id="combat-col2">
-            <h2 id="weaponText">Weapon: </h2> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="weaponPlaceholder">
+           <label for="hitboxes" id="hitbox-label">Hitbox</label>
+           <select id="hitboxes" name="hitboxes">
+            <option value="head">head | -2% hitchance | +10 max damage</option>
+            <option value="chest">chest | +5% hitchance | +4 max damage</option>
+            <option value="arms">arms | +4% hitchance | +5 max damage</option>
+            <option value="torso">torso | +4% hitchance | +5 max damage</option>
+            <option value="legs">legs | +3% hitchance | +7 max damage</option>
+          </select>
+          <button type="button" name="turnEnd" onclick="exectuteCombat();">End Turn</button>
          </div>
        </div>
        <div id="combat-inventory">
