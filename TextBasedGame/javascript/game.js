@@ -211,15 +211,9 @@ function addRooms()
       createExitObject("hallway01", "east", "You step out of the quarters and into one of the ships long dark hallways.",false,"")
     ],
     [ //Items in the current room
-<<<<<<< HEAD
-      createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "It is a gun","images/laserpistol.png"),
-      createAmmoObject("energy cells","This is an energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1)),
-      createGadgetObject("blowtorch","This is a blowtorch","images/blowtorch.png")
-=======
       createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "A reliable Pistol good for dealing with foes. Mag Size: 9 ","images/laserpistol.png"),
       createAmmoObject("energy cells","An energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1)),
       createGadgetObject("blowtorch","A blowtorch,very useful for burning through metal and vents.","images/blowtorch.png")
->>>>>>> 8112aea38711079adb75b88d6bc1060d34dd539a
     ],
     [
 
@@ -567,14 +561,9 @@ function addRooms()
 
      ],
      [
-<<<<<<< HEAD
-       createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP' That doesn't sound good better try and make it to the hanger bay","no"),
-       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway04","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent01")
-=======
 
        createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hangar bay","no"),
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway04","using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent01")
->>>>>>> 8112aea38711079adb75b88d6bc1060d34dd539a
      ], //Number of interactable items in the room
      false //Has Room been entered/Discovered?
    );
@@ -1698,7 +1687,7 @@ function useItem(words)
   }
   else if(words.includes("hacking tool") || words.includes("hack") || words.includes("tool")){
     var match = false;
-    if(checkInventory("hacking tool"))
+    if(checkInventory("hacking-tool"))
     {
       player.currentRoom.interactables.forEach((interactable, i) =>
       {
