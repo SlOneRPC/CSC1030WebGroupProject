@@ -124,7 +124,7 @@
   </head>
   <body onload="gameStart();">
   <body>
-    <div id="wrapper">
+    <div id="wrapper" class = "hideMe" class = "">
       <div id="settings-wrapper">
           <button type="button" style="float:right; cursor:pointer;" onclick="combatSetup();">Test combat</button>
           <button type="button" style="float:right; cursor:pointer;" onclick="pause();" id="pausebtn">Pause Game</button>
@@ -407,19 +407,18 @@
       </div>
     </div>
   </div>
-  <div id="startingContainer" class="hideMe">
-      <h1>test</h1>
+  <div id="startingContainer" >
+      <div id = "starterText"></div>
       <script type="text/javascript">
         function hideStart(){
           document.getElementById('startingContainer').classList.add('hideMe');
+          document.getElementById('wrapper').classList.remove('hideMe');
         }
       </script>
-      <button type="button" name="continue" onclick="hideStart();">Continue</button>
+      <button type="button" name="continue" onclick="hideStart();" id = "continueButton">Continue</button>
   </div>
   <div id="pauseContainer" class="hideMe">
-      <h1>Paused!</h3>
-      <hr style="width:80%;">
-      <button type="button" onclick="pause();" id="pausebtn">Unpause Game</button>
+      <img src="images/Play Button.gif" onclick="pause();" class="clickableImage" alt="">
   </div>
   </body>
 </html>

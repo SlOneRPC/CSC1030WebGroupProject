@@ -49,43 +49,41 @@
 
 #pauseContainer{
   position: fixed;
-  width: 500px;
+  width: 30%;
   height: 300px;
-  top: 50%;
+  top: 35%;
   left: 50%;
   margin-top: -150px; /* Negative half of height. */
   margin-left: -250px; /* Negative half of width. */
-
-  background: grey;
-  border: 4px solid white;
   text-align: center;
-  border-radius: 40%;
   color: red;
   font-weight: bold;
 }
-
+.clickableImage
+{
+  cursor: pointer;
+}
 #pausebtn{
-  width: 150px;
-  height: 90px;
+  width: 20%;
+  background: url(images/Play Button.gif);
 }
 
 #startingContainer{
   position: fixed;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   margin: 2%;
   color: white;
-  top: 1%;
-  left: 2%;
-
-
   background: black;
-  border: 2px solid white;
-  border-radius: 30px;
-  text-align: center;
+  text-align: left;
+  font-size: 2.7vw;
+  font-family: 'Rajdhani', sans-serif;
 }
 
+#starterText
+{
 
+}
 
 .disabledbutton {
     pointer-events: none;
@@ -887,6 +885,27 @@
   cursor:pointer;
 }
 
+#continueButton
+{
+  width: 10%;
+  text-align: center;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 1.1vw;
+  border: 2px solid black;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  outline: none;
+  color: #27910E;
+      background: repeating-linear-gradient(
+        180deg,
+        #082316,
+        #082316 10px,
+        #05170E 10px,
+        #05170E 20px
+        );
+}
+
 .input
 {
   font-size: 1.2vw;
@@ -914,14 +933,33 @@
   color: #434443;
 }
 
-.textAnim{
-  animation: fadeIn ease 1s;
--webkit-animation: fadeIn ease 1s;
--moz-animation: fadeIn ease 1s;
--o-animation: fadeIn ease 1s;
--ms-animation: fadeIn ease 1s;
+.textAnimStart{
+  animation: fadeIn ease 5s both;
+-webkit-animation: fadeIn ease 5s both;
+-moz-animation: fadeIn ease 5s;
+-o-animation: fadeIn ease 5s;
+-ms-animation: fadeIn ease 5s;
 }
 
+.textAnimStart2{
+  animation: fadeIn ease 5s both;
+  -webkit-animation: fadeIn ease 5s both;
+  -moz-animation: fadeIn ease 5s;
+  -o-animation: fadeIn ease 5s;
+  -ms-animation: fadeIn ease 5s;
+
+  -webkit-animation-delay: 4s;
+}
+
+.textAnimStart3{
+  animation: fadeIn ease 5s both;
+  -webkit-animation: fadeIn ease 5s both;
+  -moz-animation: fadeIn ease 5s;
+  -o-animation: fadeIn ease 5s;
+  -ms-animation: fadeIn ease 5s;
+
+-webkit-animation-delay: 8s;
+}
 
 @keyframes fadeIn {
   0% {
@@ -930,5 +968,15 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
