@@ -2039,6 +2039,7 @@ function goDirection(direction)
             }
             outputCurrentRoomDesc();
             document.getElementById("currentRoomDisplay").innerHTML ="Current Room: "+ player.currentRoom.roomName;
+            randomFootstepSelector();
           }
           //CHANGE
           if(roomExit.orientation === direction && roomExit.blocked===true){
@@ -2046,7 +2047,6 @@ function goDirection(direction)
 
           }
       });
-        randomFootstepSelector();
   }
   else
   {
