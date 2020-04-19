@@ -61,7 +61,7 @@ function updateWeapons(){
   }
 
   //if the player has no weapons-
-  if(window.player.equippedWeapon.item.itemName == 0){
+  if(window.player.equippedWeapon.item.itemName == 0 && tableIndex == 1){
     document.getElementById('wepButton').disabled = true;
     weaponDisabled = true;
     updateCombatType(1);//set combat to melee since no weapon is equipped

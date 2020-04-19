@@ -67,7 +67,7 @@ function gameStart()
  populateFootstepArray();
  document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
  var width = document.getElementById('playerHealth').offsetWidth;
- document.getElementById("healthBar").style.width= Math.floor((width/100) * player.health) + 'px';
+ document.getElementById("healthBar").style.width= player.health + '%';
  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
  document.getElementById("currentWeaponMag").innerHTML="0/0";
  document.getElementById("playerNameStat").innerHTML="Name: "+player.username;
