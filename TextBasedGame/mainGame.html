@@ -356,14 +356,20 @@
            <button type="button" name="heal" class="combatButtons" onclick="updateCombatType(2);">Heal</button>
            <button type="button" name="leave" class="combatButtons" onclick="updateCombatType(3);">Run Away</button>
 
-           <label for="hitboxes" id="hitbox-label">Hitbox</label>
-           <select id="hitboxes" name="hitboxes" onchange="updateHitbox();">
-            <option value="head">head | -2% hitchance | +10 max damage</option>
-            <option value="chest">chest | +5% hitchance | +4 max damage</option>
-            <option value="arms">arms | +4% hitchance | +5 max damage</option>
-            <option value="torso">torso | +4% hitchance | +5 max damage</option>
-            <option value="legs">legs | +3% hitchance | +7 max damage</option>
-          </select>
+           <div id="hitboxesContainer">
+             <label for="hitboxes" id="hitbox-label">Hitbox</label>
+             <select id="hitboxes" name="hitboxes" onchange="updateHitbox();">
+              <option value="head">head | -2% hitchance | +10 max damage</option>
+              <option value="chest">chest | +5% hitchance | +4 max damage</option>
+              <option value="arms">arms | +4% hitchance | +5 max damage</option>
+              <option value="torso">torso | +4% hitchance | +5 max damage</option>
+              <option value="legs">legs | +3% hitchance | +7 max damage</option>
+            </select>
+           </div>
+           <div id="healContainer" class="hideMe">
+            <button type="button" name="button">Use health kit</button>
+            <button type="button" name="button">Use health pack</button>
+           </div>
           <button type="button" name="turnEnd" onclick="exectuteCombat();">End Turn</button>
          </div>
        </div>
@@ -371,8 +377,8 @@
            <h1 class="combatHeader">Weapons</h1>
            <table cellspacing="10">
              <tr>
-               <td style="border: 2px solid red;"><img src="images/fist.png" alt="Empty Slot" class="inventoryItem"></td>
-               <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
+               <td style="border: 3px solid red;" ondrop='equipWeaponDrop(event)' ondragover='allowDrop(event)' id="combatActive"><img src="images/fist.png" alt="Empty Slot" class="inventoryItem"></td>
+               <td id="combatDefault"> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
                <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
                <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
              </tr>
@@ -391,7 +397,7 @@
       </div>
     </div>
   </div>
-  <div id="startingContainer">
+  <div id="startingContainer" class="hideMe">
       <h1>test</h1>
       <script type="text/javascript">
         function hideStart(){

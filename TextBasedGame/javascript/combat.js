@@ -7,6 +7,7 @@ var hitchance;
 var maxDamage;
 var maxDamageRecieved;
 var weaponDisabled = false;
+var activeWeaponObj;
 
 function combatSetup()
 {
@@ -43,32 +44,64 @@ function updateHP(){
 }
 
 function updateWeapons(){
+  //get the inventory table
   var elements = document.querySelectorAll("#combat-inventory td");
-  var tableIndex = 0;
+
+  //start at index 1
+  var tableIndex = 1;
   for(var i=0; i<player.inventory.length;i++){
-    alert(player.inventory[i].item.itemName);
+    //check that the item is a weapon
     if(player.inventory[i].item.itemType === "Weapon"){
       var item = player.inventory[i].item;
-      var name = item.itemName + "_img";
-      elements[tableIndex].innerHTML = "<img src="+ item.itemFilePath +" alt=" + item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' id="+ name+">";
+      var name = item.itemName + "_cbtimg";//new id
+      //create a new image and display it
+      elements[tableIndex].innerHTML = "<img src="+ item.itemFilePath +" alt=" + item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+name+">";
       tableIndex++;
     }
   }
 
-  //if the player has no weapons
-  if(tableIndex === 0){
+  //if the player has no weapons-
+  if(window.player.equippedWeapon.item.itemName == 0){
     document.getElementById('wepButton').disabled = true;
     weaponDisabled = true;
-    updateCombatType(1);
+    updateCombatType(1);//set combat to melee since no weapon is equipped
+  }
+  else{
+    //get the active combat slot
+    var slot = document.getElementById('combatActive');
+    //remove the child element (image)
+    slot.removeChild(slot.childNodes[0]);
+
+    //create a clone of the first weapon
+    var newNode = document.getElementById('combatDefault').childNodes[0].cloneNode(true);
+    var itemName = newNode.id.split('_')
+    newNode.id+='active';//cant have the same id
+    slot.appendChild(newNode);//add the new note to the now empty slot
+    window.equipWeapon(itemName[0]);//equip the weapon incase it already isnt
   }
 }
 
+function equipWeaponDrop(ev){
+  var data = ev.dataTransfer.getData("text");
+  var nodeCopy = document.getElementById(data).cloneNode(true);
+  nodeCopy.id = data+'active'; /* We cannot use the same ID */
+  if(event.target.tagName.toUpperCase() != "TD")//if the target isnt empty
+  {
+    var slot = document.getElementById('combatActive');
+    slot.removeChild(slot.childNodes[0]);
+    slot.appendChild(nodeCopy);//remove child image
+    var itemName = nodeCopy.id.split('_');
+    window.equipWeapon(itemName[0]);
+  }
+  ev.preventDefault();
+}
+
+
 function updateCombatType(type){
-
-
   //if heal combat type was last selected then hide it
   if(currentCombat === "Heal" && type != 2){
     document.getElementById('CurrentHealthGained').classList.add('hideMe');
+    document.getElementById('healContainer').classList.add('hideMe');
   }
 
   //based on the button pressed selected the combat type
@@ -84,6 +117,7 @@ function updateCombatType(type){
     case 2:
       currentCombat = "Heal";
       document.getElementById('CurrentHealthGained').classList.remove('hideMe');
+      document.getElementById('healContainer').classList.remove('hideMe');
       break;
     case 3:
       currentCombat = "Run Away";
@@ -99,7 +133,7 @@ function calculateInfo(){
   switch (currentCombat) {
     case "Weapon Attack":
       hitchance = 70;
-      maxDamage = 70;//todo get weapon damage
+      maxDamage = window.player.equippedWeapon.damage;
       maxDamageRecieved = 50;
       damageGiven = true;
       break;
@@ -122,15 +156,13 @@ function calculateInfo(){
     document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
     document.getElementById('MaxDamageValue').innerHTML = maxDamage + "HP";
     document.getElementById('CurrentDamageGiven').classList.remove('hideMe');
-    document.getElementById('hitboxes').classList.remove('hideMe');
-    document.getElementById('hitbox-label').classList.remove('hideMe');
+    document.getElementById('hitboxesContainer').classList.remove('hideMe');
     document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
   }
   else{
     //damage cant be given
     document.getElementById('CurrentDamageGiven').classList.add('hideMe');
-    document.getElementById('hitboxes').classList.add('hideMe');
-    document.getElementById('hitbox-label').classList.add('hideMe');
+    document.getElementById('hitboxesContainer').classList.add('hideMe');
     document.getElementById('Currenthitchance').classList.add('hideMe');
   }
   document.getElementById('MaxDamageRecievedValue').innerHTML = maxDamageRecieved + "HP";

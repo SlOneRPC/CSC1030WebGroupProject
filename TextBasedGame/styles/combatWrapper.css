@@ -154,13 +154,15 @@
 #combat-inventory td{
   width: 20%;
   margin-right: 20px;
-  height: 120px;
-  border: 1px solid white;
+  height: 100px;
+  //border: 1px solid white;
+  background-color: #272727;
+  border-radius: 5px;
 }
 
 .inventoryItem{
   width: 90%;
-  height: 70%;
+  height: 65%;
   display: inline-block;
   //opacity: 0.2;
   margin: 5%;
