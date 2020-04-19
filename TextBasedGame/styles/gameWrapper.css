@@ -154,7 +154,7 @@
   /* border-bottom-left-radius: 25px;
   /*border-bottom-right-radius: 25px;*/
   /*border-top-right-radius: 25px; */
-  font-size: 1.35em;
+  font-size: 1.3vw;
   /* font-size: 1.5em; */
    color: #2EA6BF;
   /*font-family: 'Rajdhani', sans-serif; */
@@ -201,7 +201,7 @@
   width: 90%;
   height: 50px;
   border-radius: 25px;
-  font-size: 1.5em;
+  font-size: 1.3vw;
   /* color: #C14CD6; */
   font-family: 'Rajdhani', sans-serif;
   border: 2px solid black;
@@ -224,6 +224,36 @@
       #09252B 20px
       );
 }
+
+.mapButtons
+{
+  width: 90%;
+  height: 35px;
+  border-radius: 25px;
+  font-size: 1.1vw;
+  /* color: #C14CD6; */
+  font-family: 'Rajdhani', sans-serif;
+  border: 2px solid black;
+  font-weight: bolder;
+  cursor: pointer;
+  outline: none;
+  color: #2EA6BF;
+  /* background: repeating-linear-gradient(
+    180deg,
+    #25082A,
+    #25082A 10px,
+    #44174C 10px,
+    #44174C 20px
+    ); */
+    background: repeating-linear-gradient(
+      180deg,
+      #041114,
+      #041114 10px,
+      #09252B 10px,
+      #09252B 20px
+      );
+}
+
 
 #compass
 {
@@ -288,7 +318,6 @@
     #09252B 60px
     ); */
     background-color: #111010;
-  padding: 8px;
   border: 2px solid black;
   margin-left: 2%;
   border-bottom-left-radius: 25px;
@@ -325,21 +354,33 @@
 }
 
 #currentRoomDisplay{
-  border-bottom:2px solid #4edaf9;
+  /* border-bottom:2px solid #4edaf9; */
   font-size: 1.7em;
   margin: auto;
   margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 #mapHeader{
   margin:auto;
+  margin-bottom: 5%;
+  width: 100%;
   overflow:auto;
   clear: both;
   /*border: 1px solid white;*/
   /* padding:0.2%; */
   text-align: center;
   font-size: 1.1vw;
-  margin-bottom: 5%;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  background: repeating-linear-gradient(
+    45deg,
+    #1B1A1A,
+    #1B1A1A 10px,
+    #0F0F0F 10px,
+    #0F0F0F 20px
+    );
+    /* border-bottom:2px solid darkgrey; */
 }
 
 #objectives{
@@ -367,6 +408,7 @@
   text-align: center;
   margin-bottom: 5%;
   border-radius: 25px;
+  margin: 3%;
   background: repeating-linear-gradient(
     45deg,
     #041114,
@@ -770,7 +812,7 @@
     width: 100%;
     height: 90%;
     overflow: auto;
-    font-size: 1.6em;
+    font-size: 1.4vw;
     font-family: 'Rajdhani', sans-serif;
     border-top-left-radius: 0px;
     border-top-right-radius: 25px;
@@ -871,8 +913,16 @@
   color: #434443;
 }
 
+.textAnim{
+  animation: fadeIn ease 1s;
+-webkit-animation: fadeIn ease 1s;
+-moz-animation: fadeIn ease 1s;
+-o-animation: fadeIn ease 1s;
+-ms-animation: fadeIn ease 1s;
+}
 
-@keyframes fadeInOut {
+
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }
