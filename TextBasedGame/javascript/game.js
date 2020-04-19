@@ -1075,7 +1075,8 @@ function displayAllEnemies()
 
 function outputCurrentRoomDesc()
 {
-  if(player.currentRoom.roomDiscovered==false)
+  directionColourResetBlue();
+  if(player.currentRoom.roomDiscovered===false)
   {
     roomDesc= getRoomTextDesc(player.currentRoom,"first-entry");
     player.currentRoom.roomDiscovered=true;
@@ -1083,6 +1084,12 @@ function outputCurrentRoomDesc()
   else
   {
     roomDesc= getRoomTextDesc(player.currentRoom,"second-entry");
+    var availableDirections = [];
+    player.currentRoom.exits.forEach((item, i) => {
+      availableDirections.push(item.orientation);
+    });
+    directionColourAllRed();
+    scanning(availableDirections);
   }
   document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
   if(player.currentRoom.enemies.length > 0)
@@ -1094,7 +1101,6 @@ function outputCurrentRoomDesc()
 
   }
   randomPlaceHolderText();
-  directionColourResetBlue()
   scrollBarAnchor();
 }
 
@@ -1224,7 +1230,7 @@ function outputCurrentRoomExits()
      player.currentRoom.interactables.forEach((blockages, i) => {
        if(blockages.exitRoomName == item.exitRoomName)
        {
-         document.getElementById("text-display").innerHTML += ", </br>but its blocked by <span id= 'userAvailableDirection'>" + blockages.interactableName  + "</span>";
+         document.getElementById("text-display").innerHTML += ", </br>but it's blocked by <span id= 'userAvailableDirection'>" + blockages.interactableName  + "</span>";
 
        }
      });
