@@ -116,6 +116,7 @@ function gameStart()
  player.currentRoom = newCurrent;
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
 }
+
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, equippedWeaponValue, statsValue, attackValue, defenseValue)
 {
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue,equippedWeapon:equippedWeaponValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
@@ -623,9 +624,9 @@ function addRooms()
       createExitObject("hallway01", "south", "You head south down the hallway.",false,"")
     ],
     [//Items in the current room
-      createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space.This must have been where the explosion happened.","no")
-    ],
-    1, //Number of interactable items in the room
+    ]
+    [  createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space.This must have been where the explosion happened.","no")
+    ], //Number of interactable items in the room
     false //Has Room been entered/Discovered?
   );
   var hallway03 =
