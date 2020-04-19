@@ -124,7 +124,7 @@
   </head>
   <body onload="gameStart();">
   <body>
-    <div id="wrapper" class = "hideMe" class = "">
+    <div id="wrapper" class = "hideMe">
       <div id="settings-wrapper">
           <button type="button" style="float:right; cursor:pointer;" onclick="combatSetup();">Test combat</button>
           <button type="button" style="float:right; cursor:pointer;" onclick="pause();" id="pausebtn">Pause Game</button>
@@ -413,6 +413,7 @@
         function hideStart(){
           document.getElementById('startingContainer').classList.add('hideMe');
           document.getElementById('wrapper').classList.remove('hideMe');
+          document.getElementById('wrapper').classList.add('textAnimStart');
         }
       </script>
       <button type="button" name="continue" onclick="hideStart();" id = "continueButton">Continue</button>
