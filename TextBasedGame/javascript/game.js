@@ -1,8 +1,17 @@
 var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject(0,0,0,0,0,0,0,0), createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
+var footstepSounds = [];
 //var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
 var pickUpItemSound;
 var pickUpAmmoSound;
+var footstep1;
+var footstep2;
+var footstep3;
+var footstep4;
+var footstep5;
+var footstep6;
+var footstep7;
+var footstep8;
 
 function statUpdate(){
   // enemies killed - once player returns from combat, +1 to killed value
@@ -27,12 +36,35 @@ function gameFinished(){
   // user completes the game when they exit the hangar in an escape pod ersum
 }
 
+function populateFootstepArray()
+{
+  footstep1 = new sound("sounds/footsteps/footstep1.mp3");
+  footstep2 = new sound("sounds/footsteps/footstep2.mp3");
+  footstep3 = new sound("sounds/footsteps/footstep3.mp3");
+  footstep4 = new sound("sounds/footsteps/footstep4.mp3");
+  footstep5 = new sound("sounds/footsteps/footstep5.mp3");
+  footstep6 = new sound("sounds/footsteps/footstep6.mp3");
+  footstep7 = new sound("sounds/footsteps/footstep7.mp3");
+  footstep8 = new sound("sounds/footsteps/footstep8.mp3");
+
+  footstepSounds.push(footstep1);
+  footstepSounds.push(footstep2);
+  footstepSounds.push(footstep3);
+  footstepSounds.push(footstep4);
+  footstepSounds.push(footstep5);
+  footstepSounds.push(footstep6);
+  footstepSounds.push(footstep7);
+  footstepSounds.push(footstep8);
+}
+
+
 function gameStart()
 {
  //method will decide and pick between starter rooms based on class
  //player.username = sessionStorage.getItem("name");
  //player.charClass = sessionStorage.getItem("class");
  addRooms();
+ populateFootstepArray();
  document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
  var width = document.getElementById('playerHealth').offsetWidth;
  document.getElementById("healthBar").style.width= Math.floor((width/100) * player.health) + 'px';
@@ -43,6 +75,7 @@ function gameStart()
  document.getElementById("healthStat").innerHTML = "Health: "+ player.health +"%";
  pickUpItemSound = new sound("sounds/pickUpItem.mp3");
  pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
+
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
  if (player.charClass == "Hacker")
  {
@@ -2013,6 +2046,7 @@ function goDirection(direction)
 
           }
       });
+        randomFootstepSelector();
   }
   else
   {
@@ -2172,4 +2206,10 @@ function generatePasswordPad()
     }
   });
   return password;
+}
+
+function randomFootstepSelector()
+{
+  var randomSound = footstepSounds[randomNumberForArray(footstepSounds.length)];
+  randomSound.play();
 }

@@ -234,7 +234,7 @@
 
 #playerContainer{
   overflow:auto;
-  width:30%;
+  width:31%;
   float:left;
   height:760px;
   background-color: #111010;
@@ -258,7 +258,7 @@
 
 #mapContainer{
   overflow:auto;
-  width:30%;
+  width:32%;
   float:left;
   height:750px;
   background-color: #0A1C24;
@@ -270,6 +270,11 @@
   border-top-left-radius: 25px;
   box-shadow: 0px 0px 10px 2px #F827A6;
   display: block;
+  /* margin-top: 2%;  */
+  float:left;
+  font-weight: bolder;
+  font-family: 'Rajdhani', sans-serif;
+  color: #4edaf9;
 }
 
 #statsContainer{
@@ -547,30 +552,12 @@
   width: 90%;
   height: 50px;
   border-radius: 25px;
-  font-size: 1.1em;
-  /* color: #C14CD6; */
-  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1vw;
   border: 2px solid black;
-  font-weight: bolder;
+  font-family: 'Orbitron', sans-serif;
   cursor: pointer;
   outline: none;
-  /* color: #2EA6BF; */
   color: #27910E;
-
-  /* background: repeating-linear-gradient(
-    180deg,
-    #25082A,
-    #25082A 10px,
-    #44174C 10px,
-    #44174C 20px
-    ); */
-    /* background: repeating-linear-gradient(
-      180deg,
-      #041114,
-      #041114 10px,
-      #09252B 10px,
-      #09252B 20px
-      ); */
       background: repeating-linear-gradient(
         180deg,
         #082316,
