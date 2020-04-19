@@ -303,6 +303,7 @@
                    </ul>
                  </div>
       </div>
+      </div>
       <div id="combat-wrapper" class="hideMe">
         <div id="player1">
           <img src="images/playerIcon.jpg" alt="Player 1" class="playerImg">
@@ -389,6 +390,15 @@
          </div>
       </div>
     </div>
+  </div>
+  <div id="startingContainer">
+      <h1>test</h1>
+      <script type="text/javascript">
+        function hideStart(){
+          document.getElementById('startingContainer').classList.add('hideMe');
+        }
+      </script>
+      <button type="button" name="continue" onclick="hideStart();">Continue</button>
   </div>
   <div id="pauseContainer" class="hideMe">
       <h1>Paused!</h3>
