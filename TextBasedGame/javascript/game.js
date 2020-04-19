@@ -315,7 +315,7 @@ function addRooms()
     ],
     [//Items in the current room
       createWeaponObject("pistol", 9, 9, 10, "Ranged", ["shoot"], "A reliable Pistol good for dealing with foes. Mag Size: 9" ,"images/laserpistol.png"),
-      createGadgetObject("hacking-tool","A hacking-tool that can be used to open locked doors.","images/hackingtool.png"),
+      createGadgetObject("hacking tool","A hacking tool that can be used to open locked doors.","images/hackingtool.png"),
       createAmmoObject("energy cells","An energy cell,it is used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) )
     ],
     [
@@ -1295,7 +1295,7 @@ function directionEnemyCaution(availableDirections)
            if(room.enemies.length > 0)
            {
               document.getElementById(item.orientation).style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
-              document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates "+ room.enemies.length +" enemy/enemies to the "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of being detected" + "</span>";
+              document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates there is an enemy to the "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of you being detected" + "</span>";
            }
          }
        });
@@ -1642,7 +1642,9 @@ function customCommandInput(words)
 
 function removeBlockage(blockedPath)
 {
+  var availableDirections = [];
   document.getElementById("text-display").innerHTML += "<br>>"+ blockedPath.descriptionOpen ;
+  scrollBarAnchor();
   for(var i = 0; i < rooms.length; i++)
   {
     for(var j = 0; j < rooms[i].interactables.length; j++)
@@ -1655,6 +1657,12 @@ function removeBlockage(blockedPath)
       }
     }
   }
+  player.currentRoom.exits.forEach((exit, i) => {
+      availableDirections.push(exit.orientation);
+  });
+  directionColourAllRed();
+  scanning(availableDirections);
+  scrollBarAnchor();
 }
 
 function checkInventory(item){
@@ -1744,7 +1752,7 @@ function useItem(words)
   }
   else if(words.includes("hacking tool") || words.includes("hack") || words.includes("tool")){
     var match = false;
-    if(checkInventory("hacking-tool"))
+    if(checkInventory("hacking tool"))
     {
       player.currentRoom.interactables.forEach((interactable, i) =>
       {
@@ -1777,6 +1785,7 @@ function useItem(words)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>I don't know that command</span>";
   }
+  scrollBarAnchor();
 }
 
 function examineInteractables(roomInteractables, words)

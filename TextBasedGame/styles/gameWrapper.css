@@ -279,7 +279,15 @@
   width:32%;
   float:left;
   height:750px;
-  background-color: #0A1C24;
+  /* background-color: #0A1C24; */
+  /* background: repeating-linear-gradient(
+    45deg,
+    #041114,
+    #041114 30px,
+    #09252B 30px,
+    #09252B 60px
+    ); */
+    background-color: #111010;
   padding: 8px;
   border: 2px solid black;
   margin-left: 2%;
@@ -331,6 +339,7 @@
   /* padding:0.2%; */
   text-align: center;
   font-size: 1.1vw;
+  margin-bottom: 5%;
 }
 
 #objectives{
@@ -356,6 +365,15 @@
   overflow:auto;
   height: auto;
   text-align: center;
+  margin-bottom: 5%;
+  border-radius: 25px;
+  background: repeating-linear-gradient(
+    45deg,
+    #041114,
+    #041114 30px,
+    #09252B 30px,
+    #09252B 60px
+    );
 }
 
 #timerStat{
@@ -380,15 +398,16 @@
   overflow: auto;
   border: 1px solid grey;
   background-color: #261f1f;
+
 }
 
 #ShowMap{
-  width:33%;
+  width:49%;
 
 }
 
 #ShowHints{
-  width:31%;
+  width:49%;
 
 }
 
@@ -398,9 +417,16 @@
 }
 
 #objectivesStat{
-  height:15%;
+  margin-top: 2%;
   padding: 10px;
-
+  border-radius: 25px;
+  /* background: repeating-linear-gradient(
+      45deg,
+      #1B1A1A,
+      #1B1A1A 10px,
+      #0F0F0F 10px,
+      #0F0F0F 20px
+      ); */
 }
 
 #playerProfile{
