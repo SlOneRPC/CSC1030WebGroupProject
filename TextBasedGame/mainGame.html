@@ -25,12 +25,23 @@
       }
       ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 2px grey;
+        border: solid 3px transparent;
         border-radius: 10px;
         max-height: 80%;
       }
       ::-webkit-scrollbar-thumb {
         background: #850C0C;
         border-radius: 10px;
+      }
+
+      .smallerScroll::-webkit-scrollbar-track-piece:end {
+          background: transparent;
+          margin-bottom: 20px;
+      }
+
+      .smallerScroll::-webkit-scrollbar-track-piece:start {
+          background: transparent;
+          margin-top: 20px;
       }
     </style>
     <script type="text/javascript"></script>
@@ -125,7 +136,7 @@
       </div>
       <br>
       <div id="container">
-        <div id="playerContainer">
+        <div id="playerContainer" class="smallerScroll">
           <div id="statsContainer">
             <div id="playerProfile">
                  <div id=playerCharStat>
