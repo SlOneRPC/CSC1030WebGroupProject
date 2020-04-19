@@ -1,4 +1,4 @@
-var player = createPlayerObject("Luke", 25, "Engineer", "", [],createWeaponObject(0,0,0,0,0,0,0,0), createStatObject(0, 0, 0, 0), 0, 0,false);
+var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject(0,0,0,0,0,0,0,0), createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
 //var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
 var pickUpItemSound;

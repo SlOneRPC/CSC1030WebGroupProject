@@ -4,7 +4,7 @@
 {
   width: 95%;
   height: 80%;
-  padding: 2%;
+  padding: 3%;
   padding-top: 1%;
   margin: auto;
   /* border: 2px solid #2b2828; */
@@ -20,18 +20,31 @@
 }
 
 #playerInventory{
-  width: 50%;
+  width: 100%;
+  margin: auto;
   display: block;
   float: left;
   font-family: 'Rajdhani', sans-serif;
   font-weight: bolder;
+  border-radius: 25px;
+  margin: 0 auto;
+  /* transform: skewY(3deg); */
 }
 
 #playerInventory td{
   width: 200px;
   height: 100px;
-  border: 1px solid white;
-  background-color: #262626;
+  border: 1px solid black;
+  /* background: repeating-linear-gradient(
+    135deg,
+    black,
+    black 10px,
+    #2F2F2F 10px,
+    #2F2F2F 20px
+    ); */
+    background-color: #272727;
+  position: relative;
+  border-radius: 5px;
 }
 
 #pauseContainer{
@@ -63,7 +76,7 @@
 
 #userInput
 {
-    width: 36%;
+    width: 33%;
     float: left;
     max-width: 80%;
     height: 80%;
@@ -220,15 +233,38 @@
 }
 
 #playerContainer{
-
   overflow:auto;
-  width:60%;
+  width:30%;
+  float:left;
+  height:760px;
+  background-color: #111010;
+  /* background: #0A1C24; */
+  /* background: repeating-linear-gradient(
+    45deg,
+    #031A1F,
+    #031A1F 500px,
+    #010E11 500px,
+    #010E11 1000px
+    ); */
+  border: 2px solid black;
+  margin-right:2%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+  box-shadow: 0px 0px 10px 2px #7C0000;
+  /* #4edaf9 */
+  display: block;
+}
+
+#mapContainer{
+  overflow:auto;
+  width:30%;
   float:left;
   height:750px;
   background-color: #0A1C24;
   padding: 8px;
   border: 2px solid black;
-  margin-left:3%;
+  margin-left: 2%;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   border-top-left-radius: 25px;
@@ -237,14 +273,23 @@
 }
 
 #statsContainer{
-  overflow: auto;
-  /* margin-top: 2%; */
-  width: 50%;
-  height: auto;
+  overflow: hidden;
+  /* margin-top: 2%;  */
+  width: 100%;
   float:left;
-  font-family: 'Rajdhani', sans-serif;
   font-weight: bolder;
-  background-color: #0A1C24;
+  font-family: 'Rajdhani', sans-serif;
+  color: #4edaf9;
+}
+
+#rightBlockContainer{
+  overflow: hidden;
+  /* margin-top: 2%;  */
+  height: 750px;
+  width: 100%;
+  float:left;
+  font-weight: bolder;
+  font-family: 'Rajdhani', sans-serif;
   color: #4edaf9;
 }
 
@@ -292,7 +337,6 @@
 
 #timerStat{
   overflow: auto;
-  height:30%;
   padding:10px;
   margin:auto;
   border: 2px solid white;
@@ -311,7 +355,6 @@
 
 #buttonStat{
   overflow: auto;
-  height:15%;
   border: 1px solid grey;
   background-color: #261f1f;
 }
@@ -339,97 +382,218 @@
 
 #playerProfile{
   /* border: 1px solid white; */
-  padding-left: 0px;
-  padding: 5%;
-}
+  display: block;
+  overflow: hidden;
+  margin: auto;
+  width: auto;
+  padding-left: 1%;
+  padding-right: 5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  background: repeating-linear-gradient(
+      45deg,
+      #1B1A1A,
+      #1B1A1A 10px,
+      #0F0F0F 10px,
+      #0F0F0F 20px
+      );
+    }
 
 #playerCharStat{
   float:left;
-  max-width: 74px;
-  width:30%;
-  min-width:50px;
-  height:100%;
-  padding-left: 3%;
+  width:20%;
+}
+
+#playerStatusContainer
+{
+  margin-top: 3%;
+  width: 100%;
+  display: block;
 }
 
 #playerInfoStat{
   width:70%;
-  max-height: 61px;
-  padding-left: 2%;
+  float: left;
   font-size: 1.2vw;
 }
 
 #playerNameStat{
-  padding:9px;
-  padding-bottom:5px;
   position: relative;
-  top:1%;
   left:3%;
+  margin:0;
+  text-align:left;
 }
 
 #playerClassStat{
   position: relative;
   left:3%;
+  margin:0;
+  text-align:left;
+}
+
+#weaponFunctions
+{
+  width: 60%;
+  margin: auto;
+  float:left ;
+  text-align:center;
+  padding-left: 12%;
+}
+
+#weaponButtons
+{
+  width: 28%;
+  margin: auto;
+  float:left ;
+  text-align:center;
 }
 
 #playerStatus{
-  width:65%;
-  height: auto;
+  width:60%;
   float:left;
-  margin:auto;
 }
 
-#playerWeaponStatus{
+.curvedRadius
+{
+  border-radius: 10px;
+}
+
+#equippedWeaponImage
+{
+  width:4%;
+  margin: auto;
+}
+#playerWeaponStatus
+{
   margin:auto;
- font-size: 1.1vw;
+  font-size: 1.1vw;
+  text-align: center;
+  display: block;
+  color: #C71A1A;
 }
 #currentWeaponMag{
-  position: relative;
-  top:45px;
-  padding-left:14%;
-  width:10%;
   font-size:2vw;
+  float: left;
+  margin: auto;
+  padding: 30%;
 }
-#equippedWeaponImg{
+/* #equippedWeaponImg{
   position: relative;
   left:1%;
   padding-left: 5%;
-}
+} */
 #reloadBtn{
   position: relative;
   bottom:10px;
   left:2%;
 }
 
+#shortBorder
+{
+  border-bottom: 2px solid #C71A1A;
+  width:80%;
+  float: left;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 4px;
+}
+
+#shortVertical
+{
+  border-right: 2px solid #C71A1A;
+  width:80%;
+  float: left;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 4px;
+}
+
 #playerHealthStats{
-  height:45%;
-  max-height: 103px;
   /* border: 1px solid grey; */
   padding:3%;
+  width: 100%;
+  font-size: 1.3vw;
+  margin: auto;
+  padding-bottom: 2%;
+  text-align: center;
+  display: inline-block;
+  color: #C71A1A;
+  /* border-bottom:  #4edaf9 3px solid; */
 }
 
 #playerHealth{
   border: black 3px solid;
-  width:100%;
-  height:15px;
-  background-color: red;
-  display: block;
+  border-radius: 25px;
+  height:23px;
+  background-color: #841111;
 }
 
 #healthBar{
   height:100%;
   width:100%;
-  background-color:green;
-  display: block;
+  /* background-color:#27910E; */
+  background: repeating-linear-gradient(
+    45deg,
+    #27910E,
+    #27910E 10px,
+    #144F05 10px,
+    #144F05 20px
+    );
+    border-radius: 25px;
+}
+
+.profileButtons
+{
+  width: 90%;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  /* color: #C14CD6; */
+  font-family: 'Rajdhani', sans-serif;
+  border: 2px solid black;
+  font-weight: bolder;
+  cursor: pointer;
+  outline: none;
+  /* color: #2EA6BF; */
+  color: #27910E;
+
+  /* background: repeating-linear-gradient(
+    180deg,
+    #25082A,
+    #25082A 10px,
+    #44174C 10px,
+    #44174C 20px
+    ); */
+    /* background: repeating-linear-gradient(
+      180deg,
+      #041114,
+      #041114 10px,
+      #09252B 10px,
+      #09252B 20px
+      ); */
+      background: repeating-linear-gradient(
+        180deg,
+        #082316,
+        #082316 10px,
+        #05170E 10px,
+        #05170E 20px
+        );
 }
 
 #playerConsumables{
-  margin:auto;
   overflow:auto;
-  width:35%;
+  width:30%;
   float:left;
-  border: 1px solid grey;
-  background-color: black;
+
+  margin: auto;
+  margin-top: 2%
+  /* background: repeating-linear-gradient(
+    130deg,
+    #041114,
+    #041114 10px,
+    #09252B 10px,
+    #09252B 20px
+    ); */
 }
 
 #playerConsumables p{
@@ -441,17 +605,27 @@
 
 #playerHealthKitStat{
   height:33%;
-  border: 1px solid grey;
+  width: 100%;
+  border-top: 2px solid #C71A1A;
+  padding-top: 3%;
+  color: #C71A1A;
 }
 
 #playerHealthPackStat{
   height:33%;
-  border: 1px solid grey;
+  /* border: 1px solid #4edaf9; */
+  border-top: 2px solid #C71A1A;
+  padding-bottom: 3%;
+  padding-top: 3%;
+  color: #C71A1A;
 }
 
 #playerEnergyCellsStat{
   height:33%;
-  border: 1px solid grey;
+  color: #C71A1A;
+  padding-bottom: 3%;
+  /* border: 1px solid #4edaf9; */
+  /* border-top: 1px solid #4edaf9; */
 
 }
 
@@ -481,9 +655,10 @@
   clear: both;
   //height: 300px;
   //background-color: white;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   overflow: auto;
 }
+
 
 #hoverImg{
   float:left;
@@ -499,7 +674,16 @@
 #hoverInfo{
   float:left; margin-left: 5%;
   margin-top: 7%;
+  width: 80%;
 }
+
+#hoverDescriptionContainer
+{
+  width: 70%;
+  float: left;
+  margin: 0 auto;
+}
+
 
 #playerInventory td:hover{
   border: 1px solid gold;
@@ -507,21 +691,44 @@
 
 #inventory{
   clear: both;
-  //height: 300px;
-  margin-bottom: 30px;
-  //background-color: white;
-    border: 1px solid white;
+  /* height: 300px; */
+  margin: 0 auto;
+  /* background-color: white; */
+  border-radius: 25px;
 }
 
 #inventoryHeader{
-  padding-left: 10%;
-  padding: 5px;
+  /* padding-left: 5%; */
   background-color: #7E7D7D;
-  border: 2px solid black;
+  /* border: 2px solid black; */
+  border-radius: 25px;
   text-align: center;
-
+  margin: 0 auto;
+  /* background: repeating-linear-gradient(
+    45deg,
+    #1B1A1A,
+    #1B1A1A 10px,
+    #0F0F0F 10px,
+    #0F0F0F 20px
+    ); */
+    background: transparent;
+    color: #C71A1A;
+    width: 100%;
 }
 
+#inventoryTitle{
+  width: 30%;
+  float: left;
+  font-size: 2vw;
+  text-align: center;
+  margin-top: 6%;
+}
+
+#inventoryHover{
+  width: 90%;
+  float: left;
+  margin: auto;
+}
 
 #textbox input{
 
