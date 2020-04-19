@@ -353,7 +353,7 @@
            <h2>Combat Options:</h2>
            <button type="button" name="WeaponAttack" class="combatButtons" id="wepButton" onclick="updateCombatType(0);">WeaponAttack</button>
            <button type="button" name="meleeAttack" class="combatButtons" onclick="updateCombatType(1);">Melee Attack</button>
-           <button type="button" name="heal" class="combatButtons" onclick="updateCombatType(2);">Heal</button>
+           <button type="button" name="heal" class="combatButtons" onclick="updateCombatType(2);" id="healButton">Heal</button>
            <button type="button" name="leave" class="combatButtons" onclick="updateCombatType(3);">Run Away</button>
 
            <div id="hitboxesContainer">
@@ -367,8 +367,8 @@
             </select>
            </div>
            <div id="healContainer" class="hideMe">
-            <button type="button" name="button">Use health kit</button>
-            <button type="button" name="button">Use health pack</button>
+            <button type="button" name="button" id="combat-Healthkit">Use health kit</button>
+            <button type="button" name="button" id="combat-Healthpack">Use health pack</button>
            </div>
           <button type="button" name="turnEnd" onclick="exectuteCombat();">End Turn</button>
          </div>
