@@ -17,7 +17,7 @@ function combatSetup()
   document.getElementById('combat-wrapper').classList.remove('hideMe');
 
   //get the enemy object
-  activeEnemyObj = window.player.currentRoom.enemies[0]
+  activeEnemyObj = window.player.currentRoom.enemies[0];
 
 
   //setup names
