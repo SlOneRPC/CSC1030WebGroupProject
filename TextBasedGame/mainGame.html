@@ -28,7 +28,7 @@
         border-radius: 10px;
       }
       ::-webkit-scrollbar-thumb {
-        background: red;
+        background: #850C0C;
         border-radius: 10px;
       }
     </style>
@@ -157,7 +157,7 @@
                  <p id="currentWeaponMag">/</p>
                 </div>
                 <div style=" width: 85%;  margin-left: 5%;">
-                <button style="margin-top: 7%; height: 37px;" class="profileButtons" onclick="reload();"id="reloadBtn" >>reload</button>
+                <button style="margin-top: 7%; height: 34px;" class="profileButtons" onclick="reload();"id="reloadBtn" >>reload</button>
               </div>
                </div>
             </div>
@@ -181,7 +181,7 @@
         <div id="playerInventory" >
           <div id="inventory">
             <div id="inventoryHeader">
-                <h1>>Inventory</h1>
+                <h1 style="font-size:2vw;">>Inventory</h1>
             </div>
               <table>
                 <tr>
@@ -201,7 +201,7 @@
 
 
                 <div id="inventoryHeader">
-                    <h1>>Nearby Pickups</h1>
+                    <h1 style="font-size:2vw;">>Nearby Pickups</h1>
                 </div>
                 <table>
                   <tr>
@@ -261,12 +261,15 @@
         <div id="mapContainer">
                  <div id="mapHeader">
                    <p id="currentRoomDisplay" class="text">>Current Room: </h1>
+                     <div id="timerStat">
+                         <span style="margin:0;" class="blinking" id="timer">Time remaining: 5:00</span>
+                     </div>
                  </div>
                  <div id="map">
                      <img id="gameMap" src="images/gameMap.png" alt="This is the game map"style='height: 80%; width: 80%; object-fit: contain'>
                  </div>
-                 <div id="hints" style="display:none; border-style:solid;">
-                   <p style="font-weight:bold;font-size:1.4vw;">HINTS</p>
+                 <div id="hints" style="text-align: left ;display:none;">
+                   <p style="font-weight:bold;font-size:1.4vw; text-align: center; margin:0;">HINTS</p>
                    <ul>
                      <li>To move type north,south,west, east or click on the buttons to move in that direction.</li>
                      <li>Exits in the current room can be output to you by typing "look" or by clicking the look button.</li>
@@ -292,12 +295,8 @@
                   <button style="cursor:pointer;"id="ShowMap" class="mapButtons">Map</button>
                   <button style="cursor:pointer;" id="ShowHints" class="mapButtons">Hints</button>
                 </div>
-                  <div id="timerStat">
-                      <span style="margin:0;" class="blinking" id="timer">Time remaining: 5:00</span>
-                  </div>
                  <div id="objectivesStat">
-                   <h3 style="margin:0;">Objectives:</h3>
-                   <hr>
+                   <h3 style="margin:0; border-bottom: 2px solid #8B2BE4; margin-bottom: 2%;">Objectives:</h3>
                    <ul style="margin:0;" id="objectivesList">
                    </ul>
                  </div>

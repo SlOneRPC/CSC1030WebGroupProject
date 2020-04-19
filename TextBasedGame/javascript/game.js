@@ -95,7 +95,7 @@ function gameStart()
    rooms.forEach((item, i) => {
      if(item.roomName == "quarters")
      {
-       document.getElementById("text-display").innerHTML += "<span class= 'textAnim'>>You've been sleeping after a long shift, when you are suddenly thrown to the floor with a bang that could wake the dead. Stumbling to your feet, bleary-eyed, with no idea what's going on you realise everyone around you is missing. Whatever is going on, it isn't going to be fun.</span>"
+       document.getElementById("text-display").innerHTML += ">You've been sleeping after a long shift, when you are suddenly thrown to the floor with a bang that could wake the dead. Stumbling to your feet, bleary-eyed, with no idea what's going on you realise everyone around you is missing. Whatever is going on, it isn't going to be fun."
        newCurrent = item;
        item.roomDiscovered = true;
      }

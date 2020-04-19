@@ -237,7 +237,7 @@
   font-weight: bolder;
   cursor: pointer;
   outline: none;
-  color: #2EA6BF;
+  color: #8B2BE4;
   /* background: repeating-linear-gradient(
     180deg,
     #25082A,
@@ -246,11 +246,11 @@
     #44174C 20px
     ); */
     background: repeating-linear-gradient(
-      180deg,
-      #041114,
-      #041114 10px,
-      #09252B 10px,
-      #09252B 20px
+      135deg,
+      #110120,
+      #110120 20px,
+      #20013D 20px,
+      #20013D 40px
       );
 }
 
@@ -323,7 +323,7 @@
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   border-top-left-radius: 25px;
-  box-shadow: 0px 0px 10px 2px #F827A6;
+  box-shadow: 0px 0px 10px 2px #8B2BE4;
   display: block;
   /* margin-top: 2%;  */
   float:left;
@@ -358,7 +358,7 @@
   font-size: 1.7em;
   margin: auto;
   margin-top: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 1%;
 }
 
 #mapHeader{
@@ -393,10 +393,9 @@
 
 #hints{
   clear: both;
-  margin:auto;
   overflow:auto;
-  height:60%;
   text-align: center;
+  height: 56%;
 }
 
 #map
@@ -412,18 +411,18 @@
   background: repeating-linear-gradient(
     45deg,
     #041114,
-    #041114 30px,
-    #09252B 30px,
-    #09252B 60px
+    #041114 5px,
+    #082025 5px,
+    #082025 10px
     );
 }
 
 #timerStat{
   overflow: auto;
-  padding:10px;
+  padding:1%;
   margin:auto;
-  border: 2px solid white;
-  background-color: black;
+  /* border: 2px solid white; */
+  /* background-color: black; */
 
 
 }
@@ -438,9 +437,10 @@
 
 #buttonStat{
   overflow: auto;
-  border: 1px solid grey;
-  background-color: #261f1f;
-
+  /* border: 1px solid grey;
+  background-color: #261f1f; */
+  margin: auto;
+  margin-left: 1%;
 }
 
 #ShowMap{
@@ -748,6 +748,7 @@
   float:left; margin-left: 5%;
   margin-top: 7%;
   width: 80%;
+  font-size: 1.0vw;
 }
 
 #hoverDescriptionContainer
@@ -888,7 +889,7 @@
 
 .input
 {
-  font-size: 1.5em;
+  font-size: 1.2vw;
   background: repeating-linear-gradient(
     180deg,
     #082316,
