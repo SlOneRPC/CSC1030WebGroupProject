@@ -1,4 +1,4 @@
-var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject(0,0,0,0,0,0,0,0), createStatObject(0, 0, 0, 0), 0, 0,false);
+var player = createPlayerObject("Luke", 100, "SpaceCowboy", "", [],createWeaponObject(0,0,0,0,0,0,0,0), createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
 var footstepSounds = [];
 //var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
@@ -1720,6 +1720,11 @@ function useItem(words)
             removeBlockage(interactable);
             match=true;
         }
+        else if(interactable.interactableName === "vent")
+        {
+          removeBlockage(interactable);
+          match=true;
+        }
       });
       if(match==false){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You can't use that item on that.</span>";
@@ -1741,6 +1746,11 @@ function useItem(words)
             removeBlockage(interactable);
             match=true;
         }
+        else if(interactable.interactableName === "rubble")
+        {
+          removeBlockage(interactable);
+          match=true;
+        }
       });
       if(match==false){
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You can't use that item on that.</span>";
@@ -1760,6 +1770,11 @@ function useItem(words)
         {
             removeBlockage(interactable);
             match=true;
+        }
+        else if(interactable.interactableName === "door")
+        {
+          removeBlockage(interactable);
+          match=true;
         }
       });
       if(match==false){
