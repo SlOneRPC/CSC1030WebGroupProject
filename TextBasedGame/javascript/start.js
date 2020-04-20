@@ -21,11 +21,17 @@ function startGame(){
   window.location.href = "mainGame.html";
 }
 
+function listenerAddition(){
+  //document.getElementById("name").addEventListener("k", nameInput());
+
+}
+
 // this method checks if the user has input a name and selected a class, if not lets them know that
 function inputValidation(){
   var issue = false;
   if(document.getElementById("name").value===""){
     desc = "You must enter a name before you begin";
+    document.getElementById("name").style.backgroundcolor = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
     issue = true;
   }
   else if(!document.getElementById("Hacker").checked && !document.getElementById("Engineer").checked && !document.getElementById("SpaceCowboy").checked)
@@ -40,4 +46,17 @@ function inputValidation(){
   document.getElementById("CharacterDesc").innerHTML = desc;
 
   return issue;
+}
+
+function nameInput(){
+  if (documment.getElementById("name").value==="") {
+    document.getElementById("name").background = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
+  }
+  else{
+    // need to change to green colours
+    //document.getElementById("name").background = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
+
+  }
+
+
 }

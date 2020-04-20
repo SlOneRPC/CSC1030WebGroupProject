@@ -1,12 +1,21 @@
 // this method displays the stats of the last game run to the user
 function gameFinishedStats(){
 
+  // formatting the page appropriately
+  if(ending){ // - user beats the game
+    gameWon();
+  }
+  else{ // - user loses the game
+    gameOver();
+  }
+
   var stats = JSON.parse(sessionStorage.getItem('stats'));
 
   document.getElementById("timeSpent").textContent = sessionStorage.getItem("timeSpent");
   document.getElementById("enemiesKilled").textContent = stats.enemiesDefeated;
   document.getElementById("roomsEntered").textContent = stats.areasExplored;
   document.getElementById("itemsCollected").textContent = stats.itemsCollected;
+
 }
 
 function gameWon(){
@@ -20,7 +29,7 @@ function gameOver(){
   document.getElementById("title").innerHTML = "Game Over!"
 }
 
-// method used to restart the game - loads start page
+// method used to restart the game - loads start page  - edit start menu to include user name - sessionStorage variable maybe
 function restartGame(){
   window.location.href = "test.html";
 }
