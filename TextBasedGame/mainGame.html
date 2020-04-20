@@ -265,6 +265,8 @@
                 <div><button type="button" name="Look" class="utilityButtons" onclick="outputCurrentRoomExits();">Look</button></div>
                 <br>
                 <div><button type="button" name="Search" class="utilityButtons" onclick="search(player.currentRoom);">Search</button></div>
+                <br>
+                <div><button type="button" name="Search" class="utilityButtons hideMe" onclick="equipSelected();" id="equipBtn">Equip</button></div>
               </div>
             </div>
             <br>
@@ -359,7 +361,13 @@
                    <h3 style="color:red;" id="combatError" class="hideMe"></h3>
                  </div>
                  <div id="turnOverview" class="hideMe">
-
+                   <h3>Turn Overview</h3>
+                   <hr>
+                   <ul>
+                     <li><h3>During this turn you deal <span id="TurndamageDealt"></span> damage to <span id="TurnEnemyName"></span> </h3></li>
+                     <li><h3>During this turn the <span id="TurnEnemyName2"></span> dealt <span id="TurndamageRecieved"></span> damage to you in return</h3></li>
+                   </ul>
+                   <button type="button" name="button" onclick="nextRound();">Start next turn</button>
                  </div>
                </div>
 
