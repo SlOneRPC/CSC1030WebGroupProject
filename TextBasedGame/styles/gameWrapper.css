@@ -876,6 +876,10 @@
 #userTextGame{
   color:#44c966;
 }
+#userTextObjective{
+  color:#4edaf9;
+}
+
 
 #gameInputButton{
   border: none;
@@ -955,6 +959,9 @@
   -ms-animation: fadeIn ease 5s;
 
   -webkit-animation-delay: 4s;
+  -moz-animation-delay: 4s;
+  -o-animation-delay: 4s;
+  -ms-animation-delay: 4s;
 }
 
 .textAnimStart3{
@@ -964,7 +971,10 @@
   -o-animation: fadeIn ease 5s;
   -ms-animation: fadeIn ease 5s;
 
--webkit-animation-delay: 8s;
+  -webkit-animation-delay: 8s;
+  -moz-animation-delay: 8s;
+  -o-animation-delay: 8s;
+  -ms-animation-delay: 8s;
 }
 
 .compassButtons:hover {
