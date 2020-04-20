@@ -133,9 +133,6 @@
           <button type="button" style="float:right; cursor:pointer;" onclick="pause();" id="pausebtn">Pause Game</button>
 
           <!--just putting timer in here for 'time' being (FUCK OFF DAVID (LUKE))-->
-          <script>
-            timerOperation();
-          </script>
       </div>
       <br>
       <div id="container">
@@ -419,7 +416,7 @@
           document.getElementById('wrapper').classList.add('textAnimStart');
         }
       </script>
-      <button type="button" name="continue" onclick="hideStart();" id = "continueButton">Continue</button>
+      <button type="button" name="continue" onclick="hideStart(); timerStat();" id = "continueButton">Continue</button>
   </div>
   <div id="pauseContainer" class="hideMe">
       <img src="images/Play Button.gif" onclick="pause();" class="clickableImage" alt="">
