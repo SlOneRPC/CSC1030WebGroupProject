@@ -2076,7 +2076,7 @@ function pickUpItems(playerRoom,words,dragged)
           {
             document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>"+"You're already carrying that!"+"</span>";
           }
-          for(var j=0; j<player.inventory.length;i++){
+          for(var j=0; j<player.inventory.length; j++){
             if(player.inventory[j].item.itemType === "Weapon"){
               counter++;
             }
