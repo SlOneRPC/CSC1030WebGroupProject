@@ -1957,13 +1957,18 @@ function useItem(words)
   {
       if(checkInventory("health kit"))
       {
-        removeItem("health kit");
-        var newHealth = player.health + 50;
-        if(newHealth>100){
-          newHealth=100;
+        if(!window.inCombat){
+          removeItem("health kit");
+          var newHealth = player.health + 50;
+          if(newHealth>100){
+            newHealth=100;
+          }
+          document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
+          document.getElementById("healthBar").style.width=newHealth;
         }
-        document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
-        document.getElementById("healthBar").style.width=newHealth;
+        else{
+          window.healType(1);
+        }
       }
       else{
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have any health kits!</span>";
@@ -1973,13 +1978,18 @@ function useItem(words)
   {
       if(checkInventory("health pack"))
       {
-        removeItem("health pack");
-        var newHealth = player.health + 25;
-        if(newHealth>100){
-          newHealth=100;
+        if(!window.inCombat){
+          removeItem("health pack");
+          var newHealth = player.health + 25;
+          if(newHealth>100){
+            newHealth=100;
+          }
+          document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
+          document.getElementById("healthBar").style.width=newHealth;
         }
-        document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
-        document.getElementById("healthBar").style.width=newHealth;
+        else{
+          window.healType(0);
+        }
       }
       else{
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have any health packs!</span>";
