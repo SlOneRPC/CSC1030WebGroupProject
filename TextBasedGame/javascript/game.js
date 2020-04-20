@@ -1534,10 +1534,11 @@ function processCommands(input)
   {
     read(words);
   }
-  // else if(customCommandInput(words.toString().replace(/,/g," "))!=null){
-  //   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-  //   processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
-  // }
+  else if(customCommandInput(words.toString().replace(/,/g," "))!=null)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
+  }
   else if(words.includes("attack") || words.includes("shoot") || words.includes("punch"))
   {
     sneakAttackEnemy();
