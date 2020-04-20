@@ -2,7 +2,7 @@
 function gameFinishedStats(ending){
 
   // formatting the page appropriately
-  if(ending){ // - user beats the game
+  if(sessionStorage.getItem("ending")){ // - user beats the game
     gameWon();
   }
   else{ // - user loses the game
