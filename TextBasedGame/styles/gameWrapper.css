@@ -19,6 +19,7 @@
   height:100%;
 }
 
+
 #playerInventory{
   width: 100%;
   margin: auto;
@@ -841,6 +842,24 @@
   width: 100%;
   height: 50px;
   border: 1px solid white;
+  margin:auto;
+  font-size: 1.4vw;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 9px;
+  border-bottom-left-radius: 9px;
+  font-family: 'Rajdhani', sans-serif;
+}
+#volumeControl{
+  margin-top:1.6%;
+  float:left;
+}
+#volumeText{
+  height: 100%;
+  padding:2%;
+  width:7%;
+  float:left;
+  font-family: 'Rajdhani', sans-serif;
 }
 
 #settings-wrapper button{

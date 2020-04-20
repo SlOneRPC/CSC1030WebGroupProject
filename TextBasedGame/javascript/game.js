@@ -15,6 +15,11 @@ var footstep5;
 var footstep6;
 var footstep7;
 var footstep8;
+var volume=0.0;
+var sounds=[];
+
+
+
 
 function statUpdate(){
   // enemies killed - once player returns from combat, +1 to killed value
@@ -60,9 +65,36 @@ function populateFootstepArray()
   footstepSounds.push(footstep7);
   footstepSounds.push(footstep8);
 }
+function changeVolume(){
+  sounds=[];
+  footstepSounds=[];
+  populateFootstepArray();
+  populateSoundArray();
+}
+function populateSoundArray(){
+  pickUpItemSound = new sound("sounds/pickUpItem.mp3");
+  pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
+  sounds.push(footstep1);
+  sounds.push(footstep2);
+  sounds.push(footstep3);
+  sounds.push(footstep4);
+  sounds.push(footstep5);
+  sounds.push(footstep6);
+  sounds.push(footstep7);
+  sounds.push(footstep8);
+  sounds.push(pickUpItemSound);
+  sounds.push(pickUpAmmoSound);
 
+}
 function gameStart()
 {
+  const slider = document.getElementById("volumeControl")
+  slider.oninput=(e) =>{
+     const newVolume=e.target.value;
+     volume=newVolume;
+     changeVolume();
+
+  };
  //method will decide and pick between starter rooms based on class
  //player.username = sessionStorage.getItem("name");
  //player.charClass = sessionStorage.getItem("class");
@@ -76,9 +108,6 @@ function gameStart()
  document.getElementById("playerNameStat").innerHTML="Name: "+player.username;
  document.getElementById("playerClassStat").innerHTML="Occupation: "+player.charClass;
  document.getElementById("healthStat").innerHTML = "Health: "+ player.health +"%";
- pickUpItemSound = new sound("sounds/pickUpItem.mp3");
- pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
-
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
  if (player.charClass == "Hacker")
  {
@@ -122,32 +151,28 @@ function gameStart()
  document.getElementById("gameMap").src="images/"+player.currentRoom.mapFilePath;
  document.getElementById("text-display").innerHTML +="<span id = 'userTextRight'>>You find yourself in the "+player.currentRoom.roomName+". </span>";
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
+ populateSoundArray();
 }
-
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, equippedWeaponValue, statsValue, attackValue, defenseValue)
 {
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue,equippedWeapon:equippedWeaponValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
 }
-
 function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeatedValue, timeLeftValue)
 {
   var statsObject = {areasExplored:areasExploredValue, itemsCollected:itemsCollectedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
   return statsObject;
 }
-
 function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue,mapFilePathValue)
 {
   var roomObject = {roomName:roomNameValue, type:typeValue, roomDescriptions:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue,mapFilePath:mapFilePathValue};
   return roomObject;
 }
-
 function createExitObject(exitRoomNameValue, orientationValue,descriptionValue,blockedValue,blockedDescriptionValue)
 {
   var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue, description:descriptionValue, blocked:blockedValue,blockedDescription:blockedDescriptionValue};
   return exitObject;
 }
-
 function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue, itemFilePathValue)
 {
   var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue, itemFilePath:itemFilePathValue};
@@ -1089,8 +1114,8 @@ function addRooms()
 
 
 }
-
-function askPlayer(){
+function askPlayer()
+{
   var text1="The ship is your oyster what would you like to do " + player.username + "?";
   var text2="The floor is yours what would you like to do " + player.username + "?";
   var text3="What now " + player.username + "?";
@@ -1108,7 +1133,6 @@ function askPlayer(){
   document.getElementById("text-display").innerHTML += "</br><span id='userTextGame'>>"+randomTextToPlayer[randomNum]+"</span>";
 
 }
-
 function updateObjectives()
 {
   if(rooms[getRoomPos("hangar bay")].roomDiscovered==true && player.currentRoom.roomName=="hangar bay"&& document.getElementById("escapeObj")==null){
@@ -1127,7 +1151,6 @@ function updateObjectives()
         document.getElementById("text-display").innerHTML+="</br><span id = 'userTextObjective'>+++New Objective+++";
   }
 }
-
 function getRoomTextDesc(currentRoom,entry)
 {
   var roomDesc="";
@@ -1140,7 +1163,6 @@ function getRoomTextDesc(currentRoom,entry)
   }
   return roomDesc;
 }
-
 function displayAllEnemies()
 {
   if(player.currentRoom.enemies.length > 0)
@@ -1151,7 +1173,6 @@ function displayAllEnemies()
 
   }
 }
-
 function outputCurrentRoomDesc()
 {
   directionColourResetBlue();
@@ -1185,7 +1206,6 @@ function outputCurrentRoomDesc()
   askPlayer();
   scrollBarAnchor();
 }
-
 function outputSmallEnemyDescriptions()
 {
   var smallEnemyDescriptions = ["You can hear something scuttling along the hallway", "Small sinister screeches bounce off the walls simply piercing your ears", "You feel another presence in the area"]
@@ -1202,7 +1222,6 @@ function outputSmallEnemyDescriptions()
   //, if you're not bleeding it definitely hasn't detected you yet
 
 }
-
 function outputBigEnemyDescriptions()
 {
   var bigEnemyDescriptions = ["You hear the heavy breath of something somewhere within the vicinity", "You hear the rambling of intelligent noises that you are certain you have never heard before", "As you enter the hallway you can see a large creature moping against a box"];
@@ -1216,7 +1235,6 @@ function outputBigEnemyDescriptions()
     //document.getElementById("text-display").innerHTML += "</br><span>>"+pickedNumber+"</span>"; - use for debugging
   document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>" + bigEnemyDescriptions[pickedNumber]+"</span>";
 }
-
 function enemyAwarenessDescription(typeArray)
 {
   if(typeArray.length == 1)
@@ -1231,7 +1249,6 @@ function enemyAwarenessDescription(typeArray)
     }
   }
 }
-
 function enemyDetection()
 {
   var typeArray = [];
@@ -1247,7 +1264,6 @@ function enemyDetection()
   });
   enemyAwarenessDescription(typeArray);
 }
-
 function enemyDetectionRoll(reRollFlag)
 {
   var roll = randomNumber(100);
@@ -1286,7 +1302,6 @@ function enemyDetectionRoll(reRollFlag)
   });
   document.getElementById("text-display").innerHTML += "</br>>" + roll;
 }
-
 function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
@@ -1327,7 +1342,6 @@ function outputCurrentRoomExits()
   document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
   scrollBarAnchor();
 }
-
 function scanning(availableDirections)
 {
   if(availableDirections.includes("east"))
@@ -1348,9 +1362,6 @@ function scanning(availableDirections)
   }
   directionEnemyCaution(availableDirections);
 }
-//green "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E"
-//red "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313"
-
 function directionBlocked(availableDirections)
 {
   player.currentRoom.exits.forEach((item, i) =>
@@ -1364,9 +1375,6 @@ function directionBlocked(availableDirections)
     }
   });
 }
-
-
-
 function directionEnemyCaution(availableDirections)
 {
   player.currentRoom.exits.forEach((item, i) =>
@@ -1387,7 +1395,6 @@ function directionEnemyCaution(availableDirections)
   });
   directionBlocked(availableDirections);
 }
-
 function roomDetectionCalculator(room)
 {
   var highestChance = 0;
@@ -1400,7 +1407,6 @@ function roomDetectionCalculator(room)
   });
   return highestChance;
 }
-
 function directionColourResetBlue()
 {
   document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
@@ -1408,7 +1414,6 @@ function directionColourResetBlue()
   document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
   document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
 }
-
 function directionColourAllRed()
 {
   document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
@@ -1417,7 +1422,6 @@ function directionColourAllRed()
   document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
 
 }
-
 function commandInput()
 {
   var rawInput = document.getElementById("gameInput").value.trim();
@@ -1434,7 +1438,6 @@ function commandInput()
   var elem = document.getElementById('text-display');
   elem.scrollTop = elem.scrollHeight;
 }
-
 function processCommands(input)
 {
   var words = input.split(" ");
@@ -1556,6 +1559,8 @@ function processCommands(input)
   }
   scrollBarAnchor();
 }
+<<<<<<< HEAD
+=======
 
 function insert(words)
 {
@@ -1651,6 +1656,7 @@ function read(words)
 }
 
 
+>>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
 function sneakAttackEnemy(words)
 {
   if(player.currentRoom.enemies.length > 0)
@@ -1695,8 +1701,6 @@ function sneakAttackEnemy(words)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>There are no enemies in this room to sneak attack'</span>";
   }
 }
-
-
 function attack()
 {
   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You successfully hit the enemy</span>";
@@ -1752,8 +1756,8 @@ function attack()
   }
   scrollBarAnchor();
 }
-
-function dropItem(itemName){
+function dropItem(itemName)
+{
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
       createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png")
@@ -1768,7 +1772,6 @@ function dropItem(itemName){
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that item in your inventory!</span>";
   }
 }
-
 function removeItem(itemName)
 {
   for(var i=0;i<player.inventory.length; i ++)
@@ -1779,7 +1782,6 @@ function removeItem(itemName)
     }
   }
 }
-
 function removeItemFromInventory(item)
 {
   var elements = document.querySelectorAll("#inventory td");
@@ -1798,7 +1800,6 @@ function removeItemFromInventory(item)
   }
   vicinity(player.currentRoom);
 }
-
 function reload()
 {
     var ammoCount =  document.getElementById("energyCellCount").innerHTML;
@@ -1832,7 +1833,6 @@ function reload()
       document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>> You dont have any energy cells to reload!"
     }
 }
-
 function equipWeapon(weaponName)
 {
   if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
@@ -1855,7 +1855,6 @@ function equipWeapon(weaponName)
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You can't equip that!</span>";
   }
 }
-
 function unequipWeapon()
 {
   // if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
@@ -1881,7 +1880,6 @@ function unequipWeapon()
   }
   scrollBarAnchor();
 }
-
 function getItemPosFromInventory(itemName)
 {
   for(var i=0; i<player.inventory.length;i++){
@@ -1891,7 +1889,6 @@ function getItemPosFromInventory(itemName)
     }
   }
 }
-
 function getRoomPos(roomName)
 {
   for(var i=0; i<rooms.length;i++){
@@ -1901,7 +1898,6 @@ function getRoomPos(roomName)
     }
   }
 }
-
 function removeInteractable(interactableName,room)
 {
   for(var i=0; i< room.interactables.length;i++){
@@ -1911,7 +1907,6 @@ function removeInteractable(interactableName,room)
     }
   }
 }
-
 function processCustomCommand(interactable)
 {
   //insert data card typed
@@ -1950,7 +1945,6 @@ function processCustomCommand(interactable)
     }
   }
 }
-
 function clearExit(blockedPath,room)
 {
       for(var j = 0; j < room.exits.length; j++)
@@ -1961,7 +1955,6 @@ function clearExit(blockedPath,room)
         }
       }
 }
-
 function customCommandInput(words)
 {
   var stop = false;
@@ -1981,7 +1974,6 @@ function customCommandInput(words)
     //return null;
   }
 }
-
 function removeBlockage(blockedPath)
 {
   var availableDirections = [];
@@ -2006,8 +1998,8 @@ function removeBlockage(blockedPath)
   scanning(availableDirections);
   scrollBarAnchor();
 }
-
-function checkInventory(item){
+function checkInventory(item)
+{
   for(var i=0; i<player.inventory.length;i++){
     //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
     if(player.inventory[i].item.itemName === item){
@@ -2015,6 +2007,8 @@ function checkInventory(item){
     }
   }
 }
+<<<<<<< HEAD
+=======
 
 function checkInventoryType(item,type){
   for(var i=0; i<player.inventory.length;i++){
@@ -2025,6 +2019,7 @@ function checkInventoryType(item,type){
   }
 }
 
+>>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
 function useItem(words)
 {
   if(words.includes("health kit"))
@@ -2163,7 +2158,6 @@ function useItem(words)
   }
   scrollBarAnchor();
 }
-
 function examineInteractables(roomInteractables, words)
 {
   if(roomInteractables >= 1)
@@ -2190,7 +2184,6 @@ function examineInteractables(roomInteractables, words)
   }
   scrollBarAnchor();
 }
-
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
@@ -2281,7 +2274,6 @@ function pickUpItems(playerRoom,words,dragged)
       vicinity(playerRoom);
     });
 }
-
 function search(playerRoom)
 {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
@@ -2332,7 +2324,6 @@ function search(playerRoom)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
   scrollBarAnchor();
 }
-
 function getDetailsOfItem(imgPath)
 {
   var found = false;
@@ -2352,6 +2343,8 @@ function getDetailsOfItem(imgPath)
   }
   return found;
 }
+<<<<<<< HEAD
+=======
 
 var previous;
 function showEquip(thisElement){
@@ -2400,6 +2393,7 @@ function useSelected(){
 
 }
 
+>>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
 function vicinity(playerRoom)
 {
   //get the correct table using a query
@@ -2419,15 +2413,14 @@ function vicinity(playerRoom)
   });
   clearVicinity(tableIndex);
 }
-
-function clearVicinity(startIndex){
+function clearVicinity(startIndex)
+{
   var elements = document.querySelectorAll("#other1 td");
   //clear all other inventory items
   for (var i = startIndex; i < 4; i++) {
     elements[i].innerHTML = '';
   }
 }
-
 function move(words)
 {
   var direction = "";
@@ -2466,7 +2459,6 @@ function move(words)
   }
   scrollBarAnchor();
 }
-
 function goDirection(direction)
 {
   var exitExistsFlag = 0;
@@ -2533,7 +2525,6 @@ function returnNewRoom(roomExit)
   });
   return newRoom;
 }
-
 function charHealth()
 {
   var className = document.getElementById("charClass");
@@ -2546,7 +2537,6 @@ function charHealth()
     return 120;
   }
 }
-
 function charStart()
 {
   if (document.getElementById("Hacker").checked)
@@ -2562,7 +2552,6 @@ function charStart()
     return document.getElementById("SpaceCowboy").value;
   }
 }
-
 function addItemToInventory(item)
 {
 
@@ -2576,14 +2565,12 @@ function addItemToInventory(item)
     }
     vicinity(player.currentRoom);
 }
-
 function nameOutput()
 {
   var nameInput = document.getElementById("name").value;
   var classSelect = charStart();
   alert(nameInput + " " + classSelect);
 }
-
 function changeTextDescription()
 {
   var desc = "";
@@ -2601,17 +2588,14 @@ function changeTextDescription()
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
 }
-
 function randomNumber(range)
 {
   return Math.round(Math.random() * range) + 1;
 }
-
 function randomNumberForArray(range)
 {
   return Math.floor(Math.random() * range);
 }
-
 function randomPlaceHolderText()
 {
   var number = randomNumber(5);
@@ -2637,13 +2621,16 @@ function randomPlaceHolderText()
     document.getElementById("gameInput").placeholder = "Dont mess yourself up some";
   }
 }
-
-function sound(src) {
+function sound(src)
+{
   this.sound = document.createElement("audio");
   this.sound.src = src;
+
   this.sound.setAttribute("preload", "auto");
   this.sound.setAttribute("controls", "none");
   this.sound.style.display = "none";
+  console.log(volume);
+  this.sound.volume= volume;
   document.body.appendChild(this.sound);
   this.play = function(){
     this.sound.play();
@@ -2652,7 +2639,6 @@ function sound(src) {
     this.sound.pause();
   }
 }
-
 function scrollBarAnchor()
 {
   var elem = document.getElementById('text-display');
