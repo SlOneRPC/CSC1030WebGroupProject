@@ -1,5 +1,6 @@
 
 var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
+var robotBoolean = false;
 var rooms = [];
 var footstepSounds = [];
 //var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
@@ -2317,11 +2318,7 @@ function returnNewRoom(roomExit)
 function charHealth()
 {
   var className = document.getElementById("charClass");
-  if (className == "Hacker")
-  {
-    return 100;
-  }
-  else if (classHealth == "Engineer")
+  if (className == "Hacker" || className == "Engineer")
   {
     return 100;
   }
@@ -2377,7 +2374,7 @@ function changeTextDescription()
   }
   else if(charStart() == "Engineer")
   {
-    desc = "Armed with his blowtorch, he uses his knowhow to hold the ship together, and with his smarts, he can take on anything in his path.";
+    desc = "Armed with his blowtorch, he uses his know how to hold the ship together, and with his smarts, he can take on anything in his path.";
   }
   else if(charStart() =="SpaceCowboy")
   {
@@ -2451,7 +2448,7 @@ function generatePasswordPad()
   rooms.forEach((item, i) => {
     if(item.roomName === selectedRoomName)
     {
-      item.roomItems.push(createDataPadObject("Password Pad", "A datapad containing useful information for accessing a terminal", "The password for the terminal in the is"+ password, ""))
+      item.roomItems.push(createDataPadObject("passwordPad", "A datapad containing useful information for accessing a terminal", "The password for the terminal in the is"+ password, "images/datapad.png"))
     }
   });
   return password;
