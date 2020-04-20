@@ -247,6 +247,7 @@ function exectuteCombat(){
        leaveCombat();
        //remove the enemy from the room once its dead
        player.currentRoom.enemies.splice(0,1);
+       player.stats.enemiesDefeated++;
      }
      else if(currentCombat == "Escape"){
        if(damageRecieved >0){

@@ -23,6 +23,7 @@ var sounds=[];
 
 function statUpdate(){
   // enemies killed - once player returns from combat, +1 to killed value
+  // -> Calculated in Combat.js
   // rooms Entered - use Room.roomDiscovered value - boolean
   rooms.forEach((item, i) => {
     if(item.roomDiscovered){
@@ -36,13 +37,12 @@ function statUpdate(){
   // time spent - this worked out as time counts down in timer.js
 }
 
-// this method is called when the used completes the game
-
-function gameFinished(){
+// this method is called when the user completes the game - when they exit the hangar in an escape pod
+function gameFinished(ending){
   statUpdate();
   sessionStorage.setItem('stats', JSON.stringify(player.stats));
+  sessionStorage.setItem('ending', ending);
   window.location.href = "endScreen.html";
-  // user completes the game when they exit the hangar in an escape pod ersum
 }
 
 function populateFootstepArray()
@@ -1941,6 +1941,7 @@ function processCustomCommand(interactable)
   }
   else if(interactable.interactableName === "Escape Pod" ){
     if(player.currentRoom.roomName === "hangar bay" ){
+      //--pop
       gameFinished();
     }
   }
