@@ -23,6 +23,7 @@ var sounds=[];
 
 function statUpdate(){
   // enemies killed - once player returns from combat, +1 to killed value
+  // -> Calculated in Combat.js
   // rooms Entered - use Room.roomDiscovered value - boolean
   rooms.forEach((item, i) => {
     if(item.roomDiscovered){
@@ -36,13 +37,12 @@ function statUpdate(){
   // time spent - this worked out as time counts down in timer.js
 }
 
-// this method is called when the used completes the game
-
-function gameFinished(){
+// this method is called when the user completes the game - when they exit the hangar in an escape pod
+function gameFinished(ending){
   statUpdate();
   sessionStorage.setItem('stats', JSON.stringify(player.stats));
+  sessionStorage.setItem('ending', ending);
   window.location.href = "endScreen.html";
-  // user completes the game when they exit the hangar in an escape pod ersum
 }
 
 function populateFootstepArray()
@@ -103,7 +103,8 @@ function gameStart()
  document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
  var width = document.getElementById('playerHealth').offsetWidth;
  document.getElementById("healthBar").style.width= player.health + '%';
- document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
+ document.getElementById("currentWeapon").innerHTML="Equipped Weapon: Fist";
+ document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
  document.getElementById("currentWeaponMag").innerHTML="0/0";
  document.getElementById("playerNameStat").innerHTML="Name: "+player.username;
  document.getElementById("playerClassStat").innerHTML="Occupation: "+player.charClass;
@@ -1559,6 +1560,10 @@ function processCommands(input)
   }
   scrollBarAnchor();
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 
 function insert(words)
 {
@@ -1653,6 +1658,11 @@ function read(words)
 
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 function sneakAttackEnemy(words)
 {
   if(player.currentRoom.enemies.length > 0)
@@ -1914,7 +1924,7 @@ function processCustomCommand(interactable)
       removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
       removeInteractable("console",player.currentRoom);
-      document.getElementById("powerObj").style.display="none";
+      //document.getElementById("powerObj").style.display="none";
       player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
       player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
       document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
@@ -1937,6 +1947,7 @@ function processCustomCommand(interactable)
   }
   else if(interactable.interactableName === "Escape Pod" ){
     if(player.currentRoom.roomName === "hangar bay" ){
+      //--pop
       gameFinished();
     }
   }
@@ -2003,7 +2014,10 @@ function checkInventory(item)
     }
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 
 function checkInventoryType(item,type){
   for(var i=0; i<player.inventory.length;i++){
@@ -2014,7 +2028,10 @@ function checkInventoryType(item,type){
   }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 function useItem(words)
 {
   if(words.includes("health kit"))
@@ -2327,26 +2344,67 @@ function getDetailsOfItem(imgPath)
         document.getElementById('hoverInfo').innerHTML = item.item.itemDescription;
         found = true;
       }
-    });
-    return found;
+  });
+  if(!found){
+    for(var i=0; i<player.inventory.length;i++){
+      if(imgPath.includes(player.inventory[i].item.itemFilePath)){
+        document.getElementById('hoverInfo').innerHTML = player.inventory[i].item.itemDescription;
+        found = true;
+      }
+    }
+  }
+  return found;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 
-function showEquip(id){
-  var itemName = id.split('_');
+var previous;
+function showEquip(thisElement){
+  var itemName = thisElement.id.split('_');
+  var parent = thisElement.parentNode;
+  selectedItem = itemName[0];
   if(checkInventoryType(itemName[0],"Weapon"))
   {
     document.getElementById('equipBtn').classList.remove('hideMe');
-    selectedItem = itemName[0];
+    if(player.equippedWeapon.item.itemName == itemName[0]){
+      document.getElementById('equipBtn').innerHTML = 'unequip';
+    }
+    else{
+      document.getElementById('equipBtn').innerHTML = 'equip';
+    }
+  }
+  else if(checkInventoryType(itemName[0],"Gadget")){
+    document.getElementById('equipBtn').classList.remove('hideMe');
+    document.getElementById('equipBtn').innerHTML = 'use';
   }
   else{
     document.getElementById('equipBtn').classList.add('hideMe');
   }
+
+  if(previous != null){
+    previous.style.backgroundColor = '#272727';
+  }
+  parent.style.backgroundColor = 'red';
+  previous = parent;
 }
 
-function equipSelected(){
-  equipWeapon(selectedItem);
-  document.getElementById('equipBtn').classList.add('hideMe');
+function useSelected(){
+  if(checkInventoryType(selectedItem,"Weapon")){
+    if(player.equippedWeapon.item.itemName == selectedItem){
+      unequipWeapon(selectedItem);
+      document.getElementById('equipBtn').innerHTML = 'equip';
+    }
+    else{
+      equipWeapon(selectedItem);
+      document.getElementById('equipBtn').innerHTML = 'unequip';
+    }
+  }
+  else if(checkInventoryType(selectedItem,"Gadget")){
+    useItem(selectedItem);
+  }
+
 }
 
 
@@ -2361,7 +2419,7 @@ function vicinity(playerRoom)
     {
       //add inventory item to vicinity
       var name = item.item.itemName + "_img";
-      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this.id);' id="+ name+">";
+      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this);' id="+ name+">";
       tableIndex++;
     }
     else{

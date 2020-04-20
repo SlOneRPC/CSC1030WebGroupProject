@@ -55,6 +55,12 @@ function checkEquippedWeaponStatus(){
   }
 }
 
+function updateAmmo(){
+  var ammo = window.player.equippedWeapon.ammo -= 1;
+  var magSize = window.player.equippedWeapon.magSize;
+  document.getElementById('currentWeaponMag').innerHTML = ammo + '/' + magSize;
+}
+
 function equipWeaponDrop(ev){
   var data = ev.dataTransfer.getData("text");
   var nodeCopy = document.getElementById(data).cloneNode(true);
@@ -94,11 +100,11 @@ function healType(type){
   switch (type) {
     case 0:
       healHP = 25;
-      document.getElementById('healMethod').innerHTML = 'Health Pack';
+      document.getElementById('healMethod').innerHTML = 'health pack';
       break;
     case 1:
       healHP = 50;
-      document.getElementById('healMethod').innerHTML = 'Health Kit';
+      document.getElementById('healMethod').innerHTML = 'health kit';
       break;
   }
 
@@ -205,6 +211,11 @@ function exectuteCombat(){
     document.getElementById('combatError').innerHTML = 'No heal method selected!';
     document.getElementById('combatError').classList.remove('hideMe');
   }
+  else if(window.player.equippedWeapon.ammo<=0)
+  {
+    document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
+    document.getElementById('combatError').classList.remove('hideMe');
+  }
   else{
     var damageRecieved;
     var damageDealt;
@@ -225,6 +236,13 @@ function exectuteCombat(){
       damageRecieved = 0;
     }
 
+    if(currentCombat == "Weapon"){
+      updateAmmo();
+    }
+    else if(currentCombat == "Heal"){
+      removeItem(document.getElementById('healMethod').innerHTML);
+    }
+
     window.player.health -= damageRecieved;
     activeEnemyObj.health -= damageDealt;
     updateHP();
@@ -237,6 +255,7 @@ function exectuteCombat(){
        leaveCombat();
        //remove the enemy from the room once its dead
        player.currentRoom.enemies.splice(0,1);
+       player.stats.enemiesDefeated++;
      }
      else if(currentCombat == "Escape"){
        if(damageRecieved >0){
@@ -253,8 +272,8 @@ function exectuteCombat(){
       document.getElementById('TurndamageDealt').innerHTML = damageDealt;
       document.getElementById('TurndamageRecieved').innerHTML = damageRecieved;
 
-      document.getElementById('TurnEnemyName').innerHTML = 'Enemy';//placeholder
-      document.getElementById('TurnEnemyName2').innerHTML = 'Enemy';//placeholder
+      document.getElementById('TurnEnemyName').innerHTML = activeEnemyObj.enemyType;//placeholder
+      document.getElementById('TurnEnemyName2').innerHTML = activeEnemyObj.enemyType;//placeholder
 
       document.getElementById('turnOptions').classList.add('hideMe');
       document.getElementById('turnOverview').classList.remove('hideMe');

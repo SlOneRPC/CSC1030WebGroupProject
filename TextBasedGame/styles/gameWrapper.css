@@ -1,7 +1,7 @@
 #wrapper
 {
   width: 95%;
-  height: 80%;
+  height: 70%;
   padding: 3%;
   padding-top: 1%;
   margin: auto;
@@ -304,7 +304,7 @@
 }
 
 #mapContainer{
-  overflow:auto;
+  overflow:hidden;
   width:32%;
   float:left;
   height:750px;
@@ -388,6 +388,12 @@
   height:19%;
   margin:auto;
   overflow:auto;
+}
+
+#mapMain{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 #hints{
@@ -640,6 +646,10 @@
   margin: 5%;
 }
 
+
+
+
+
 .profileButtons
 {
   width: 90%;
@@ -840,31 +850,53 @@
   width: 100%;
   height: 50px;
   border: 1px solid white;
-  margin:auto;
   font-size: 1.4vw;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 9px;
   border-bottom-left-radius: 9px;
   font-family: 'Rajdhani', sans-serif;
+  box-shadow: 0px 0px 10px 2px #ffffff;
+  background: repeating-linear-gradient(
+    180deg,
+    #1B1A1A,
+    #1B1A1A 10px,
+    #0F0F0F 10px,
+    #0F0F0F 20px
+    );
 }
 #volumeControl{
   margin-top:1.6%;
   float:left;
+  position: relative;
+  bottom:6px;
+  width:7%;
 }
 #volumeText{
-  height: 100%;
-  padding:2%;
+  position: relative;
+  bottom:6px;
   width:7%;
+  padding-left: 1%;
   float:left;
   font-family: 'Rajdhani', sans-serif;
 }
-
-#settings-wrapper button{
-  margin: 5px;
-  height: 40px;
-  width: 60px;
+.settingButtons{
+  width:5%;
+  font-size: 1.1vw;
+  border: 2px solid black;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  outline: none;
+  color: #ffffff;
+      background: repeating-linear-gradient(
+          180deg,
+          #1B1A1A,
+          #1B1A1A 10px,
+          #0F0F0F 10px,
+          #0F0F0F 20px
+        );
 }
+
 
 #userTextWrong{
   color: red;
