@@ -1059,7 +1059,7 @@ function addRooms()
 }
 
 function askPlayer(){
-  var text1="The ship is your osyter what would you like to do " + player.username + "?";
+  var text1="The ship is your oyster what would you like to do " + player.username + "?";
   var text2="The floor is yours what would you like to do " + player.username + "?";
   var text3="What now " + player.username + "?";
   var text4="Your move " + player.username + "?";

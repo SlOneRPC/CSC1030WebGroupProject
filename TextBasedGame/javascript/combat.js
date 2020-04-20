@@ -11,6 +11,24 @@ var weaponDisabled = false;
 var activeEnemyObj;
 
 
+function combatSetupV2(){
+  //hide container
+  document.getElementById('mapMain').classList.add('hideMe');
+  document.getElementById('combatMain').classList.remove('hideMe');
+
+  //get the enemy object
+  activeEnemyObj = window.player.currentRoom.enemies[0];
+
+  //enemyHealth = activeEnemyObj.health;
+
+  //document.getElementById('EnemyName').innerHTML = activeEnemyObj.enemyType;
+
+  //calculate basic stats
+  calculateInfo();
+  updateHP();
+}
+
+
 function combatSetup()
 {
   document.getElementById('container').classList.add('hideMe');//hide main gameplay wrapper
@@ -43,51 +61,12 @@ function updateHP(){
   //get the width of a health bar
 
   //calcuate the new width based on health
-  document.getElementById('PlayerHB').style.width = localHealth + '%';
   document.getElementById('EnemyHB').style.width =  enemyHealth + '%';
 
   //update HP values
-  document.getElementById('health1').innerHTML = localHealth + 'HP';
-  document.getElementById('health2').innerHTML = enemyHealth + 'HP';
+  document.getElementById('EnemyHealthValue').innerHTML = localHealth + 'HP';
 }
 
-function updateWeapons(){
-  //get the inventory table
-  var elements = document.querySelectorAll("#combat-inventory td");
-
-  //start at index 1
-  var tableIndex = 1;
-  for(var i=0; i<player.inventory.length;i++){
-    //check that the item is a weapon
-    if(player.inventory[i].item.itemType === "Weapon"){
-      var item = player.inventory[i].item;
-      var name = item.itemName + "_cbtimg";//new id
-      //create a new image and display it
-      elements[tableIndex].innerHTML = "<img src="+ item.itemFilePath +" alt=" + item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' id="+name+">";
-      tableIndex++;
-    }
-  }
-
-  //if the player has no weapons and no equipped weapon
-  if(window.player.equippedWeapon.item.itemName == 0 && tableIndex == 1){
-    document.getElementById('wepButton').disabled = true;
-    weaponDisabled = true;
-    updateCombatType(1);//set combat to melee since no weapon is equipped
-  }
-  else{
-    //get the active combat slot
-    var slot = document.getElementById('combatActive');
-    //remove the child element (image)
-    slot.removeChild(slot.childNodes[0]);
-
-    //create a clone of the first weapon
-    var newNode = document.getElementById('combatDefault').childNodes[0].cloneNode(true);
-    var itemName = newNode.id.split('_')
-    newNode.id+='active';//cant have the same id
-    slot.appendChild(newNode);//add the new note to the now empty slot
-    window.equipWeapon(itemName[0]);//equip the weapon incase it already isnt
-  }
-}
 
 function equipWeaponDrop(ev){
   var data = ev.dataTransfer.getData("text");
@@ -105,31 +84,17 @@ function equipWeaponDrop(ev){
 }
 
 
-function updateCombatType(type){
-  //if the heal combat type was last selected then hide it
-  if(currentCombat === "Heal" && type != 2){
-    document.getElementById('CurrentHealthGained').classList.add('hideMe');
-    document.getElementById('healContainer').classList.add('hideMe');
+function updateCombatType(){
+  //combat type change
+  var combatOptions = document.getElementsByName('attacks');
+  for (var i = 0, length = combatOptions.length; i < length; i++) {
+    if (combatOptions[i].checked) {
+      //alert(combatOptions[i].value);
+      currentCombat = combatOptions[i].value;
+      break;
+    }
   }
 
-  //based on the button pressed selected the combat type
-  switch (type) {
-    case 0:
-      if(weaponDisabled == false){
-        currentCombat = "Weapon Attack";
-      }
-      break;
-    case 1:
-      currentCombat = "Melee Attack";
-      break;
-    case 2:
-      currentCombat = "Heal";
-      healMenu(true);
-      break;
-    case 3:
-      currentCombat = "Run Away";
-      break;
-  }
   //display the current combat type
   document.getElementById('currentCombat').innerHTML =currentCombat;
   calculateInfo();
