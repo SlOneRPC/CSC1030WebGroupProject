@@ -260,8 +260,7 @@ function addRooms()
 
       createWeaponObject("pistol",9, 9, 10, "Ranged", ["shoot"], "A reliable Pistol good for dealing with foes. Mag Size: 9 ","images/laserpistol.png"),
       createAmmoObject("energy cells","An energy cell,it is used to reload weapons.","images/energycell.png",Math.floor((Math.random() * 10) + 1)),
-      createGadgetObject("blowtorch","A blowtorch,very useful for burning through metal and vents.","images/blowtorch.png")
-
+      createGadgetObject("blowtorch","A blowtorch,very useful for burning through metal and vents.","images/blowtorch.png"),
     ],
     [
 
@@ -1467,7 +1466,7 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     search(player.currentRoom);
   }
-  else if (words.includes("examine") == true)//|| words.includes("inspect") == true
+  else if (words.includes("examine") == true|| words.includes("inspect") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     words.splice(0,1);
@@ -1504,7 +1503,7 @@ function processCommands(input)
     var weaponToBeUnequipped = words.toString().replace(/,/g," ");
     unequipWeapon(weaponToBeUnequipped);
   }
-  else if(words[0] == ("pick") && words[1] == ("up"))
+  else if(words[0] == ("pick") && words[1] == ("up") || words.includes("pickup"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
     words.splice(0,2);
@@ -1531,6 +1530,10 @@ function processCommands(input)
 
     pickUpItems(player.currentRoom,pickedUpItem,false);
   }
+  else if(words.includes("read"))
+  {
+    read(words);
+  }
   // else if(customCommandInput(words.toString().replace(/,/g," "))!=null){
   //   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
   //   processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
@@ -1545,6 +1548,49 @@ function processCommands(input)
   }
   scrollBarAnchor();
 }
+
+function read(words)
+{
+  var selectedItem;
+  if(words.includes("passwordpad") || words.includes("sticky") || words.includes("note"))
+  {
+    var stickyNote = false;
+    var passwordPad = false;
+    if(words.includes("passwordpad"))
+    {
+      passwordPad = true;
+    }
+    else if (words.includes("sticky") || words.includes("note"))
+    {
+      stickyNote = true;
+    }
+    if(passwordPad === true)
+    {
+      player.inventory.forEach((item, i) => {
+        if(item.item.itemName === "passwordPad")
+        {
+          selectedItem = item;
+        }
+      });
+    }
+    else if(stickyNote === true)
+    {
+      player.inventory.forEach((item, i) => {
+        if(item.item.itemName === "sticky note")
+        {
+          selectedItem = item;
+        }
+      });
+    }
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>This item reads: "+selectedItem.information+"</span>";
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You can't read this item</span>";
+  }
+
+}
+
 
 function sneakAttackEnemy(words)
 {
@@ -2064,7 +2110,7 @@ function examineInteractables(roomInteractables, words)
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
-      if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"||item.item.itemType=="Puzzle"||item.item.itemType=="Data"))
+      if(item.item.itemName.includes(words) && item.item.itemSearched==true && (item.item.itemType=="Gadget" || item.item.itemType=="Weapon"||item.item.itemType=="Ammo"||item.item.itemType=="Health"||item.item.itemType=="Puzzle"||item.item.itemType=="Datapad"))
       {
         if(player.currentRoom.enemies.length > 0)
         {
@@ -2095,7 +2141,6 @@ function pickUpItems(playerRoom,words,dragged)
             }
           }
         }
-
         else if(item.item.itemType === "Ammo")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>"+ item.amount +" "+ item.item.itemName +" added to inventory"+"</span>";
@@ -2130,10 +2175,13 @@ function pickUpItems(playerRoom,words,dragged)
           }
           playerRoom.roomItems.splice(i, 1);
         }
-
         else if(item.item.itemType!="Ammo" && item.item.itemType!="Health" && item.item.itemType!="Weapon")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
+          if(item.item.itemType !== "Puzzle")
+          {
+            document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>(You can read these items by typing read + the item name command)</span>";
+          }
           pickUpItemSound.play();
           player.inventory.push(item);
           playerRoom.roomItems.splice(i, 1);
@@ -2480,7 +2528,7 @@ function generatePasswordPad()
   rooms.forEach((item, i) => {
     if(item.roomName === selectedRoomName)
     {
-      item.roomItems.push(createDataPadObject("passwordPad", "A datapad containing useful information for accessing a terminal", "The password for the terminal in the is"+ password, "images/datapad.png"))
+      item.roomItems.push(createDataPadObject("passwordPad", "A datapad containing useful information for accessing a terminal", "''The password for the terminal in the computer lab is '"+ password+"'''", "images/datapad.png"))
     }
   });
   return password;
