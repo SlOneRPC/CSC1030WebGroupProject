@@ -1,5 +1,5 @@
 
-var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "It's clobbering time","images/fists.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
+var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "It's clobbering time","images/fist.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
 var robotBoolean = false;
 var rooms = [];
 var footstepSounds = [];
@@ -654,7 +654,7 @@ function addRooms()
       createExitObject("hallway01", "south", "You head south down the hallway.",false,"")
     ],
     [//Items in the current room
-    ]
+    ],
     [  createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull has collapsed, leaving the other side of the hallway open to space. This must have been where the explosion happened.","no")
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
@@ -839,11 +839,11 @@ function addRooms()
     [//Room Descriptions
       createDescriptionObject(
         "first-entry",
-        "You enter into the hallway and find it barren apart from burnt metal and scrap from the supports of the hall. Empty energy cells and plasma marks paint the hallway. "
+        "You enter into the hallway and find it barren apart from burnt metal and scrap from the supports of the hall. Empty energy cells and plasma marks paint the hallway."
       ),
       createDescriptionObject(
         "second-entry",
-        "You enter back into the hall and find it quiet,The plasma marks on the wall still smouldering."
+        "You enter back into the hall and find it quiet, the plasma marks on the wall still smouldering."
       ),
     ],
     [], //Enemies Value
@@ -986,7 +986,7 @@ function addRooms()
     ],
     [
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","storage unit 02","Using your hacking-tool you succesfully hack into the door controls and open the door.","door05"),
-      createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space","no"),
+      createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull has collapsed, leaving the other side of the hallway open to space","no"),
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
     "map_hallway12.png"
@@ -1015,7 +1015,7 @@ function addRooms()
      ],
      [//Items in the current room
         createAmmoObject("energy cells","An energy cell, used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1)),
-        createHealthObject("health kit","A health kit it can be used to heal you by 50%","images/healthkit.png", 50,1)
+        createHealthObject("health kit","A health kit, can be used to heal you by 50%","images/healthkit.png", 50,1)
      ],
      [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway10","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent04"),
@@ -1046,8 +1046,8 @@ function addRooms()
      ],
      [//Items in the current room
         createAmmoObject("energy cells","An energy cell, used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
-        createHealthObject("health kit","A health kit it can be used to heal you by 50%","images/healthkit.png", 50,1),
-        createHealthObject("health pack","A health pack it can be used to heal you by 25%","images/healthpack.png", 50,1)
+        createHealthObject("health kit","A health kit, can be used to heal you by 50%","images/healthkit.png", 50,1),
+        createHealthObject("health pack","A health pack, can be used to heal you by 25%","images/healthpack.png", 50,1)
      ],
      [], //Number of interactable items in the room
      false, //Has Room been entered/Discovered?
@@ -1083,7 +1083,7 @@ function addRooms()
   rooms.forEach((item, i) => {
      if(item.roomName === "computer lab")
      {
-       item.interactables.push(createTerminalObject("terminal", "A terminal flickers in the corner of the computer lab with the words 'password required' on the screen", "", ""));
+       item.interactables.push(createTerminalObject("terminal", "A terminal flickers in the corner of the computer lab with the words 'insert password required' on the screen (try insert password + the password if you find it)", "", ""));
      }
   });
 
@@ -1537,10 +1537,15 @@ function processCommands(input)
   {
     read(words);
   }
-  // else if(customCommandInput(words.toString().replace(/,/g," "))!=null){
-  //   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-  //   processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
-  // }
+  else if(words.includes("insert"))
+  {
+    insert(words);
+  }
+  else if(customCommandInput(words.toString().replace(/,/g," "))!=null)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
+  }
   else if(words.includes("attack") || words.includes("shoot") || words.includes("punch"))
   {
     sneakAttackEnemy();
@@ -1552,14 +1557,65 @@ function processCommands(input)
   scrollBarAnchor();
 }
 
+function insert(words)
+{
+  var consoleBoolean = false;
+  var terminalBoolean = false;
+  var consoleInteractable;
+  var terminalInteractable;
+  player.currentRoom.interactables.forEach((interactable, i) => {
+    if(interactable.interactableName === "console")
+    {
+      consoleBoolean = true;
+      consoleInteractable = interactable;
+    }
+    else if (interactable.interactableName === "terminal")
+    {
+      terminalBoolean = true;
+      terminalInteractable = interactable;
+    }
+  });
+  if(consoleBoolean === true)
+  {
+    if(words.includes("datacard") || words.includes("data card"))
+    {
+      processCustomCommand(consoleInteractable);
+    }
+  }
+  else if (terminalBoolean === true)
+  {
+    if(words.includes("password"))
+    {
+      passwordMatch(words, terminalInteractable);
+    }
+  }
+  else if(terminalBoolean === false || consoleBoolean === false)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You can't use this command here</span>";
+  }
+}
+
+function passwordMatch(words, interactable)
+{
+  if(words.includes(interactable.password))
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>As you complete the password a large container lights up as robot steps out of it whirring the phrase 'assisting for combat... ready'</span>";
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>That is the incorrect pasword beeps the terminal</span>";
+  }
+
+}
+
 function read(words)
 {
   var selectedItem;
-  if(words.includes("passwordpad") || words.includes("sticky") || words.includes("note"))
+  if(words.includes("passpad") || words.includes("sticky") || words.includes("note") || words.includes("pass") || words.includes("pad"))
   {
     var stickyNote = false;
     var passwordPad = false;
-    if(words.includes("passwordpad"))
+    if(words.includes("passpad")  || words.includes("pass") || words.includes("pad"))
     {
       passwordPad = true;
     }
@@ -1570,7 +1626,7 @@ function read(words)
     if(passwordPad === true)
     {
       player.inventory.forEach((item, i) => {
-        if(item.item.itemName === "passwordPad")
+        if(item.item.itemName === "passPad")
         {
           selectedItem = item;
         }
@@ -1700,7 +1756,7 @@ function attack()
 function dropItem(itemName){
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
-      createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png")
+      createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png")
       player.equippedWeapon=fists;
     }
     item=player.inventory[getItemPosFromInventory(itemName)];
@@ -1812,7 +1868,7 @@ function unequipWeapon()
   if(player.equippedWeapon.item.itemName !== "fist")
   {
     document.getElementById("text-display").innerHTML +="</br><span id= 'userTextRight'>>You unequip your "+ player.equippedWeapon.item.itemName + "</span>";
-    player.equippedWeapon = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png");
+    player.equippedWeapon = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png");
     document.getElementById("currentWeapon").innerHTML="Equipped Weapon: "+player.equippedWeapon.item.itemName;
     document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
     document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
@@ -2206,9 +2262,9 @@ function pickUpItems(playerRoom,words,dragged)
         else if(item.item.itemType!="Ammo" && item.item.itemType!="Health" && item.item.itemType!="Weapon")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
-          if(item.item.itemType !== "Puzzle")
+          if(item.item.itemType !== "Puzzle" && item.item.itemType!== "Gadget")
           {
-            document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>(You can read these items by typing read + the item name command)</span>";
+            document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>(You can read these items by typing read + item name)</span>";
           }
           pickUpItemSound.play();
           player.inventory.push(item);
@@ -2291,7 +2347,8 @@ function getDetailsOfItem(imgPath)
 
 function showEquip(id){
   var itemName = id.split('_');
-  if(checkInventoryType(itemName[0],"Weapon")){
+  if(checkInventoryType(itemName[0],"Weapon"))
+  {
     document.getElementById('equipBtn').classList.remove('hideMe');
     selectedItem = itemName[0];
   }
@@ -2302,6 +2359,7 @@ function showEquip(id){
 
 function equipSelected(){
   equipWeapon(selectedItem);
+  document.getElementById('equipBtn').classList.add('hideMe');
 }
 
 function vicinity(playerRoom)
@@ -2571,7 +2629,7 @@ function generatePasswordPad()
   rooms.forEach((item, i) => {
     if(item.roomName === selectedRoomName)
     {
-      item.roomItems.push(createDataPadObject("passwordPad", "A datapad containing useful information for accessing a terminal", "''The password for the terminal in the computer lab is '"+ password+"'''", "images/datapad.png"))
+      item.roomItems.push(createDataPadObject("passPad", "A datapad containing useful information for accessing a terminal", "''The password for the terminal in the computer lab is '"+ password+"'''", "images/datapad.png"))
     }
   });
   return password;
