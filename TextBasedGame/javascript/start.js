@@ -31,6 +31,7 @@ function inputValidation(){
   var issue = false;
   if(document.getElementById("name").value===""){
     desc = "You must enter a name before you begin";
+    document.getElementById("name").style.backgroundcolor = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
     issue = true;
   }
   else if(!document.getElementById("Hacker").checked && !document.getElementById("Engineer").checked && !document.getElementById("SpaceCowboy").checked)
@@ -49,13 +50,12 @@ function inputValidation(){
 
 function nameInput(){
   if (documment.getElementById("name").value==="") {
-
-      document.getElementById("name").background = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
+    document.getElementById("name").background = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
   }
   else{
-    document.getElementById("name").background = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
+    // need to change to green colours
+    //document.getElementById("name").background = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
 
-      alert("Cheese");
   }
 
 
