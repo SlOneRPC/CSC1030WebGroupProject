@@ -1,5 +1,3 @@
-var countdown = 10;
-var timer;
 var localHealth = 100;
 var enemyHealth = 100;
 var currentCombat = "Weapon Attack";
@@ -18,20 +16,18 @@ function combatSetupV2(){
 
   //get the enemy object
   activeEnemyObj = window.player.currentRoom.enemies[0];
-
   //enemyHealth = activeEnemyObj.health;
-
   //document.getElementById('EnemyName').innerHTML = activeEnemyObj.enemyType;
 
   currentCombat = 'Weapon';
+  inCombat = true;
+  healHP = 0;
 
   //calculate basic stats
   calculateInfo();
   updateHP();
   updateCombatType();
   document.getElementById('healMethod').innerHTML = 'None, please select one first';
-  inCombat = true;
-  healHP = 0;
 }
 
 function updateHP(){
@@ -54,9 +50,6 @@ function equipWeaponDrop(ev){
     for(var i=0; i<player.inventory.length;i++){
       //check that the item is a weapon
       if(player.inventory[i].item.itemType === "Weapon" && player.inventory[i].item.itemName == itemName[0]){
-        var slot = document.getElementById('equippedWeaponImg');
-        slot.removeChild(slot.childNodes[0]);
-        slot.appendChild(nodeCopy);//remove child image
         window.equipWeapon(itemName[0]);
         break;
       }
@@ -188,21 +181,13 @@ function updateHitbox(){
 //combat start button press
 function nextRound(){
   //show combat hide overview
-  document.getElementById('overviewBox').classList.add('hideMe');
-  document.getElementById('combatBox').classList.remove('hideMe');
-  document.getElementById('countdownTimer').innerHTML = "10";
-  document.getElementById('countdownTimer').classList.remove('hideMe');
-  document.getElementById('combatInfo-display').classList.remove('hideMe');
+  document.getElementById('turnOptions').classList.remove('hideMe');
+  document.getElementById('turnOverview').classList.add('hideMe');
 
-
-  //setup round timer
-  timer = setInterval('countdownTimer()', 1000);
-  countdown = 10;
 }
 
 function exectuteCombat(){
-  //stop timer
-  clearInterval(timer);
+
   document.getElementById('combatError').classList.add('hideMe');
   if(currentCombat == "Heal" && healHP == 0){
     document.getElementById('combatError').innerHTML = 'No heal method selected!';
@@ -242,18 +227,14 @@ function exectuteCombat(){
      }
 
     updateHP();
-    document.getElementById('turnOptions').classList.add('hideMe');
-    document.getElementById('turnOptions').classList.remove('turnOverview');
-  }
-}
 
-function countdownTimer(){
-  if(countdown <= 0){
-    clearInterval(timer);
-    //exectuteCombat();
-  }
-  else{
-    countdown = countdown-1;
-    document.getElementById('countdownTimer').innerHTML = countdown;
+    document.getElementById('TurndamageDealt').innerHTML = damageDealt;
+    document.getElementById('TurndamageRecieved').innerHTML = damageRecieved;
+
+    document.getElementById('TurnEnemyName').innerHTML = 'Enemy';//placeholder
+    document.getElementById('TurnEnemyName2').innerHTML = 'Enemy';//placeholder
+
+    document.getElementById('turnOptions').classList.add('hideMe');
+    document.getElementById('turnOverview').classList.remove('hideMe');
   }
 }
