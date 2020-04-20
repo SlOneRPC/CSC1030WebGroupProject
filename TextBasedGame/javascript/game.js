@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
 
-=======
-var player = createPlayerObject("Luke", 100, "SpaceCowboy", "", [],createWeaponObject(0,0,0,0,0,0,0,0), createStatObject(0, 0, 0, 0), 0, 0,false);
->>>>>>> 12bee1503bcf92c5f632e222995f868ea6a66460
+var player = createPlayerObject("Luke", 100, "SpaceCowboy", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
 var footstepSounds = [];
 //var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
@@ -88,11 +84,9 @@ function gameStart()
      if(item.roomName == "computer lab")
      {
        newCurrent = item;
-<<<<<<< HEAD
-       document.getElementById("text-display").innerHTML +="You push your glasses up your nose and sigh to yourself. You've finally finished fixing the bug that caused some of the ships doors to seal shut for no reason at all. Satisfied, you stand up from your chair and stretch your legs, Looking at your monitor, you see it start to vibrate, then jump around and fall off your desk. Suddenly, the entire room vibrates and jumps about the same, throwing you to the floor. You quickly get to your feet, wondering what the engineer of the ship has done this time."
-=======
+
        document.getElementById("starterText").innerHTML +="<span = class = 'textAnimStart'>>You push your glasses up your nose and sigh to yourself. You finally finished </br> fixing the bug that caused some of the ships doors to seal shut for no reason at all.</br></br></span><span = class = 'textAnimStart2'>>Satisfied, you stand up from your chair and stretch your legs. Looking at your monitor, you see it start to vibrate, then jump around and fall off your desk.</br></br></span><span class = 'textAnimStart3'>>Suddenly, the entire room vibrates and jumps about the same, throwing you to the </br>floor. You quickly get to your feet, wondering what the engineer of the ship has</br>done this time."
->>>>>>> 12bee1503bcf92c5f632e222995f868ea6a66460
+
        item.roomDiscovered = true;
      }
    });
@@ -115,11 +109,8 @@ function gameStart()
      rooms.forEach((item, i) => {
      if(item.roomName == "armory")
      {
-<<<<<<< HEAD
-       document.getElementById("text-display").innerHTML +="Beautiful. The glisten of the barrel catches your eye again as you finish polishing off your trusty blaster for the fourth time in the last hour. This fine machine of destruction has gotten you off the hook too many times to count and should keep you going for a while yet. Adjusting the brim of your cap, you finish off putting together your trusty blaster. While you, admire your cleaning work, a violent shudder throws you to the floor You quickly hop to your feet from where you were sitting, keeping your wits right by your side as you wonder 'what the hell is going on?'."
-=======
        document.getElementById("starterText").innerHTML +="<span  class = 'textAnimStart'>>Beautiful. The glisten of the barrel catches your eye again as you finish polishing off</br>your trusty blaster for the fourth time in the last hour.</br></span></br><span = class = 'textAnimStart2'>>This fine machine of destruction has gotten you off the hook too many times to count</br>and should keep you going for a while yet. Adjusting the brim of your cap, you finish off</br>putting together your trusty blaster. <span = class = 'textAnimStart3'></br></br>>While you admire your cleaning work, a violent shudder throws you to the floor You quickly hop to your feet from where you were sitting, keeping your wits right by your</br>side as you wonder 'what the hell is going on?'.</span>"
->>>>>>> 12bee1503bcf92c5f632e222995f868ea6a66460
+
        newCurrent = item;
        item.roomDiscovered = true;
      }
