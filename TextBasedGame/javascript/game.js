@@ -2329,25 +2329,63 @@ function getDetailsOfItem(imgPath)
         document.getElementById('hoverInfo').innerHTML = item.item.itemDescription;
         found = true;
       }
-    });
-    return found;
+  });
+  if(!found){
+    for(var i=0; i<player.inventory.length;i++){
+      if(imgPath.includes(player.inventory[i].item.itemFilePath)){
+        document.getElementById('hoverInfo').innerHTML = player.inventory[i].item.itemDescription;
+        found = true;
+      }
+    }
+  }
+  return found;
 }
 
-function showEquip(id){
-  var itemName = id.split('_');
+var previous;
+function showEquip(thisElement){
+  var itemName = thisElement.id.split('_');
+  var parent = thisElement.parentNode;
+  selectedItem = itemName[0];
   if(checkInventoryType(itemName[0],"Weapon"))
   {
     document.getElementById('equipBtn').classList.remove('hideMe');
-    selectedItem = itemName[0];
+    if(player.equippedWeapon.item.itemName == itemName[0]){
+      document.getElementById('equipBtn').innerHTML = 'unequip';
+    }
+    else{
+      document.getElementById('equipBtn').innerHTML = 'equip';
+    }
+  }
+  else if(checkInventoryType(itemName[0],"Gadget")){
+    document.getElementById('equipBtn').classList.remove('hideMe');
+    document.getElementById('equipBtn').innerHTML = 'use';
   }
   else{
     document.getElementById('equipBtn').classList.add('hideMe');
   }
+
+  if(previous != null){
+    previous.style.backgroundColor = '#272727';
+  }
+  parent.style.backgroundColor = 'red';
+  previous = parent;
 }
 
-function equipSelected(){
-  equipWeapon(selectedItem);
-  document.getElementById('equipBtn').classList.add('hideMe');
+function useSelected(){
+  if(checkInventoryType(selectedItem,"Weapon")){
+    if(player.equippedWeapon.item.itemName == selectedItem){
+      unequipWeapon(selectedItem);
+      document.getElementById('equipBtn').innerHTML = 'equip';
+    }
+    else{
+      equipWeapon(selectedItem);
+      document.getElementById('equipBtn').innerHTML = 'unequip';
+    }
+  }
+  else if(checkInventoryType(selectedItem,"Gadget")){
+    useItem(selectedItem);
+  }
+
 }
 
 
@@ -2362,7 +2400,7 @@ function vicinity(playerRoom)
     {
       //add inventory item to vicinity
       var name = item.item.itemName + "_img";
-      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this.id);' id="+ name+">";
+      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this);' id="+ name+">";
       tableIndex++;
     }
     else{
