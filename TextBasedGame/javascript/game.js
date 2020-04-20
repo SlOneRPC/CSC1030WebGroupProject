@@ -1,5 +1,5 @@
 
-var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "It's clobbering time","images/fists.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
+var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "It's clobbering time","images/fist.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
 var robotBoolean = false;
 var rooms = [];
 var footstepSounds = [];
@@ -15,6 +15,11 @@ var footstep5;
 var footstep6;
 var footstep7;
 var footstep8;
+var volume=0.0;
+var sounds=[];
+
+
+
 
 function statUpdate(){
   // enemies killed - once player returns from combat, +1 to killed value
@@ -60,9 +65,36 @@ function populateFootstepArray()
   footstepSounds.push(footstep7);
   footstepSounds.push(footstep8);
 }
+function changeVolume(){
+  sounds=[];
+  footstepSounds=[];
+  populateFootstepArray();
+  populateSoundArray();
+}
+function populateSoundArray(){
+  pickUpItemSound = new sound("sounds/pickUpItem.mp3");
+  pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
+  sounds.push(footstep1);
+  sounds.push(footstep2);
+  sounds.push(footstep3);
+  sounds.push(footstep4);
+  sounds.push(footstep5);
+  sounds.push(footstep6);
+  sounds.push(footstep7);
+  sounds.push(footstep8);
+  sounds.push(pickUpItemSound);
+  sounds.push(pickUpAmmoSound);
 
+}
 function gameStart()
 {
+  const slider = document.getElementById("volumeControl")
+  slider.oninput=(e) =>{
+     const newVolume=e.target.value;
+     volume=newVolume;
+     changeVolume();
+
+  };
  //method will decide and pick between starter rooms based on class
  //player.username = sessionStorage.getItem("name");
  //player.charClass = sessionStorage.getItem("class");
@@ -71,14 +103,12 @@ function gameStart()
  document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
  var width = document.getElementById('playerHealth').offsetWidth;
  document.getElementById("healthBar").style.width= player.health + '%';
- document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
+ document.getElementById("currentWeapon").innerHTML="Equipped Weapon: Fist";
+ document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
  document.getElementById("currentWeaponMag").innerHTML="0/0";
  document.getElementById("playerNameStat").innerHTML="Name: "+player.username;
  document.getElementById("playerClassStat").innerHTML="Occupation: "+player.charClass;
  document.getElementById("healthStat").innerHTML = "Health: "+ player.health +"%";
- pickUpItemSound = new sound("sounds/pickUpItem.mp3");
- pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
-
  var newCurrent = createRoomObject(0,0,0,0,0,0,0,0,0);
  if (player.charClass == "Hacker")
  {
@@ -122,32 +152,28 @@ function gameStart()
  document.getElementById("gameMap").src="images/"+player.currentRoom.mapFilePath;
  document.getElementById("text-display").innerHTML +="<span id = 'userTextRight'>>You find yourself in the "+player.currentRoom.roomName+". </span>";
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
+ populateSoundArray();
 }
-
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, equippedWeaponValue, statsValue, attackValue, defenseValue)
 {
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue,equippedWeapon:equippedWeaponValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
 }
-
 function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeatedValue, timeLeftValue)
 {
   var statsObject = {areasExplored:areasExploredValue, itemsCollected:itemsCollectedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
   return statsObject;
 }
-
 function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue,mapFilePathValue)
 {
   var roomObject = {roomName:roomNameValue, type:typeValue, roomDescriptions:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue,mapFilePath:mapFilePathValue};
   return roomObject;
 }
-
 function createExitObject(exitRoomNameValue, orientationValue,descriptionValue,blockedValue,blockedDescriptionValue)
 {
   var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue, description:descriptionValue, blocked:blockedValue,blockedDescription:blockedDescriptionValue};
   return exitObject;
 }
-
 function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue, itemFilePathValue)
 {
   var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue, itemFilePath:itemFilePathValue};
@@ -654,7 +680,7 @@ function addRooms()
       createExitObject("hallway01", "south", "You head south down the hallway.",false,"")
     ],
     [//Items in the current room
-    ]
+    ],
     [  createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull has collapsed, leaving the other side of the hallway open to space. This must have been where the explosion happened.","no")
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
@@ -1083,14 +1109,14 @@ function addRooms()
   rooms.forEach((item, i) => {
      if(item.roomName === "computer lab")
      {
-       item.interactables.push(createTerminalObject("terminal", "A terminal flickers in the corner of the computer lab with the words 'password required' on the screen", "", ""));
+       item.interactables.push(createTerminalObject("terminal", "A terminal flickers in the corner of the computer lab with the words 'insert password required' on the screen (try insert password + the password if you find it)", "", ""));
      }
   });
 
 
 }
-
-function askPlayer(){
+function askPlayer()
+{
   var text1="The ship is your oyster what would you like to do " + player.username + "?";
   var text2="The floor is yours what would you like to do " + player.username + "?";
   var text3="What now " + player.username + "?";
@@ -1108,7 +1134,6 @@ function askPlayer(){
   document.getElementById("text-display").innerHTML += "</br><span id='userTextGame'>>"+randomTextToPlayer[randomNum]+"</span>";
 
 }
-
 function updateObjectives()
 {
   if(rooms[getRoomPos("hangar bay")].roomDiscovered==true && player.currentRoom.roomName=="hangar bay"&& document.getElementById("escapeObj")==null){
@@ -1127,7 +1152,6 @@ function updateObjectives()
         document.getElementById("text-display").innerHTML+="</br><span id = 'userTextObjective'>+++New Objective+++";
   }
 }
-
 function getRoomTextDesc(currentRoom,entry)
 {
   var roomDesc="";
@@ -1140,7 +1164,6 @@ function getRoomTextDesc(currentRoom,entry)
   }
   return roomDesc;
 }
-
 function displayAllEnemies()
 {
   if(player.currentRoom.enemies.length > 0)
@@ -1151,7 +1174,6 @@ function displayAllEnemies()
 
   }
 }
-
 function outputCurrentRoomDesc()
 {
   directionColourResetBlue();
@@ -1185,7 +1207,6 @@ function outputCurrentRoomDesc()
   askPlayer();
   scrollBarAnchor();
 }
-
 function outputSmallEnemyDescriptions()
 {
   var smallEnemyDescriptions = ["You can hear something scuttling along the hallway", "Small sinister screeches bounce off the walls simply piercing your ears", "You feel another presence in the area"]
@@ -1202,7 +1223,6 @@ function outputSmallEnemyDescriptions()
   //, if you're not bleeding it definitely hasn't detected you yet
 
 }
-
 function outputBigEnemyDescriptions()
 {
   var bigEnemyDescriptions = ["You hear the heavy breath of something somewhere within the vicinity", "You hear the rambling of intelligent noises that you are certain you have never heard before", "As you enter the hallway you can see a large creature moping against a box"];
@@ -1216,7 +1236,6 @@ function outputBigEnemyDescriptions()
     //document.getElementById("text-display").innerHTML += "</br><span>>"+pickedNumber+"</span>"; - use for debugging
   document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>" + bigEnemyDescriptions[pickedNumber]+"</span>";
 }
-
 function enemyAwarenessDescription(typeArray)
 {
   if(typeArray.length == 1)
@@ -1231,7 +1250,6 @@ function enemyAwarenessDescription(typeArray)
     }
   }
 }
-
 function enemyDetection()
 {
   var typeArray = [];
@@ -1247,7 +1265,6 @@ function enemyDetection()
   });
   enemyAwarenessDescription(typeArray);
 }
-
 function enemyDetectionRoll(reRollFlag)
 {
   var roll = randomNumber(100);
@@ -1259,6 +1276,7 @@ function enemyDetectionRoll(reRollFlag)
       document.getElementById("text-display").innerHTML += "</br>> Enemy has spotted you";
       document.getElementById("text-display").innerHTML += "</br>> It rolled: " + roll;
       //call method to beign combat system
+      window.combatSetupV2();
     }
     else
     {
@@ -1285,7 +1303,6 @@ function enemyDetectionRoll(reRollFlag)
   });
   document.getElementById("text-display").innerHTML += "</br>>" + roll;
 }
-
 function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
@@ -1326,7 +1343,6 @@ function outputCurrentRoomExits()
   document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
   scrollBarAnchor();
 }
-
 function scanning(availableDirections)
 {
   if(availableDirections.includes("east"))
@@ -1347,9 +1363,6 @@ function scanning(availableDirections)
   }
   directionEnemyCaution(availableDirections);
 }
-//green "background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px); color: #27910E"
-//red "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313"
-
 function directionBlocked(availableDirections)
 {
   player.currentRoom.exits.forEach((item, i) =>
@@ -1363,9 +1376,6 @@ function directionBlocked(availableDirections)
     }
   });
 }
-
-
-
 function directionEnemyCaution(availableDirections)
 {
   player.currentRoom.exits.forEach((item, i) =>
@@ -1386,7 +1396,6 @@ function directionEnemyCaution(availableDirections)
   });
   directionBlocked(availableDirections);
 }
-
 function roomDetectionCalculator(room)
 {
   var highestChance = 0;
@@ -1399,7 +1408,6 @@ function roomDetectionCalculator(room)
   });
   return highestChance;
 }
-
 function directionColourResetBlue()
 {
   document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
@@ -1407,7 +1415,6 @@ function directionColourResetBlue()
   document.getElementById("south").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
   document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#041114,#041114 10px,#09252B 10px,#09252B 20px); #2EA6BF";
 }
-
 function directionColourAllRed()
 {
   document.getElementById("north").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
@@ -1416,7 +1423,6 @@ function directionColourAllRed()
   document.getElementById("west").style = "background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px); color: #C71313";
 
 }
-
 function commandInput()
 {
   var rawInput = document.getElementById("gameInput").value.trim();
@@ -1433,7 +1439,6 @@ function commandInput()
   var elem = document.getElementById('text-display');
   elem.scrollTop = elem.scrollHeight;
 }
-
 function processCommands(input)
 {
   var words = input.split(" ");
@@ -1536,6 +1541,10 @@ function processCommands(input)
   {
     read(words);
   }
+  else if(words.includes("insert"))
+  {
+    insert(words);
+  }
   else if(customCommandInput(words.toString().replace(/,/g," "))!=null)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
@@ -1550,6 +1559,58 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>I don't know this command: '" +input+"'</span>";
   }
   scrollBarAnchor();
+}
+
+
+function insert(words)
+{
+  var consoleBoolean = false;
+  var terminalBoolean = false;
+  var consoleInteractable;
+  var terminalInteractable;
+  player.currentRoom.interactables.forEach((interactable, i) => {
+    if(interactable.interactableName === "console")
+    {
+      consoleBoolean = true;
+      consoleInteractable = interactable;
+    }
+    else if (interactable.interactableName === "terminal")
+    {
+      terminalBoolean = true;
+      terminalInteractable = interactable;
+    }
+  });
+  if(consoleBoolean === true)
+  {
+    if(words.includes("datacard") || words.includes("data card"))
+    {
+      processCustomCommand(consoleInteractable);
+    }
+  }
+  else if (terminalBoolean === true)
+  {
+    if(words.includes("password"))
+    {
+      passwordMatch(words, terminalInteractable);
+    }
+  }
+  else if(terminalBoolean === false || consoleBoolean === false)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You can't use this command here</span>";
+  }
+}
+
+function passwordMatch(words, interactable)
+{
+  if(words.includes(interactable.password))
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>As you complete the password a large container lights up as robot steps out of it whirring the phrase 'assisting for combat... ready'</span>";
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>That is the incorrect pasword beeps the terminal</span>";
+  }
+
 }
 
 function read(words)
@@ -1593,6 +1654,7 @@ function read(words)
   }
 
 }
+
 
 
 function sneakAttackEnemy(words)
@@ -1639,8 +1701,6 @@ function sneakAttackEnemy(words)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>There are no enemies in this room to sneak attack'</span>";
   }
 }
-
-
 function attack()
 {
   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You successfully hit the enemy</span>";
@@ -1673,6 +1733,7 @@ function attack()
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enemy health left: "+player.currentRoom.enemies[0].health+ "</span>";
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enter Combat</span>";
+        window.combatSetupV2();
       }
     }
   }
@@ -1690,15 +1751,16 @@ function attack()
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You smack the enemy with your fists, for some reason? doing little damage and alerting the enemy</span>";
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enemy health left: "+player.currentRoom.enemies[0].health+ "</span>";
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enter Combat</span>";
+      window.combatSetupV2();
     }
   }
   scrollBarAnchor();
 }
-
-function dropItem(itemName){
+function dropItem(itemName)
+{
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
-      createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png")
+      createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png")
       player.equippedWeapon=fists;
     }
     item=player.inventory[getItemPosFromInventory(itemName)];
@@ -1710,7 +1772,6 @@ function dropItem(itemName){
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that item in your inventory!</span>";
   }
 }
-
 function removeItem(itemName)
 {
   for(var i=0;i<player.inventory.length; i ++)
@@ -1721,7 +1782,6 @@ function removeItem(itemName)
     }
   }
 }
-
 function removeItemFromInventory(item)
 {
   var elements = document.querySelectorAll("#inventory td");
@@ -1740,7 +1800,6 @@ function removeItemFromInventory(item)
   }
   vicinity(player.currentRoom);
 }
-
 function reload()
 {
     var ammoCount =  document.getElementById("energyCellCount").innerHTML;
@@ -1774,7 +1833,6 @@ function reload()
       document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>> You dont have any energy cells to reload!"
     }
 }
-
 function equipWeapon(weaponName)
 {
   if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
@@ -1784,6 +1842,10 @@ function equipWeapon(weaponName)
       document.getElementById("currentWeapon").innerHTML="Equipped Weapon: "+weaponName;
       document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
       document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
+
+      if(window.inCombat){
+        window.checkEquippedWeaponStatus();
+      }
     }
     else{
       document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You haven't picked up that weapon!</span>";
@@ -1793,7 +1855,6 @@ function equipWeapon(weaponName)
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You can't equip that!</span>";
   }
 }
-
 function unequipWeapon()
 {
   // if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
@@ -1806,7 +1867,7 @@ function unequipWeapon()
   if(player.equippedWeapon.item.itemName !== "fist")
   {
     document.getElementById("text-display").innerHTML +="</br><span id= 'userTextRight'>>You unequip your "+ player.equippedWeapon.item.itemName + "</span>";
-    player.equippedWeapon = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png");
+    player.equippedWeapon = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png");
     document.getElementById("currentWeapon").innerHTML="Equipped Weapon: "+player.equippedWeapon.item.itemName;
     document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
     document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
@@ -1819,7 +1880,6 @@ function unequipWeapon()
   }
   scrollBarAnchor();
 }
-
 function getItemPosFromInventory(itemName)
 {
   for(var i=0; i<player.inventory.length;i++){
@@ -1829,7 +1889,6 @@ function getItemPosFromInventory(itemName)
     }
   }
 }
-
 function getRoomPos(roomName)
 {
   for(var i=0; i<rooms.length;i++){
@@ -1839,7 +1898,6 @@ function getRoomPos(roomName)
     }
   }
 }
-
 function removeInteractable(interactableName,room)
 {
   for(var i=0; i< room.interactables.length;i++){
@@ -1849,7 +1907,6 @@ function removeInteractable(interactableName,room)
     }
   }
 }
-
 function processCustomCommand(interactable)
 {
   //insert data card typed
@@ -1861,7 +1918,7 @@ function processCustomCommand(interactable)
       removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
       removeInteractable("console",player.currentRoom);
-      document.getElementById("powerObj").style.display="none";
+      //document.getElementById("powerObj").style.display="none";
       player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
       player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
       document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
@@ -1889,7 +1946,6 @@ function processCustomCommand(interactable)
     }
   }
 }
-
 function clearExit(blockedPath,room)
 {
       for(var j = 0; j < room.exits.length; j++)
@@ -1900,7 +1956,6 @@ function clearExit(blockedPath,room)
         }
       }
 }
-
 function customCommandInput(words)
 {
   var stop = false;
@@ -1920,7 +1975,6 @@ function customCommandInput(words)
     //return null;
   }
 }
-
 function removeBlockage(blockedPath)
 {
   var availableDirections = [];
@@ -1945,8 +1999,8 @@ function removeBlockage(blockedPath)
   scanning(availableDirections);
   scrollBarAnchor();
 }
-
-function checkInventory(item){
+function checkInventory(item)
+{
   for(var i=0; i<player.inventory.length;i++){
     //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
     if(player.inventory[i].item.itemName === item){
@@ -2102,7 +2156,6 @@ function useItem(words)
   }
   scrollBarAnchor();
 }
-
 function examineInteractables(roomInteractables, words)
 {
   if(roomInteractables >= 1)
@@ -2129,7 +2182,6 @@ function examineInteractables(roomInteractables, words)
   }
   scrollBarAnchor();
 }
-
 function pickUpItems(playerRoom,words,dragged)
 {
       playerRoom.roomItems.forEach((item, i) => {
@@ -2220,7 +2272,6 @@ function pickUpItems(playerRoom,words,dragged)
       vicinity(playerRoom);
     });
 }
-
 function search(playerRoom)
 {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
@@ -2271,7 +2322,6 @@ function search(playerRoom)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
   scrollBarAnchor();
 }
-
 function getDetailsOfItem(imgPath)
 {
   var found = false;
@@ -2280,24 +2330,65 @@ function getDetailsOfItem(imgPath)
         document.getElementById('hoverInfo').innerHTML = item.item.itemDescription;
         found = true;
       }
-    });
-    return found;
+  });
+  if(!found){
+    for(var i=0; i<player.inventory.length;i++){
+      if(imgPath.includes(player.inventory[i].item.itemFilePath)){
+        document.getElementById('hoverInfo').innerHTML = player.inventory[i].item.itemDescription;
+        found = true;
+      }
+    }
+  }
+  return found;
 }
 
-function showEquip(id){
-  var itemName = id.split('_');
-  if(checkInventoryType(itemName[0],"Weapon")){
+var previous;
+function showEquip(thisElement){
+  var itemName = thisElement.id.split('_');
+  var parent = thisElement.parentNode;
+  selectedItem = itemName[0];
+  if(checkInventoryType(itemName[0],"Weapon"))
+  {
     document.getElementById('equipBtn').classList.remove('hideMe');
-    selectedItem = itemName[0];
+    if(player.equippedWeapon.item.itemName == itemName[0]){
+      document.getElementById('equipBtn').innerHTML = 'unequip';
+    }
+    else{
+      document.getElementById('equipBtn').innerHTML = 'equip';
+    }
+  }
+  else if(checkInventoryType(itemName[0],"Gadget")){
+    document.getElementById('equipBtn').classList.remove('hideMe');
+    document.getElementById('equipBtn').innerHTML = 'use';
   }
   else{
     document.getElementById('equipBtn').classList.add('hideMe');
   }
+
+  if(previous != null){
+    previous.style.backgroundColor = '#272727';
+  }
+  parent.style.backgroundColor = 'red';
+  previous = parent;
 }
 
-function equipSelected(){
-  equipWeapon(selectedItem);
+function useSelected(){
+  if(checkInventoryType(selectedItem,"Weapon")){
+    if(player.equippedWeapon.item.itemName == selectedItem){
+      unequipWeapon(selectedItem);
+      document.getElementById('equipBtn').innerHTML = 'equip';
+    }
+    else{
+      equipWeapon(selectedItem);
+      document.getElementById('equipBtn').innerHTML = 'unequip';
+    }
+  }
+  else if(checkInventoryType(selectedItem,"Gadget")){
+    useItem(selectedItem);
+  }
+
 }
+
 
 function vicinity(playerRoom)
 {
@@ -2310,7 +2401,7 @@ function vicinity(playerRoom)
     {
       //add inventory item to vicinity
       var name = item.item.itemName + "_img";
-      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this.id);' id="+ name+">";
+      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this);' id="+ name+">";
       tableIndex++;
     }
     else{
@@ -2318,15 +2409,14 @@ function vicinity(playerRoom)
   });
   clearVicinity(tableIndex);
 }
-
-function clearVicinity(startIndex){
+function clearVicinity(startIndex)
+{
   var elements = document.querySelectorAll("#other1 td");
   //clear all other inventory items
   for (var i = startIndex; i < 4; i++) {
     elements[i].innerHTML = '';
   }
 }
-
 function move(words)
 {
   var direction = "";
@@ -2365,7 +2455,6 @@ function move(words)
   }
   scrollBarAnchor();
 }
-
 function goDirection(direction)
 {
   var exitExistsFlag = 0;
@@ -2432,7 +2521,6 @@ function returnNewRoom(roomExit)
   });
   return newRoom;
 }
-
 function charHealth()
 {
   var className = document.getElementById("charClass");
@@ -2445,7 +2533,6 @@ function charHealth()
     return 120;
   }
 }
-
 function charStart()
 {
   if (document.getElementById("Hacker").checked)
@@ -2461,7 +2548,6 @@ function charStart()
     return document.getElementById("SpaceCowboy").value;
   }
 }
-
 function addItemToInventory(item)
 {
 
@@ -2475,14 +2561,12 @@ function addItemToInventory(item)
     }
     vicinity(player.currentRoom);
 }
-
 function nameOutput()
 {
   var nameInput = document.getElementById("name").value;
   var classSelect = charStart();
   alert(nameInput + " " + classSelect);
 }
-
 function changeTextDescription()
 {
   var desc = "";
@@ -2500,17 +2584,14 @@ function changeTextDescription()
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
 }
-
 function randomNumber(range)
 {
   return Math.round(Math.random() * range) + 1;
 }
-
 function randomNumberForArray(range)
 {
   return Math.floor(Math.random() * range);
 }
-
 function randomPlaceHolderText()
 {
   var number = randomNumber(5);
@@ -2536,13 +2617,16 @@ function randomPlaceHolderText()
     document.getElementById("gameInput").placeholder = "Dont mess yourself up some";
   }
 }
-
-function sound(src) {
+function sound(src)
+{
   this.sound = document.createElement("audio");
   this.sound.src = src;
+
   this.sound.setAttribute("preload", "auto");
   this.sound.setAttribute("controls", "none");
   this.sound.style.display = "none";
+  console.log(volume);
+  this.sound.volume= volume;
   document.body.appendChild(this.sound);
   this.play = function(){
     this.sound.play();
@@ -2551,7 +2635,6 @@ function sound(src) {
     this.sound.pause();
   }
 }
-
 function scrollBarAnchor()
 {
   var elem = document.getElementById('text-display');
