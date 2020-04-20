@@ -4,7 +4,7 @@
 {
   width: 95%;
   height: 80%;
-  padding: 3%;
+  padding: 2%;
   padding-top: 1%;
   margin: auto;
   /* border: 2px solid #2b2828; */
@@ -31,6 +31,10 @@
   /* transform: skewY(3deg); */
 }
 
+#playerInventory table{
+
+}
+
 #playerInventory td{
   width: 200px;
   height: 100px;
@@ -47,42 +51,33 @@
   border-radius: 5px;
 }
 
+#playerInventory tr{
+  width: 100%;
+  height: 50%;
+  border: 1px solid white;
+  background-color: #262626;
+}
+
 #pauseContainer{
   position: fixed;
-  width: 30%;
+  width: 500px;
   height: 300px;
-  top: 35%;
+  top: 50%;
   left: 50%;
   margin-top: -150px; /* Negative half of height. */
   margin-left: -250px; /* Negative half of width. */
+
+  background: grey;
+  border: 4px solid white;
   text-align: center;
+  border-radius: 40%;
   color: red;
   font-weight: bold;
 }
-.clickableImage
-{
-  cursor: pointer;
-}
+
 #pausebtn{
-  width: 20%;
-  background: url(images/Play Button.gif);
-}
-
-#startingContainer{
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  margin: 2%;
-  color: white;
-  background: black;
-  text-align: left;
-  font-size: 2.7vw;
-  font-family: 'Rajdhani', sans-serif;
-}
-
-#starterText
-{
-
+  width: 150px;
+  height: 90px;
 }
 
 .disabledbutton {
@@ -92,7 +87,7 @@
 
 #userInput
 {
-    width: 33%;
+    width: 36%;
     float: left;
     max-width: 80%;
     height: 80%;
@@ -100,7 +95,6 @@
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
-    border-top-left-radius: 25px;
     box-shadow: 0 0 10px 2px #4edaf9;
     background-color: #111010;
 }
@@ -119,13 +113,11 @@
 {
   display: block;
   overflow: hidden;
-  width: 31%;
+  width: 33%;
   height: 33%;
   float: left;
   padding-top: 5%;
   padding-bottom: 5%;
-  padding-left: 1%;
-  padding-right: 1%;
 }
 
 #imageLeft
@@ -155,7 +147,7 @@
   /* border-bottom-left-radius: 25px;
   /*border-bottom-right-radius: 25px;*/
   /*border-top-right-radius: 25px; */
-  font-size: 1.2vw;
+  font-size: 1.35em;
   /* font-size: 1.5em; */
    color: #2EA6BF;
   /*font-family: 'Rajdhani', sans-serif; */
@@ -165,6 +157,7 @@
   /* font-weight: bolder; */
   cursor: pointer;
   outline: none;
+
   background: repeating-linear-gradient(
     180deg,
     #041114,
@@ -201,7 +194,7 @@
   width: 90%;
   height: 50px;
   border-radius: 25px;
-  font-size: 1.3vw;
+  font-size: 1.5em;
   /* color: #C14CD6; */
   font-family: 'Rajdhani', sans-serif;
   border: 2px solid black;
@@ -225,19 +218,21 @@
       );
 }
 
-.mapButtons
+.profileButtons
 {
   width: 90%;
-  height: 35px;
+  height: 50px;
   border-radius: 25px;
-  font-size: 1.1vw;
+  font-size: 1.1em;
   /* color: #C14CD6; */
   font-family: 'Rajdhani', sans-serif;
   border: 2px solid black;
   font-weight: bolder;
   cursor: pointer;
   outline: none;
-  color: #8B2BE4;
+  /* color: #2EA6BF; */
+  color: #27910E;
+
   /* background: repeating-linear-gradient(
     180deg,
     #25082A,
@@ -245,15 +240,21 @@
     #44174C 10px,
     #44174C 20px
     ); */
-    background: repeating-linear-gradient(
-      135deg,
-      #110120,
-      #110120 20px,
-      #20013D 20px,
-      #20013D 40px
-      );
+    /* background: repeating-linear-gradient(
+      180deg,
+      #041114,
+      #041114 10px,
+      #09252B 10px,
+      #09252B 20px
+      ); */
+      background: repeating-linear-gradient(
+        180deg,
+        #082316,
+        #082316 10px,
+        #05170E 10px,
+        #05170E 20px
+        );
 }
-
 
 #compass
 {
@@ -282,70 +283,32 @@
 
 #playerContainer{
   overflow:auto;
-  width:31%;
+  width:33%;
   float:left;
   height:760px;
-  background-color: #111010;
-  /* background: #0A1C24; */
-  /* background: repeating-linear-gradient(
+  /* background-color: #0A1C24; */
+  /* background: #09252B; */
+  background: repeating-linear-gradient(
     45deg,
-    #031A1F,
-    #031A1F 500px,
-    #010E11 500px,
-    #010E11 1000px
-    ); */
+    #041114,
+    #041114 500px,
+    #09252B 500px,
+    #09252B 1000px
+    );
+  padding: 8px;
   border: 2px solid black;
-  margin-right:2%;
+  margin-left:3%;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   border-top-right-radius: 25px;
-  box-shadow: 0px 0px 10px 2px #7C0000;
-  /* #4edaf9 */
+  box-shadow: 0px 0px 10px 2px #4edaf9;
   display: block;
-}
-
-#mapContainer{
-  overflow:auto;
-  width:32%;
-  float:left;
-  height:750px;
-  /* background-color: #0A1C24; */
-  /* background: repeating-linear-gradient(
-    45deg,
-    #041114,
-    #041114 30px,
-    #09252B 30px,
-    #09252B 60px
-    ); */
-    background-color: #111010;
-  border: 2px solid black;
-  margin-left: 2%;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  border-top-left-radius: 25px;
-  box-shadow: 0px 0px 10px 2px #8B2BE4;
-  display: block;
-  /* margin-top: 2%;  */
-  float:left;
-  font-weight: bolder;
-  font-family: 'Rajdhani', sans-serif;
-  color: #4edaf9;
 }
 
 #statsContainer{
   overflow: hidden;
   /* margin-top: 2%;  */
-  width: 100%;
-  float:left;
-  font-weight: bolder;
-  font-family: 'Rajdhani', sans-serif;
-  color: #4edaf9;
-}
-
-#rightBlockContainer{
-  overflow: hidden;
-  /* margin-top: 2%;  */
-  height: 750px;
+  height: 400px;
   width: 100%;
   float:left;
   font-weight: bolder;
@@ -354,33 +317,20 @@
 }
 
 #currentRoomDisplay{
-  /* border-bottom:2px solid #4edaf9; */
+  border-bottom:2px solid #4edaf9;
   font-size: 1.7em;
   margin: auto;
   margin-top: 5%;
-  margin-bottom: 1%;
 }
 
 #mapHeader{
   margin:auto;
-  margin-bottom: 5%;
-  width: 100%;
   overflow:auto;
   clear: both;
   /*border: 1px solid white;*/
   /* padding:0.2%; */
   text-align: center;
   font-size: 1.1vw;
-  border-top-right-radius: 25px;
-  border-top-left-radius: 25px;
-  background: repeating-linear-gradient(
-    45deg,
-    #1B1A1A,
-    #1B1A1A 10px,
-    #0F0F0F 10px,
-    #0F0F0F 20px
-    );
-    /* border-bottom:2px solid darkgrey; */
 }
 
 #objectives{
@@ -393,9 +343,10 @@
 
 #hints{
   clear: both;
+  margin:auto;
   overflow:auto;
+  height:60%;
   text-align: center;
-  height: 56%;
 }
 
 #map
@@ -405,24 +356,15 @@
   overflow:auto;
   height: auto;
   text-align: center;
-  margin-bottom: 5%;
-  border-radius: 25px;
-  margin: 3%;
-  background: repeating-linear-gradient(
-    45deg,
-    #041114,
-    #041114 5px,
-    #082025 5px,
-    #082025 10px
-    );
 }
 
 #timerStat{
   overflow: auto;
-  padding:1%;
+  height:30%;
+  padding:10px;
   margin:auto;
-  /* border: 2px solid white; */
-  /* background-color: black; */
+  border: 2px solid white;
+  background-color: black;
 
 
 }
@@ -437,20 +379,18 @@
 
 #buttonStat{
   overflow: auto;
-  /* border: 1px solid grey;
-  background-color: #261f1f; */
-  margin: auto;
-  margin-left: 1%;
-  padding: 2%;
+  height:15%;
+  border: 1px solid grey;
+  background-color: #261f1f;
 }
 
 #ShowMap{
-  width:49%;
+  width:33%;
 
 }
 
 #ShowHints{
-  width:49%;
+  width:31%;
 
 }
 
@@ -460,164 +400,93 @@
 }
 
 #objectivesStat{
-  margin-top: 2%;
+  height:15%;
   padding: 10px;
-  border-radius: 25px;
-  /* background: repeating-linear-gradient(
-      45deg,
-      #1B1A1A,
-      #1B1A1A 10px,
-      #0F0F0F 10px,
-      #0F0F0F 20px
-      ); */
+
+}
+
+#playerStatusContainer
+{
+  margin-top: 7%;
+  width: 100%;
+  height: 250px;
+  display: block;
 }
 
 #playerProfile{
   /* border: 1px solid white; */
-  display: block;
-  overflow: hidden;
-  margin: auto;
   width: auto;
+  height: 80px;
   padding-left: 1%;
   padding-right: 5%;
   padding-top: 1%;
-  padding-bottom: 1%;
-  background: repeating-linear-gradient(
-      45deg,
-      #1B1A1A,
-      #1B1A1A 10px,
-      #0F0F0F 10px,
-      #0F0F0F 20px
-      );
-    }
+  padding-bottom: 3%;
+}
 
 #playerCharStat{
   float:left;
   width:20%;
 }
 
-#playerStatusContainer
-{
-  margin-top: 3%;
-  width: 100%;
-  display: block;
-}
-
 #playerInfoStat{
   width:70%;
-  float: left;
+  max-height: 61px;
+  padding-left: 2%;
   font-size: 1.2vw;
 }
 
 #playerNameStat{
+  padding:9px;
+  padding-bottom:5px;
   position: relative;
+  top:1%;
   left:3%;
-  margin:0;
-  text-align:left;
 }
 
 #playerClassStat{
   position: relative;
   left:3%;
-  margin:0;
-  text-align:left;
-}
-
-#weaponFunctions
-{
-  width: 60%;
-  margin: auto;
-  float:left ;
-  text-align:center;
-  padding-left: 12%;
-}
-
-#weaponButtons
-{
-  width: 28%;
-  margin: auto;
-  float:left ;
-  text-align:center;
 }
 
 #playerStatus{
   width:60%;
+  height: 250px;
   float:left;
 }
 
-.curvedRadius
-{
-  border-radius: 10px;
-}
-
-#equippedWeaponImage
-{
-  width:4%;
-  margin: auto;
-}
-#playerWeaponStatus
-{
+#playerWeaponStatus{
   margin:auto;
-  font-size: 1.1vw;
-  text-align: center;
-  display: block;
-  color: #C71A1A;
+ font-size: 1.1vw;
 }
 #currentWeaponMag{
+  position: relative;
+  top:45px;
+  padding-left:14%;
+  width:10%;
   font-size:2vw;
-  float: left;
-  margin: auto;
-  padding: 30%;
 }
-/* #equippedWeaponImg{
+#equippedWeaponImg{
   position: relative;
   left:1%;
   padding-left: 5%;
-} */
+}
 #reloadBtn{
   position: relative;
   bottom:10px;
   left:2%;
 }
 
-#shortBorder
-{
-  border-bottom: 2px solid #C71A1A;
-  width:80%;
-  float: left;
-  margin-left: 10%;
-  margin-right: 10%;
-  height: 4px;
-}
-
-#shortVertical
-{
-  border-right: 2px solid #C71A1A;
-  width:80%;
-  float: left;
-  margin-left: 10%;
-  margin-right: 10%;
-  height: 4px;
-}
-
 #playerHealthStats{
   /* border: 1px solid grey; */
   padding:3%;
   width: 100%;
-  font-size: 1.3vw;
-  margin: auto;
-  padding-bottom: 2%;
-  text-align: center;
-  display: inline-block;
-  color: #C71A1A;
-  /* border-bottom:  #4edaf9 3px solid; */
 }
 
 #playerHealth{
   border: black 3px solid;
   border-radius: 25px;
   height:23px;
-  background-color: #841111;
+  background-color: red;
 }
 
 #healthBar{
@@ -634,40 +503,19 @@
     border-radius: 25px;
 }
 
-.profileButtons
-{
-  width: 90%;
-  height: 50px;
-  border-radius: 25px;
-  font-size: 1.1vw;
-  border: 2px solid black;
-  font-family: 'Orbitron', sans-serif;
-  cursor: pointer;
-  outline: none;
-  color: #27910E;
-      background: repeating-linear-gradient(
-        180deg,
-        #082316,
-        #082316 10px,
-        #05170E 10px,
-        #05170E 20px
-        );
-}
-
 #playerConsumables{
   overflow:auto;
-  width:30%;
+  width:40%;
   float:left;
-
-  margin: auto;
-  margin-top: 2%
-  /* background: repeating-linear-gradient(
+  border: 2px solid #4edaf9;
+  border-radius: 25px;
+  background: repeating-linear-gradient(
     130deg,
     #041114,
     #041114 10px,
     #09252B 10px,
     #09252B 20px
-    ); */
+    );
 }
 
 #playerConsumables p{
@@ -679,35 +527,32 @@
 
 #playerHealthKitStat{
   height:33%;
-  width: 100%;
-  border-top: 2px solid #C71A1A;
-  padding-top: 3%;
-  color: #C71A1A;
+  border-top: 2px solid #4edaf9;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 #playerHealthPackStat{
   height:33%;
   /* border: 1px solid #4edaf9; */
-  border-top: 2px solid #C71A1A;
-  padding-bottom: 3%;
-  padding-top: 3%;
-  color: #C71A1A;
+  border-top: 2px solid #4edaf9;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 #playerEnergyCellsStat{
   height:33%;
-  color: #C71A1A;
-  padding-bottom: 3%;
   /* border: 1px solid #4edaf9; */
   /* border-top: 1px solid #4edaf9; */
-
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 #playerStats{
   clear: both;
   margin:auto;
   overflow:auto;
-  height:450px;
+  height:400px;
   display: block;
 }
 
@@ -719,6 +564,10 @@
   margin-right: 0px;
 }
 
+.curvedRadius
+{
+  border-radius: 10px;
+}
 #textbox{
   clear: both;
   height: 500px;
@@ -734,6 +583,10 @@
 }
 
 
+#hoverContainer
+{
+
+}
 #hoverImg{
   float:left;
   width: 70px;
@@ -748,17 +601,8 @@
 #hoverInfo{
   float:left; margin-left: 5%;
   margin-top: 7%;
-  width: 80%;
-  font-size: 1.0vw;
+  width: 60%;
 }
-
-#hoverDescriptionContainer
-{
-  width: 70%;
-  float: left;
-  margin: 0 auto;
-}
-
 
 #playerInventory td:hover{
   border: 1px solid gold;
@@ -777,8 +621,7 @@
   background-color: #7E7D7D;
   /* border: 2px solid black; */
   border-radius: 25px;
-  text-align: center;
-  margin: 0 auto;
+  text-align: left;
   /* background: repeating-linear-gradient(
     45deg,
     #1B1A1A,
@@ -787,22 +630,18 @@
     #0F0F0F 20px
     ); */
     background: transparent;
-    color: #C71A1A;
+    color: #4edaf9;
     width: 100%;
 }
 
 #inventoryTitle{
   width: 30%;
   float: left;
-  font-size: 2vw;
-  text-align: center;
-  margin-top: 6%;
 }
 
 #inventoryHover{
-  width: 90%;
+  width: 70%;
   float: left;
-  margin: auto;
 }
 
 #textbox input{
@@ -814,7 +653,7 @@
     width: 100%;
     height: 90%;
     overflow: auto;
-    font-size: 1.4vw;
+    font-size: 1.6em;
     font-family: 'Rajdhani', sans-serif;
     border-top-left-radius: 0px;
     border-top-right-radius: 25px;
@@ -846,7 +685,7 @@
   color: red;
 }
 #userTextCaution{
-  color: #A935FF;
+  color: #861BD4;
 }
 #userTextGadget{
   color: lightblue;
@@ -871,10 +710,7 @@
 }
 #userTextRight
 {
-  color: #2DA711;
-}
-#userTextGame{
-  color:#44c966;
+  color: #27910E;
 }
 
 #gameInputButton{
@@ -891,30 +727,9 @@
   cursor:pointer;
 }
 
-#continueButton
-{
-  width: 10%;
-  text-align: center;
-  height: 50px;
-  border-radius: 25px;
-  font-size: 1.1vw;
-  border: 2px solid black;
-  font-family: 'Orbitron', sans-serif;
-  cursor: pointer;
-  outline: none;
-  color: #27910E;
-      background: repeating-linear-gradient(
-        180deg,
-        #082316,
-        #082316 10px,
-        #05170E 10px,
-        #05170E 20px
-        );
-}
-
 .input
 {
-  font-size: 1.2vw;
+  font-size: 1.5em;
   background: repeating-linear-gradient(
     180deg,
     #082316,
@@ -938,69 +753,20 @@
 ::placeholder{
   color: #434443;
 }
-
-.textAnimStart{
-  animation: fadeIn ease 5s both;
--webkit-animation: fadeIn ease 5s both;
--moz-animation: fadeIn ease 5s;
--o-animation: fadeIn ease 5s;
--ms-animation: fadeIn ease 5s;
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
-.textAnimStart2{
-  animation: fadeIn ease 5s both;
-  -webkit-animation: fadeIn ease 5s both;
-  -moz-animation: fadeIn ease 5s;
-  -o-animation: fadeIn ease 5s;
-  -ms-animation: fadeIn ease 5s;
-
-  -webkit-animation-delay: 4s;
-}
-
-.textAnimStart3{
-  animation: fadeIn ease 5s both;
-  -webkit-animation: fadeIn ease 5s both;
-  -moz-animation: fadeIn ease 5s;
-  -o-animation: fadeIn ease 5s;
-  -ms-animation: fadeIn ease 5s;
-
--webkit-animation-delay: 8s;
-}
-
-.compassButtons:hover {
-  box-shadow: 0px 0px 3px 2px #4edaf9;
-
-}
-
-.utilityButtons:hover {
-  box-shadow: 0px 0px 3px 2px #4edaf9;
-
-}
-.profileButtons:hover{
-  box-shadow: 0px 0px 3px 2px #27910E;
-}
-
-.mapButtons:hover {
-  box-shadow: 0px 0px 3px 2px #8B2BE4;
-
-}
-
-@keyframes fadeIn {
+@keyframes fadeInOut {
   0% {
     opacity: 0;
   }
 
   100% {
     opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
   }
 }

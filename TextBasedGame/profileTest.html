@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles/timer.css">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani&display=swap" rel="stylesheet">
+    <style type="text/css">
+      *{
+        box-sizing: border-box;
+      }
+
+      body{
+        background-color: black;
+        color: white;
+      }
+
+      #game-wrapper{
+        // hide this display: none;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 2px grey;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: red;
+        border-radius: 10px;
+      }
+    </style>
+    <script type="text/javascript"></script>
+    <script type="text/javascript" src="javascript/game.js"></script>
+    <script src ="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+      /*Page specific scripts*/
+      $(document).ready(function(){
+        $("#ShowStats").click(function(){
+           $("#map").css("display","none");
+            $("#hints").css("display","none");
+           $("#playerStats").css("display","block");
+        });
+        $("#ShowMap").click(function(){
+           $("#playerStats").css("display","none");
+           $("#hints").css("display","none");
+           $("#map").css("display","block");
+        });
+        $("#ShowHints").click(function(){
+           $("#playerStats").css("display","none");
+           $("#map").css("display","none");
+           $("#hints").css("display","block");
+        });
+
+
+      });
+
+
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+      }
+
+      function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        if(event.target.tagName.toUpperCase() == "TD" && event.target.innerHTML == ''){
+          ev.target.appendChild(document.getElementById(data));
+          pickUpItems(player.currentRoom, data.split("_")[0],true);
+        }
+        else{
+          document.getElementById('text-display').innerHTML += "<br> <span id='userTextWrong'>>Slot is already taken</span>";
+          var elem = document.getElementById('text-display');
+          elem.scrollTop = elem.scrollHeight;
+        }
+      }
+
+      var currentTimeout = false;
+      function displayInfo(ev){
+        if(getDetailsOfItem(ev.src)){
+          currentTimeout = false;
+          var imgElement = document.getElementById('hoverImg');
+          imgElement.src = ev.src;
+          imgElement.style.opacity = '1';
+        }
+      }
+
+      function hideInfo(ev){
+        var src = ev.src;
+        currentTimeout = true;
+        setTimeout(function () { //add a timeout
+          if(document.getElementById('hoverImg').src == src && currentTimeout){
+            //if the hovered item hasnt changed revert back to default state
+            var imgElement = document.getElementById('hoverImg');
+            imgElement.src = ''; imgElement.alt = ''; imgElement.style.opacity = '0.2';
+            document.getElementById('hoverInfo').innerHTML = 'Hover over an item for info here';
+          }
+        }, 900);
+      }
+    </script>
+
+    <script type="text/javascript" src="javascript/combat.js"></script>
+
+    <script type="text/javascript" src="javascript/timer.js"></script>
+    <link rel="stylesheet" href="styles/gameWrapper0.css">
+    <link rel="stylesheet" href="styles/combatWrapper.css">
+  </head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  </body>
+  <div id="wrapper">
+    <div id="container">
+      <div id="playerContainer">
+        <div id="statsContainer">
+          <div id="playerProfile">
+               <div id=playerCharStat>
+                 <img style=" float:left;max-width:100%;max-height:100%;" id="playerImg" src="images/playerIcon.jpg" alt="player image"></img>
+               </div>
+               <div id=playerInfoStat>
+                 <p style="margin:0; text-align:left;"id="playerNameStat">Name:</p>
+                 <p style="margin:0; text-align:left; "id="playerClassStat">Occupation:</p>
+               </div>
+         </div>
+         <div id="playerStatusContainer">
+           <div id="playerStatus">
+             <div id="playerHealthStats">
+               <p style="margin:0;" id="healthStat">Health:</p>
+               <div id="playerHealth">
+                   <div id="healthBar"></div>
+               </div>
+               <button class="profileButtons" onclick="useItem('health kit')" id="healthKitBtn"style=" cursor:pointer ;margin-top:5px;height:15%; width:46%;">Use Health Kit</button>
+               <button class="profileButtons" onclick="useItem('health pack')"id="healthPackBtn" style=" cursor:pointer; margin-top:5px; height:15%; width:50%;">Use Health Pack</button>
+             </div>
+             <div id="playerWeaponStatus">
+               <p style="margin:0;padding:5px;"id="currentWeapon">Equipped Weapon:</p>
+               <div style="position:relative; bottom:30px;">
+                 <p style="margin:0;"id="currentWeaponMag">/</p>
+                 <button class="profileButtons" onclick="reload();"id="reloadBtn"style="  cursor:pointer; margin-top:5px; height:35%; width:35%;" >Reload</button>
+                 <img style="height:60%; width:55%;" class="curvedRadius" id= "equippedWeaponImg" src="images/emptyinventoryslot.png" alt="Empty Weapon Slot"></img>
+               </div>
+             </div>
+          </div>
+          <div id="playerConsumables">
+             <div id="playerEnergyCellsStat">
+                 <img style="height:40%; width:40%;" class="curvedRadius" id="energyCellsStat" src="images/energycellStat.png" alt="Energy cell image"></img>
+                 <p style="float:right;margin:0;"id="energyCellCount">x 0</p>
+             </div>
+             <div id="playerHealthPackStat">
+                 <img style=" height:40%; width:40%;"id ="healthPackStat" src="images/healthPackStat.png" alt="image of a health pack"></img>
+                 <p style="float:right;margin:0;"id="healthPackCount">x 0</p>
+             </div>
+             <div id="playerHealthKitStat">
+                 <img style=" height:40%; width:40%;" class="curvedRadius" id="healthKitStat" src="images/healthkitStat.png" alt="image of a health kit"></img>
+                 <p style="float:right;margin:0;"id="healthKitCount">x 0</p>
+             </div>
+         </div>
+      </div>
+        </div>
+      <div id="playerInventory" >
+        <div id="inventory">
+          <div id="inventoryHeader">
+            <div id="inventoryTitle">
+              <h1>>Inventory</h1>
+            </div>
+            <div id="inventoryHover">
+                  <h3 id="hoverInfo">Hover over an item for info here</h3>
+                  <img src="" alt="" id="hoverImg">
+            </div>
+              <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+          </div>
+            <table>
+              <tr>
+                <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+              </tr>
+              <tr>
+                <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+                <td ondrop='drop(event)' ondragover='allowDrop(event)'></td>
+              </tr>
+            </table>
+            <div id="other1">
+
+
+              <div id="inventoryHeader">
+                  <h1>>Nearby Pickups</h1>
+              </div>
+              <table>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </div>
+        </div>
+  </div>
+</div>
+</div>
+
+      </div>
+</html>
