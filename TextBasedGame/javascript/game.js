@@ -103,7 +103,8 @@ function gameStart()
  document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
  var width = document.getElementById('playerHealth').offsetWidth;
  document.getElementById("healthBar").style.width= player.health + '%';
- document.getElementById("currentWeapon").innerHTML="Equipped Weapon: None";
+ document.getElementById("currentWeapon").innerHTML="Equipped Weapon: Fist";
+ document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
  document.getElementById("currentWeaponMag").innerHTML="0/0";
  document.getElementById("playerNameStat").innerHTML="Name: "+player.username;
  document.getElementById("playerClassStat").innerHTML="Occupation: "+player.charClass;
@@ -1559,8 +1560,7 @@ function processCommands(input)
   }
   scrollBarAnchor();
 }
-<<<<<<< HEAD
-=======
+
 
 function insert(words)
 {
@@ -1656,7 +1656,7 @@ function read(words)
 }
 
 
->>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
+
 function sneakAttackEnemy(words)
 {
   if(player.currentRoom.enemies.length > 0)
@@ -1918,7 +1918,7 @@ function processCustomCommand(interactable)
       removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
       removeInteractable("console",player.currentRoom);
-      document.getElementById("powerObj").style.display="none";
+      //document.getElementById("powerObj").style.display="none";
       player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
       player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
       document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
@@ -2007,8 +2007,6 @@ function checkInventory(item)
     }
   }
 }
-<<<<<<< HEAD
-=======
 
 function checkInventoryType(item,type){
   for(var i=0; i<player.inventory.length;i++){
@@ -2019,7 +2017,6 @@ function checkInventoryType(item,type){
   }
 }
 
->>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
 function useItem(words)
 {
   if(words.includes("health kit"))
@@ -2335,8 +2332,6 @@ function getDetailsOfItem(imgPath)
     });
     return found;
 }
-<<<<<<< HEAD
-=======
 
 function showEquip(id){
   var itemName = id.split('_');
@@ -2355,7 +2350,7 @@ function equipSelected(){
   document.getElementById('equipBtn').classList.add('hideMe');
 }
 
->>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
+
 function vicinity(playerRoom)
 {
   //get the correct table using a query
