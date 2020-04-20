@@ -23,7 +23,6 @@ function startGame(){
   window.location.href = "mainGame.html";
 }
 
-<<<<<<< HEAD
 function checkLength(){
   var value = document.getElementById("name").value;
   if(value.length > -1)
@@ -31,24 +30,13 @@ function checkLength(){
     document.getElementById("name").style="background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px)";
   }
 }
-=======
-function listenerAddition(){
-  //document.getElementById("name").addEventListener("k", nameInput());
-
-}
-
->>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 // this method checks if the user has input a name and selected a class, if not lets them know that
 function inputValidation(){
   var issue = false;
   if(document.getElementById("name").value===""){
     desc = "You must enter a name before you begin";
-<<<<<<< HEAD
     document.getElementById("name").style="background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
 
-=======
-    document.getElementById("name").style.backgroundcolor = "repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
->>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
     issue = true;
   }
   else if(!document.getElementById("Hacker").checked && !document.getElementById("Engineer").checked && !document.getElementById("SpaceCowboy").checked)

@@ -1560,10 +1560,7 @@ function processCommands(input)
   }
   scrollBarAnchor();
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 
 function insert(words)
 {
@@ -1658,11 +1655,8 @@ function read(words)
 
 }
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 function sneakAttackEnemy(words)
 {
   if(player.currentRoom.enemies.length > 0)
@@ -2014,10 +2008,6 @@ function checkInventory(item)
     }
   }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 
 function checkInventoryType(item,type){
   for(var i=0; i<player.inventory.length;i++){
@@ -2028,10 +2018,6 @@ function checkInventoryType(item,type){
   }
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 function useItem(words)
 {
   if(words.includes("health kit"))
@@ -2355,10 +2341,6 @@ function getDetailsOfItem(imgPath)
   }
   return found;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 56f3ff231c0b8701750cbd031630230be65e65ea
 
 var previous;
 function showEquip(thisElement){
