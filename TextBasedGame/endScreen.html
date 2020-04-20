@@ -70,7 +70,7 @@
     </div>
     <div id="wrapper">
       <div id="main-container" class="center">
-        <h1 style="font-family: 'Orbitron', sans-serif;color: red;">Game Over</h1>
+        <h1 id="title" style="font-family: 'Orbitron', sans-serif;color: red;">Game Over</h1>
         <h2>Your Stats</h2>
         <p>
           Time Remaining: <span id="timeSpent"></span> <br>
@@ -79,7 +79,7 @@
           Items Collected: <span id="itemsCollected"></span><br>
         </p>
         <script>
-          gameOverStats();
+          gameFinishedStats();
         </script>
         <button name="playAgainBtn" onclick="restartGame();">Play Again</button>
       </div>
