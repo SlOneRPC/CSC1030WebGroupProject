@@ -55,6 +55,12 @@ function checkEquippedWeaponStatus(){
   }
 }
 
+function updateAmmo(){
+  var ammo = window.player.equippedWeapon.ammo -= 1;
+  var magSize = window.player.equippedWeapon.magSize;
+  document.getElementById('currentWeaponMag').innerHTML = ammo + '/' + magSize;
+}
+
 function equipWeaponDrop(ev){
   var data = ev.dataTransfer.getData("text");
   var nodeCopy = document.getElementById(data).cloneNode(true);
@@ -225,6 +231,10 @@ function exectuteCombat(){
       damageRecieved = 0;
     }
 
+    if(currentCombat == "Weapon"){
+      updateAmmo();
+    }
+
     window.player.health -= damageRecieved;
     activeEnemyObj.health -= damageDealt;
     updateHP();
@@ -253,8 +263,8 @@ function exectuteCombat(){
       document.getElementById('TurndamageDealt').innerHTML = damageDealt;
       document.getElementById('TurndamageRecieved').innerHTML = damageRecieved;
 
-      document.getElementById('TurnEnemyName').innerHTML = 'Enemy';//placeholder
-      document.getElementById('TurnEnemyName2').innerHTML = 'Enemy';//placeholder
+      document.getElementById('TurnEnemyName').innerHTML = activeEnemyObj.enemyType;//placeholder
+      document.getElementById('TurnEnemyName2').innerHTML = activeEnemyObj.enemyType;//placeholder
 
       document.getElementById('turnOptions').classList.add('hideMe');
       document.getElementById('turnOverview').classList.remove('hideMe');
