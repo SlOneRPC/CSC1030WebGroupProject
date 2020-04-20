@@ -220,6 +220,7 @@ function exectuteCombat(){
        //TODO you lose end game
      }
      else if(enemyHealth<=0){
+       player.stats.enemiesDefeated++;
        //TODO enemy died exit combat
      }
      else if(currentCombat == "Run Away"){
