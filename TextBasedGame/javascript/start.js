@@ -72,3 +72,41 @@ function nameInput(){
 
 
 }
+
+function charStart()
+{
+  if (document.getElementById("Hacker").checked)
+  {
+    return document.getElementById("Hacker").value;
+  }
+  else if (document.getElementById("Engineer").checked)
+  {
+    return document.getElementById("Engineer").value;
+  }
+  else if (document.getElementById("SpaceCowboy").value)
+  {
+    return document.getElementById("SpaceCowboy").value;
+  }
+}function nameOutput()
+{
+  var nameInput = document.getElementById("name").value;
+  var classSelect = charStart();
+  alert(nameInput + " " + classSelect);
+}
+function changeTextDescription()
+{
+  var desc = "";
+  if(charStart() == "Hacker")
+  {
+    desc = "Tasked with maintaining the ship’s computer systems, he knows his tech like the back of his hand and will use it to keep himself up and running from whatever is out there.";
+  }
+  else if(charStart() == "Engineer")
+  {
+    desc = "Armed with his blowtorch, he uses his know how to hold the ship together, and with his smarts, he can take on anything in his path.";
+  }
+  else if(charStart() =="SpaceCowboy")
+  {
+    desc = "Travelling through space is a risky business to most, but unlike the rest, he can outshoot bandits, criminals and things that go bump in the night before they have the chance to blink.";
+  }
+  document.getElementById("CharacterDesc").innerHTML = desc;
+}

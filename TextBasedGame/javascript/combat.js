@@ -207,16 +207,18 @@ function nextRound(){
 function exectuteCombat(){
 
   document.getElementById('combatError').classList.add('hideMe');
+  document.getElementById('combatError').classList.remove('hideMe');
   if(currentCombat == "Heal" && healHP == 0){
     document.getElementById('combatError').innerHTML = 'No heal method selected!';
-    document.getElementById('combatError').classList.remove('hideMe');
   }
-  else if(window.player.equippedWeapon.ammo<=0)
-  {
+  else if(currentCombat == "Heal" && window.player.health >=100){
+    document.getElementById('combatError').innerHTML = 'Already full health!';
+  }
+  else if(currentCombat == "Weapon" && window.player.equippedWeapon.ammo<=0){
     document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
-    document.getElementById('combatError').classList.remove('hideMe');
   }
   else{
+    document.getElementById('combatError').classList.add('hideMe');
     var damageRecieved;
     var damageDealt;
 
@@ -241,6 +243,12 @@ function exectuteCombat(){
     }
     else if(currentCombat == "Heal"){
       removeItem(document.getElementById('healMethod').innerHTML);
+      if(window.player.health + healHP >= 100){
+        window.player.health = 100;
+      }
+      else{
+        window.player.health += healHP;
+      }
     }
 
     window.player.health -= damageRecieved;
