@@ -34,7 +34,8 @@ function inputValidation(){
     issue = true;
   }
   else{
-    desc = "empty";
+    changeTextDescription();
+    desc = document.getElementById("CharacterDesc").innerHTML;
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
 
