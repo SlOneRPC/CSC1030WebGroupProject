@@ -1,5 +1,5 @@
 
-var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "It's clobbering time","images/fists.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
+var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "It's clobbering time","images/fist.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
 var robotBoolean = false;
 var rooms = [];
 var footstepSounds = [];
@@ -654,7 +654,7 @@ function addRooms()
       createExitObject("hallway01", "south", "You head south down the hallway.",false,"")
     ],
     [//Items in the current room
-    ]
+    ],
     [  createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull has collapsed, leaving the other side of the hallway open to space. This must have been where the explosion happened.","no")
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
@@ -1083,7 +1083,7 @@ function addRooms()
   rooms.forEach((item, i) => {
      if(item.roomName === "computer lab")
      {
-       item.interactables.push(createTerminalObject("terminal", "A terminal flickers in the corner of the computer lab with the words 'password required' on the screen", "", ""));
+       item.interactables.push(createTerminalObject("terminal", "A terminal flickers in the corner of the computer lab with the words 'insert password required' on the screen (try insert password + the password if you find it)", "", ""));
      }
   });
 
@@ -1536,6 +1536,10 @@ function processCommands(input)
   {
     read(words);
   }
+  else if(words.includes("insert"))
+  {
+    insert(words);
+  }
   else if(customCommandInput(words.toString().replace(/,/g," "))!=null)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
@@ -1550,6 +1554,57 @@ function processCommands(input)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>I don't know this command: '" +input+"'</span>";
   }
   scrollBarAnchor();
+}
+
+function insert(words)
+{
+  var consoleBoolean = false;
+  var terminalBoolean = false;
+  var consoleInteractable;
+  var terminalInteractable;
+  player.currentRoom.interactables.forEach((interactable, i) => {
+    if(interactable.interactableName === "console")
+    {
+      consoleBoolean = true;
+      consoleInteractable = interactable;
+    }
+    else if (interactable.interactableName === "terminal")
+    {
+      terminalBoolean = true;
+      terminalInteractable = interactable;
+    }
+  });
+  if(consoleBoolean === true)
+  {
+    if(words.includes("datacard") || words.includes("data card"))
+    {
+      processCustomCommand(consoleInteractable);
+    }
+  }
+  else if (terminalBoolean === true)
+  {
+    if(words.includes("password"))
+    {
+      passwordMatch(words, terminalInteractable);
+    }
+  }
+  else if(terminalBoolean === false || consoleBoolean === false)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You can't use this command here</span>";
+  }
+}
+
+function passwordMatch(words, interactable)
+{
+  if(words.includes(interactable.password))
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>As you complete the password a large container lights up as robot steps out of it whirring the phrase 'assisting for combat... ready'</span>";
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>That is the incorrect pasword beeps the terminal</span>";
+  }
+
 }
 
 function read(words)
@@ -1698,7 +1753,7 @@ function attack()
 function dropItem(itemName){
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
-      createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png")
+      createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png")
       player.equippedWeapon=fists;
     }
     item=player.inventory[getItemPosFromInventory(itemName)];
@@ -1806,7 +1861,7 @@ function unequipWeapon()
   if(player.equippedWeapon.item.itemName !== "fist")
   {
     document.getElementById("text-display").innerHTML +="</br><span id= 'userTextRight'>>You unequip your "+ player.equippedWeapon.item.itemName + "</span>";
-    player.equippedWeapon = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png");
+    player.equippedWeapon = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png");
     document.getElementById("currentWeapon").innerHTML="Equipped Weapon: "+player.equippedWeapon.item.itemName;
     document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
     document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
@@ -2285,7 +2340,8 @@ function getDetailsOfItem(imgPath)
 
 function showEquip(id){
   var itemName = id.split('_');
-  if(checkInventoryType(itemName[0],"Weapon")){
+  if(checkInventoryType(itemName[0],"Weapon"))
+  {
     document.getElementById('equipBtn').classList.remove('hideMe');
     selectedItem = itemName[0];
   }
@@ -2296,6 +2352,7 @@ function showEquip(id){
 
 function equipSelected(){
   equipWeapon(selectedItem);
+  document.getElementById('equipBtn').classList.add('hideMe');
 }
 
 function vicinity(playerRoom)
