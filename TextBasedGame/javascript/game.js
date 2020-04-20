@@ -1078,18 +1078,20 @@ function askPlayer(){
 
 function updateObjectives()
 {
-
   if(rooms[getRoomPos("hangar bay")].roomDiscovered==true && player.currentRoom.roomName=="hangar bay"&& document.getElementById("escapeObj")==null){
       document.getElementById("hangarObj").style.display="none";
       document.getElementById("objectivesList").innerHTML+="<li id='escapeObj'>Escape!</li>";
+        document.getElementById("text-display").innerHTML+="</br><span id = 'userTextObjective'>+++New Objective+++";
   }
   if(rooms[getRoomPos("hallway07")].roomDiscovered==true && player.currentRoom.roomName=="hallway07" && document.getElementById("doorObj")==null){
      document.getElementById("startObj").style.display="none";
      document.getElementById("objectivesList").innerHTML+="<li id='doorObj'>Go to the reactor room to bring the power back online.</li>";
+        document.getElementById("text-display").innerHTML+="</br><span id = 'userTextObjective'>+++New Objective+++";
   }
   if(rooms[getRoomPos("reactor room")].roomDiscovered==true && player.currentRoom.roomName=="reactor room" && document.getElementById("powerObj")==null){
      document.getElementById("doorObj").style.display="none";
      document.getElementById("objectivesList").innerHTML+="<li id='powerObj'>Find a way to bring the power back online.</li>";
+        document.getElementById("text-display").innerHTML+="</br><span id = 'userTextObjective'>+++New Objective+++";
   }
 }
 
@@ -1135,7 +1137,7 @@ function outputCurrentRoomDesc()
     directionColourAllRed();
     scanning(availableDirections);
   }
-  document.getElementById("text-display").innerHTML += "</br>>" +roomDesc;
+  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextObjective'>>" +roomDesc + "</span>";
   if(player.currentRoom.enemies.length > 0)
   {
     enemyDetectionRoll(0);
@@ -1145,7 +1147,7 @@ function outputCurrentRoomDesc()
 
   }
   randomPlaceHolderText();
-  document.getElementById("text-display").innerHTML += "</br>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
+  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextObjective'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
   askPlayer();
   scrollBarAnchor();
 }
@@ -1254,6 +1256,8 @@ function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
    //var currentRoom=player.currentRoom.roomName;
+   document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
+
    var availableDirections = [];
    if(player.currentRoom.type=="hallway"){
      document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>" + ">You look around the hallway, "+ "</span>";
@@ -1264,11 +1268,11 @@ function outputCurrentRoomExits()
    player.currentRoom.exits.forEach((item, i)=> {
    if(player.currentRoom.type=="hallway")
    {
-     document.getElementById("text-display").innerHTML += "</br>>" + "there is a path to the <span id= 'userAvailableDirection'>" + item.orientation  + "</span>";
+     document.getElementById("text-display").innerHTML += "</br>-" + "there is a path to the <span id= 'userAvailableDirection'>" + item.orientation  + "</span>";
    }
    else
    {
-     document.getElementById("text-display").innerHTML += "</br>>" + "there is a door to the <span id= 'userAvailableDirection'>" + item.orientation + "</span>";
+     document.getElementById("text-display").innerHTML += "</br>-" + "there is a door to the <span id= 'userAvailableDirection'>" + item.orientation + "</span>";
    }
    if(item.blocked === true)
    {
@@ -1285,7 +1289,7 @@ function outputCurrentRoomExits()
   ;
   directionColourAllRed();
   scanning(availableDirections);
-  document.getElementById("text-display").innerHTML += "</br>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
+  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
   scrollBarAnchor();
 }
 
