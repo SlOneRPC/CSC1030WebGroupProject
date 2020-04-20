@@ -214,7 +214,7 @@ function exectuteCombat(){
   else if(currentCombat == "Heal" && window.player.health >=100){
     document.getElementById('combatError').innerHTML = 'Already full health!';
   }
-  else if(window.player.equippedWeapon.ammo<=0){
+  else if(currentCombat == "Weapon" && window.player.equippedWeapon.ammo<=0){
     document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
   }
   else{
