@@ -946,18 +946,19 @@
 .textAnimStart{
   animation: fadeIn ease 5s both;
 -webkit-animation: fadeIn ease 5s both;
--moz-animation: fadeIn ease 5s;
--o-animation: fadeIn ease 5s;
--ms-animation: fadeIn ease 5s;
+-moz-animation: fadeIn ease 5s both;
+-o-animation: fadeIn ease 5s both;
+-ms-animation: fadeIn ease 5s both;
 }
 
 .textAnimStart2{
   animation: fadeIn ease 5s both;
   -webkit-animation: fadeIn ease 5s both;
-  -moz-animation: fadeIn ease 5s;
-  -o-animation: fadeIn ease 5s;
-  -ms-animation: fadeIn ease 5s;
+  -moz-animation: fadeIn ease 5s both;
+  -o-animation: fadeIn ease 5s both;
+  -ms-animation: fadeIn ease 5s both;
 
+  animation-delay: 4s;
   -webkit-animation-delay: 4s;
   -moz-animation-delay: 4s;
   -o-animation-delay: 4s;
@@ -967,10 +968,11 @@
 .textAnimStart3{
   animation: fadeIn ease 5s both;
   -webkit-animation: fadeIn ease 5s both;
-  -moz-animation: fadeIn ease 5s;
-  -o-animation: fadeIn ease 5s;
-  -ms-animation: fadeIn ease 5s;
+  -moz-animation: fadeIn ease 5s both;
+  -o-animation: fadeIn ease 5s both;
+  -ms-animation: fadeIn ease 5s both;
 
+  animation-delay: 8s;
   -webkit-animation-delay: 8s;
   -moz-animation-delay: 8s;
   -o-animation-delay: 8s;
