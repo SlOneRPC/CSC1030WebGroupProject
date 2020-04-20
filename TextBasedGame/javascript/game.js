@@ -4,6 +4,7 @@ var robotBoolean = false;
 var rooms = [];
 var footstepSounds = [];
 //var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
+var selectedItem='';
 var pickUpItemSound;
 var pickUpAmmoSound;
 var footstep1;
@@ -1535,10 +1536,11 @@ function processCommands(input)
   {
     read(words);
   }
-  // else if(customCommandInput(words.toString().replace(/,/g," "))!=null){
-  //   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-  //   processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
-  // }
+  else if(customCommandInput(words.toString().replace(/,/g," "))!=null)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+    processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
+  }
   else if(words.includes("attack") || words.includes("shoot") || words.includes("punch"))
   {
     sneakAttackEnemy();
@@ -1553,11 +1555,11 @@ function processCommands(input)
 function read(words)
 {
   var selectedItem;
-  if(words.includes("passwordpad") || words.includes("sticky") || words.includes("note"))
+  if(words.includes("passpad") || words.includes("sticky") || words.includes("note") || words.includes("pass") || words.includes("pad"))
   {
     var stickyNote = false;
     var passwordPad = false;
-    if(words.includes("passwordpad"))
+    if(words.includes("passpad")  || words.includes("pass") || words.includes("pad"))
     {
       passwordPad = true;
     }
@@ -1568,7 +1570,7 @@ function read(words)
     if(passwordPad === true)
     {
       player.inventory.forEach((item, i) => {
-        if(item.item.itemName === "passwordPad")
+        if(item.item.itemName === "passPad")
         {
           selectedItem = item;
         }
@@ -1952,6 +1954,15 @@ function checkInventory(item){
   }
 }
 
+function checkInventoryType(item,type){
+  for(var i=0; i<player.inventory.length;i++){
+    //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+    if(player.inventory[i].item.itemName === item && player.inventory[i].item.itemType === type){
+      return true;
+    }
+  }
+}
+
 function useItem(words)
 {
   if(words.includes("health kit"))
@@ -2189,9 +2200,9 @@ function pickUpItems(playerRoom,words,dragged)
         else if(item.item.itemType!="Ammo" && item.item.itemType!="Health" && item.item.itemType!="Weapon")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
-          if(item.item.itemType !== "Puzzle")
+          if(item.item.itemType !== "Puzzle" && item.item.itemType!== "Gadget")
           {
-            document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>(You can read these items by typing read + the item name command)</span>";
+            document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>(You can read these items by typing read + item name)</span>";
           }
           pickUpItemSound.play();
           player.inventory.push(item);
@@ -2272,6 +2283,21 @@ function getDetailsOfItem(imgPath)
     return found;
 }
 
+function showEquip(id){
+  var itemName = id.split('_');
+  if(checkInventoryType(itemName[0],"Weapon")){
+    document.getElementById('equipBtn').classList.remove('hideMe');
+    selectedItem = itemName[0];
+  }
+  else{
+    document.getElementById('equipBtn').classList.add('hideMe');
+  }
+}
+
+function equipSelected(){
+  equipWeapon(selectedItem);
+}
+
 function vicinity(playerRoom)
 {
   //get the correct table using a query
@@ -2283,7 +2309,7 @@ function vicinity(playerRoom)
     {
       //add inventory item to vicinity
       var name = item.item.itemName + "_img";
-      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' id="+ name+">";
+      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this.id);' id="+ name+">";
       tableIndex++;
     }
     else{
@@ -2539,7 +2565,7 @@ function generatePasswordPad()
   rooms.forEach((item, i) => {
     if(item.roomName === selectedRoomName)
     {
-      item.roomItems.push(createDataPadObject("passwordPad", "A datapad containing useful information for accessing a terminal", "''The password for the terminal in the computer lab is '"+ password+"'''", "images/datapad.png"))
+      item.roomItems.push(createDataPadObject("passPad", "A datapad containing useful information for accessing a terminal", "''The password for the terminal in the computer lab is '"+ password+"'''", "images/datapad.png"))
     }
   });
   return password;
