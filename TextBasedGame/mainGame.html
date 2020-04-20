@@ -69,7 +69,10 @@
       function drop(ev) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
-        if(event.target.tagName.toUpperCase() == "TD" && event.target.innerHTML == ''){
+        if(event.target.tagName.toUpperCase() == "TD" && event.target.innerHTML == '' && (data=="health"|| data=="energy") ){
+          pickUpItems(player.currentRoom, data.split("_")[0],true);
+        }
+        else if(event.target.tagName.toUpperCase() == "TD" && event.target.innerHTML == ''){
           ev.target.appendChild(document.getElementById(data));
           pickUpItems(player.currentRoom, data.split("_")[0],true);
         }
@@ -150,7 +153,7 @@
                  <p style="margin:0;padding:1%"id="currentWeapon">Equipped Weapon:</p>
                  <div id = "weaponFunctions">
                    <div id="equippedWeaponImg">
-                   <img style="float:left;max-width:100%;max-height:100%;" class="curvedRadius"  src="images/emptyinventoryslot.png" alt="Empty Weapon Slot"></img>
+                   <img id="equippedWeapon"style="float:left;max-width:100%;max-height:100%;" class="curvedRadius"  src="images/emptyinventoryslot.png" alt="Empty Weapon Slot"></img>
                    </div>
                  </div>
                  <div id="weaponButtons">
