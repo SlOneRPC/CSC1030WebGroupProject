@@ -1,5 +1,5 @@
-var localHealth = 100;
-var enemyHealth = 100;
+
+var enemyMaxHealth = 0;
 var currentCombat = "Weapon Attack";
 var healHP = 0;
 var hitchance;
@@ -13,16 +13,19 @@ function combatSetupV2(){
   //hide container
   document.getElementById('mapMain').classList.add('hideMe');
   document.getElementById('combatMain').classList.remove('hideMe');
+  document.getElementById('userInput').classList.add('disabledbutton');
 
   //get the enemy object
   activeEnemyObj = window.player.currentRoom.enemies[0];
-  //enemyHealth = activeEnemyObj.health;
-  //document.getElementById('EnemyName').innerHTML = activeEnemyObj.enemyType;
+  enemyMaxHealth = activeEnemyObj.health;
+  document.getElementById('EnemyName').innerHTML = activeEnemyObj.enemyType;
 
   currentCombat = 'Weapon';
   inCombat = true;
   healHP = 0;
 
+  checkEquippedWeaponStatus();
+  getHitboxes();
   //calculate basic stats
   calculateInfo();
   updateHP();
@@ -32,13 +35,25 @@ function combatSetupV2(){
 
 function updateHP(){
   //calcuate the new width based on health
-  document.getElementById('healthBar').style.width =  localHealth  + '%';
-  document.getElementById('EnemyHB').style.width =  enemyHealth + '%';
+  document.getElementById('healthBar').style.width =  window.player.health  + '%';
+  document.getElementById('EnemyHB').style.width =  Math.floor((activeEnemyObj.health/enemyMaxHealth)*100) + '%';
   //update HP values
-  document.getElementById('EnemyHealthValue').innerHTML = enemyHealth + '%';
-  document.getElementById('healthStat').innerHTML = "Health: " + localHealth + '%';
+  document.getElementById('EnemyHealthValue').innerHTML = Math.floor((activeEnemyObj.health/enemyMaxHealth)*100) + '%' + ' ['+activeEnemyObj.health+'HP/'+enemyMaxHealth+'HP]';
+  document.getElementById('healthStat').innerHTML = "Health: " + window.player.health + '%';
 }
 
+function checkEquippedWeaponStatus(){
+  if(window.player.equippedWeapon.item.itemName == "fist"){
+    document.getElementById('Attack1').disabled = true;
+    document.getElementById("Attack2").checked = true;
+    currentCombat = 'Melee';
+  }
+  else{
+    document.getElementById('Attack1').disabled = false;
+    document.getElementById("Attack1").checked = true;
+    currentCombat = 'Weapon';
+  }
+}
 
 function equipWeaponDrop(ev){
   var data = ev.dataTransfer.getData("text");
@@ -94,24 +109,24 @@ function calculateInfo(){
   var damageGiven = false;//damage can be given
   switch (currentCombat) {
     case "Weapon":
-      hitchance = 70;
+      hitchance = 60;
       maxDamage = window.player.equippedWeapon.damage;
-      maxDamageRecieved = 50;
+      maxDamageRecieved = 14;
       damageGiven = true;
       break;
     case "Melee":
-      hitchance = 90;
-      maxDamage = 50;
-      maxDamageRecieved = 70;
+      hitchance = 70;
+      maxDamage = 4;
+      maxDamageRecieved = 20;
       damageGiven = true;
       break;
     case "Heal":
-      maxDamageRecieved = 60;
+      maxDamageRecieved = 10;
       hitchance = 60;
       document.getElementById('healContainer').classList.remove('hideMe');
       break;
     case "Escape":
-      maxDamageRecieved = 30;
+      maxDamageRecieved = 10;
       break;
   }
   updateHitbox();
@@ -137,31 +152,23 @@ function calculateInfo(){
   document.getElementById('MaxDamageRecievedValue').innerHTML = maxDamageRecieved + "HP";
 }
 
-function updateHitbox(){
-  var hitchanceChange;
-  var maxDmgChange;
-  switch(document.getElementById("hitboxes").selectedIndex){
-    case 0://head
-      hitchanceChange =- 2;
-      maxDmgChange =10;
-      break;
-    case 1://chest
-      hitchanceChange =5;
-      maxDmgChange =4;
-      break;
-    case 2://arms
-      hitchanceChange =4;
-      maxDmgChange =5;
-      break;
-    case 3://torso
-      hitchanceChange =4;
-      maxDmgChange =5;
-      break;
-    case 4://legs
-      hitchanceChange =3;
-      maxDmgChange =7;
-      break;
+function getHitboxes(){
+  var enemyHitboxArray = activeEnemyObj.bodyParts;
+  var hitboxes = document.getElementById('hitboxes')
+  hitboxes.options.length = 0;
+  for (var i = 0; i < enemyHitboxArray.length; i++) {
+    var opt = document.createElement("option"); // Create the new element
+    opt.value = enemyHitboxArray[i].partName; // set the value
+    opt.text = enemyHitboxArray[i].partName + " | +" + enemyHitboxArray[i].percentageToHit + "% hitchance | +" + enemyHitboxArray[i].baseDamagePerHit + " max damage"; // set the text
+    hitboxes.appendChild(opt); // add it to the select
   }
+}
+
+function updateHitbox(){
+  var selectedHitbox = document.getElementById("hitboxes").selectedIndex;
+  var hitchanceChange = activeEnemyObj.bodyParts[selectedHitbox].percentageToHit;
+  var maxDmgChange = activeEnemyObj.bodyParts[selectedHitbox].baseDamagePerHit;
+
   if(hitchanceChange >= 0){
       document.getElementById('addHitchance').innerHTML = '+' + hitchanceChange +"%";
       document.getElementById('addHitchance').style.color = "lime";
@@ -177,6 +184,11 @@ function updateHitbox(){
   maxDamage+=maxDmgChange;
 }
 
+function leaveCombat(){
+  document.getElementById('mapMain').classList.remove('hideMe');
+  document.getElementById('combatMain').classList.add('hideMe');
+  document.getElementById('userInput').classList.remove('disabledbutton');
+}
 
 //combat start button press
 function nextRound(){
@@ -213,28 +225,39 @@ function exectuteCombat(){
       damageRecieved = 0;
     }
 
-    localHealth -= damageRecieved;
-    enemyHealth -= damageDealt;
-
-     if(localHealth<=0){
+    window.player.health -= damageRecieved;
+    activeEnemyObj.health -= damageDealt;
+    updateHP();
+     if(window.player.health<=0){
        //TODO you lose end game
      }
-     else if(enemyHealth<=0){
-       //TODO enemy died exit combat
+     else if(activeEnemyObj.health<=0){
+       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to kill the enemy stone dead, making it look up to the great space eyes of the sky</span>";
+       window.scrollBarAnchor();
+       leaveCombat();
+       //remove the enemy from the room once its dead
+       player.currentRoom.enemies.splice(0,1);
      }
-     else if(currentCombat == "Run Away"){
-       //TODO move back a room
+     else if(currentCombat == "Escape"){
+       if(damageRecieved >0){
+         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to hide from the enemy but you have been hurt in the process!</span>";
+         window.scrollBarAnchor();
+       }
+       else{
+         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to hide from the enemy!</span>";
+         window.scrollBarAnchor();
+       }
+       leaveCombat();
      }
+     else{
+      document.getElementById('TurndamageDealt').innerHTML = damageDealt;
+      document.getElementById('TurndamageRecieved').innerHTML = damageRecieved;
 
-    updateHP();
+      document.getElementById('TurnEnemyName').innerHTML = 'Enemy';//placeholder
+      document.getElementById('TurnEnemyName2').innerHTML = 'Enemy';//placeholder
 
-    document.getElementById('TurndamageDealt').innerHTML = damageDealt;
-    document.getElementById('TurndamageRecieved').innerHTML = damageRecieved;
-
-    document.getElementById('TurnEnemyName').innerHTML = 'Enemy';//placeholder
-    document.getElementById('TurnEnemyName2').innerHTML = 'Enemy';//placeholder
-
-    document.getElementById('turnOptions').classList.add('hideMe');
-    document.getElementById('turnOverview').classList.remove('hideMe');
+      document.getElementById('turnOptions').classList.add('hideMe');
+      document.getElementById('turnOverview').classList.remove('hideMe');
+    }
   }
 }
