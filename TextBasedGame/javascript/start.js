@@ -73,6 +73,13 @@ function nameInput(){
 
 }
 
+function resetClass()
+{
+  document.getElementById("hackLabel").style="background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px)";
+  document.getElementById("engiLabel").style="background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px)";
+  document.getElementById("spaceLabel").style="background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px)";
+}
+
 function charStart()
 {
   if (document.getElementById("Hacker").checked)
@@ -83,11 +90,13 @@ function charStart()
   {
     return document.getElementById("Engineer").value;
   }
-  else if (document.getElementById("SpaceCowboy").value)
+  else if (document.getElementById("SpaceCowboy").checked)
   {
     return document.getElementById("SpaceCowboy").value;
   }
-}function nameOutput()
+}
+
+function nameOutput()
 {
   var nameInput = document.getElementById("name").value;
   var classSelect = charStart();
@@ -99,14 +108,17 @@ function changeTextDescription()
   if(charStart() == "Hacker")
   {
     desc = "Tasked with maintaining the ship’s computer systems, he knows his tech like the back of his hand and will use it to keep himself up and running from whatever is out there.";
+    resetClass();
   }
   else if(charStart() == "Engineer")
   {
     desc = "Armed with his blowtorch, he uses his know how to hold the ship together, and with his smarts, he can take on anything in his path.";
+    resetClass();
   }
   else if(charStart() =="SpaceCowboy")
   {
     desc = "Travelling through space is a risky business to most, but unlike the rest, he can outshoot bandits, criminals and things that go bump in the night before they have the chance to blink.";
+    resetClass();
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
 }
