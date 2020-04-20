@@ -29,7 +29,7 @@ function onTimer()
   if (timeRemaining <= -1)
   {
     clearInterval(timer);
-    gameFinished();
+    gameFinished(false);
   }
 }
 

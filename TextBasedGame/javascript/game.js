@@ -1942,7 +1942,7 @@ function processCustomCommand(interactable)
   else if(interactable.interactableName === "Escape Pod" ){
     if(player.currentRoom.roomName === "hangar bay" ){
       //--pop
-      gameFinished();
+      gameFinished(true);
     }
   }
 }

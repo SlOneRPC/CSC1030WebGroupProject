@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <title></title>
+    <title>Crawl Space</title>
       <link href="https://fonts.googleapis.com/css?family=Orbitron|Rajdhani&display=swap" rel="stylesheet">
     <style type="text/css">
       *{
@@ -31,7 +31,7 @@
         display: block;
         width: 400px;
         text-align: center;
-        height: 400px;
+        height: 500px;
         border: 1px solid red;
         box-shadow: 0 0 10px 2px red;
         border-radius: 30%;
@@ -70,6 +70,7 @@
     </div>
     <div id="wrapper">
       <div id="main-container" class="center">
+        // move down title
         <h1 id="title" style="font-family: 'Orbitron', sans-serif;color: red;">Game Over</h1>
         <h2>Your Stats</h2>
         <p>
@@ -79,8 +80,12 @@
           Items Collected: <span id="itemsCollected"></span><br>
         </p>
         <script>
-          gameFinishedStats();
+          gameFinishedStats(true);
         </script>
+        <p>
+          Achievements: <br><span id="speedDemon">Speed-Demon</span> <span id="warrior">Warrior</span> <br>
+          <span id="explorer">Explorer</span> <span id="collector">Collector</span>
+        </p>
         <button name="playAgainBtn" onclick="restartGame();">Play Again</button>
       </div>
     </div>
