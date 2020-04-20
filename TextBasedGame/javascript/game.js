@@ -4,6 +4,7 @@ var robotBoolean = false;
 var rooms = [];
 var footstepSounds = [];
 //var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
+var selectedItem='';
 var pickUpItemSound;
 var pickUpAmmoSound;
 var footstep1;
@@ -1905,6 +1906,15 @@ function checkInventory(item){
   }
 }
 
+function checkInventoryType(item,type){
+  for(var i=0; i<player.inventory.length;i++){
+    //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+    if(player.inventory[i].item.itemName === item && player.inventory[i].item.itemType === type){
+      return true;
+    }
+  }
+}
+
 function useItem(words)
 {
   if(words.includes("health kit"))
@@ -2223,6 +2233,21 @@ function getDetailsOfItem(imgPath)
     return found;
 }
 
+function showEquip(id){
+  var itemName = id.split('_');
+  if(checkInventoryType(itemName[0],"Weapon")){
+    document.getElementById('equipBtn').classList.remove('hideMe');
+    selectedItem = itemName[0];
+  }
+  else{
+    document.getElementById('equipBtn').classList.add('hideMe');
+  }
+}
+
+function equipSelected(){
+  equipWeapon(selectedItem);
+}
+
 function vicinity(playerRoom)
 {
   //get the correct table using a query
@@ -2234,7 +2259,7 @@ function vicinity(playerRoom)
     {
       //add inventory item to vicinity
       var name = item.item.itemName + "_img";
-      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' id="+ name+">";
+      elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this.id);' id="+ name+">";
       tableIndex++;
     }
     else{
