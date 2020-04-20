@@ -1,5 +1,5 @@
 
-var player = createPlayerObject("Luke", 100, "SpaceCowboy", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
+var player = createPlayerObject("Luke", 100, "Engineer", "", [],createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png"), createStatObject(0, 0, 0, 0), 0, 0,false);
 var rooms = [];
 var footstepSounds = [];
 //var headcrab = createEnemyObject("Headcrab","will jump at your head", 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the headcrab", 5, 20, 0)], 40)
@@ -1274,7 +1274,7 @@ function outputCurrentRoomExits()
      player.currentRoom.interactables.forEach((blockages, i) => {
        if(blockages.exitRoomName == item.exitRoomName)
        {
-         document.getElementById("text-display").innerHTML += ", </br>but it's blocked by <span id= 'userAvailableDirection'>" + blockages.interactableName  + "</span>";
+         document.getElementById("text-display").innerHTML += ", </br>but it's blocked by a <span id= 'userAvailableDirection'>" + blockages.interactableName  + "</span>";
 
        }
      });
@@ -1492,17 +1492,72 @@ function processCommands(input)
 
     pickUpItems(player.currentRoom,pickedUpItem,false);
   }
-
-  else if(customCommandInput(words.toString().replace(/,/g," "))!=null){
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
+  // else if(customCommandInput(words.toString().replace(/,/g," "))!=null){
+  //   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
+  //   processCustomCommand(customCommandInput(words.toString().replace(/,/g," ")));
+  // }
+  else if(words.includes("attack") || words.includes("shoot") || words.includes("punch"))
+  {
+    sneakAttackEnemy();
   }
-
   else
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>I don't know this command: '" +input+"'</span>";
   }
+  scrollBarAnchor();
 }
+
+function sneakAttackEnemy(words)
+{
+  if(player.currentRoom.enemies.length > 0)
+  {
+    var hitchance;
+    if(player.equippedWeapon.item.itemName === "pistol" || player.equippedWeapon.item.itemName === "revolver" || player.equippedWeapon.item.itemName === "shotgun" || player.equippedWeapon.item.itemName === "smg")
+    {
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You aim your weapon at the inperceptive enemy</span>";
+      if(player.charClass !== "SpaceCowboy")
+      {
+        hitchance = 60;
+        if(randomNumber(100)<= hitchance)
+        {
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You sucessfully hit the enemy</span>";
+        }
+        else
+        {
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You missed and now have alerted the enemy</span>";
+        }
+      }
+      else
+      {
+        hitchance = 80;
+        if(randomNumber(100)<= hitchance)
+        {
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You sucessfully hit the enemy</span>";
+        }
+        else
+        {
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You missed and now have alerted the enemy</span>";
+        }
+      }
+    }
+    else
+    {
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You aim your fists at the inperceptive enemy</span>";
+      hitchance = 5;
+      if(randomNumber(100)<= hitchance)
+      {
+        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You somehow pulverise the enemy into smithereens with your bare fists alone</span>";
+
+      }
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You smack the enemy with your fists, for some reason? doing little damage and alerting the enemy</span>";
+    }
+  }
+  else
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>There are no enemies in this room to sneak attack'</span>";
+  }
+}
+
 
 function dropItem(itemName){
   if(checkInventory(itemName)){
@@ -1603,19 +1658,30 @@ function equipWeapon(weaponName)
   }
 }
 
-function unequipWeapon(weaponName)
+function unequipWeapon()
 {
-  if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
-    if(checkInventory(weaponName)&& player.equippedWeapon.item.itemName==weaponName){
-      player.equippedWeapon = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png");
-      document.getElementById("currentWeapon").innerHTML="Equipped Weapon: "+weaponName;
-      document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
-      document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
-    }
-    else{
-      document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that weapon equipped!</span>";
-    }
+  // if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
+  //   if(checkInventory(weaponName)&& player.equippedWeapon.item.itemName==weaponName){
+  //   }
+  //   else{
+  //     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that weapon equipped!</span>";
+  //   }
+  //}
+  if(player.equippedWeapon.item.itemName !== "fist")
+  {
+    document.getElementById("text-display").innerHTML +="</br><span id= 'userTextRight'>>You unequip your "+ player.equippedWeapon.item.itemName + "</span>";
+    player.equippedWeapon = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fists.png");
+    document.getElementById("currentWeapon").innerHTML="Equipped Weapon: "+player.equippedWeapon.item.itemName;
+    document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
+    document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
+    scrollBarAnchor();
   }
+  else
+  {
+    document.getElementById("text-display").innerHTML +="</br><span id= 'userTextWrong'>>You cannot unequip your "+ player.equippedWeapon.item.itemName + "</span>";
+
+  }
+  scrollBarAnchor();
 }
 
 function getItemPosFromInventory(itemName)
@@ -1824,7 +1890,7 @@ function useItem(words)
             removeBlockage(interactable);
             match=true;
         }
-        else if(interactable.interactableName === "rubble")
+        else if(interactable.interactableName.includes("rubble"))
         {
           removeBlockage(interactable);
           match=true;
@@ -1849,7 +1915,7 @@ function useItem(words)
             removeBlockage(interactable);
             match=true;
         }
-        else if(interactable.interactableName === "door")
+        else if(interactable.interactableName === "locked door")
         {
           removeBlockage(interactable);
           match=true;
@@ -2269,7 +2335,7 @@ function randomNumber(range)
 
 function randomNumberForArray(range)
 {
-  return Math.round(Math.random() * range);
+  return Math.floor(Math.random() * range);
 }
 
 function randomPlaceHolderText()
