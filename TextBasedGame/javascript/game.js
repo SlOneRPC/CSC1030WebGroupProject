@@ -1275,6 +1275,7 @@ function enemyDetectionRoll(reRollFlag)
       document.getElementById("text-display").innerHTML += "</br>> Enemy has spotted you";
       document.getElementById("text-display").innerHTML += "</br>> It rolled: " + roll;
       //call method to beign combat system
+      window.combatSetupV2();
     }
     else
     {
@@ -1732,6 +1733,7 @@ function attack()
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enemy health left: "+player.currentRoom.enemies[0].health+ "</span>";
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enter Combat</span>";
+        window.combatSetupV2();
       }
     }
   }
@@ -1749,6 +1751,7 @@ function attack()
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You smack the enemy with your fists, for some reason? doing little damage and alerting the enemy</span>";
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enemy health left: "+player.currentRoom.enemies[0].health+ "</span>";
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enter Combat</span>";
+      window.combatSetupV2();
     }
   }
   scrollBarAnchor();
@@ -1839,6 +1842,10 @@ function equipWeapon(weaponName)
       document.getElementById("currentWeapon").innerHTML="Equipped Weapon: "+weaponName;
       document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
       document.getElementById("equippedWeapon").src= player.equippedWeapon.item.itemFilePath;
+
+      if(window.inCombat){
+        window.checkEquippedWeaponStatus();
+      }
     }
     else{
       document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You haven't picked up that weapon!</span>";
