@@ -3,7 +3,7 @@
 #wrapper
 {
   width: 95%;
-  height: 80%;
+  height: 70%;
   padding: 3%;
   padding-top: 1%;
   margin: auto;
@@ -306,7 +306,7 @@
 }
 
 #mapContainer{
-  overflow:auto;
+  overflow:hidden;
   width:32%;
   float:left;
   height:750px;

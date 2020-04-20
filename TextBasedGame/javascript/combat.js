@@ -100,11 +100,11 @@ function healType(type){
   switch (type) {
     case 0:
       healHP = 25;
-      document.getElementById('healMethod').innerHTML = 'Health Pack';
+      document.getElementById('healMethod').innerHTML = 'health pack';
       break;
     case 1:
       healHP = 50;
-      document.getElementById('healMethod').innerHTML = 'Health Kit';
+      document.getElementById('healMethod').innerHTML = 'health kit';
       break;
   }
 
@@ -211,6 +211,11 @@ function exectuteCombat(){
     document.getElementById('combatError').innerHTML = 'No heal method selected!';
     document.getElementById('combatError').classList.remove('hideMe');
   }
+  else if(window.player.equippedWeapon.ammo<=0)
+  {
+    document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
+    document.getElementById('combatError').classList.remove('hideMe');
+  }
   else{
     var damageRecieved;
     var damageDealt;
@@ -233,6 +238,9 @@ function exectuteCombat(){
 
     if(currentCombat == "Weapon"){
       updateAmmo();
+    }
+    else if(currentCombat == "Heal"){
+      removeItem(document.getElementById('healMethod').innerHTML);
     }
 
     window.player.health -= damageRecieved;
