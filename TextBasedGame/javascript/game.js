@@ -1552,11 +1552,11 @@ function processCommands(input)
 function read(words)
 {
   var selectedItem;
-  if(words.includes("passwordpad") || words.includes("sticky") || words.includes("note"))
+  if(words.includes("passpad") || words.includes("sticky") || words.includes("note") || words.includes("pass") || words.includes("pad"))
   {
     var stickyNote = false;
     var passwordPad = false;
-    if(words.includes("passwordpad"))
+    if(words.includes("passpad")  || words.includes("pass") || words.includes("pad"))
     {
       passwordPad = true;
     }
@@ -1567,7 +1567,7 @@ function read(words)
     if(passwordPad === true)
     {
       player.inventory.forEach((item, i) => {
-        if(item.item.itemName === "passwordPad")
+        if(item.item.itemName === "passPad")
         {
           selectedItem = item;
         }
@@ -2188,9 +2188,9 @@ function pickUpItems(playerRoom,words,dragged)
         else if(item.item.itemType!="Ammo" && item.item.itemType!="Health" && item.item.itemType!="Weapon")
         {
           document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +item.item.itemName +" added to inventory"+"</span>";
-          if(item.item.itemType !== "Puzzle")
+          if(item.item.itemType !== "Puzzle" && item.item.itemType!== "Gadget")
           {
-            document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>(You can read these items by typing read + the item name command)</span>";
+            document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>(You can read these items by typing read + item name)</span>";
           }
           pickUpItemSound.play();
           player.inventory.push(item);
@@ -2538,7 +2538,7 @@ function generatePasswordPad()
   rooms.forEach((item, i) => {
     if(item.roomName === selectedRoomName)
     {
-      item.roomItems.push(createDataPadObject("passwordPad", "A datapad containing useful information for accessing a terminal", "''The password for the terminal in the computer lab is '"+ password+"'''", "images/datapad.png"))
+      item.roomItems.push(createDataPadObject("passPad", "A datapad containing useful information for accessing a terminal", "''The password for the terminal in the computer lab is '"+ password+"'''", "images/datapad.png"))
     }
   });
   return password;
