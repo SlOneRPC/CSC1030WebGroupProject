@@ -446,7 +446,6 @@
 
 #ShowMap{
   width:49%;
-
 }
 
 #ShowHints{
@@ -632,6 +631,14 @@
     #144F05 20px
     );
     border-radius: 25px;
+}
+
+.inventoryItem{
+  width: 90%;
+  height: 90%;
+  display: inline-block;
+  //opacity: 0.2;
+  margin: 5%;
 }
 
 .profileButtons
