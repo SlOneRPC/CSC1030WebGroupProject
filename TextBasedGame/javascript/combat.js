@@ -3,13 +3,13 @@ var timer;
 var localHealth = 100;
 var enemyHealth = 100;
 var currentCombat = "Weapon Attack";
-var healHP = 50;
+var healHP = 0;
 var hitchance;
 var maxDamage;
 var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
-
+var inCombat = false;
 
 function combatSetupV2(){
   //hide container
@@ -23,48 +23,24 @@ function combatSetupV2(){
 
   //document.getElementById('EnemyName').innerHTML = activeEnemyObj.enemyType;
 
-  //calculate basic stats
-  calculateInfo();
-  updateHP();
-}
-
-
-function combatSetup()
-{
-  document.getElementById('container').classList.add('hideMe');//hide main gameplay wrapper
-  document.getElementById('combat-wrapper').classList.remove('hideMe');
-
-  //get the enemy object
-  activeEnemyObj = window.player.currentRoom.enemies[0];
-
-
-  //setup names
-  document.getElementById('player1Name').innerHTML =  window.player.username;
-  //document.getElementById('player2Name').innerHTML = activeEnemyObj.enemyType;
-
-  //setup health bars
-  localHealth = window.player.health;
-  //enemyHealth = activeEnemyObj.health;
-
-  //setup weapon attack as default
-  updateCombatType(0);
+  currentCombat = 'Weapon';
 
   //calculate basic stats
   calculateInfo();
-
   updateHP();
-  updateWeapons();
-  healMenu(false);
+  updateCombatType();
+  document.getElementById('healMethod').innerHTML = 'None, please select one first';
+  inCombat = true;
+  healHP = 0;
 }
 
 function updateHP(){
-  //get the width of a health bar
-
   //calcuate the new width based on health
+  document.getElementById('healthBar').style.width =  localHealth  + '%';
   document.getElementById('EnemyHB').style.width =  enemyHealth + '%';
-
   //update HP values
-  document.getElementById('EnemyHealthValue').innerHTML = localHealth + 'HP';
+  document.getElementById('EnemyHealthValue').innerHTML = enemyHealth + '%';
+  document.getElementById('healthStat').innerHTML = "Health: " + localHealth + '%';
 }
 
 
@@ -74,11 +50,18 @@ function equipWeaponDrop(ev){
   nodeCopy.id = data+'active'; /* We cannot use the same ID */
   if(event.target.tagName.toUpperCase() != "TD")//if the target isnt empty
   {
-    var slot = document.getElementById('combatActive');
-    slot.removeChild(slot.childNodes[0]);
-    slot.appendChild(nodeCopy);//remove child image
     var itemName = nodeCopy.id.split('_');
-    window.equipWeapon(itemName[0]);
+    for(var i=0; i<player.inventory.length;i++){
+      //check that the item is a weapon
+      if(player.inventory[i].item.itemType === "Weapon" && player.inventory[i].item.itemName == itemName[0]){
+        var slot = document.getElementById('equippedWeaponImg');
+        slot.removeChild(slot.childNodes[0]);
+        slot.appendChild(nodeCopy);//remove child image
+        window.equipWeapon(itemName[0]);
+        break;
+      }
+    }
+
   }
   ev.preventDefault();
 }
@@ -89,7 +72,6 @@ function updateCombatType(){
   var combatOptions = document.getElementsByName('attacks');
   for (var i = 0, length = combatOptions.length; i < length; i++) {
     if (combatOptions[i].checked) {
-      //alert(combatOptions[i].value);
       currentCombat = combatOptions[i].value;
       break;
     }
@@ -100,45 +82,15 @@ function updateCombatType(){
   calculateInfo();
 }
 
-function healMenu(showMenu){
-  var healthKitBTN = document.getElementById('combat-Healthkit');
-  var healthPackBTN = document.getElementById('combat-Healthpack');
-  var canHeal = true;
-
-  if(window.checkInventory("health kit")){
-    healthKitBTN.disabled = false;
-  }
-  else{
-    healthKitBTN.disabled = true;
-    canHeal = false;
-  }
-
-  if(window.checkInventory("health pack")){
-    healthPackBTN.disabled = false;
-    canHeal = true;
-  }
-  else{
-    healthPackBTN.disabled = true;
-  }
-
-  //if the player can't heal this turn
-  if(!canHeal)
-  {
-    document.getElementById('healButton').disabled = true;
-  }
-  else if(showMenu){//if the player can heal and menu should be displayed
-    document.getElementById('CurrentHealthGained').classList.remove('hideMe');
-    document.getElementById('healContainer').classList.remove('hideMe');
-  }
-}
-
 function healType(type){
   switch (type) {
     case 0:
       healHP = 25;
+      document.getElementById('healMethod').innerHTML = 'Health Pack';
       break;
     case 1:
       healHP = 50;
+      document.getElementById('healMethod').innerHTML = 'Health Kit';
       break;
   }
 
@@ -148,13 +100,13 @@ function healType(type){
 function calculateInfo(){
   var damageGiven = false;//damage can be given
   switch (currentCombat) {
-    case "Weapon Attack":
+    case "Weapon":
       hitchance = 70;
       maxDamage = window.player.equippedWeapon.damage;
       maxDamageRecieved = 50;
       damageGiven = true;
       break;
-    case "Melee Attack":
+    case "Melee":
       hitchance = 90;
       maxDamage = 50;
       maxDamageRecieved = 70;
@@ -163,8 +115,9 @@ function calculateInfo(){
     case "Heal":
       maxDamageRecieved = 60;
       hitchance = 60;
+      document.getElementById('healContainer').classList.remove('hideMe');
       break;
-    case "Run Away":
+    case "Escape":
       maxDamageRecieved = 30;
       break;
   }
@@ -177,12 +130,16 @@ function calculateInfo(){
     document.getElementById('CurrentDamageGiven').classList.remove('hideMe');
     document.getElementById('hitboxesContainer').classList.remove('hideMe');
     document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
+    document.getElementById('attackContainer').classList.remove('hideMe');
   }
   else{
     //damage cant be given
-    document.getElementById('CurrentDamageGiven').classList.add('hideMe');
     document.getElementById('hitboxesContainer').classList.add('hideMe');
-    document.getElementById('Currenthitchance').classList.add('hideMe');
+    document.getElementById('attackContainer').classList.add('hideMe');
+  }
+
+  if(currentCombat != "Heal"){
+      document.getElementById('healContainer').classList.add('hideMe');
   }
   document.getElementById('MaxDamageRecievedValue').innerHTML = maxDamageRecieved + "HP";
 }
@@ -246,58 +203,48 @@ function nextRound(){
 function exectuteCombat(){
   //stop timer
   clearInterval(timer);
-
-  var damageRecieved;
-  var damageDealt;
-
-  //calculate damage dealt
-  if(Math.floor(Math.random()*100) <= hitchance){//hit the enemy
-    damageDealt = Math.floor(Math.random()*maxDamage);
+  document.getElementById('combatError').classList.add('hideMe');
+  if(currentCombat == "Heal" && healHP == 0){
+    document.getElementById('combatError').innerHTML = 'No heal method selected!';
+    document.getElementById('combatError').classList.remove('hideMe');
   }
-  else{//missed the enemy
-    damageDealt = 0;
+  else{
+    var damageRecieved;
+    var damageDealt;
+
+    //calculate damage dealt
+    if(Math.floor(Math.random()*100) <= hitchance){//hit the enemy
+      damageDealt = Math.floor(Math.random()*maxDamage);
+    }
+    else{//missed the enemy
+      damageDealt = 0;
+    }
+
+    //calculate damage recieved
+    if(Math.floor(Math.random()*100) <= 60){
+      damageRecieved = Math.floor(Math.random()*maxDamageRecieved);
+    }
+    else{//enemy missed
+      damageRecieved = 0;
+    }
+
+    localHealth -= damageRecieved;
+    enemyHealth -= damageDealt;
+
+     if(localHealth<=0){
+       //TODO you lose end game
+     }
+     else if(enemyHealth<=0){
+       //TODO enemy died exit combat
+     }
+     else if(currentCombat == "Run Away"){
+       //TODO move back a room
+     }
+
+    updateHP();
+    document.getElementById('turnOptions').classList.add('hideMe');
+    document.getElementById('turnOptions').classList.remove('turnOverview');
   }
-
-  //calculate damage recieved
-  if(Math.floor(Math.random()*100) <= 60){
-    damageRecieved = Math.floor(Math.random()*maxDamageRecieved);
-  }
-  else{//enemy missed
-    damageRecieved = 0;
-  }
-
-  localHealth -= damageRecieved;
-  enemyHealth -= damageDealt;
-
-   if(localHealth<=0){
-     //TODO you lose end game
-   }
-   else if(enemyHealth<=0){
-     //TODO enemy died exit combat
-   }
-   else if(currentCombat == "Run Away"){
-     //TODO move back a room
-   }
-
-
-  document.getElementById('countdownTimer').classList.add('hideMe');
-
-  document.getElementById('stat-damageTaken').innerHTML = damageRecieved;
-  document.getElementById('stat-damageGiven').innerHTML = damageDealt;
-
-  updateHP();
-
-
-  var elm1 = document.getElementById('healthLost');
-  var elm2 = document.getElementById('damageGiven');
-  elm1.innerHTML = 'Lost ' + damageRecieved + ' health..';
-  elm2.innerHTML = 'Damaged for '+damageDealt+'..';
-  elm1.classList.remove('hideMe');
-  elm2.classList.remove('hideMe');
-
-  document.getElementById('combatBox').classList.add('hideMe');
-  document.getElementById('overviewBox').classList.remove('hideMe');
-  document.getElementById('overview-container').classList.remove('hideMe');
 }
 
 function countdownTimer(){
