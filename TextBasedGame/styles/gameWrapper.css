@@ -49,43 +49,41 @@
 
 #pauseContainer{
   position: fixed;
-  width: 500px;
+  width: 30%;
   height: 300px;
-  top: 50%;
+  top: 35%;
   left: 50%;
   margin-top: -150px; /* Negative half of height. */
   margin-left: -250px; /* Negative half of width. */
-
-  background: grey;
-  border: 4px solid white;
   text-align: center;
-  border-radius: 40%;
   color: red;
   font-weight: bold;
 }
-
+.clickableImage
+{
+  cursor: pointer;
+}
 #pausebtn{
-  width: 150px;
-  height: 90px;
+  width: 20%;
+  background: url(images/Play Button.gif);
 }
 
 #startingContainer{
   position: fixed;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   margin: 2%;
   color: white;
-  top: 1%;
-  left: 2%;
-
-
   background: black;
-  border: 2px solid white;
-  border-radius: 30px;
-  text-align: center;
+  text-align: left;
+  font-size: 2.7vw;
+  font-family: 'Rajdhani', sans-serif;
 }
 
+#starterText
+{
 
+}
 
 .disabledbutton {
     pointer-events: none;
@@ -102,6 +100,7 @@
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
     box-shadow: 0 0 10px 2px #4edaf9;
     background-color: #111010;
 }
@@ -154,7 +153,7 @@
   /* border-bottom-left-radius: 25px;
   /*border-bottom-right-radius: 25px;*/
   /*border-top-right-radius: 25px; */
-  font-size: 1.35em;
+  font-size: 1.3vw;
   /* font-size: 1.5em; */
    color: #2EA6BF;
   /*font-family: 'Rajdhani', sans-serif; */
@@ -201,7 +200,7 @@
   width: 90%;
   height: 50px;
   border-radius: 25px;
-  font-size: 1.5em;
+  font-size: 1.3vw;
   /* color: #C14CD6; */
   font-family: 'Rajdhani', sans-serif;
   border: 2px solid black;
@@ -224,6 +223,36 @@
       #09252B 20px
       );
 }
+
+.mapButtons
+{
+  width: 90%;
+  height: 35px;
+  border-radius: 25px;
+  font-size: 1.1vw;
+  /* color: #C14CD6; */
+  font-family: 'Rajdhani', sans-serif;
+  border: 2px solid black;
+  font-weight: bolder;
+  cursor: pointer;
+  outline: none;
+  color: #8B2BE4;
+  /* background: repeating-linear-gradient(
+    180deg,
+    #25082A,
+    #25082A 10px,
+    #44174C 10px,
+    #44174C 20px
+    ); */
+    background: repeating-linear-gradient(
+      135deg,
+      #110120,
+      #110120 20px,
+      #20013D 20px,
+      #20013D 40px
+      );
+}
+
 
 #compass
 {
@@ -279,14 +308,21 @@
   width:32%;
   float:left;
   height:750px;
-  background-color: #0A1C24;
-  padding: 8px;
+  /* background-color: #0A1C24; */
+  /* background: repeating-linear-gradient(
+    45deg,
+    #041114,
+    #041114 30px,
+    #09252B 30px,
+    #09252B 60px
+    ); */
+    background-color: #111010;
   border: 2px solid black;
   margin-left: 2%;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   border-top-left-radius: 25px;
-  box-shadow: 0px 0px 10px 2px #F827A6;
+  box-shadow: 0px 0px 10px 2px #8B2BE4;
   display: block;
   /* margin-top: 2%;  */
   float:left;
@@ -317,20 +353,33 @@
 }
 
 #currentRoomDisplay{
-  border-bottom:2px solid #4edaf9;
+  /* border-bottom:2px solid #4edaf9; */
   font-size: 1.7em;
   margin: auto;
   margin-top: 5%;
+  margin-bottom: 1%;
 }
 
 #mapHeader{
   margin:auto;
+  margin-bottom: 5%;
+  width: 100%;
   overflow:auto;
   clear: both;
   /*border: 1px solid white;*/
   /* padding:0.2%; */
   text-align: center;
   font-size: 1.1vw;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  background: repeating-linear-gradient(
+    45deg,
+    #1B1A1A,
+    #1B1A1A 10px,
+    #0F0F0F 10px,
+    #0F0F0F 20px
+    );
+    /* border-bottom:2px solid darkgrey; */
 }
 
 #objectives{
@@ -343,10 +392,9 @@
 
 #hints{
   clear: both;
-  margin:auto;
   overflow:auto;
-  height:60%;
   text-align: center;
+  height: 56%;
 }
 
 #map
@@ -356,14 +404,24 @@
   overflow:auto;
   height: auto;
   text-align: center;
+  margin-bottom: 5%;
+  border-radius: 25px;
+  margin: 3%;
+  background: repeating-linear-gradient(
+    45deg,
+    #041114,
+    #041114 5px,
+    #082025 5px,
+    #082025 10px
+    );
 }
 
 #timerStat{
   overflow: auto;
-  padding:10px;
+  padding:1%;
   margin:auto;
-  border: 2px solid white;
-  background-color: black;
+  /* border: 2px solid white; */
+  /* background-color: black; */
 
 
 }
@@ -378,17 +436,19 @@
 
 #buttonStat{
   overflow: auto;
-  border: 1px solid grey;
-  background-color: #261f1f;
+  /* border: 1px solid grey;
+  background-color: #261f1f; */
+  margin: auto;
+  margin-left: 1%;
 }
 
 #ShowMap{
-  width:33%;
+  width:49%;
 
 }
 
 #ShowHints{
-  width:31%;
+  width:49%;
 
 }
 
@@ -398,9 +458,16 @@
 }
 
 #objectivesStat{
-  height:15%;
+  margin-top: 2%;
   padding: 10px;
-
+  border-radius: 25px;
+  /* background: repeating-linear-gradient(
+      45deg,
+      #1B1A1A,
+      #1B1A1A 10px,
+      #0F0F0F 10px,
+      #0F0F0F 20px
+      ); */
 }
 
 #playerProfile{
@@ -680,6 +747,7 @@
   float:left; margin-left: 5%;
   margin-top: 7%;
   width: 80%;
+  font-size: 1.0vw;
 }
 
 #hoverDescriptionContainer
@@ -744,7 +812,7 @@
     width: 100%;
     height: 90%;
     overflow: auto;
-    font-size: 1.6em;
+    font-size: 1.4vw;
     font-family: 'Rajdhani', sans-serif;
     border-top-left-radius: 0px;
     border-top-right-radius: 25px;
@@ -776,7 +844,7 @@
   color: red;
 }
 #userTextCaution{
-  color: #861BD4;
+  color: #A935FF;
 }
 #userTextGadget{
   color: lightblue;
@@ -801,7 +869,7 @@
 }
 #userTextRight
 {
-  color: #27910E;
+  color: #2DA711;
 }
 #userTextGame{
   color:#44c966;
@@ -821,9 +889,30 @@
   cursor:pointer;
 }
 
+#continueButton
+{
+  width: 10%;
+  text-align: center;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 1.1vw;
+  border: 2px solid black;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  outline: none;
+  color: #27910E;
+      background: repeating-linear-gradient(
+        180deg,
+        #082316,
+        #082316 10px,
+        #05170E 10px,
+        #05170E 20px
+        );
+}
+
 .input
 {
-  font-size: 1.5em;
+  font-size: 1.2vw;
   background: repeating-linear-gradient(
     180deg,
     #082316,
@@ -848,13 +937,50 @@
   color: #434443;
 }
 
+.textAnimStart{
+  animation: fadeIn ease 5s both;
+-webkit-animation: fadeIn ease 5s both;
+-moz-animation: fadeIn ease 5s;
+-o-animation: fadeIn ease 5s;
+-ms-animation: fadeIn ease 5s;
+}
 
-@keyframes fadeInOut {
+.textAnimStart2{
+  animation: fadeIn ease 5s both;
+  -webkit-animation: fadeIn ease 5s both;
+  -moz-animation: fadeIn ease 5s;
+  -o-animation: fadeIn ease 5s;
+  -ms-animation: fadeIn ease 5s;
+
+  -webkit-animation-delay: 4s;
+}
+
+.textAnimStart3{
+  animation: fadeIn ease 5s both;
+  -webkit-animation: fadeIn ease 5s both;
+  -moz-animation: fadeIn ease 5s;
+  -o-animation: fadeIn ease 5s;
+  -ms-animation: fadeIn ease 5s;
+
+-webkit-animation-delay: 8s;
+}
+
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }

@@ -3,40 +3,48 @@ var timer;
 var localHealth = 100;
 var enemyHealth = 100;
 var currentCombat = "Weapon Attack";
+var healHP = 50;
 var hitchance;
 var maxDamage;
 var maxDamageRecieved;
 var weaponDisabled = false;
-var activeWeaponObj;
+var activeEnemyObj;
+
 
 function combatSetup()
 {
   document.getElementById('container').classList.add('hideMe');//hide main gameplay wrapper
   document.getElementById('combat-wrapper').classList.remove('hideMe');
 
+  //get the enemy object
+  activeEnemyObj = window.player.currentRoom.enemies[0];
+
+
   //setup names
   document.getElementById('player1Name').innerHTML =  window.player.username;
-  //todo enemy name
+  //document.getElementById('player2Name').innerHTML = activeEnemyObj.enemyType;
 
   //setup health bars
   localHealth = window.player.health;
-  //enemyHealth = enemyObj.health;
+  //enemyHealth = activeEnemyObj.health;
+
+  //setup weapon attack as default
   updateCombatType(0);
 
-  document.getElementById('currentCombat').innerHTML = 'Weapon Attack';//base attack
+  //calculate basic stats
   calculateInfo();
 
   updateHP();
   updateWeapons();
+  healMenu(false);
 }
 
 function updateHP(){
   //get the width of a health bar
-  var width = document.getElementById('healthBar1').offsetWidth;
 
   //calcuate the new width based on health
-  document.getElementById('PlayerHB').style.width = Math.floor((width/100) *localHealth) + 'px';
-  document.getElementById('EnemyHB').style.width =  Math.floor((width/100) *enemyHealth) + 'px';
+  document.getElementById('PlayerHB').style.width = localHealth + '%';
+  document.getElementById('EnemyHB').style.width =  enemyHealth + '%';
 
   //update HP values
   document.getElementById('health1').innerHTML = localHealth + 'HP';
@@ -60,8 +68,8 @@ function updateWeapons(){
     }
   }
 
-  //if the player has no weapons-
-  if(window.player.equippedWeapon.item.itemName == 0){
+  //if the player has no weapons and no equipped weapon
+  if(window.player.equippedWeapon.item.itemName == 0 && tableIndex == 1){
     document.getElementById('wepButton').disabled = true;
     weaponDisabled = true;
     updateCombatType(1);//set combat to melee since no weapon is equipped
@@ -98,7 +106,7 @@ function equipWeaponDrop(ev){
 
 
 function updateCombatType(type){
-  //if heal combat type was last selected then hide it
+  //if the heal combat type was last selected then hide it
   if(currentCombat === "Heal" && type != 2){
     document.getElementById('CurrentHealthGained').classList.add('hideMe');
     document.getElementById('healContainer').classList.add('hideMe');
@@ -116,8 +124,7 @@ function updateCombatType(type){
       break;
     case 2:
       currentCombat = "Heal";
-      document.getElementById('CurrentHealthGained').classList.remove('hideMe');
-      document.getElementById('healContainer').classList.remove('hideMe');
+      healMenu(true);
       break;
     case 3:
       currentCombat = "Run Away";
@@ -126,6 +133,51 @@ function updateCombatType(type){
   //display the current combat type
   document.getElementById('currentCombat').innerHTML =currentCombat;
   calculateInfo();
+}
+
+function healMenu(showMenu){
+  var healthKitBTN = document.getElementById('combat-Healthkit');
+  var healthPackBTN = document.getElementById('combat-Healthpack');
+  var canHeal = true;
+
+  if(window.checkInventory("health kit")){
+    healthKitBTN.disabled = false;
+  }
+  else{
+    healthKitBTN.disabled = true;
+    canHeal = false;
+  }
+
+  if(window.checkInventory("health pack")){
+    healthPackBTN.disabled = false;
+    canHeal = true;
+  }
+  else{
+    healthPackBTN.disabled = true;
+  }
+
+  //if the player can't heal this turn
+  if(!canHeal)
+  {
+    document.getElementById('healButton').disabled = true;
+  }
+  else if(showMenu){//if the player can heal and menu should be displayed
+    document.getElementById('CurrentHealthGained').classList.remove('hideMe');
+    document.getElementById('healContainer').classList.remove('hideMe');
+  }
+}
+
+function healType(type){
+  switch (type) {
+    case 0:
+      healHP = 25;
+      break;
+    case 1:
+      healHP = 50;
+      break;
+  }
+
+  document.getElementById('HealthGainedValue').innerHTML = healHP + "HP";
 }
 
 function calculateInfo(){
@@ -146,7 +198,9 @@ function calculateInfo(){
     case "Heal":
       maxDamageRecieved = 60;
       hitchance = 60;
-      document.getElementById('HealthGainedValue').innerHTML = "50HP";
+      break;
+    case "Run Away":
+      maxDamageRecieved = 30;
       break;
   }
   updateHitbox();
@@ -194,15 +248,15 @@ function updateHitbox(){
       break;
   }
   if(hitchanceChange >= 0){
-      document.getElementById('addHitchance').innerHTML = '+' + hitchanceChange;
+      document.getElementById('addHitchance').innerHTML = '+' + hitchanceChange +"%";
       document.getElementById('addHitchance').style.color = "lime";
   }
   else{
-    document.getElementById('addHitchance').innerHTML = hitchanceChange;
+    document.getElementById('addHitchance').innerHTML = hitchanceChange +"%";
     document.getElementById('addHitchance').style.color = "red";
   }
 
-  document.getElementById('addMaxDamage').innerHTML = '+' + maxDmgChange;
+  document.getElementById('addMaxDamage').innerHTML = '+' + maxDmgChange + "HP";
 
   hitchance+=hitchanceChange;
   maxDamage+=maxDmgChange;
@@ -227,7 +281,6 @@ function nextRound(){
 function exectuteCombat(){
   //stop timer
   clearInterval(timer);
-
 
   var damageRecieved;
   var damageDealt;
@@ -257,6 +310,9 @@ function exectuteCombat(){
    else if(enemyHealth<=0){
      //TODO enemy died exit combat
    }
+   else if(currentCombat == "Run Away"){
+     //TODO move back a room
+   }
 
 
   document.getElementById('countdownTimer').classList.add('hideMe');
@@ -278,7 +334,6 @@ function exectuteCombat(){
   document.getElementById('overviewBox').classList.remove('hideMe');
   document.getElementById('overview-container').classList.remove('hideMe');
 }
-
 
 function countdownTimer(){
   if(countdown <= 0){

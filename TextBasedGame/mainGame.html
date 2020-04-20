@@ -21,15 +21,27 @@
       }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
-        width: 6px;
+        width: 4px;
       }
       ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 2px grey;
+        border: solid 3px transparent;
         border-radius: 10px;
+        max-height: 80%;
       }
       ::-webkit-scrollbar-thumb {
-        background: red;
+        background: #850C0C;
         border-radius: 10px;
+      }
+
+      .smallerScroll::-webkit-scrollbar-track-piece:end {
+          background: transparent;
+          margin-bottom: 20px;
+      }
+
+      .smallerScroll::-webkit-scrollbar-track-piece:start {
+          background: transparent;
+          margin-top: 20px;
       }
     </style>
     <script type="text/javascript"></script>
@@ -115,7 +127,7 @@
   </head>
   <body onload="gameStart();">
   <body>
-    <div id="wrapper">
+    <div id="wrapper" class = "hideMe">
       <div id="settings-wrapper">
           <button type="button" style="float:right; cursor:pointer;" onclick="combatSetup();">Test combat</button>
           <button type="button" style="float:right; cursor:pointer;" onclick="pause();" id="pausebtn">Pause Game</button>
@@ -127,7 +139,7 @@
       </div>
       <br>
       <div id="container">
-        <div id="playerContainer">
+        <div id="playerContainer" class="smallerScroll">
           <div id="statsContainer">
             <div id="playerProfile">
                  <div id=playerCharStat>
@@ -160,7 +172,7 @@
                  <p id="currentWeaponMag">/</p>
                 </div>
                 <div style=" width: 85%;  margin-left: 5%;">
-                <button style="margin-top: 7%; height: 37px;" class="profileButtons" onclick="reload();"id="reloadBtn" >>reload</button>
+                <button style="margin-top: 7%; height: 34px;" class="profileButtons" onclick="reload();"id="reloadBtn" >>reload</button>
               </div>
                </div>
             </div>
@@ -184,7 +196,7 @@
         <div id="playerInventory" >
           <div id="inventory">
             <div id="inventoryHeader">
-                <h1>>Inventory</h1>
+                <h1 style="font-size:2vw;">>Inventory</h1>
             </div>
               <table>
                 <tr>
@@ -204,7 +216,7 @@
 
 
                 <div id="inventoryHeader">
-                    <h1>>Nearby Pickups</h1>
+                    <h1 style="font-size:2vw;">>Nearby Pickups</h1>
                 </div>
                 <table>
                   <tr>
@@ -264,12 +276,15 @@
         <div id="mapContainer">
                  <div id="mapHeader">
                    <p id="currentRoomDisplay" class="text">>Current Room: </h1>
+                     <div id="timerStat">
+                         <span style="margin:0;" class="blinking" id="timer">Time remaining: 5:00</span>
+                     </div>
                  </div>
                  <div id="map">
                      <img id="gameMap" src="images/gameMap.png" alt="This is the game map"style='height: 80%; width: 80%; object-fit: contain'>
                  </div>
-                 <div id="hints" style="display:none; border-style:solid;">
-                   <p style="font-weight:bold;font-size:1.4vw;">HINTS</p>
+                 <div id="hints" style="text-align: left ;display:none;">
+                   <p style="font-weight:bold;font-size:1.4vw; text-align: center; margin:0;">HINTS</p>
                    <ul>
                      <li>To move type north,south,west, east or click on the buttons to move in that direction.</li>
                      <li>Exits in the current room can be output to you by typing "look" or by clicking the look button.</li>
@@ -292,16 +307,11 @@
                   </ul>
                  </div>
                 <div id="buttonStat">
-                  <button style="cursor:pointer;" id="ShowStats">Stats</button>
-                  <button style="cursor:pointer;"id="ShowMap">Map</button>
-                  <button style="cursor:pointer;" id="ShowHints">Hints</button>
+                  <button style="cursor:pointer;"id="ShowMap" class="mapButtons">Map</button>
+                  <button style="cursor:pointer;" id="ShowHints" class="mapButtons">Hints</button>
                 </div>
-                  <div id="timerStat">
-                      <span style="margin:0;" class="blinking" id="timer">Time remaining: 5:00</span>
-                  </div>
                  <div id="objectivesStat">
-                   <h3 style="margin:0;">Objectives:</h3>
-                   <hr>
+                   <h3 style="margin:0; border-bottom: 2px solid #8B2BE4; margin-bottom: 2%;">Objectives:</h3>
                    <ul style="margin:0;" id="objectivesList">
                    </ul>
                  </div>
@@ -356,7 +366,7 @@
            <h2>Combat Options:</h2>
            <button type="button" name="WeaponAttack" class="combatButtons" id="wepButton" onclick="updateCombatType(0);">WeaponAttack</button>
            <button type="button" name="meleeAttack" class="combatButtons" onclick="updateCombatType(1);">Melee Attack</button>
-           <button type="button" name="heal" class="combatButtons" onclick="updateCombatType(2);">Heal</button>
+           <button type="button" name="heal" class="combatButtons" onclick="updateCombatType(2);" id="healButton">Heal</button>
            <button type="button" name="leave" class="combatButtons" onclick="updateCombatType(3);">Run Away</button>
 
            <div id="hitboxesContainer">
@@ -370,8 +380,8 @@
             </select>
            </div>
            <div id="healContainer" class="hideMe">
-            <button type="button" name="button">Use health kit</button>
-            <button type="button" name="button">Use health pack</button>
+            <button type="button" name="button" id="combat-Healthkit">Use health kit</button>
+            <button type="button" name="button" id="combat-Healthpack">Use health pack</button>
            </div>
           <button type="button" name="turnEnd" onclick="exectuteCombat();">End Turn</button>
          </div>
@@ -381,9 +391,9 @@
            <table cellspacing="10">
              <tr>
                <td style="border: 3px solid red;" ondrop='equipWeaponDrop(event)' ondragover='allowDrop(event)' id="combatActive"><img src="images/fist.png" alt="Empty Slot" class="inventoryItem"></td>
-               <td id="combatDefault"> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
-               <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
-               <td> <img src="images/itemPlaceholder.png" alt="Empty Slot" class="inventoryItem"> </td>
+               <td id="combatDefault"></td>
+               <td></td>
+               <td></td>
              </tr>
            </table>
        </div>
@@ -400,19 +410,19 @@
       </div>
     </div>
   </div>
-  <div id="startingContainer" class="hideMe">
-      <h1>test</h1>
+  <div id="startingContainer" >
+      <div id = "starterText"></div>
       <script type="text/javascript">
         function hideStart(){
           document.getElementById('startingContainer').classList.add('hideMe');
+          document.getElementById('wrapper').classList.remove('hideMe');
+          document.getElementById('wrapper').classList.add('textAnimStart');
         }
       </script>
-      <button type="button" name="continue" onclick="hideStart();">Continue</button>
+      <button type="button" name="continue" onclick="hideStart();" id = "continueButton">Continue</button>
   </div>
   <div id="pauseContainer" class="hideMe">
-      <h1>Paused!</h3>
-      <hr style="width:80%;">
-      <button type="button" onclick="pause();" id="pausebtn">Unpause Game</button>
+      <img src="images/Play Button.gif" onclick="pause();" class="clickableImage" alt="">
   </div>
   </body>
 </html>
