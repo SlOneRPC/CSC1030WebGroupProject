@@ -15,7 +15,7 @@ var footstep5;
 var footstep6;
 var footstep7;
 var footstep8;
-var volume=0.0;
+var volume=0.5;
 var sounds=[];
 
 
@@ -1559,8 +1559,6 @@ function processCommands(input)
   }
   scrollBarAnchor();
 }
-<<<<<<< HEAD
-=======
 
 function insert(words)
 {
@@ -1655,8 +1653,6 @@ function read(words)
 
 }
 
-
->>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
 function sneakAttackEnemy(words)
 {
   if(player.currentRoom.enemies.length > 0)
@@ -2007,8 +2003,7 @@ function checkInventory(item)
     }
   }
 }
-<<<<<<< HEAD
-=======
+
 
 function checkInventoryType(item,type){
   for(var i=0; i<player.inventory.length;i++){
@@ -2019,7 +2014,7 @@ function checkInventoryType(item,type){
   }
 }
 
->>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
+
 function useItem(words)
 {
   if(words.includes("health kit"))
@@ -2335,8 +2330,7 @@ function getDetailsOfItem(imgPath)
     });
     return found;
 }
-<<<<<<< HEAD
-=======
+
 
 function showEquip(id){
   var itemName = id.split('_');
@@ -2355,7 +2349,7 @@ function equipSelected(){
   document.getElementById('equipBtn').classList.add('hideMe');
 }
 
->>>>>>> bb371a1ed3d17c6c946b748052fecedc99a47f3e
+
 function vicinity(playerRoom)
 {
   //get the correct table using a query
