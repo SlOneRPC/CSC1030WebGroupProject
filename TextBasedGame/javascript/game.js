@@ -301,7 +301,7 @@ function addRooms()
 
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
-    "map-armory.png"
+    "map_armory.png"
   );
 
   var computerLab =
@@ -653,11 +653,11 @@ function addRooms()
       createExitObject("hallway01", "south", "You head south down the hallway.",false,"")
     ],
     [//Items in the current room
-    ]
+    ],
     [  createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space.This must have been where the explosion happened.","no")
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
-     "map_hallway02.png"
+    "map_hallway02.png"
   );
 
   var hallway03 =
