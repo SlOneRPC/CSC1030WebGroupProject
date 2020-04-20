@@ -58,6 +58,7 @@ function populateFootstepArray()
   footstepSounds.push(footstep7);
   footstepSounds.push(footstep8);
 }
+
 function gameStart()
 {
  //method will decide and pick between starter rooms based on class
@@ -120,26 +121,31 @@ function gameStart()
  document.getElementById("text-display").innerHTML +="<span id = 'userTextRight'>>You find yourself in the "+player.currentRoom.roomName+". </span>";
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
 }
+
 function createPlayerObject(usernameValue, healthValue, charClassValue, currentRoomValue, inventoryValue, equippedWeaponValue, statsValue, attackValue, defenseValue)
 {
   var playerObject = {username:usernameValue, health:healthValue, charClass:charClassValue, currentRoom:currentRoomValue,equippedWeapon:equippedWeaponValue, inventory:inventoryValue, stats:statsValue, attack:attackValue, defense:defenseValue};
   return playerObject;
 }
+
 function createStatObject(areasExploredValue, itemsCollectedValue, enemiesDefeatedValue, timeLeftValue)
 {
   var statsObject = {areasExplored:areasExploredValue, itemsCollected:itemsCollectedValue, enemiesDefeated:enemiesDefeatedValue, timeLeft:timeLeftValue};
   return statsObject;
 }
-function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue, lookedValue)
+
+function createRoomObject(roomNameValue, typeValue, roomDescriptionValue, enemiesValue, exitsValue, roomItemsValue, interactableRoomObjectsValue, roomDiscoveredValue,mapFilePathValue)
 {
-  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescriptions:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue, looked:lookedValue};
+  var roomObject = {roomName:roomNameValue, type:typeValue, roomDescriptions:roomDescriptionValue, enemies:enemiesValue, exits:exitsValue, roomItems:roomItemsValue, interactables:interactableRoomObjectsValue, roomDiscovered:roomDiscoveredValue,mapFilePath:mapFilePathValue};
   return roomObject;
 }
+
 function createExitObject(exitRoomNameValue, orientationValue,descriptionValue,blockedValue,blockedDescriptionValue)
 {
   var exitObject = {exitRoomName:exitRoomNameValue, orientation:orientationValue, description:descriptionValue, blocked:blockedValue,blockedDescription:blockedDescriptionValue};
   return exitObject;
 }
+
 function createItemObject(itemNameValue, itemTypeValue, itemDescriptionValue, itemSearchedValue, itemFilePathValue)
 {
   var itemObject = {itemName:itemNameValue, itemType:itemTypeValue, itemDescription:itemDescriptionValue, itemSearched:itemSearchedValue, itemFilePath:itemFilePathValue};
@@ -259,7 +265,8 @@ function addRooms()
     [
 
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?,
+    "map_quarters.png"
   );
 
   var armory =
@@ -292,7 +299,8 @@ function addRooms()
     [
 
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map-armory.png"
   );
 
   var computerLab =
@@ -325,7 +333,8 @@ function addRooms()
     [
       createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway06","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble01"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_computerlab.png"
   );
 
   var storageUnit1 =
@@ -357,7 +366,8 @@ function addRooms()
     [
 
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_s-unit1.png"
   );
 
   var storageUnit2 =
@@ -392,7 +402,8 @@ function addRooms()
        createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway11","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble04"),
        createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway13","Using your hacking-tool you succesfully hack into the door controls and open the door.","door05"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_s-unit2.png"
   );
 
   var kitchen =
@@ -421,7 +432,8 @@ function addRooms()
      [
        createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","mess hall","Using your hacking-tool you succesfully hack into the door controls and open the door.","door02"),
      ], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
+     false, //Has Room been entered/Discovered?
+     "map_kitchen.png"
   );
 
   var messHall =
@@ -456,7 +468,8 @@ function addRooms()
     [
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","kitchen","Using your hacking-tool you succesfully hack into the door controls and open the door.","door02"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_messhall.png"
   );
 
   var maintenanceBay  =
@@ -486,7 +499,8 @@ function addRooms()
     [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway10","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent03"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_maintenancebay.png"
   );
 
   var hangarBay  =
@@ -515,7 +529,8 @@ function addRooms()
      [
        createInteractableObject("Escape pod","You inspect the escape pod it appears to be fully functional, time to get out of here!","go escape pod"),
      ], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
+     false, //Has Room been entered/Discovered?
+     "map_hangarbay.png"
    );
 
   var researchLab  =
@@ -545,7 +560,8 @@ function addRooms()
     [
       createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway09","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble03"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_researchlab.png"
   );
 
   var reactorRoom =
@@ -578,7 +594,8 @@ function addRooms()
       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","storage unit 02","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent05"),
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway11","Using your hacking-tool you succesfully hack into the door controls and open the door.","door04"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_reactorroom.png"
   );
 
   // hallway instanciation
@@ -611,7 +628,8 @@ function addRooms()
        createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hangar bay","no"),
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway04","using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent01")
      ], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
+     false, //Has Room been entered/Discovered?
+     "map_hallway01.png"
    );
 
   var hallway02 =
@@ -637,7 +655,8 @@ function addRooms()
     ]
     [  createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space.This must have been where the explosion happened.","no")
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+     "map_hallway02.png"
   );
 
   var hallway03 =
@@ -671,7 +690,8 @@ function addRooms()
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway04","Using your hacking-tool you succesfully hack into the door controls and open the door.","door01"),
       createInteractableObject("sign","You examine the sign and and see that the computer lab is to the south, a storage unit lies to the west, and a hallway to the mess hall is to the east.")
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+     "map_hallway03.png"
   );
 
   var hallway04 =
@@ -705,7 +725,8 @@ function addRooms()
       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway01","using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent01"),
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway03","Using your hacking-tool you succesfully hack into the door controls and open the door.","door01"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+     "map_hallway04.png"
   );
 
   var hallway05 =
@@ -738,7 +759,8 @@ function addRooms()
        createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway07","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble02"),
        createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED HOSTILE CONTACT CONFIRMED ABANDON SHIP! ' That doesn't sound good better try and make it to the hangar bay","no"),
      ], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
+     false, //Has Room been entered/Discovered?
+      "map_hallway05.png"
    );
 
   var hallway06 =
@@ -768,7 +790,8 @@ function addRooms()
      [
         createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","computer lab","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble01"),
      ], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
+     false, //Has Room been entered/Discovered?
+      "map_hallway06.png"
    );
 
   var hallway07 =
@@ -802,7 +825,8 @@ function addRooms()
       createInteractableObject("sign","You examine the sign and and see that the hangar bay is to the east end of the hall, the research lab is towards the north end of the hall,the armory is towards the south and the maintenance bay and mess hall are to the east.","no"),
       createInteractableObject("powered door","You examine the door and and see that it is blocking access to the hangar bay. It might open if the ship's power is restored.","no")
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_hallway07.png"
   );
 
   var hallway08 =
@@ -834,7 +858,8 @@ function addRooms()
     [
       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway05","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent02"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_hallway08.png"
   );
 
   var hallway09 =
@@ -864,7 +889,8 @@ function addRooms()
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway07","Using your hacking-tool you succesfully hack into the door controls and open the door.","door03"),
       createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","research lab","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble03"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+      "map_hallway09.png"
   );
 
   var hallway10 =
@@ -895,7 +921,8 @@ function addRooms()
       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","maintenance bay","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent03"),
       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway13","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent04")
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?#
+     "map_hallway10.png"
   );
 
   var hallway11 =
@@ -926,7 +953,8 @@ function addRooms()
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","reactor room","Using your hacking-tool you succesfully hack into the door controls and open the door.","door04"),
       createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","storage unit 02","You plant the explosives in the center of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble04"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_hallway11.png"
   );
 
   var hallway12 =
@@ -958,7 +986,8 @@ function addRooms()
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","storage unit 02","Using your hacking-tool you succesfully hack into the door controls and open the door.","door05"),
       createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space","no"),
     ], //Number of interactable items in the room
-    false //Has Room been entered/Discovered?
+    false, //Has Room been entered/Discovered?
+    "map_hallway12.png"
   );
 
   var hallway13 =
@@ -989,7 +1018,8 @@ function addRooms()
      [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway10","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent04"),
      ], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
+     false, //Has Room been entered/Discovered?
+     "map_hallway13.png"
    );
 
   var hallway14=
@@ -1018,7 +1048,8 @@ function addRooms()
         createHealthObject("health pack","A health pack it can be used to heal you by 25%","images/healthpack.png", 50,1)
      ],
      [], //Number of interactable items in the room
-     false //Has Room been entered/Discovered?
+     false, //Has Room been entered/Discovered?
+     "map_hallway14.png"
    );
 
   rooms.push(quarters);
@@ -1058,11 +1089,12 @@ function addRooms()
 }
 
 function askPlayer(){
+
   var text1="The ship is your osyter what would you like to do " + player.username + "?";
   var text2="The floor is yours what would you like to do " + player.username + "?";
   var text3="What now " + player.username + "?";
   var text4="Your move " + player.username + "?";
-  var text5="What Shall you do " + player.username + "I wonder";
+  var text5="What Shall you do " + player.username + " I wonder?";
   var text6="What next " + player.username +"?";
   var randomTextToPlayer=[];
   randomTextToPlayer.push(text1);
@@ -1120,6 +1152,7 @@ function displayAllEnemies()
 function outputCurrentRoomDesc()
 {
   directionColourResetBlue();
+  document.getElementById("gameMap").src="images/"+player.currentRoom.mapFilePath;
   if(player.currentRoom.roomDiscovered===false)
   {
     roomDesc= getRoomTextDesc(player.currentRoom,"first-entry");
@@ -1557,7 +1590,6 @@ function sneakAttackEnemy(words)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>There are no enemies in this room to sneak attack'</span>";
   }
 }
-
 
 function dropItem(itemName){
   if(checkInventory(itemName)){
