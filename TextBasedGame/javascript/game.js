@@ -15,7 +15,7 @@ var footstep5;
 var footstep6;
 var footstep7;
 var footstep8;
-var volume=0.0;
+var volume=0.5;
 var sounds=[];
 
 

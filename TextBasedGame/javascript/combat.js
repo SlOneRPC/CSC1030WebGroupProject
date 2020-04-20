@@ -55,6 +55,12 @@ function checkEquippedWeaponStatus(){
   }
 }
 
+function updateAmmo(){
+  var ammo = window.player.equippedWeapon.ammo -= 1;
+  var magSize = window.player.equippedWeapon.magSize;
+  document.getElementById('currentWeaponMag').innerHTML = ammo + '/' + magSize;
+}
+
 function equipWeaponDrop(ev){
   var data = ev.dataTransfer.getData("text");
   var nodeCopy = document.getElementById(data).cloneNode(true);
@@ -94,11 +100,11 @@ function healType(type){
   switch (type) {
     case 0:
       healHP = 25;
-      document.getElementById('healMethod').innerHTML = 'Health Pack';
+      document.getElementById('healMethod').innerHTML = 'health pack';
       break;
     case 1:
       healHP = 50;
-      document.getElementById('healMethod').innerHTML = 'Health Kit';
+      document.getElementById('healMethod').innerHTML = 'health kit';
       break;
   }
 
@@ -201,11 +207,18 @@ function nextRound(){
 function exectuteCombat(){
 
   document.getElementById('combatError').classList.add('hideMe');
+  document.getElementById('combatError').classList.remove('hideMe');
   if(currentCombat == "Heal" && healHP == 0){
     document.getElementById('combatError').innerHTML = 'No heal method selected!';
-    document.getElementById('combatError').classList.remove('hideMe');
+  }
+  else if(currentCombat == "Heal" && window.player.health >=100){
+    document.getElementById('combatError').innerHTML = 'Already full health!';
+  }
+  else if(currentCombat == "Weapon" && window.player.equippedWeapon.ammo<=0){
+    document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
   }
   else{
+    document.getElementById('combatError').classList.add('hideMe');
     var damageRecieved;
     var damageDealt;
 
@@ -223,6 +236,19 @@ function exectuteCombat(){
     }
     else{//enemy missed
       damageRecieved = 0;
+    }
+
+    if(currentCombat == "Weapon"){
+      updateAmmo();
+    }
+    else if(currentCombat == "Heal"){
+      removeItem(document.getElementById('healMethod').innerHTML);
+      if(window.player.health + healHP >= 100){
+        window.player.health = 100;
+      }
+      else{
+        window.player.health += healHP;
+      }
     }
 
     window.player.health -= damageRecieved;
@@ -254,8 +280,8 @@ function exectuteCombat(){
       document.getElementById('TurndamageDealt').innerHTML = damageDealt;
       document.getElementById('TurndamageRecieved').innerHTML = damageRecieved;
 
-      document.getElementById('TurnEnemyName').innerHTML = 'Enemy';//placeholder
-      document.getElementById('TurnEnemyName2').innerHTML = 'Enemy';//placeholder
+      document.getElementById('TurnEnemyName').innerHTML = activeEnemyObj.enemyType;//placeholder
+      document.getElementById('TurnEnemyName2').innerHTML = activeEnemyObj.enemyType;//placeholder
 
       document.getElementById('turnOptions').classList.add('hideMe');
       document.getElementById('turnOverview').classList.remove('hideMe');
