@@ -1283,9 +1283,9 @@ function outputCurrentRoomExits()
    availableDirections.push(item.orientation);
   });
   ;
-  document.getElementById("text-display").innerHTML += "</br>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
   directionColourAllRed();
   scanning(availableDirections);
+  document.getElementById("text-display").innerHTML += "</br>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
   scrollBarAnchor();
 }
 
