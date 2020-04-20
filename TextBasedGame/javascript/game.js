@@ -838,11 +838,11 @@ function addRooms()
     [//Room Descriptions
       createDescriptionObject(
         "first-entry",
-        "You enter into the hallway and find it barren apart from burnt metal and scrap from the supports of the hall. Empty energy cells and plasma marks paint the hallway. "
+        "You enter into the hallway and find it barren apart from burnt metal and scrap from the supports of the hall. Empty energy cells and plasma marks paint the hallway."
       ),
       createDescriptionObject(
         "second-entry",
-        "You enter back into the hall and find it quiet,The plasma marks on the wall still smouldering."
+        "You enter back into the hall and find it quiet, the plasma marks on the wall still smouldering."
       ),
     ],
     [], //Enemies Value
@@ -985,7 +985,7 @@ function addRooms()
     ],
     [
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","storage unit 02","Using your hacking-tool you succesfully hack into the door controls and open the door.","door05"),
-      createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull as collaspsed leaving the other side of the hallway open to space","no"),
+      createInteractableObject("force-field","You examine the force field and see that beyond it part of the ship's hull has collapsed, leaving the other side of the hallway open to space","no"),
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
     "map_hallway12.png"
@@ -1014,7 +1014,7 @@ function addRooms()
      ],
      [//Items in the current room
         createAmmoObject("energy cells","An energy cell, used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1)),
-        createHealthObject("health kit","A health kit it can be used to heal you by 50%","images/healthkit.png", 50,1)
+        createHealthObject("health kit","A health kit, can be used to heal you by 50%","images/healthkit.png", 50,1)
      ],
      [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","hallway10","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent04"),
@@ -1045,8 +1045,8 @@ function addRooms()
      ],
      [//Items in the current room
         createAmmoObject("energy cells","An energy cell, used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
-        createHealthObject("health kit","A health kit it can be used to heal you by 50%","images/healthkit.png", 50,1),
-        createHealthObject("health pack","A health pack it can be used to heal you by 25%","images/healthpack.png", 50,1)
+        createHealthObject("health kit","A health kit, can be used to heal you by 50%","images/healthkit.png", 50,1),
+        createHealthObject("health pack","A health pack, can be used to heal you by 25%","images/healthpack.png", 50,1)
      ],
      [], //Number of interactable items in the room
      false, //Has Room been entered/Discovered?
