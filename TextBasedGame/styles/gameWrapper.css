@@ -642,6 +642,10 @@
   margin: 5%;
 }
 
+
+
+
+
 .profileButtons
 {
   width: 90%;
@@ -842,7 +846,6 @@
   width: 100%;
   height: 50px;
   border: 1px solid white;
-  margin:auto;
   font-size: 1.4vw;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -863,6 +866,7 @@
   float:left;
   position: relative;
   bottom:6px;
+  width:7%;
 }
 #volumeText{
   position: relative;
@@ -872,12 +876,23 @@
   float:left;
   font-family: 'Rajdhani', sans-serif;
 }
-
-#settings-wrapper button{
-  margin: 5px;
-  height: 40px;
-  width: 60px;
+.settingButtons{
+  width:5%;
+  font-size: 1.1vw;
+  border: 2px solid black;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  outline: none;
+  color: #ffffff;
+      background: repeating-linear-gradient(
+          180deg,
+          #1B1A1A,
+          #1B1A1A 10px,
+          #0F0F0F 10px,
+          #0F0F0F 20px
+        );
 }
+
 
 #userTextWrong{
   color: red;
