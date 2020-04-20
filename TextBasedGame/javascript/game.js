@@ -96,8 +96,8 @@ function gameStart()
 
   };
  //method will decide and pick between starter rooms based on class
- //player.username = sessionStorage.getItem("name");
- //player.charClass = sessionStorage.getItem("class");
+ player.username = sessionStorage.getItem("name");
+ player.charClass = sessionStorage.getItem("class");
  addRooms();
  populateFootstepArray();
  document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";

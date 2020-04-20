@@ -28,6 +28,8 @@ function checkLength(){
   if(value.length > -1)
   {
     document.getElementById("name").style="background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px)";
+    document.getElementById("characterCreator").style="box-shadow: 0 0 10px 2px #4edaf9";
+
   }
 }
 // this method checks if the user has input a name and selected a class, if not lets them know that
@@ -36,12 +38,17 @@ function inputValidation(){
   if(document.getElementById("name").value===""){
     desc = "You must enter a name before you begin";
     document.getElementById("name").style="background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
-
+    document.getElementById("characterCreator").style="box-shadow: 0 0 10px 2px red";
     issue = true;
   }
   else if(!document.getElementById("Hacker").checked && !document.getElementById("Engineer").checked && !document.getElementById("SpaceCowboy").checked)
   {
     desc = "You must select a class before you begin";
+    document.getElementById("characterCreator").style="box-shadow: 0 0 10px 2px red";
+    document.getElementById("hackLabel").style="background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
+    document.getElementById("engiLabel").style="background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
+    document.getElementById("spaceLabel").style="background: repeating-linear-gradient(180deg,#590606,#590606 10px,#320303 10px,#320303 20px)";
+
     issue = true;
   }
   else{
