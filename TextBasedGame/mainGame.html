@@ -65,8 +65,9 @@
            $("#map").css("display","none");
            $("#hints").css("display","block");
         });
-
-
+        $('input:radio[name=bedStatus]:checked').change(function () {
+            updateCombatType();
+         });
       });
 
 
@@ -129,13 +130,11 @@
   <body>
     <div id="wrapper" class = "hideMe">
       <div id="settings-wrapper">
-          <button type="button" style="float:right; cursor:pointer;" onclick="combatSetup();">Test combat</button>
+          <button type="button" style="float:right; cursor:pointer;" onclick="combatSetupV2();">Test combat</button>
           <button type="button" style="float:right; cursor:pointer;" onclick="pause();" id="pausebtn">Pause Game</button>
 
           <!--just putting timer in here for 'time' being (FUCK OFF DAVID (LUKE))-->
-          <script>
-            timerOperation();
-          </script>
+
       </div>
       <br>
       <div id="container">
@@ -280,143 +279,75 @@
                          <span style="margin:0;" class="blinking" id="timer">Time remaining: 5:00</span>
                      </div>
                  </div>
-                 <div id="map">
-                     <img id="gameMap" src="images/gameMap.png" alt="This is the game map"style='height: 80%; width: 80%; object-fit: contain'>
+                 <div id="mapMain">
+                   <div id="map">
+                       <img id="gameMap" src="images/gameMap.png" alt="This is the game map"style='height: 80%; width: 80%; object-fit: contain'>
+                   </div>
+                   <div id="hints" style="text-align: left ;display:none;">
+                     <p style="font-weight:bold;font-size:1.4vw; text-align: center; margin:0;">HINTS</p>
+                     <ul>
+                       <li>To move type north,south,west, east or click on the buttons to move in that direction.</li>
+                       <li>Exits in the current room can be output to you by typing "look" or by clicking the look button.</li>
+                       <li>You can search a room for items by typing "search" or clicking the search button. Nearby items and interactables will then be displayed to you.</li>
+                       <li>To pick up items, type pick up followed by the item name E.g "pick up ******".</li>
+                       <li>Directions that appear purple have enemies in that direction.</li>
+                       <li>Health Items appear as pink in the text output.</li>
+                       <li>Gadget Items appear as blue in the text output.</li>
+                       <li>Weapon Items appear as yellow in the text outputc.</li>
+                       <li>Puzzle Items appear as purple in the text ouptut.</li>
+                       <li>Data Items appear as light blue in the text output.</li>
+                       <li>Interactable items can be examined by typing "examine ******".Interactable items are represented by orange text.</li>
+                       <li>Directions displayed in green can be traversed, directions in red cannot, and directions in orange can be cleared then traversed.</li>
+                       <li>To equip a weapon, type equip followed by the weapn name E.g "equip ******".The item will appear in the stats tab along with your ammo count.</li>
+                       <li>To drop items, type drop followed by the item name E.g "drop ******".The item will stay in the room you dropped it in.</li>
+                       <li>Vents can be opened using the blowtorch. To open the vent type "use blowtorch on vent".</li>
+                       <li>Doors can be opened using the hacking-tool. To open the door type "use hack tool on door".</li>
+                       <li>Rubble can be cleared using explosives.To clear the rubble type "use explosives on rubble".</li>
+                       <li></li>
+                    </ul>
+                   </div>
+                  <div id="buttonStat">
+                    <button style="cursor:pointer;"id="ShowMap" class="mapButtons">Map</button>
+                    <button style="cursor:pointer;" id="ShowHints" class="mapButtons">Hints</button>
+                  </div>
+                   <div id="objectivesStat">
+                     <h3 style="margin:0; border-bottom: 2px solid #8B2BE4; margin-bottom: 2%;">Objectives:</h3>
+                     <ul style="margin:0;" id="objectivesList">
+                     </ul>
+                   </div>
+               </div>
+               <div id="combatMain" class="hideMe">
+                 <h2>Enemy Type: <span id="EnemyName"></span> </h2>
+                 <h2>Enemy Health: <span id="EnemyHealthValue"></span> </h2>
+                 <div id="EnemyHealthbar"><div id="EnemyHB"></div></div>
+
+                 <div id="turnOptions">
+                   <h3>Combat Options:</h3>
+                   <hr>
+                   <input type="radio" id="Attack1" name="attacks" value="Weapon">
+                   <label for="Attack1">Weapon Attack</label><br>
+                   <input type="radio" id="Attack2" name="attacks" value="Melee">
+                   <label for="Attack2">Melee Attack</label><br>
+                   <input type="radio" id="Attack3" name="attacks" value="Heal">
+                   <label for="Attack3">Heal</label>
+                   <br>
+                   <input type="radio" id="Attack4" name="attacks" value="Escape">
+                   <label for="Attack4">Attempt Escape</label>
+                   <br>
+                   <button type="button" name="button">End Turn</button>
                  </div>
-                 <div id="hints" style="text-align: left ;display:none;">
-                   <p style="font-weight:bold;font-size:1.4vw; text-align: center; margin:0;">HINTS</p>
-                   <ul>
-                     <li>To move type north,south,west, east or click on the buttons to move in that direction.</li>
-                     <li>Exits in the current room can be output to you by typing "look" or by clicking the look button.</li>
-                     <li>You can search a room for items by typing "search" or clicking the search button. Nearby items and interactables will then be displayed to you.</li>
-                     <li>To pick up items, type pick up followed by the item name E.g "pick up ******".</li>
-                     <li>Directions that appear purple have enemies in that direction.</li>
-                     <li>Health Items appear as pink in the text output.</li>
-                     <li>Gadget Items appear as blue in the text output.</li>
-                     <li>Weapon Items appear as yellow in the text outputc.</li>
-                     <li>Puzzle Items appear as purple in the text ouptut.</li>
-                     <li>Data Items appear as light blue in the text output.</li>
-                     <li>Interactable items can be examined by typing "examine ******".Interactable items are represented by orange text.</li>
-                     <li>Directions displayed in green can be traversed, directions in red cannot, and directions in orange can be cleared then traversed.</li>
-                     <li>To equip a weapon, type equip followed by the weapn name E.g "equip ******".The item will appear in the stats tab along with your ammo count.</li>
-                     <li>To drop items, type drop followed by the item name E.g "drop ******".The item will stay in the room you dropped it in.</li>
-                     <li>Vents can be opened using the blowtorch. To open the vent type "use blowtorch on vent".</li>
-                     <li>Doors can be opened using the hacking-tool. To open the door type "use hack tool on door".</li>
-                     <li>Rubble can be cleared using explosives.To clear the rubble type "use explosives on rubble".</li>
-                     <li></li>
-                  </ul>
-                 </div>
-                <div id="buttonStat">
-                  <button style="cursor:pointer;"id="ShowMap" class="mapButtons">Map</button>
-                  <button style="cursor:pointer;" id="ShowHints" class="mapButtons">Hints</button>
-                </div>
-                 <div id="objectivesStat">
-                   <h3 style="margin:0; border-bottom: 2px solid #8B2BE4; margin-bottom: 2%;">Objectives:</h3>
-                   <ul style="margin:0;" id="objectivesList">
-                   </ul>
-                 </div>
+               </div>
       </div>
       </div>
-      <div id="combat-wrapper" class="hideMe">
-        <div id="player1">
-          <img src="images/playerIcon.jpg" alt="Player 1" class="playerImg">
-          <div class="playerbox-info">
-            <div class="healthbar" id="healthBar1"><div id="PlayerHB"></div>
-            </div>
-            <h1 id="player1Name" class="player-name">Player 1</h1>
-            <h1 id="health1" class="player-health">100HP</h1>
-            <h1 id="healthLost" class="hideMe">Lost 20 health..</h1>
-          </div>
-        </div>
-        <div id="round-timer">
-          <h1 id="countdownTimer">10:00</h1>
-        </div>
-        <div id="player2">
-          <img src="images/playerIcon.jpg" alt="Player 2" class="playerImg">
-          <div class="playerbox-info">
-            <div class="healthbar" id="healthBar2"> <div id="EnemyHB"></div> </div>
-            <h1 id="player2Name" class="player-name">Enemy</h1>
-            <h1 id="health2" class="player-health">100HP</h1>
-            <h1 id="damageGiven" class="hideMe">Damaged for 35..</h1>
-          </div>
-        </div>
-
-
-     <div id="combatInfo-display" class="hideMe">
-          <h1 class="combatHeader">Turn Info</h1>
-          <h2>Combat Type : <span id=currentCombat></span></h2>
-          <h3 id="Currenthitchance">Hitchance : <span id=hitchanceValue></span> <span id="addHitchance"style="color:lime;"></span> </h3>
-          <h3 id="CurrentDamageGiven">Max Damage Given : <span id=MaxDamageValue></span>  <span id="addMaxDamage"style="color:lime;"></h3>
-          <h3 id="CurrentDamageRecieved">Max Damage Recieved: <span id=MaxDamageRecievedValue></span></h3>
-          <h3 id="CurrentHealthGained" class="hideMe">Health Gained: <span id=HealthGainedValue></span></h3>
-     </div>
-     <div id="gameinstructions">
-       <h1 class="combatHeader">Combat Instructions</h1>
-       <ul>
-         <li>Select desired combat type</li>
-         <li>Drag weapon from inventory to weapon slot to change it</li>
-         <li>Select your desired hitbox</li>
-         <li>End your turn when finished</li>
-       </ul>
-     </div>
-     <div id="combatBox" class="hideMe">
-       <div id="combat-main">
-         <h1 class="combatHeader">Combat</h1>
-         <div id="combat-actions">
-           <h2>Combat Options:</h2>
-           <button type="button" name="WeaponAttack" class="combatButtons" id="wepButton" onclick="updateCombatType(0);">WeaponAttack</button>
-           <button type="button" name="meleeAttack" class="combatButtons" onclick="updateCombatType(1);">Melee Attack</button>
-           <button type="button" name="heal" class="combatButtons" onclick="updateCombatType(2);" id="healButton">Heal</button>
-           <button type="button" name="leave" class="combatButtons" onclick="updateCombatType(3);">Run Away</button>
-
-           <div id="hitboxesContainer">
-             <label for="hitboxes" id="hitbox-label">Hitbox</label>
-             <select id="hitboxes" name="hitboxes" onchange="updateHitbox();">
-              <option value="head">head | -2% hitchance | +10 max damage</option>
-              <option value="chest">chest | +5% hitchance | +4 max damage</option>
-              <option value="arms">arms | +4% hitchance | +5 max damage</option>
-              <option value="torso">torso | +4% hitchance | +5 max damage</option>
-              <option value="legs">legs | +3% hitchance | +7 max damage</option>
-            </select>
-           </div>
-           <div id="healContainer" class="hideMe">
-            <button type="button" name="button" id="combat-Healthkit">Use health kit</button>
-            <button type="button" name="button" id="combat-Healthpack">Use health pack</button>
-           </div>
-          <button type="button" name="turnEnd" onclick="exectuteCombat();">End Turn</button>
-         </div>
-       </div>
-       <div id="combat-inventory">
-           <h1 class="combatHeader">Weapons</h1>
-           <table cellspacing="10">
-             <tr>
-               <td style="border: 3px solid red;" ondrop='equipWeaponDrop(event)' ondragover='allowDrop(event)' id="combatActive"><img src="images/fist.png" alt="Empty Slot" class="inventoryItem"></td>
-               <td id="combatDefault"></td>
-               <td></td>
-               <td></td>
-             </tr>
-           </table>
-       </div>
-     </div>
-     <div id="overviewBox">
-         <button type="submit" name="button" onclick="nextRound();">Start Combat</button>
-         <div id="overview-container" class="hideMe">
-           <h1 class="combatHeader" id="turnOverview-header">Turn Overview</h1>
-           <p id="turnOverviewText">
-             During this turn you took <span id="stat-damageTaken">24</span> damage from <span class="enemyName">enemy</span>
-             and dealt <span id="stat-damageGiven">50</span> damage in return to <span class="enemyName">enemy</span>.
-           </p>
-         </div>
-      </div>
-    </div>
   </div>
-  <div id="startingContainer" >
+  <div id="startingContainer">
       <div id = "starterText"></div>
       <script type="text/javascript">
         function hideStart(){
           document.getElementById('startingContainer').classList.add('hideMe');
           document.getElementById('wrapper').classList.remove('hideMe');
           document.getElementById('wrapper').classList.add('textAnimStart');
+          timerOperation();
         }
       </script>
       <button type="button" name="continue" onclick="hideStart();" id = "continueButton">Continue</button>
