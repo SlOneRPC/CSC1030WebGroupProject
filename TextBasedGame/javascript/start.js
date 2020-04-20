@@ -25,7 +25,7 @@ function startGame(){
 
 function checkLength(){
   var value = document.getElementById("name").value;
-  if(value.length > 0)
+  if(value.length > -1)
   {
     document.getElementById("name").style="background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px)";
   }
