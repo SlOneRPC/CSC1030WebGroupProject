@@ -65,7 +65,7 @@
            $("#map").css("display","none");
            $("#hints").css("display","block");
         });
-        $('input:radio[name=bedStatus]:checked').change(function () {
+        $('input[type=radio][name=attacks]').change(function () {
             updateCombatType();
          });
       });
@@ -164,7 +164,7 @@
                <div id="playerWeaponStatus">
                  <p style="margin:0;padding:1%"id="currentWeapon">Equipped Weapon:</p>
                  <div id = "weaponFunctions">
-                   <div id="equippedWeaponImg">
+                   <div id="equippedWeaponImg" ondrop='equipWeaponDrop(event)' ondragover='allowDrop(event)'>
                    <img id="equippedWeapon"style="float:left;max-width:100%;max-height:100%;" class="curvedRadius"  src="images/emptyinventoryslot.png" alt="Empty Weapon Slot"></img>
                    </div>
                  </div>
@@ -266,6 +266,8 @@
                 <div><button type="button" name="Look" class="utilityButtons" onclick="outputCurrentRoomExits();">Look</button></div>
                 <br>
                 <div><button type="button" name="Search" class="utilityButtons" onclick="search(player.currentRoom);">Search</button></div>
+                <br>
+                <div><button type="button" name="Search" class="utilityButtons hideMe" onclick="equipSelected();" id="equipBtn">Equip</button></div>
               </div>
             </div>
             <br>
@@ -287,7 +289,7 @@
                    <div id="hints" style="text-align: left ;display:none;">
                      <p style="font-weight:bold;font-size:1.4vw; text-align: center; margin:0;">HINTS</p>
                      <ul>
-                       <li>To move type north,south,west, east or click on the buttons to move in that direction.</li>
+                       <li>To move type north, south, east or west, or click on the buttons to move in that direction.</li>
                        <li>Exits in the current room can be output to you by typing "look" or by clicking the look button.</li>
                        <li>You can search a room for items by typing "search" or clicking the search button. Nearby items and interactables will then be displayed to you.</li>
                        <li>To pick up items, type pick up followed by the item name E.g "pick up ******".</li>
@@ -297,13 +299,13 @@
                        <li>Weapon Items appear as yellow in the text outputc.</li>
                        <li>Puzzle Items appear as purple in the text ouptut.</li>
                        <li>Data Items appear as light blue in the text output.</li>
-                       <li>Interactable items can be examined by typing "examine ******".Interactable items are represented by orange text.</li>
+                       <li>Interactable items can be examined by typing "examine ******". Interactable items are represented by orange text.</li>
                        <li>Directions displayed in green can be traversed, directions in red cannot, and directions in orange can be cleared then traversed.</li>
-                       <li>To equip a weapon, type equip followed by the weapn name E.g "equip ******".The item will appear in the stats tab along with your ammo count.</li>
-                       <li>To drop items, type drop followed by the item name E.g "drop ******".The item will stay in the room you dropped it in.</li>
+                       <li>To equip a weapon, type equip followed by the weapn name E.g "equip ******". The item will appear in the stats tab along with your ammo count.</li>
+                       <li>To drop items, type drop followed by the item name E.g "drop ******". The item will stay in the room you dropped it in.</li>
                        <li>Vents can be opened using the blowtorch. To open the vent type "use blowtorch on vent".</li>
                        <li>Doors can be opened using the hacking-tool. To open the door type "use hack tool on door".</li>
-                       <li>Rubble can be cleared using explosives.To clear the rubble type "use explosives on rubble".</li>
+                       <li>Rubble can be cleared using explosives. To clear the rubble type "use explosives on rubble".</li>
                        <li></li>
                     </ul>
                    </div>
@@ -318,14 +320,14 @@
                    </div>
                </div>
                <div id="combatMain" class="hideMe">
-                 <h2>Enemy Type: <span id="EnemyName"></span> </h2>
-                 <h2>Enemy Health: <span id="EnemyHealthValue"></span> </h2>
+                 <h2 style="text-align: center;">Enemy Type: <span id="EnemyName"></span> </h2>
+                 <h2 style="text-align: center;">Enemy Health: <span id="EnemyHealthValue"></span> </h2>
                  <div id="EnemyHealthbar"><div id="EnemyHB"></div></div>
 
                  <div id="turnOptions">
                    <h3>Combat Options:</h3>
                    <hr>
-                   <input type="radio" id="Attack1" name="attacks" value="Weapon">
+                   <input type="radio" id="Attack1" name="attacks" value="Weapon" checked>
                    <label for="Attack1">Weapon Attack</label><br>
                    <input type="radio" id="Attack2" name="attacks" value="Melee">
                    <label for="Attack2">Melee Attack</label><br>
@@ -334,10 +336,42 @@
                    <br>
                    <input type="radio" id="Attack4" name="attacks" value="Escape">
                    <label for="Attack4">Attempt Escape</label>
+                   <div id="hitboxesContainer">
+                     <label for="hitboxes" id="hitbox-label">Hitbox</label>
+                     <select id="hitboxes" name="hitboxes" onchange="updateHitbox();">
+                      <option value="head">head | -2% hitchance | +10 max damage</option>
+                      <option value="chest">chest | +5% hitchance | +4 max damage</option>
+                      <option value="arms">arms | +4% hitchance | +5 max damage</option>
+                      <option value="torso">torso | +4% hitchance | +5 max damage</option>
+                      <option value="legs">legs | +3% hitchance | +7 max damage</option>
+                    </select>
+                   </div>
                    <br>
-                   <button type="button" name="button">End Turn</button>
+                   <hr>
+                   <h3>Current Combat Type: <span id="currentCombat"></span> </h3>
+                   <div id="attackContainer">
+                     <h3 id="Currenthitchance">Hitchance : <span id=hitchanceValue></span> <span id="addHitchance"style="color:lime;"></span> </h3>
+                     <h3 id="CurrentDamageGiven">Max Damage Given : <span id=MaxDamageValue></span>  <span id="addMaxDamage"style="color:lime;"></h3>
+                   </div>
+                   <div id="healContainer" class="hideMe">
+                     <h3>Heal Method: <span id="healMethod"></span> </h3>
+                   </div>
+                   <h3 id="CurrentDamageRecieved">Max Damage Recieved: <span id=MaxDamageRecievedValue></span></h3>
+                   <h3 id="CurrentHealthGained" class="hideMe">Health Gained: <span id=HealthGainedValue></span></h3>
+                   <button type="button" name="button" onclick="exectuteCombat();">End Turn</button>
+                   <h3 style="color:red;" id="combatError" class="hideMe"></h3>
+                 </div>
+                 <div id="turnOverview" class="hideMe">
+                   <h3>Turn Overview</h3>
+                   <hr>
+                   <ul>
+                     <li><h3>During this turn you deal <span id="TurndamageDealt"></span> damage to <span id="TurnEnemyName"></span> </h3></li>
+                     <li><h3>During this turn the <span id="TurnEnemyName2"></span> dealt <span id="TurndamageRecieved"></span> damage to you in return</h3></li>
+                   </ul>
+                   <button type="button" name="button" onclick="nextRound();">Start next turn</button>
                  </div>
                </div>
+
       </div>
       </div>
   </div>
