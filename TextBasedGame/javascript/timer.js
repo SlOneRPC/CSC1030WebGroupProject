@@ -38,6 +38,7 @@ function pause(){
     clearInterval(timer);
     document.getElementById('pauseContainer').classList.remove('hideMe');
     document.getElementById('wrapper').classList.add('disabledbutton');
+    document.getElementById('wrapper').classList.remove('textAnimStart');
   }
   else{ //if the timer is currently paused restart the timer
     timer = setInterval(onTimer, 1000);
