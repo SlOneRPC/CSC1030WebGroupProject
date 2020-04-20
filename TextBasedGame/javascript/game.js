@@ -112,13 +112,13 @@ function gameStart()
      if(item.roomName == "armory")
      {
        document.getElementById("starterText").innerHTML +="<span  class = 'textAnimStart'>>Beautiful. The glisten of the barrel catches your eye again as you finish polishing off</br>your trusty blaster for the fourth time in the last hour.</br></span></br><span = class = 'textAnimStart2'>>This fine machine of destruction has gotten you off the hook too many times to count</br>and should keep you going for a while yet. Adjusting the brim of your cap, you finish off</br>putting together your trusty blaster. <span = class = 'textAnimStart3'></br></br>>While you admire your cleaning work, a violent shudder throws you to the floor You quickly hop to your feet from where you were sitting, keeping your wits right by your</br>side as you wonder 'what the hell is going on?'.</span>"
-
        newCurrent = item;
        item.roomDiscovered = true;
      }
    });
  }
  player.currentRoom = newCurrent;
+ document.getElementById("gameMap").src="images/"+player.currentRoom.mapFilePath;
  document.getElementById("text-display").innerHTML +="<span id = 'userTextRight'>>You find yourself in the "+player.currentRoom.roomName+". </span>";
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
 }
@@ -2072,12 +2072,12 @@ function pickUpItems(playerRoom,words,dragged)
         }
         else if(item.item.itemType ==="Weapon"){
           var counter=0;
-          if(checkInventory("pistol") && item.item.itemName==="pistol")
+          if(checkInventory("words") && item.item.itemName==="words")
           {
             document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>"+"You're already carrying that!"+"</span>";
           }
-          for(var i=0; i<player.inventory.length;i++){
-            if(player.inventory[i].item.itemType === "Weapon"){
+          for(var j=0; j<player.inventory.length;i++){
+            if(player.inventory[j].item.itemType === "Weapon"){
               counter++;
             }
           }

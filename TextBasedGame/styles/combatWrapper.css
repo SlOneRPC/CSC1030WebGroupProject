@@ -9,6 +9,14 @@
   padding: 5%;
 }
 
+.inventoryItem{
+  width: 90%;
+  height: 90%;
+  display: inline-block;
+  //opacity: 0.2;
+  margin: 5%;
+}
+
 
 .hideMe{
   display: none;
