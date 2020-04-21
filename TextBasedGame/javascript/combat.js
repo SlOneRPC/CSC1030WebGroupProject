@@ -8,6 +8,8 @@ var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
 var inCombat = false;
+var timer;
+var countdown = 10;
 
 function combatSetupV2(){
   //hide container
@@ -31,6 +33,9 @@ function combatSetupV2(){
   updateHP();
   updateCombatType();
   document.getElementById('healMethod').innerHTML = 'None, please select one first';
+
+  timer = setInterval('countdownTimer()', 1000);
+  countdownTime = 9;
 }
 
 function updateHP(){
@@ -205,15 +210,19 @@ function nextRound(){
   //show combat hide overview
   document.getElementById('turnOptions').classList.remove('hideMe');
   document.getElementById('turnOverview').classList.add('hideMe');
-
+  document.getElementById('countdownTimer').innerHTML = "9";
+  timer = setInterval('countdownTimer()', 1000);
 }
 
 function exectuteCombat(){
-
   document.getElementById('combatError').classList.add('hideMe');
   document.getElementById('combatError').classList.remove('hideMe');
   if(currentCombat == "Heal" && healHP == 0){
     document.getElementById('combatError').innerHTML = 'No heal method selected!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else if(currentCombat == "Heal" && window.player.health >=100){
     document.getElementById('combatError').innerHTML = 'Already full health!';
@@ -222,9 +231,10 @@ function exectuteCombat(){
     document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
   }
   else{
+    clearInterval(timer);
     document.getElementById('combatError').classList.add('hideMe');
-    var damageRecieved;
-    var damageDealt;
+    var damageRecieved=0;
+    var damageDealt=0;
 
     //calculate damage dealt
     if(Math.floor(Math.random()*100) <= hitchance && currentCombat != "Heal" && currentCombat != "Escape"){//hit the enemy
@@ -260,6 +270,7 @@ function exectuteCombat(){
     updateHP();
      if(window.player.health<=0){
        //TODO you lose end game
+       window.gameFinishedStats();
      }
      else if(activeEnemyObj.health<=0){
        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to kill the enemy stone dead, making it look up to the great space eyes of the sky</span>";
@@ -289,6 +300,18 @@ function exectuteCombat(){
 
       document.getElementById('turnOptions').classList.add('hideMe');
       document.getElementById('turnOverview').classList.remove('hideMe');
+      countdown = 9;
     }
+  }
+}
+
+function countdownTimer(){
+  if(countdown <= 0){
+    clearInterval(timer);
+    exectuteCombat();
+  }
+  else{
+    countdown = countdown-1;
+    document.getElementById('countdownTimer').innerHTML = countdown;
   }
 }
