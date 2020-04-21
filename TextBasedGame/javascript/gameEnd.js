@@ -20,6 +20,7 @@ function gameFinishedStats(){
   achievements();
 }
 
+// called if the user beats the game
 function gameWon(){
   // title
   document.getElementById("title").innerHTML = "Game Completed"
@@ -31,7 +32,8 @@ function gameWon(){
 
 }
 
-function gameOver(){ //- mightn't be needed
+// called if user loses the game
+function gameOver(){
 
   document.getElementById("main-container").style.width = "450px";
 }
