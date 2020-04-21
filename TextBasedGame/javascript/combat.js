@@ -36,7 +36,6 @@ function combatSetupV2(){
   document.getElementById('healMethod').innerHTML = 'None, please select one first';
   document.getElementById('countdownTimer').innerHTML = "9";
 
-  sessionStorage.removeItem("pausedStatus");
   sessionStorage.setItem("pausedStatus", false);
   timer = setInterval('countdownTimer()', 1000);
   countdownTime = 9;

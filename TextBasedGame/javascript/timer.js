@@ -1,12 +1,12 @@
 var timeRemaining = 300;
 var startTime;
-var timer;
+var gameTimer;
 var paused = false;
 
 // Update the count down every 1 second
 function timerOperation()
 {
-  timer = setInterval(onTimer, 1000);
+  gameTimer = setInterval(onTimer, 1000);
 }
 
 function onTimer()
@@ -28,7 +28,7 @@ function onTimer()
   // If the count down is finished, end game
   if (timeRemaining <= -1)
   {
-    clearInterval(timer);
+    clearInterval(gameTimer);
     sessionStorage.setItem("ending", false);
     gameFinished(false);
   }
@@ -36,17 +36,16 @@ function onTimer()
 
 function pause(){
   if(!paused){  //if the timer is currently not paused clear the interval
-    clearInterval(timer);
+    clearInterval(gameTimer);
     document.getElementById('pauseContainer').classList.remove('hideMe');
     document.getElementById('wrapper').classList.add('disabledbutton');
     document.getElementById('wrapper').classList.remove('textAnimStart');
   }
   else{ //if the timer is currently paused restart the timer
-    timer = setInterval(onTimer, 1000);
+    gameTimer = setInterval(onTimer, 1000);
     document.getElementById('pauseContainer').classList.add('hideMe');
     document.getElementById('wrapper').classList.remove('disabledbutton');
   }
   paused = !paused;//change paused state
-  sessionStorage.removeItem("pausedStatus");
   sessionStorage.setItem("pausedStatus", paused);
 }
