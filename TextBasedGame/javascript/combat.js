@@ -41,8 +41,8 @@ function combatSetupV2(){
   document.getElementById('countdownTimer').innerHTML = "9";
 
   sessionStorage.setItem("pausedStatus", false);
-  timer = setInterval('countdownTimer()', 1000);
   countdownTime = 9;
+  timer = setInterval('countdownTimer()', 1000);
 }
 
 function updateHP(){
@@ -65,6 +65,7 @@ function checkEquippedWeaponStatus(){
     document.getElementById("Attack1").checked = true;
     currentCombat = 'Weapon';
   }
+  calculateInfo();
 }
 
 function updateAmmo(){
