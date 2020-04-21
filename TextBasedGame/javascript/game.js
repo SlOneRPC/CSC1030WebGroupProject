@@ -589,7 +589,7 @@ function addRooms()
     ],
     [//Items in the current room
       createAmmoObject("energy cells","An energy cell, used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1), ),
-      createPuzzleKeyObject("data card","A Console data card.","images/datacard.png")
+      createPuzzleKeyObject("data card","A Console data card.[To insert it into the console type 'insert data card']","images/datacard.png")
     ],
     [
       createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway09","You plant the explosives in the centre of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble03"),
@@ -1793,6 +1793,8 @@ function dropItem(itemName)
 {
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
+      var fists = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png")
+      player.equippedWeapon=fists;
       equipFists();
     }
     item=player.inventory[getItemPosFromInventory(itemName)];
@@ -1962,7 +1964,7 @@ function processCustomCommand(interactable)
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
       removeInteractable("console",player.currentRoom);
       player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
-      player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
+      player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power. [To pull it type 'master switch']","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
       document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
       document.getElementById("powerObj").style.display="none";
     }
@@ -2435,6 +2437,7 @@ function unHighlightSelected(){
   if(previous != null){
     previous.style.backgroundColor = '#272727';
   }
+  document.getElementById('equipBtn').classList.add('hideMe');
 }
 
 function useSelected(){

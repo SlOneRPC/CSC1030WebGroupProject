@@ -8,13 +8,16 @@ var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
 var inCombat = false;
+var timer;
+var countdown = 10;
 
 function combatSetupV2(){
   //hide container
   document.getElementById('mapMain').classList.add('hideMe');
   document.getElementById('combatMain').classList.remove('hideMe');
-  document.getElementById('userInput').classList.add('disabledbutton');
-  document.getElementById('other1').classList.add('disabledbutton');
+  document.getElementById('gameInput').classList.add('disabledbutton');
+  document.getElementById('easyButtons').classList.add('disabledbutton');
+  document.getElementById('gameInputButton').classList.add('disabledbutton');
   //get the enemy object
   activeEnemyObj = window.player.currentRoom.enemies[0];
   enemyMaxHealth = activeEnemyObj.health;
@@ -31,6 +34,9 @@ function combatSetupV2(){
   updateHP();
   updateCombatType();
   document.getElementById('healMethod').innerHTML = 'None, please select one first';
+  document.getElementById('countdownTimer').innerHTML = "9";
+  timer = setInterval('countdownTimer()', 1000);
+  countdownTime = 9;
 }
 
 function updateHP(){
@@ -195,7 +201,9 @@ function updateHitbox(){
 function leaveCombat(){
   document.getElementById('mapMain').classList.remove('hideMe');
   document.getElementById('combatMain').classList.add('hideMe');
-  document.getElementById('userInput').classList.remove('disabledbutton');
+  document.getElementById('gameInput').classList.remove('disabledbutton');
+  document.getElementById('easyButtons').classList.remove('disabledbutton');
+  document.getElementById('gameInputButton').classList.remove('disabledbutton');
   document.getElementById('other1').classList.remove('disabledbutton');
   inCombat = false;
 }
@@ -205,41 +213,84 @@ function nextRound(){
   //show combat hide overview
   document.getElementById('turnOptions').classList.remove('hideMe');
   document.getElementById('turnOverview').classList.add('hideMe');
-
+  document.getElementById('countdownTimer').innerHTML = "9";
+  timer = setInterval('countdownTimer()', 1000);
 }
 
 function exectuteCombat(){
-
   document.getElementById('combatError').classList.add('hideMe');
   document.getElementById('combatError').classList.remove('hideMe');
   if(currentCombat == "Heal" && healHP == 0){
     document.getElementById('combatError').innerHTML = 'No heal method selected!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else if(currentCombat == "Heal" && window.player.health >=100){
     document.getElementById('combatError').innerHTML = 'Already full health!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else if(currentCombat == "Weapon" && window.player.equippedWeapon.ammo<=0){
     document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else{
+    clearInterval(timer);
     document.getElementById('combatError').classList.add('hideMe');
-    var damageRecieved;
-    var damageDealt;
+    var damageRecieved=0;
+    var damageDealt=0;
 
     //calculate damage dealt
     if(Math.floor(Math.random()*100) <= hitchance && currentCombat != "Heal" && currentCombat != "Escape"){//hit the enemy
+      if(window.player.equippedWeapon.item.itemName === "fist")
+      {
+        document.getElementById('text-display').innerHTML += '</br>>You aim your fists at the enemy';
+      }
+      else {
+        document.getElementById('text-display').innerHTML += '</br>>You aim your gun at the enemy';
+      }
+
       damageDealt = Math.floor(Math.random()*maxDamage);
+      document.getElementById('text-display').innerHTML += '</br>>You successfully hit the enemy dealing ' + damageDealt + ' damage';
+
     }
     else{//missed the enemy
       damageDealt = 0;
+      document.getElementById('text-display').innerHTML += '</br>>You miss!';
+
     }
 
+
+    if(window.robotBoolean===true)
+    {
+      document.getElementById('text-display').innerHTML += '</br>>Your trusty robot buddy takes a shot';
+      if(Math.floor(Math.random()*100) <= 40 ){//hit the enemy
+        damageDealt = Math.floor(Math.random()*7);
+        document.getElementById('text-display').innerHTML += '</br>>He hits the enemy! He deals ' + damageDealt + ' damage';
+      }
+      else{//missed the enemy
+        document.getElementById('text-display').innerHTML += '</br>>He misses';
+
+        damageDealt = 0;
+      }
+    }
     //calculate damage recieved
     if(Math.floor(Math.random()*100) <= 60){
       damageRecieved = Math.floor(Math.random()*maxDamageRecieved);
+      document.getElementById('text-display').innerHTML += '</br>>The ' +activeEnemyObj.enemyType+' hits you for ' + damageDealt + ' damage';
+
     }
     else{//enemy missed
       damageRecieved = 0;
+      document.getElementById('text-display').innerHTML += '</br>>The '+activeEnemyObj.enemyType+' misses you';
+
     }
 
     if(currentCombat == "Weapon"){
@@ -263,7 +314,7 @@ function exectuteCombat(){
        gameFinished(false);
      }
      else if(activeEnemyObj.health<=0){
-       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to kill the enemy stone dead, making it look up to the great space eyes of the sky</span>";
+       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to successfully defeat the enemy</span>";
        window.scrollBarAnchor();
        leaveCombat();
        //remove the enemy from the room once its dead
@@ -291,6 +342,19 @@ function exectuteCombat(){
 
       document.getElementById('turnOptions').classList.add('hideMe');
       document.getElementById('turnOverview').classList.remove('hideMe');
+      countdown = 9;
     }
+  }
+  window.scrollBarAnchor();
+}
+
+function countdownTimer(){
+  if(countdown <= 0){
+    clearInterval(timer);
+    exectuteCombat();
+  }
+  else{
+    countdown = countdown-1;
+    document.getElementById('countdownTimer').innerHTML = countdown;
   }
 }
