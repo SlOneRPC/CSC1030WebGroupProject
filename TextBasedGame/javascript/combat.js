@@ -19,6 +19,7 @@ function combatSetupV2(){
   document.getElementById('gameInput').classList.add('disabledbutton');
   document.getElementById('easyButtons').classList.add('disabledbutton');
   document.getElementById('gameInputButton').classList.add('disabledbutton');
+  document.getElementById('other1').classList.add('disabledbutton');
   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>Combat Log</span>";
 
   //get the enemy object
