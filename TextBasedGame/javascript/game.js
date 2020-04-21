@@ -432,7 +432,7 @@ function addRooms()
     [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","reactor room","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent05"),
        createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway11","You plant the explosives in the centre of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble04"),
-       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway13","Using your hacking-tool you succesfully hack into the door controls and open the door.","door05"),
+       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway12","Using your hacking-tool you successfully hack into the door controls and open the door.","door05"),
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
     "map_s-unit2.png"
@@ -1815,27 +1815,28 @@ function reload()
     var ammoCount =  document.getElementById("energyCellCount").innerHTML;
     //document.getElementById("text-display").innerHTML += "<br>"+   ammoCount;
     ammoCount =ammoCount.substring(1, ammoCount.length);
-    var newAmmo =parseInt(ammoCount);
-    if(newAmmo>0)
+    var ammo =parseInt(ammoCount);
+    if(ammo>0)
     {
       var cellsNeeded=  player.equippedWeapon.magSize-player.equippedWeapon.ammo;//As in to reload weapon completely
+      console.log(cellsNeeded);
       if(player.equippedWeapon.magSize == player.equippedWeapon.ammo)
       {
           document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>> Your weapon is already loaded!"
       }
       else
       {
-        if(newAmmo >= cellsNeeded){
-          newAmmo=newAmmo-cellsNeeded;
+        if(ammo >= cellsNeeded){
+          ammo=ammo-cellsNeeded;
           player.equippedWeapon.ammo = player.equippedWeapon.ammo + cellsNeeded;
           document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
-          document.getElementById("energyCellCount").innerHTML =  "x" + newAmmo;
+          document.getElementById("energyCellCount").innerHTML =  "x" + ammo;
         }
         else{
-          newAmmo=0;
-          player.equippedWeapon.ammo= player.equippedWeapon.ammo + newAmmo;
+          ammo=0;
+          player.equippedWeapon.ammo= player.equippedWeapon.ammo + ammo;
           document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
-          document.getElementById("energyCellCount").innerHTML =  "x" + newAmmo;
+          document.getElementById("energyCellCount").innerHTML =  "x" + ammo;
         }
       }
     }
@@ -1931,20 +1932,20 @@ function processCustomCommand(interactable)
   document.getElementById("text-display").innerHTML += "<br>> interactableName:" + interactable.interactableName;
   if(interactable.interactableName==="console")
   {
-    document.getElementById("text-display").innerHTML += "<br>> MATCH";
-    document.getElementById("text-display").innerHTML+="<br>> "+ player.currentRoom.roomName;
+  //  document.getElementById("text-display").innerHTML += "<br>> MATCH";
+  //  document.getElementById("text-display").innerHTML+="<br>> "+ player.currentRoom.roomName;
     if(checkInventory("data card") && player.currentRoom.roomName === "reactor room")
     {
       removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
       removeInteractable("console",player.currentRoom);
-      document.getElementById("powerObj").style.display="none";
       player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
       player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
       document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
+      document.getElementById("powerObj").style.display="none";
     }
   }
-  else if(interactable.interactableName === "Master Switch" )
+  else if(interactable.interactableName === "master switch" )
   {
     if( player.currentRoom.roomName === "reactor room" )
     {
@@ -1959,7 +1960,7 @@ function processCustomCommand(interactable)
       document.getElementById("objectivesList").innerHTML="<li id='hangarObj'>Return to the hanger bay.</li>";
     }
   }
-  else if(interactable.interactableName === "Escape Pod" ){
+  else if(interactable.interactableName === "escape pod" ){
     if(player.currentRoom.roomName === "hangar bay" ){
       //--pop
       gameFinished(true);
@@ -1982,12 +1983,12 @@ function customCommandInput(words)
   var stop = false;
   var i = 0;
   do{
-      document.getElementById("text-display").innerHTML+= "<br>> words:"+words;
-      document.getElementById("text-display").innerHTML+= "<br>> custom command:"+player.currentRoom.interactables[i].customCommand;
+    //  document.getElementById("text-display").innerHTML+= "<br>> words:"+words;
+    //  document.getElementById("text-display").innerHTML+= "<br>> custom command:"+player.currentRoom.interactables[i].customCommand;
       if(player.currentRoom.interactables[i].customCommand === words)
       {
         stop = true;
-        document.getElementById("text-display").innerHTML+="MATCH";
+      //  document.getElementById("text-display").innerHTML+="MATCH";
         return player.currentRoom.interactables[i];
       }
       i++;
