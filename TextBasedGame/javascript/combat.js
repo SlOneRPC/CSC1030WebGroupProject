@@ -264,8 +264,7 @@ function exectuteCombat(){
         document.getElementById('text-display').innerHTML += '</br>>You aim your gun at the enemy';
         gunSound.play();
       }
-
-      damageDealt = Math.floor(Math.random()*maxDamage);
+      damageDealt = maxDamage;
       document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You successfully hit the enemy dealing " + damageDealt + " damage'</span>";
 
     }
@@ -289,7 +288,7 @@ function exectuteCombat(){
     }
     //calculate damage recieved
     if(Math.floor(Math.random()*100) <= 60){
-      damageRecieved = Math.floor(Math.random()*maxDamageRecieved);
+      damageRecieved = maxDamageRecieved;
       document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>The " +activeEnemyObj.enemyType+" hits you for " + damageDealt + " damage</span>";
 
     }
