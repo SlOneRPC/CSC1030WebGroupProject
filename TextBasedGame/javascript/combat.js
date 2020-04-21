@@ -8,6 +8,10 @@ var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
 var inCombat = false;
+var healthLossSound;
+var gunSound;
+gunSound = new sound("sounds/gunSound.mp3")
+healthLossSound =  new sound("sounds/losehealth.mp3");
 var timer;
 var countdown = 10;
 
@@ -38,7 +42,6 @@ function combatSetupV2(){
   document.getElementById('healMethod').innerHTML = 'None, please select one first';
   document.getElementById('countdownTimer').innerHTML = "9";
 
-  sessionStorage.removeItem("pausedStatus");
   sessionStorage.setItem("pausedStatus", false);
   timer = setInterval('countdownTimer()', 1000);
   countdownTime = 9;
@@ -91,6 +94,24 @@ function equipWeaponDrop(ev){
   ev.preventDefault();
 }
 
+function sound(src)
+{
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  console.log(volume);
+  this.sound.volume= volume;
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
+}
 
 function updateCombatType(){
   //combat type change
@@ -261,7 +282,8 @@ function exectuteCombat(){
         document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You aim your fists at the enemy</span>";
       }
       else {
-        document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You aim your gun at the enemy</span>";
+        document.getElementById('text-display').innerHTML += '</br>>You aim your gun at the enemy';
+        gunSound.play();
       }
 
       damageDealt = Math.floor(Math.random()*maxDamage);
@@ -273,8 +295,6 @@ function exectuteCombat(){
       document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You miss!</span>";
 
     }
-
-
     if(window.robotBoolean===true)
     {
       document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>Your trusty <span id = 'userTextNormal'>robot</span> buddy takes a shot</span>";
@@ -312,8 +332,11 @@ function exectuteCombat(){
         window.player.health += healHP;
       }
     }
-
+    var temp=window.player.health;
     window.player.health -= damageRecieved;
+    if(temp>window.player.health){
+      losehealthSound();
+    }
     activeEnemyObj.health -= damageDealt;
     updateHP();
      if(window.player.health<=0){
