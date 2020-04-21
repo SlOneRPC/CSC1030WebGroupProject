@@ -919,11 +919,14 @@
 }
 
 
+#userTextNormal{
+  color:#4edaf9;
+}
 #userTextWrong{
   color: red;
 }
 #userTextCaution{
-  color: #A935FF;
+  color: #BC62FF;
 }
 #userTextGadget{
   color: lightblue;
