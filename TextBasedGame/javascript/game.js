@@ -497,7 +497,7 @@ function addRooms()
       ),
     ],
     [
-      createEnemyObject("Breather","",0, 0, 30, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+      createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway12", "north","You step out of the mess hall into another one of the ship's long corridors.",false,""),
@@ -565,7 +565,7 @@ function addRooms()
        ),
      ],
      [
-      createEnemyObject("Breather","",0, 0, 30, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 1, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+      createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 1, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
      ],//Enemies Value
      [//Exits to current room
 
