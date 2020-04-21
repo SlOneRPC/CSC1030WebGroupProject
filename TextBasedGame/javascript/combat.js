@@ -8,15 +8,12 @@ var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
 var inCombat = false;
-<<<<<<< HEAD
 var healthLossSound;
 var gunSound;
 gunSound = new sound("sounds/gunSound.mp3")
 healthLossSound =  new sound("sounds/losehealth.mp3");
-=======
 var timer;
 var countdown = 10;
->>>>>>> bcb5645ac1f0aa95b1e57ae79ffa522a62696c58
 
 function combatSetupV2(){
   //hide container
@@ -285,12 +282,8 @@ function exectuteCombat(){
         document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You aim your fists at the enemy</span>";
       }
       else {
-<<<<<<< HEAD
         document.getElementById('text-display').innerHTML += '</br>>You aim your gun at the enemy';
         gunSound.play();
-=======
-        document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You aim your gun at the enemy</span>";
->>>>>>> bcb5645ac1f0aa95b1e57ae79ffa522a62696c58
       }
 
       damageDealt = Math.floor(Math.random()*maxDamage);
