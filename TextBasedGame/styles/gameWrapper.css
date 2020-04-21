@@ -132,7 +132,8 @@
   display: block;
   overflow: hidden;
   width: 33%;
-  height: 33%;
+  padding-top: 4%;
+  padding-right: 2.3%;
   float: left;
   margin: auto;
 }

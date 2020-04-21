@@ -70,21 +70,24 @@
     </div>
     <div id="wrapper">
       <div id="main-container" class="center">
-        // move down title
+        <p></p>
+
         <h1 id="title" style="font-family: 'Orbitron', sans-serif;color: red;">Game Over</h1>
         <h2>Your Stats</h2>
         <p>
-          Time Remaining: <span id="timeSpent" class="acheivements"></span> <br>
-          Enemies Killed: <span id="enemiesKilled" class="acheivements"></span> <br>
-          Rooms Entered: <span id="roomsEntered" class="acheivements"></span> <br>
-          Items Collected: <span id="itemsCollected" class="acheivements"></span><br>
+          Time Remaining: <span id="timeSpent" ></span> <br>
+          Enemies Killed: <span id="enemiesKilled"></span> <br>
+          Rooms Entered: <span id="roomsEntered"></span> <br>
+          Items Collected: <span id="itemsCollected"></span><br>
         </p>
         <script>
           gameFinishedStats();
         </script>
         <p>
-          Achievements: <br><span id="speedDemon">Speed-Demon</span> <span id="warrior">Warrior</span> <br>
-          <span id="explorer">Explorer</span> <span id="collector">Collector</span>
+          Achievements: <br><span id="speedDemon" class="acheivements">Speed-Demon</span><br>
+          <span id="warrior" class="acheivements">Warrior</span> <br>
+          <span id="explorer" class="acheivements">Explorer</span> <br>
+          <span id="collector" class="acheivements">Collector</span>
         </p>
         <button name="playAgainBtn" onclick="restartGame();">Play Again</button>
       </div>

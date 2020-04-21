@@ -122,6 +122,7 @@ function calculateInfo(){
       break;
     case "Melee":
       hitchance = 70;
+      alert('meele set')
       maxDamage = 4;
       maxDamageRecieved = 20;
       damageGiven = true;
@@ -135,11 +136,11 @@ function calculateInfo(){
       maxDamageRecieved = 10;
       break;
   }
-  updateHitbox();
   //if damage can be given to the enemy from the selected attack
   if(damageGiven){
     document.getElementById('Currenthitchance').classList.remove('hideMe');
     document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
+    alert(hitchance);
     document.getElementById('MaxDamageValue').innerHTML = maxDamage + "HP";
     document.getElementById('CurrentDamageGiven').classList.remove('hideMe');
     document.getElementById('hitboxesContainer').classList.remove('hideMe');
@@ -156,6 +157,7 @@ function calculateInfo(){
       document.getElementById('healContainer').classList.add('hideMe');
   }
   document.getElementById('MaxDamageRecievedValue').innerHTML = maxDamageRecieved + "HP";
+  //updateHitbox();
 }
 
 function getHitboxes(){
