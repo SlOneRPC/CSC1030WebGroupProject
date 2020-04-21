@@ -1,4 +1,4 @@
-var timeRemaining = 300;
+var timeRemaining = 20;
 var startTime;
 var timer;
 var paused = false;
@@ -29,6 +29,7 @@ function onTimer()
   if (timeRemaining <= -1)
   {
     clearInterval(timer);
+    sessionStorage.setItem("ending", false);
     gameFinished(false);
   }
 }
