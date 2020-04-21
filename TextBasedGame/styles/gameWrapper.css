@@ -15,6 +15,8 @@
   width: 100%;
   padding: 0.5%;
   height:100%;
+  margin: 0 auto;
+  padding-left: 2%
 }
 
 
@@ -285,7 +287,7 @@
 
 #playerContainer{
   overflow:auto;
-  width:31%;
+  width:30%;
   float:left;
   height:760px;
   background-color: #111010;
@@ -309,7 +311,7 @@
 
 #mapContainer{
   overflow:hidden;
-  width:31%;
+  width:30%;
   float:left;
   height:750px;
   /* background-color: #0A1C24; */
