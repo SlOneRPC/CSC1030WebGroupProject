@@ -1774,8 +1774,7 @@ function dropItem(itemName)
 {
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
-      var fists = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png");
-      player.equippedWeapon=fists;
+      equipFists();
     }
     item=player.inventory[getItemPosFromInventory(itemName)];
     removeItem(item.item.itemName);
@@ -1844,6 +1843,14 @@ function reload()
       document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>> You dont have any energy cells to reload!"
     }
 }
+
+function equipFists(){
+  document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'> Equipped fists."+"</span>";
+  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: Fists";
+  document.getElementById("currentWeaponMag").innerHTML="0/0";
+  document.getElementById("equippedWeapon").src= 'images/fist.png';
+}
+
 function equipWeapon(weaponName)
 {
   if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
@@ -2216,9 +2223,6 @@ function pickUpItems(playerRoom,words,dragged)
             if(!enemyDetectionRoll(1)){
               return;
             }
-            else{
-              alert('Enemy didnt see');
-            }
           }
         }
 
@@ -2425,7 +2429,7 @@ function useSelected(){
 
 }
 
-var itemsAdded;
+var itemsAdded = 0;
 function vicinity(playerRoom)
 {
   //get the correct table using a query

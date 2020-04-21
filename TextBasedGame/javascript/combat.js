@@ -14,7 +14,7 @@ function combatSetupV2(){
   document.getElementById('mapMain').classList.add('hideMe');
   document.getElementById('combatMain').classList.remove('hideMe');
   document.getElementById('userInput').classList.add('disabledbutton');
-
+  document.getElementById('other1').classList.add('disabledbutton');
   //get the enemy object
   activeEnemyObj = window.player.currentRoom.enemies[0];
   enemyMaxHealth = activeEnemyObj.health;
@@ -117,22 +117,24 @@ function calculateInfo(){
     case "Weapon":
       hitchance = 60;
       maxDamage = window.player.equippedWeapon.damage;
-      maxDamageRecieved = 14;
+      maxDamageRecieved = activeEnemyObj.damagePerAttack;
       damageGiven = true;
       break;
     case "Melee":
       hitchance = 70;
       maxDamage = 4;
-      maxDamageRecieved = 20;
+      maxDamageRecieved = activeEnemyObj.damagePerAttack + 2;
       damageGiven = true;
       break;
     case "Heal":
-      maxDamageRecieved = 10;
+      maxDamageRecieved = activeEnemyObj.damagePerAttack + 3;
       hitchance = 60;
+      maxDamage = 0;
       document.getElementById('healContainer').classList.remove('hideMe');
       break;
     case "Escape":
-      maxDamageRecieved = 10;
+      maxDamageRecieved = activeEnemyObj.damagePerAttack + 5;
+      maxDamage = 0;
       break;
   }
   //if damage can be given to the enemy from the selected attack
@@ -194,6 +196,7 @@ function leaveCombat(){
   document.getElementById('mapMain').classList.remove('hideMe');
   document.getElementById('combatMain').classList.add('hideMe');
   document.getElementById('userInput').classList.remove('disabledbutton');
+  document.getElementById('other1').classList.remove('disabledbutton');
   inCombat = false;
 }
 
@@ -224,7 +227,7 @@ function exectuteCombat(){
     var damageDealt;
 
     //calculate damage dealt
-    if(Math.floor(Math.random()*100) <= hitchance && currentCombat != "Escape"){//hit the enemy
+    if(Math.floor(Math.random()*100) <= hitchance && currentCombat != "Heal" && currentCombat != "Escape"){//hit the enemy
       damageDealt = Math.floor(Math.random()*maxDamage);
     }
     else{//missed the enemy
