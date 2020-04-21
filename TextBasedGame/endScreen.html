@@ -27,23 +27,41 @@
       }
 
       .stats{
-        width:30%;
+        width:50%;
         float:left;
+        padding-left: 40px;
+        text-align: left;
       }
 
       .achievements{
-        width:70%;
+        width:50%;
+        float: left;
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: left;
+      }
+
+      .leftAlign{
+        text-align: left;
+      }
+
+      .rightAlign{
+        text-align: right;
+      }
+
+      #digitalLove{
+        text-align: center;
       }
 
       #main-container{
         background-color: #111010;
         display: block;
-        width: 400px;
+        width: 800px;
         text-align: center;
         height: 400px;
         border: 1px solid red;
         box-shadow: 0 0 10px 2px red;
-        border-radius: 30%;
+        border-radius: 15%;
         color: white;
         font-size: 120%;
       }
@@ -92,14 +110,13 @@
           Items Collected: <span id="itemsCollected"></span><br>
         </p>
         </div>
+
         <div class="achievements">
           <p>
-            Achievements: <br>
-            <span id="speedDemon">Speed Demon</span> <br>
-            <span id="warrior">Warrior</span> <br>
-            <span id="explorer">Explorer</span> <br>
-            <span id="collector">Collector</span> <br>
-            <span id="digitalLove">Digital Love</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements: <br>
+            <span id="speedDemon" class="leftAlign" onhover="achievementInfo('speedDemon');">Speed Demon</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span id="warrior" class="rightAlign" onhover="achievementInfo('warrior');">Warrior</span> <br>
+            <span id="explorer" class="leftAlign" onhover="achievementInfo('explorer');">Explorer</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="collector" class="rightAlign" onhover="achievementInfo('collector');">Collector</span> <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="digitalLove" onhover="achievementInfo('digitalLove');">Digital Love</span>
           </p>
         </div>
         <button name="playAgainBtn" onclick="restartGame();">Play Again</button>
