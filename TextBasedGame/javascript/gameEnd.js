@@ -6,10 +6,6 @@ function gameFinishedStats(){
     gameWon();
   }
 
-  else{ // - user loses the game
-    gameOver();
-  }
-
   var stats = JSON.parse(sessionStorage.getItem('stats'));
 
   document.getElementById("timeSpent").textContent = sessionStorage.getItem("timeSpent");
@@ -28,11 +24,6 @@ function gameWon(){
   document.getElementById("main-container").style.width = "525px";
   document.getElementById("main-container").style.borderColor = "#4edaf9";//"#2380dc";
   document.getElementById("main-container").style.boxShadow = "0 0 10px 2px #4edaf9";//#2380dc";
-
-}
-
-// called if user loses the game
-function gameOver(){
 
 }
 
