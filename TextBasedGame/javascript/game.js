@@ -166,7 +166,7 @@ function gameStart()
  player.currentRoom = newCurrent;
  document.getElementById("gameMap").src="images/"+player.currentRoom.mapFilePath;
  document.getElementById("text-display").innerHTML +="<span id = 'userTextNormal'>>You find yourself in the "+player.currentRoom.roomName+". </span>";
- document.getElementById("text-display").innerHTML +="</br><span id = 'userTextNormal'>>Pick up your gadget and weapon by clicking search (you can also scroll down in the inventory to see your nearby pickups)</span>";
+ document.getElementById("text-display").innerHTML +="</br><span id = 'userTextNormal'>>Pick up your gadget and weapon by clicking search (you can also scroll down in the inventory to see your nearby pickups)</span></br>";
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
  populateSoundArray();
 }
@@ -1523,9 +1523,15 @@ function processCommands(input)
   else if (words.includes("examine") == true|| words.includes("inspect") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    words.splice(0,1);
-    var examinedItem = words.toString().replace(/,/g," ");
-    examineInteractables(player.currentRoom.interactables.length,examinedItem);
+    if(words.includes("robot") && robotBoolean===true)
+    {
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextNormal'>>Examining your buddy you can see a scraped out name on his chest, it reads 'Han-Tyumi'</span>";
+    }
+    else {
+      words.splice(0,1);
+      var examinedItem = words.toString().replace(/,/g," ");
+      examineInteractables(player.currentRoom.interactables.length,examinedItem);
+    }
   }
   else if (words.includes("look") == true)
   {
@@ -2764,7 +2770,7 @@ function scrollBarAnchor()
 function generatePasswordPad()
 {
   var passwordArray = ["password117", "meaningoflife42", "gizzardlizard", "iamcool12", "spaceshipduties101", "unguessable5", "terminalpassword", "darkestsoul", "whatisapassword"];
-  var roomSelector = ["quarters"];
+  var roomSelector = ["storage unit 01"];
   var selectedRoomName = roomSelector[randomNumberForArray(roomSelector.length)];
   var password = passwordArray[randomNumberForArray(passwordArray.length)];
   rooms.forEach((item, i) => {
