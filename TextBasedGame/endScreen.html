@@ -49,6 +49,33 @@
         text-align: right;
       }
 
+      .row{
+        float: left;
+        width: 100%;
+      }
+
+      .restartButton
+      {
+        width: 100%;
+        height: 50px;
+        border-radius: 25px;
+        font-size: 1.2vw;
+        color: #4edaf9;
+        font-family: 'Orbitron', sans-serif;
+        border: 2px solid black;
+        cursor: pointer;
+        outline: none;
+        background: repeating-linear-gradient(
+          180deg,
+          #041114,
+          #041114 10px,
+          #09252B 10px,
+          #09252B 20px
+          );
+
+      }
+
+
       #digitalLove{
         text-align: center;
       }
@@ -113,13 +140,17 @@
 
         <div class="achievements">
           <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements: <br>
-            <span id="speedDemon" class="leftAlign" onhover="achievementInfo('speedDemon');">Speed Demon</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span id="warrior" class="rightAlign" onhover="achievementInfo('warrior');">Warrior</span> <br>
-            <span id="explorer" class="leftAlign" onhover="achievementInfo('explorer');">Explorer</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="collector" class="rightAlign" onhover="achievementInfo('collector');">Collector</span> <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="digitalLove" onhover="achievementInfo('digitalLove');">Digital Love</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements: <br>
+            <span id="speedDemon" class="leftAlign" onhover="achievementInfo('speedDemon');">Speed Demon</span>&nbsp;
+            <span id="warrior" class="rightAlign" onhover="achievementInfo('warrior');">Warrior</span>&nbsp;
+            <span id="explorer" class="leftAlign" onhover="achievementInfo('explorer');">Explorer</span>&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="collector" class="rightAlign" onhover="achievementInfo('collector');">Collector</span>
+            &nbsp;&nbsp;<span id="digitalLove" onhover="achievementInfo('digitalLove');">Digital Love</span>
           </p>
         </div>
-        <button name="playAgainBtn" onclick="restartGame();">Play Again</button>
+        <div class="row">
+        <button name="playAgainBtn" class="restartButton" onclick="restartGame();">Play Again</button>
+      </div>
       </div>
     </div>
 

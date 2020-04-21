@@ -14,6 +14,7 @@ function gameFinishedStats(){
   document.getElementById("roomsEntered").textContent = stats.areasExplored;
   document.getElementById("itemsCollected").textContent = stats.itemsCollected;
 
+  achievements();
 }
 
 // called if the user beats the game
@@ -35,6 +36,9 @@ function restartGame(){
 
 function achievements(){
   // speed demon achievement
+
+  var stats = JSON.parse(sessionStorage.getItem('stats'));
+
   if(sessionStorage.getItem("timeSpent")>180){
     document.getElementById("speedDemon").style.color = "green";
   }
@@ -56,31 +60,37 @@ function achievements(){
     document.getElementById("explorer").style.color = "red";
   }
 
-  if(stats.itemsCollected > 10){
+  if(stats.itemsCollected > 5){
     document.getElementById("collector").style.color = "green";
   }
   else{
     document.getElementById("collector").style.color = "red";
   }
 
-  //digital love
-  //if()
+  //digital love achievement
+  if(sessionStorage.getItem("robotStop") === "true"){
+    document.getElementById("digitalLove").style.color = "green";
+  }
+  else{
+    document.getElementById("digitalLove").style.color = "red";
+  }
 }
 
+// displays how to get achievements
 function achievementInfo(title){
   if(title === "speedDemon"){
-
+    desc = "Beat the game in under 3 minutes";
   }
   else if(title === "warrior"){
-
+    desc = "Defeat more than 10 Enemies";
   }
   else if(title ==="explorer"){
-
+    desc = "Explore 20 Rooms around the Map"
   }
   else if(title === "collector"){
-
+    desc = "Collect more than 6 images";
   }
   else if(title === "digitalLove"){
-    
+    desc = "release the robot friend";
   }
 }
