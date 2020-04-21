@@ -35,6 +35,9 @@ function combatSetupV2(){
   updateCombatType();
   document.getElementById('healMethod').innerHTML = 'None, please select one first';
   document.getElementById('countdownTimer').innerHTML = "9";
+
+  sessionStorage.removeItem("pausedStatus");
+  sessionStorage.setItem("pausedStatus", false);
   timer = setInterval('countdownTimer()', 1000);
   countdownTime = 9;
 }
@@ -348,11 +351,12 @@ function exectuteCombat(){
 }
 
 function countdownTimer(){
+  var combatPaused = sessionStorage.getItem("pausedStatus");
   if(countdown <= 0){
     clearInterval(timer);
     exectuteCombat();
   }
-  else{
+  else if(combatPaused == 'false'){
     countdown = countdown-1;
     document.getElementById('countdownTimer').innerHTML = countdown;
   }

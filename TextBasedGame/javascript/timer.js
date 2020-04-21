@@ -47,4 +47,6 @@ function pause(){
     document.getElementById('wrapper').classList.remove('disabledbutton');
   }
   paused = !paused;//change paused state
+  sessionStorage.removeItem("pausedStatus");
+  sessionStorage.setItem("pausedStatus", paused);
 }
