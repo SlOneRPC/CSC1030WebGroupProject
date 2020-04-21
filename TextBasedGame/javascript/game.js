@@ -1557,7 +1557,9 @@ function processCommands(input)
   }
   else if(words.includes("insert"))
   {
-    insert(words);
+    words.splice(0,1);
+    var itemToBeInserted = words.toString().replace(/,/g," ");
+    insert(itemToBeInserted);
   }
   else if(customCommandInput(words.toString().replace(/,/g," "))!=null)
   {
@@ -1580,6 +1582,7 @@ function insert(words)
   var terminalBoolean = false;
   var consoleInteractable;
   var terminalInteractable;
+  console.log(words);
   player.currentRoom.interactables.forEach((interactable, i) => {
     if(interactable.interactableName === "console")
     {
@@ -1611,6 +1614,7 @@ function insert(words)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You can't use this command here</span>";
   }
 }
+
 function passwordMatch(words, interactable)
 {
   if(words.includes(interactable.password))
@@ -1917,15 +1921,17 @@ function removeInteractable(interactableName,room)
 function processCustomCommand(interactable)
 {
   //insert data card typed
-   document.getElementById("text-display").innerHTML += "<br>> interactableName:" + interactable.interactableName;
+  document.getElementById("text-display").innerHTML += "<br>> interactableName:" + interactable.interactableName;
   if(interactable.interactableName==="console")
   {
+    document.getElementById("text-display").innerHTML += "<br>> MATCH";
+    document.getElementById("text-display").innerHTML+="<br>> "+ player.currentRoom.roomName;
     if(checkInventory("data card") && player.currentRoom.roomName === "reactor room")
     {
       removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
       removeInteractable("console",player.currentRoom);
-      //document.getElementById("powerObj").style.display="none";
+      document.getElementById("powerObj").style.display="none";
       player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
       player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
       document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
@@ -1963,6 +1969,7 @@ function clearExit(blockedPath,room)
         }
       }
 }
+
 function customCommandInput(words)
 {
   var stop = false;
@@ -1982,6 +1989,7 @@ function customCommandInput(words)
     //return null;
   }
 }
+
 function removeBlockage(blockedPath)
 {
   var availableDirections = [];
@@ -2009,7 +2017,7 @@ function removeBlockage(blockedPath)
 function checkInventory(item)
 {
   for(var i=0; i<player.inventory.length;i++){
-    //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+    document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
     if(player.inventory[i].item.itemName === item){
       return true;
     }
@@ -2128,7 +2136,8 @@ function useItem(words)
       document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have that item.</span>";
     }
   }
-  else if(words.includes("hacking tool") || words.includes("hack") || words.includes("tool")){
+  else if(words.includes("hacking tool") || words.includes("hack") || words.includes("tool"))
+  {
     var match = false;
     if(checkInventory("hacking tool"))
     {
@@ -2355,7 +2364,6 @@ function getDetailsOfItem(imgPath)
   }
   return found;
 }
-
 var previous;
 function showEquip(thisElement){
   var itemName = thisElement.id.split('_');
@@ -2402,7 +2410,6 @@ function useSelected(){
   }
 
 }
-
 
 function vicinity(playerRoom)
 {
@@ -2560,7 +2567,6 @@ function addItemToInventory(item)
     }
     vicinity(player.currentRoom);
 }
-
 function randomNumber(range)
 {
   return Math.round(Math.random() * range) + 1;
@@ -2631,7 +2637,6 @@ function generatePasswordPad()
   });
   return password;
 }
-
 function randomFootstepSelector()
 {
   var randomSound = footstepSounds[randomNumberForArray(footstepSounds.length)];
