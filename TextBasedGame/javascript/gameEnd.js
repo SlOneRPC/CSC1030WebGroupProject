@@ -46,7 +46,7 @@ function achievements(){
     document.getElementById("speedDemon").style.color = "red";
   }
 
-  if(stats.enemiesDefeated > 10){
+  if(stats.enemiesDefeated > 3){
     document.getElementById("warrior").style.color = "green";
   }
   else{
@@ -82,7 +82,7 @@ function achievementInfo(title){
     desc = "Beat the game in under 3 minutes";
   }
   else if(title === "warrior"){
-    desc = "Defeat more than 10 Enemies";
+    desc = "Defeat more than 3 Enemies";
   }
   else if(title ==="explorer"){
     desc = "Explore 20 Rooms around the Map"

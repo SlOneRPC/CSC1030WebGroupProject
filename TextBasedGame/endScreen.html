@@ -56,7 +56,7 @@
 
       .restartButton
       {
-        width: 100%;
+        width: 30%;
         height: 50px;
         border-radius: 25px;
         font-size: 1.2vw;
@@ -113,21 +113,12 @@
         font-size: 120%;
       }
 
-      #main-container button{
-        width: 90px;
-        height: 60px;
-        border: 1px solid green;
-        box-shadow: 0 0 10px 2px green;
-        border-radius: 12%;
-        background-color: #504B4A;
-        color: white;
+
+
+    .restartButton:hover{
+        box-shadow: 0 0 10px 2px #4edaf9;
       }
 
-      #main-container button:hover{
-        border: 1px solid purple;
-        box-shadow: 0 0 10px 2px purple;
-        background-color: grey;
-      }
     </style>
     <link rel="stylesheet" href="styles/spaceBackground.css">
     <script type="text/javascript" src="javascript/game.js"></script>
@@ -161,11 +152,11 @@
         <div class="achievements">
           <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements: <br>
-            <span id="speedDemon" class="tooltiptext" onhover="achievementInfo('speedDemon');">Speed Demon</span>&nbsp;
-            <span id="warrior" class="tooltiptext" onhover="achievementInfo('warrior');">Warrior</span>&nbsp;
-            <span id="explorer" class="tooltiptext" onhover="achievementInfo('explorer');">Explorer</span>&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="collector" class="tooltiptext" onhover="achievementInfo('collector');">Collector</span>
-            &nbsp;&nbsp;<span id="digitalLove" class="tooltiptext" onhover="achievementInfo('digitalLove');">Digital Love</span>
+            <span id="speedDemon" class="tooltip" onhover="achievementInfo('speedDemon');">Speed Demon</span>&nbsp;
+            <span id="warrior" class="tooltip" onhover="achievementInfo('warrior');">Warrior</span>&nbsp;
+            <span id="explorer" class="tooltip" onhover="achievementInfo('explorer');">Explorer</span>&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="collector" class="tooltip" onhover="achievementInfo('collector');">Collector</span>
+            &nbsp;&nbsp;<span id="digitalLove" class="tooltip" onhover="achievementInfo('digitalLove');">Digital Love</span>
           </p>
         </div>
         <div class="row">
