@@ -287,7 +287,7 @@ function addRooms()
       createDescriptionObject
       (
         "first-entry",
-        "You see beds lining the room, with the bedding strewn on the floor place. It smells a tad like stale socks, and there isn’t anyone to be seen."
+        "You see beds lining the room, with the bedding strewn on the floor. It smells a tad like stale socks, and there isn't anyone to be seen."
       ),
       createDescriptionObject
       (
@@ -505,7 +505,7 @@ function addRooms()
       createExitObject("hallway08", "east","You leave the mess hall and head into another hallway.",false,"")
     ],
     [//Items in the current room
-      createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hangar bay.","images/tornmap.png"),
+      //createDataPadObject("torn map","A map of part of the ship","You inspect the torn map and see that the north door leads towards the reactor room and the east door leads to the hangar bay.","images/tornmap.png"),
       createWeaponObject("shotgun",5,5,35,"Ranged",["shoot"],"A shotgun, good for turning anything 2 metres in front of you to dust Mag Size: 5","images/lasershotgun.png"),
       createAmmoObject("energy cells","An energy cell, used to reload weapons.","images/energycell.png", Math.floor((Math.random() * 10) + 1) ),
       createHealthObject("health kit","A health kit,  can be used to heal you by 50%","images/healthkit.png", 50,1)
@@ -637,10 +637,10 @@ function addRooms()
     ],
     [//Items in the current room
 
-      createDataPadObject("sticky note","A sticky note about the missing data card","The note reads: “Control panel broken 17:09, new data card required, there may be a spare in the research lab – Benny Harvey","images/stickynote.png")
+      createDataPadObject("sticky note","A sticky note about the missing data card","The note reads: 'Control panel broken 17:09, new data card required, there may be a spare in the research lab – Benny Harvey'","images/stickynote.png")
     ],
     [
-      createPuzzleLockObject("console","You inspect the console, and see a flashing yellow screen along with an error message: ERROR MISSING DATACARD","insert data card","You insert the data card into the reactor control panel, and the screen begins to flash green and an alert appears."),
+      createPuzzleLockObject("console","You inspect the console, and see a flashing yellow screen along with an error message: ERROR MISSING DATACARD INSERT NEW DATA CARD","insert data card","You insert the data card into the reactor control panel, and the screen begins to flash green and an alert appears."),
       createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","storage unit 02","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent05"),
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway11","Using your hacking-tool you succesfully hack into the door controls and open the door.","door04"),
     ], //Number of interactable items in the room
@@ -736,7 +736,7 @@ function addRooms()
 
     ],
     [
-      createInteractableObject("broadcast","You inspect the broadcast it flashes “WARNING: SHIP INTEGRITY COMPROMISED ABANDON SHIP” That doesn’t sound good better try and make it to the hangar bay","no"),
+      createInteractableObject("broadcast","You inspect the broadcast it flashes 'WARNING: SHIP INTEGRITY COMPROMISED - HOSTILE CONTACT CONFIRMED - ABANDON SHIP!' That doesn't sound good, better try and make it to the hangar bay","no"),
       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway04","Using your hacking-tool you succesfully hack into the door controls and open the door.","door01"),
       createInteractableObject("sign","You examine the sign and and see that the computer lab is to the south, a storage unit lies to the west, and a hallway to the mess hall is to the east.")
     ], //Number of interactable items in the room
@@ -1032,7 +1032,7 @@ function addRooms()
     [//Exits to current room
       createExitObject("hallway11", "north","You head north up the hallway.",false,""),
       createExitObject("storage unit 02", "west","",true,"You attempt to go west up the hallway and are stopped by a locked door you can't go that way."),
-      createExitObject("mess hall", "south","You head south down the hallway and enter into a room.",false,"")
+      createExitObject("mess hall", "east","You head south down the hallway and enter into a room.",false,"")
     ],
     [//Items in the current room
 
@@ -1897,7 +1897,6 @@ function removeItemFromInventory(item)
 function losehealthSound(){
   healthLossSound.play();
 }
-
 function reload()
 {
     var ammoCount =  document.getElementById("energyCellCount").innerHTML;
@@ -1923,8 +1922,8 @@ function reload()
           document.getElementById("text-display").innerHTML +="</br><span id='userTextRight'>>You reload your weapon"
         }
         else{
-          ammo=0;
           player.equippedWeapon.ammo= player.equippedWeapon.ammo + ammo;
+          ammo=0;
           document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
           document.getElementById("energyCellCount").innerHTML =  "x" + ammo;
           document.getElementById("text-display").innerHTML +="</br><span id='userTextRight'>>You reload your weapon"
@@ -1937,14 +1936,13 @@ function reload()
     }
     scrollBarAnchor();
 }
-
-function equipFists(){
+function equipFists()
+{
   document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'> Equipped fists."+"</span>";
   document.getElementById("currentWeapon").innerHTML="Equipped Weapon: Fists";
   document.getElementById("currentWeaponMag").innerHTML="0/0";
   document.getElementById("equippedWeapon").src= 'images/fist.png';
 }
-
 function equipWeapon(weaponName)
 {
   if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
@@ -2071,7 +2069,6 @@ function clearExit(blockedPath,room)
         }
       }
 }
-
 function customCommandInput(words)
 {
   var stop = false;
@@ -2091,7 +2088,6 @@ function customCommandInput(words)
     //return null;
   }
 }
-
 function removeBlockage(blockedPath)
 {
   var availableDirections = [];
@@ -2144,7 +2140,7 @@ function useItem(words)
       if(newHealthKitCount>0)
       {
         if(!window.inCombat){
-          newHealthKitCount=newHealthKitCount-newHealthKitCount;
+          newHealthKitCount=newHealthKitCount-1;
           var newHealth = player.health + 50;
           if(newHealth>100){
             player.health=100;
@@ -2390,7 +2386,6 @@ function pickUpItems(playerRoom,words,dragged)
             document.getElementById("healthKitCount").innerHTML =  "x" +  newHealthKitCount;
             playerRoom.roomItems.splice(i, 1);
           }
-          playerRoom.roomItems.splice(i, 1);
         }
         else if(item.item.itemType!="Ammo" && item.item.itemType!="Health" && item.item.itemType!="Weapon")
         {
@@ -2512,7 +2507,8 @@ function showEquip(thisElement){
   previous = parent;
 }
 
-function unHighlightSelected(){
+function unHighlightSelected()
+{
   if(previous != null){
     previous.style.backgroundColor = '#272727';
   }
