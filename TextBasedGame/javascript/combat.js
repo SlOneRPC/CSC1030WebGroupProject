@@ -155,7 +155,7 @@ function calculateInfo(){
       document.getElementById('healContainer').classList.add('hideMe');
   }
   document.getElementById('MaxDamageRecievedValue').innerHTML = maxDamageRecieved + "HP";
-  //updateHitbox();
+  updateHitbox();
 }
 
 function getHitboxes(){
@@ -194,6 +194,7 @@ function leaveCombat(){
   document.getElementById('mapMain').classList.remove('hideMe');
   document.getElementById('combatMain').classList.add('hideMe');
   document.getElementById('userInput').classList.remove('disabledbutton');
+  inCombat = false;
 }
 
 //combat start button press
@@ -223,7 +224,7 @@ function exectuteCombat(){
     var damageDealt;
 
     //calculate damage dealt
-    if(Math.floor(Math.random()*100) <= hitchance){//hit the enemy
+    if(Math.floor(Math.random()*100) <= hitchance && currentCombat != "Escape"){//hit the enemy
       damageDealt = Math.floor(Math.random()*maxDamage);
     }
     else{//missed the enemy

@@ -1281,6 +1281,7 @@ function enemyDetection()
 }
 function enemyDetectionRoll(reRollFlag)
 {
+  var returnType = false;
   var roll = randomNumber(100);
   var spotted = false;
   player.currentRoom.enemies.forEach((item, i) =>
@@ -1308,14 +1309,16 @@ function enemyDetectionRoll(reRollFlag)
       else if (reRollFlag === 1)
       {
         document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>You pick up the item without getting spotted by the creature in your room</span>";
+        returnType = true;
       }
       else {
         document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>You examine the item without getting spotted by the creature in your room</span>";
-
+        returnType = true;
       }
     }
   });
   document.getElementById("text-display").innerHTML += "</br>>" + roll;
+  return returnType;
 }
 function outputCurrentRoomExits()
 {
@@ -1767,11 +1770,11 @@ function dropItem(itemName)
 {
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
-      createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png")
+      var fists = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png");
       player.equippedWeapon=fists;
     }
     item=player.inventory[getItemPosFromInventory(itemName)];
-    removeItemFromInventory(item);
+    removeItem(item.item.itemName);
     unHighlightSelected();
     player.currentRoom.roomItems.push(item);
     vicinity(player.currentRoom);
@@ -1787,8 +1790,8 @@ function removeItem(itemName)
   for(var i=0;i<player.inventory.length; i ++)
   {
     if(player.inventory[i].item.itemName === itemName){
-      removeItemFromInventory(player.inventory[i])
-      player.inventory.splice(i,1)
+      removeItemFromInventory(player.inventory[i]);
+      player.inventory.splice(i,1);
     }
   }
 }
@@ -1797,14 +1800,8 @@ function removeItemFromInventory(item)
   var elements = document.querySelectorAll("#inventory td");
   imageToBeRemoved = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemDescription + " class='inventoryItem'>";
   for (var i = 0; i < elements.length; i++) {
-    //document.getElementById("text-display").innerHTML+=elements[i].innerHTML.getAttribute("src");
-   //document.getElementById("text-display").innerHTML+=elements[i].innerHTML;
     if((elements[i].innerHTML).includes(item.item.itemFilePath)){
-    //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
-      //document.getElementById("text-display").innerHTML+="MATCH"
-
       elements[i].innerHTML ="";
-    //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
       break;
     }
   }
@@ -2043,7 +2040,7 @@ function useItem(words)
             newHealth=100;
           }
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
-          document.getElementById("healthBar").style.width=newHealth;
+          document.getElementById("healthBar").style.width= newHealth + '%';
           document.getElementById("healthKitCount").innerHTML= "x"+newHealthKitCount;
         }
         else{
@@ -2206,9 +2203,17 @@ function pickUpItems(playerRoom,words,dragged)
       {
         if(player.currentRoom.enemies.length > 0)
         {
-          enemyDetectionRoll(1);
+          if(!window.inCombat){
+            if(!enemyDetectionRoll(1)){
+              return;
+            }
+            else{
+              alert('Enemy didnt see');
+            }
+          }
         }
-        else if(item.item.itemType ==="Weapon"){
+
+        if(item.item.itemType ==="Weapon"){
           var counter=0;
           if(checkInventory("words") && item.item.itemName==="words")
           {
@@ -2412,7 +2417,7 @@ function useSelected(){
 
 }
 
-
+var itemsAdded;
 function vicinity(playerRoom)
 {
   //get the correct table using a query
@@ -2423,7 +2428,8 @@ function vicinity(playerRoom)
     if(item.item.itemSearched == true )
     {
       //add inventory item to vicinity
-      var name = item.item.itemName + "_img";
+      var name = item.item.itemName + "_img" + itemsAdded;
+      itemsAdded++;
       elements[tableIndex].innerHTML = "<img src="+ item.item.itemFilePath +" alt=" + item.item.itemName + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onmouseover='displayInfo(this)' onmouseleave='hideInfo(this)' onclick='showEquip(this);' id="+ name+">";
       tableIndex++;
     }
