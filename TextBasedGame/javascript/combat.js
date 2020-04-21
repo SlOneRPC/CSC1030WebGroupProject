@@ -279,13 +279,13 @@ function exectuteCombat(){
     }
     if(window.robotBoolean===true)
     {
-      document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>Your trusty <span id = 'userTextNormal'>robot</span> buddy takes a shot</span>";
+      document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>Your trusty <span id = 'userTextNormal'>robot buddy</span> takes a shot</span>";
       if(Math.floor(Math.random()*100) <= 40 ){//hit the enemy
         damageDealt = Math.floor(Math.random()*7);
         document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>He hits the enemy! He deals " + damageDealt + " damage</span>";
       }
       else{//missed the enemy
-        document.getElementById('text-display').innerHTML += "</br>>He misses";
+        document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>>He misses</span>";
 
         damageDealt = 0;
       }

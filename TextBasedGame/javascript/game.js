@@ -115,7 +115,7 @@ function gameStart()
  player.charClass = sessionStorage.getItem("class");
  addRooms();
  populateFootstepArray();
- document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
+ document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship. Get to the HANGAR BAY</li>";
  var width = document.getElementById('playerHealth').offsetWidth;
  document.getElementById("healthBar").style.width= player.health + '%';
  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: Fist";
@@ -166,7 +166,7 @@ function gameStart()
  player.currentRoom = newCurrent;
  document.getElementById("gameMap").src="images/"+player.currentRoom.mapFilePath;
  document.getElementById("text-display").innerHTML +="<span id = 'userTextNormal'>>You find yourself in the "+player.currentRoom.roomName+". </span>";
- document.getElementById("text-display").innerHTML +="</br><span id = 'userTextNormal'>>Pick up your gadget and weapon by clicking search (you can also scroll down in the inventory to see your nearby pickups)</span>";
+ document.getElementById("text-display").innerHTML +="</br><span id = 'userTextNormal'>>Pick up your gadget and weapon by clicking search (you can also scroll down in the inventory to see your nearby pickups)</span></br>";
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
  populateSoundArray();
 }
@@ -497,7 +497,7 @@ function addRooms()
       ),
     ],
     [
-      createEnemyObject("Breather","",0, 0, 30, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+      createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway12", "north","You step out of the mess hall into another one of the ship's long corridors.",false,""),
@@ -565,7 +565,7 @@ function addRooms()
        ),
      ],
      [
-      createEnemyObject("Breather","",0, 0, 30, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 1, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+      createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 1, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
      ],//Enemies Value
      [//Exits to current room
 
@@ -1247,7 +1247,7 @@ function outputCurrentRoomDesc()
 }
 function outputSmallEnemyDescriptions()
 {
-  var smallEnemyDescriptions = ["You can hear something scuttling besides you", "Small sinister screeches bounce off the walls simply piercing your ears", "You feel another presence in the area"]
+  var smallEnemyDescriptions = ["You can hear something scuttling beside you", "Small sinister screeches bounce off the walls simply piercing your ears", "You feel another presence in the area"]
   var length = smallEnemyDescriptions.length;
   var pickedNumber = randomNumberForArray(length);
 
@@ -1523,9 +1523,15 @@ function processCommands(input)
   else if (words.includes("examine") == true|| words.includes("inspect") == true)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    words.splice(0,1);
-    var examinedItem = words.toString().replace(/,/g," ");
-    examineInteractables(player.currentRoom.interactables.length,examinedItem);
+    if(words.includes("robot") && robotBoolean===true)
+    {
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextNormal'>>Examining your buddy you can see a scraped out name on his chest, it reads 'Han-Tyumi'</span>";
+    }
+    else {
+      words.splice(0,1);
+      var examinedItem = words.toString().replace(/,/g," ");
+      examineInteractables(player.currentRoom.interactables.length,examinedItem);
+    }
   }
   else if (words.includes("look") == true)
   {
@@ -1825,7 +1831,6 @@ function sneakAttack()
       else
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enemy health left: "+player.currentRoom.enemies[0].health+ "</span>";
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enter Combat</span>";
         window.combatSetupV2();
       }
     }
@@ -2155,6 +2160,7 @@ function useItem(words)
         else{
           window.healType(1);
         }
+        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You feel rejuvenated, you gain 50HP </span>";
       }
       else{
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have any health kits!</span>";
@@ -2183,6 +2189,7 @@ function useItem(words)
         else{
           window.healType(0);
         }
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You feel rejuvenated, you gain 25HP </span>";
       }
       else{
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have any health packs!</span>";
@@ -2765,7 +2772,7 @@ function scrollBarAnchor()
 function generatePasswordPad()
 {
   var passwordArray = ["password117", "meaningoflife42", "gizzardlizard", "iamcool12", "spaceshipduties101", "unguessable5", "terminalpassword", "darkestsoul", "whatisapassword"];
-  var roomSelector = ["quarters"];
+  var roomSelector = ["storage unit 01"];
   var selectedRoomName = roomSelector[randomNumberForArray(roomSelector.length)];
   var password = passwordArray[randomNumberForArray(passwordArray.length)];
   rooms.forEach((item, i) => {
