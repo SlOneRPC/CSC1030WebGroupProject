@@ -1247,7 +1247,7 @@ function outputCurrentRoomDesc()
 }
 function outputSmallEnemyDescriptions()
 {
-  var smallEnemyDescriptions = ["You can hear something scuttling besides you", "Small sinister screeches bounce off the walls simply piercing your ears", "You feel another presence in the area"]
+  var smallEnemyDescriptions = ["You can hear something scuttling beside you", "Small sinister screeches bounce off the walls simply piercing your ears", "You feel another presence in the area"]
   var length = smallEnemyDescriptions.length;
   var pickedNumber = randomNumberForArray(length);
 
@@ -1825,7 +1825,6 @@ function sneakAttack()
       else
       {
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enemy health left: "+player.currentRoom.enemies[0].health+ "</span>";
-        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Enter Combat</span>";
         window.combatSetupV2();
       }
     }
