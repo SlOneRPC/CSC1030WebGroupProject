@@ -19,6 +19,7 @@ function combatSetupV2(){
   document.getElementById('gameInput').classList.add('disabledbutton');
   document.getElementById('easyButtons').classList.add('disabledbutton');
   document.getElementById('gameInputButton').classList.add('disabledbutton');
+  document.getElementById('other1').classList.add('disabledbutton');
   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>Combat Log</span>";
 
   //get the enemy object
@@ -40,8 +41,8 @@ function combatSetupV2(){
   document.getElementById('countdownTimer').innerHTML = "9";
 
   sessionStorage.setItem("pausedStatus", false);
-  timer = setInterval('countdownTimer()', 1000);
   countdownTime = 9;
+  timer = setInterval('countdownTimer()', 1000);
 }
 
 function updateHP(){
@@ -64,6 +65,7 @@ function checkEquippedWeaponStatus(){
     document.getElementById("Attack1").checked = true;
     currentCombat = 'Weapon';
   }
+  calculateInfo();
 }
 
 function updateAmmo(){
