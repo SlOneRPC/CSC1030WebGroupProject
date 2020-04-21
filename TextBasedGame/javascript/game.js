@@ -2106,8 +2106,6 @@ function useItem(words)
             player.health = newHealth;
           }
           healthGainSound.play();
-          document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
-          document.getElementById("healthBar").style.width= newHealth + '%';
           document.getElementById("healthKitCount").innerHTML= "x"+newHealthKitCount;
           updateHP();
         }
@@ -2136,8 +2134,6 @@ function useItem(words)
             player.health = newHealth;
           }
             healthGainSound.play();
-          document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
-          document.getElementById("healthBar").style.width=newHealth;
           document.getElementById("healthPackCount").innerHTML= "x"+newHealthPackCount;
           updateHP();
         }
