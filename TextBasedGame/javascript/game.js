@@ -1623,6 +1623,7 @@ function passwordMatch(words, interactable)
   if(words.includes(interactable.password))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>As you complete the password a large container lights up as robot steps out of it whirring the phrase 'assisting for combat... ready'</span>";
+    robotBoolean = true;
   }
   else
   {
@@ -2483,7 +2484,7 @@ function move(words)
     direction += "west";
     checkDirection++;
   }
-  if(words.includes("escape pod") || words.includes("escape pod"))
+  if(words.includes("escape pod") || words.includes("escapepod"))
   {
     player.currentRoom.interactables.forEach((item, i) => {
       if(item.interactableName === "escape pod")
