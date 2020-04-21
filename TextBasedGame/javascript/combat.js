@@ -183,6 +183,7 @@ function getHitboxes(){
     opt.text = enemyHitboxArray[i].partName + " | +" + enemyHitboxArray[i].percentageToHit + "% hitchance | +" + enemyHitboxArray[i].baseDamagePerHit + " max damage"; // set the text
     hitboxes.appendChild(opt); // add it to the select
   }
+  document.getElementById("hitboxes").selectedIndex = 0;
 }
 
 function updateHitbox(){
