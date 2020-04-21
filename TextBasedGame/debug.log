@@ -1,0 +1,3 @@
+[0421/151948.496:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0421/151948.498:ERROR:exception_snapshot_win.cc(98)] thread ID 19412 not found in process
+[0421/151948.498:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
