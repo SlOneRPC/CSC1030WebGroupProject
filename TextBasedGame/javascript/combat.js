@@ -15,8 +15,9 @@ function combatSetupV2(){
   //hide container
   document.getElementById('mapMain').classList.add('hideMe');
   document.getElementById('combatMain').classList.remove('hideMe');
-  document.getElementById('userInput').classList.add('disabledbutton');
-  document.getElementById('other1').classList.add('disabledbutton');
+  document.getElementById('gameInput').classList.add('disabledbutton');
+  document.getElementById('easyButtons').classList.add('disabledbutton');
+  document.getElementById('gameInputButton').classList.add('disabledbutton');
   //get the enemy object
   activeEnemyObj = window.player.currentRoom.enemies[0];
   enemyMaxHealth = activeEnemyObj.health;
@@ -120,20 +121,20 @@ function calculateInfo(){
   var damageGiven = false;//damage can be given
   switch (currentCombat) {
     case "Weapon":
-      hitchance = 60;
+      hitchance = 0;
       maxDamage = window.player.equippedWeapon.damage;
       maxDamageRecieved = activeEnemyObj.damagePerAttack;
       damageGiven = true;
       break;
     case "Melee":
-      hitchance = 70;
+      hitchance = 0;
       maxDamage = 4;
       maxDamageRecieved = activeEnemyObj.damagePerAttack + 2;
       damageGiven = true;
       break;
     case "Heal":
       maxDamageRecieved = activeEnemyObj.damagePerAttack + 3;
-      hitchance = 60;
+      hitchance = 0;
       maxDamage = 0;
       document.getElementById('healContainer').classList.remove('hideMe');
       break;
@@ -145,7 +146,7 @@ function calculateInfo(){
   //if damage can be given to the enemy from the selected attack
   if(damageGiven){
     document.getElementById('Currenthitchance').classList.remove('hideMe');
-    document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
+    //document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
     document.getElementById('MaxDamageValue').innerHTML = maxDamage + "HP";
     document.getElementById('CurrentDamageGiven').classList.remove('hideMe');
     document.getElementById('hitboxesContainer').classList.remove('hideMe');
@@ -183,8 +184,8 @@ function updateHitbox(){
   var maxDmgChange = activeEnemyObj.bodyParts[selectedHitbox].baseDamagePerHit;
 
   if(hitchanceChange >= 0){
-      document.getElementById('addHitchance').innerHTML = '+' + hitchanceChange +"%";
-      document.getElementById('addHitchance').style.color = "lime";
+      document.getElementById('hitchanceValue').innerHTML = hitchanceChange +"%";
+      //document.getElementById('hitchanceValue').style.color = "lime";
   }
   else{
     document.getElementById('addHitchance').innerHTML = hitchanceChange +"%";
@@ -200,7 +201,9 @@ function updateHitbox(){
 function leaveCombat(){
   document.getElementById('mapMain').classList.remove('hideMe');
   document.getElementById('combatMain').classList.add('hideMe');
-  document.getElementById('userInput').classList.remove('disabledbutton');
+  document.getElementById('gameInput').classList.remove('disabledbutton');
+  document.getElementById('easyButtons').classList.remove('disabledbutton');
+  document.getElementById('gameInputButton').classList.remove('disabledbutton');
   document.getElementById('other1').classList.remove('disabledbutton');
   inCombat = false;
 }
@@ -238,18 +241,48 @@ function exectuteCombat(){
 
     //calculate damage dealt
     if(Math.floor(Math.random()*100) <= hitchance && currentCombat != "Heal" && currentCombat != "Escape"){//hit the enemy
+      if(window.player.equippedWeapon.item.itemName === "fist")
+      {
+        document.getElementById('text-display').innerHTML += '</br>>You aim your fists at the enemy';
+      }
+      else {
+        document.getElementById('text-display').innerHTML += '</br>>You aim your gun at the enemy';
+      }
+
       damageDealt = Math.floor(Math.random()*maxDamage);
+      document.getElementById('text-display').innerHTML += '</br>>You successfully hit the enemy dealing ' + damageDealt + ' damage';
+
     }
     else{//missed the enemy
       damageDealt = 0;
+      document.getElementById('text-display').innerHTML += '</br>>You miss!';
+
     }
 
+
+    if(window.robotBoolean===true)
+    {
+      document.getElementById('text-display').innerHTML += '</br>>Your trusty robot buddy takes a shot';
+      if(Math.floor(Math.random()*100) <= 40 ){//hit the enemy
+        damageDealt = Math.floor(Math.random()*7);
+        document.getElementById('text-display').innerHTML += '</br>>He hits the enemy! He deals ' + damageDealt + ' damage';
+      }
+      else{//missed the enemy
+        document.getElementById('text-display').innerHTML += '</br>>He misses';
+
+        damageDealt = 0;
+      }
+    }
     //calculate damage recieved
     if(Math.floor(Math.random()*100) <= 60){
       damageRecieved = Math.floor(Math.random()*maxDamageRecieved);
+      document.getElementById('text-display').innerHTML += '</br>>The ' +activeEnemyObj.enemyType+' hits you for ' + damageDealt + ' damage';
+
     }
     else{//enemy missed
       damageRecieved = 0;
+      document.getElementById('text-display').innerHTML += '</br>>The '+activeEnemyObj.enemyType+' misses you';
+
     }
 
     if(currentCombat == "Weapon"){
@@ -273,7 +306,7 @@ function exectuteCombat(){
        window.gameFinishedStats();
      }
      else if(activeEnemyObj.health<=0){
-       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to kill the enemy stone dead, making it look up to the great space eyes of the sky</span>";
+       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to successfully defeat the enemy</span>";
        window.scrollBarAnchor();
        leaveCombat();
        //remove the enemy from the room once its dead
@@ -303,6 +336,7 @@ function exectuteCombat(){
       countdown = 9;
     }
   }
+  window.scrollBarAnchor();
 }
 
 function countdownTimer(){
