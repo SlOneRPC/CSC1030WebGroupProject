@@ -1772,6 +1772,7 @@ function dropItem(itemName)
     }
     item=player.inventory[getItemPosFromInventory(itemName)];
     removeItemFromInventory(item);
+    unHighlightSelected();
     player.currentRoom.roomItems.push(item);
     document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'>>Dropped "+itemName+"</span>";
   }
@@ -2019,7 +2020,7 @@ function checkInventoryType(item,type)
 {
   for(var i=0; i<player.inventory.length;i++){
     //document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
-    if(player.inventory[i].item.itemName === item && player.inventory[i].item.itemType === type){
+    if(player.inventory[i].item.itemName.includes(item) && player.inventory[i].item.itemType === type){
       return true;
     }
   }
@@ -2384,6 +2385,12 @@ function showEquip(thisElement){
   }
   parent.style.backgroundColor = 'red';
   previous = parent;
+}
+
+function unHighlightSelected(){
+  if(previous != null){
+    previous.style.backgroundColor = '#272727';
+  }
 }
 
 function useSelected(){
