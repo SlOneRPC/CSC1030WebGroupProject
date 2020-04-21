@@ -8,10 +8,7 @@ var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
 var inCombat = false;
-var healthLossSound;
-var gunSound;
-gunSound = new sound("sounds/gunSound.mp3")
-healthLossSound =  new sound("sounds/losehealth.mp3");
+
 var timer;
 var countdown = 10;
 
