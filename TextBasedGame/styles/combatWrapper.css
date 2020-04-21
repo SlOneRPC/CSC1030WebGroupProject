@@ -15,7 +15,18 @@
   padding: 0 5% 2%;
 }
 
-
+.combatButton{
+  border: 2px solid black;
+  outline: none;
+  color: #27910E;
+      background: repeating-linear-gradient(
+        180deg,
+        #082316,
+        #082316 10px,
+        #05170E 10px,
+        #05170E 20px
+        );
+}
 
 .hideMe{
   display: none;
