@@ -1685,7 +1685,7 @@ function sneakAttackEnemy(words)
         hitchance = 60;
         if(randomNumber(100)<= hitchance)
         {
-          attack();
+          sneakAttack();
         }
         else
         {
@@ -1697,7 +1697,7 @@ function sneakAttackEnemy(words)
         hitchance = 80;
         if(randomNumber(100)<= hitchance)
         {
-          attack();
+          sneakAttack();
         }
         else
         {
@@ -1708,7 +1708,7 @@ function sneakAttackEnemy(words)
     else
     {
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You aim your fists at the imperceptive enemy</span>";
-      attack();
+      sneakAttack();
     }
   }
   else
@@ -1716,7 +1716,7 @@ function sneakAttackEnemy(words)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>There are no enemies in this room to sneak attack'</span>";
   }
 }
-function attack()
+function sneakAttack()
 {
   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You successfully hit the enemy</span>";
   if(player.equippedWeapon.item.itemName !== "fist")
@@ -2484,7 +2484,7 @@ function move(words)
     direction += "west";
     checkDirection++;
   }
-  if(words.includes("escape pod") || words.includes("escapepod"))
+  if(words.includes("escape") && words.includes("pod") || words.includes("escapepod"))
   {
     player.currentRoom.interactables.forEach((item, i) => {
       if(item.interactableName === "escape pod")
