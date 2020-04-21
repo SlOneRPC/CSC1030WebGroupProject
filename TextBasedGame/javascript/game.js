@@ -2639,6 +2639,7 @@ function charHealth()
     return 120;
   }
 }
+var itemNumAdded = 0;
 function addItemToInventory(item)
 {
 
@@ -2646,7 +2647,9 @@ function addItemToInventory(item)
 
     for (var i = 0; i < elements.length; i++) {
       if(elements[i].innerHTML == ''){
-        elements[i].innerHTML += "<img src="+ item.itemFilePath +" alt=" + item.itemDescription + " class='inventoryItem'>";
+        var itemid = item.itemName + "_"+ itemNumAdded;
+        itemNumAdded++;
+        elements[i].innerHTML += "<img src="+ item.itemFilePath +" alt=" + item.itemDescription + " class='inventoryItem' draggable='true' ondragstart='drag(event)' onclick='showEquip(this);' id='"+ itemid +"'>";
         break;
       }
     }
