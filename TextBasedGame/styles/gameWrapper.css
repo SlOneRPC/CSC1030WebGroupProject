@@ -2,8 +2,8 @@
 {
   width: 95%;
   height: 70%;
-  padding: 3%;
-  padding-top: 1%;
+  padding: 1%;
+  padding-top: 0;
   margin: auto;
   /* border: 2px solid #2b2828; */
   /* background-color: #171717; */
@@ -15,6 +15,8 @@
   width: 100%;
   padding: 0.5%;
   height:100%;
+  margin: 0 auto;
+  padding-left: 2%
 }
 
 
@@ -65,6 +67,7 @@
 #pausebtn{
   width: 20%;
   background: url(images/Play Button.gif);
+  font-family: 'Rajdhani', sans-serif;
 }
 
 #startingContainer{
@@ -91,17 +94,19 @@
 
 #userInput
 {
-    width: 33%;
+    width: 32%;
     float: left;
     max-width: 80%;
     height: 80%;
-    padding: 8px;
+    padding: 0.6%;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
     border-top-left-radius: 25px;
     box-shadow: 0 0 10px 2px #4edaf9;
     background-color: #111010;
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 #easyButtons
@@ -282,7 +287,7 @@
 
 #playerContainer{
   overflow:auto;
-  width:31%;
+  width:30%;
   float:left;
   height:760px;
   background-color: #111010;
@@ -306,7 +311,7 @@
 
 #mapContainer{
   overflow:hidden;
-  width:32%;
+  width:30%;
   float:left;
   height:750px;
   /* background-color: #0A1C24; */
@@ -848,18 +853,22 @@
 
 
 #settings-wrapper{
+  opacity: 0.2;
   width: 100%;
-  height: 60px;
-  border: 1px solid white;
+  /* border: 1px solid white; */
+  margin-bottom: 1%;
+  margin-top: 0;;
+  float: left;
   font-size: 1.4vw;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 9px;
-  border-bottom-left-radius: 9px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  color: #4edaf9;
   font-family: 'Rajdhani', sans-serif;
-  box-shadow: 0px 0px 10px 2px #ffffff;
+  /* box-shadow: 0px 0px 10px 2px #ffffff; */
   background: repeating-linear-gradient(
-    180deg,
+    135deg,
     #1B1A1A,
     #1B1A1A 10px,
     #0F0F0F 10px,
@@ -869,33 +878,44 @@
 #volumeControl{
   margin-top:1.6%;
   float:left;
-  position: relative;
   bottom:6px;
-  width:7%;
+  width:30%;
 }
 #volumeText{
-  position: relative;
-  bottom:6px;
-  width:7%;
+  /* bottom:6px; */
+  width:70%;
   padding-left: 1%;
   float:left;
   font-family: 'Rajdhani', sans-serif;
+  margin-bottom: 0;
+  margin-top: 0.7%;
+}
+#volumeLabel{
+  width:30%;
+  float:left;
+}
+#volumeControlContainer{
+  width:70%;
+  float:left;
+  padding-top: 3%;
 }
 .settingButtons{
-  max-width: 5%;
-  font-size: 1.1vw;
+  max-width: 10%;
+  font-size: 0.9vw;
   border: 2px solid black;
-  font-family: 'Orbitron', sans-serif;
+  border-radius: 25px;
+  font-family: 'Rajdhani', sans-serif;
   cursor: pointer;
   outline: none;
-  color: #ffffff;
-      background: repeating-linear-gradient(
-          180deg,
-          #1B1A1A,
-          #1B1A1A 10px,
-          #0F0F0F 10px,
-          #0F0F0F 20px
-        );
+  color: #4edaf9;
+  background: repeating-linear-gradient(
+    180deg,
+    #041114,
+    #041114 10px,
+    #09252B 10px,
+    #09252B 20px
+    );
+        margin: 0.3%;
 }
 
 
@@ -973,6 +993,10 @@
         );
 }
 
+
+#continueButton:hover{
+    box-shadow: 0px 0px 3px 2px #4edaf9;
+}
 .input
 {
   font-size: 1.2vw;
@@ -996,6 +1020,99 @@
     width:80%;
     margin-left: 1%;
 }
+#volumeBox{
+  width: 20%;
+  float: left;
+  margin-left: 2%;
+}
+input[type=range]#volumeControl {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 4.35px 0;
+}
+input[type=range]#volumeControl:focus {
+  outline: none;
+}
+input[type=range]#volumeControl::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 7.3px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.86), 0px 0px 1px rgba(13, 13, 13, 0.86);
+  background: #484d4d;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range]#volumeControl::-webkit-slider-thumb {
+  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
+  border: 0px solid #ff1e00;
+  height: 16px;
+  width: 11px;
+  border-radius: 4px;
+  background: rgba(255, 67, 95, 0.93);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -4.35px;
+}
+input[type=range]#volumeControl:focus::-webkit-slider-runnable-track {
+  background: #484d4d;
+}
+input[type=range]#volumeControl::-moz-range-track {
+  width: 100%;
+  height: 7.3px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.86), 0px 0px 1px rgba(13, 13, 13, 0.86);
+  background: #484d4d;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range]#volumeControl::-moz-range-thumb {
+  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
+  border: 0px solid #ff1e00;
+  height: 16px;
+  width: 11px;
+  border-radius: 4px;
+  background: rgba(255, 67, 95, 0.93);
+  cursor: pointer;
+}
+input[type=range]#volumeControl::-ms-track {
+  width: 100%;
+  height: 7.3px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]#volumeControl::-ms-fill-lower {
+  background: #484d4d;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.86), 0px 0px 1px rgba(13, 13, 13, 0.86);
+}
+input[type=range]#volumeControl::-ms-fill-upper {
+  background: #484d4d;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.86), 0px 0px 1px rgba(13, 13, 13, 0.86);
+}
+input[type=range]#volumeControl::-ms-thumb {
+  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
+  border: 0px solid #ff1e00;
+  height: 16px;
+  width: 11px;
+  border-radius: 4px;
+  background: rgba(255, 67, 95, 0.93);
+  cursor: pointer;
+  height: 7.3px;
+}
+input[type=range]#volumeControl:focus::-ms-fill-lower {
+  background: #484d4d;
+}
+input[type=range]#volumeControl:focus::-ms-fill-upper {
+  background: #484d4d;
+}
+
+
+
 ::placeholder{
   color: #434443;
 }
@@ -1046,13 +1163,22 @@
 
 }
 .profileButtons:hover{
-  box-shadow: 0px 0px 3px 2px #27910E;
+    box-shadow: 0px 0px 3px 2px #4edaf9;
+}
+
+.settingButtons:hover{
+    box-shadow: 0px 0px 3px 2px #4edaf9;
 }
 
 .mapButtons:hover {
   box-shadow: 0px 0px 3px 2px #8B2BE4;
 
 }
+
+#settings-wrapper:hover{
+  opacity: 1;
+}
+
 
 @keyframes fadeIn {
   0% {
