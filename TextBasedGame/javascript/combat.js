@@ -115,20 +115,20 @@ function calculateInfo(){
   var damageGiven = false;//damage can be given
   switch (currentCombat) {
     case "Weapon":
-      hitchance = 60;
+      hitchance = 0;
       maxDamage = window.player.equippedWeapon.damage;
       maxDamageRecieved = activeEnemyObj.damagePerAttack;
       damageGiven = true;
       break;
     case "Melee":
-      hitchance = 70;
+      hitchance = 0;
       maxDamage = 4;
       maxDamageRecieved = activeEnemyObj.damagePerAttack + 2;
       damageGiven = true;
       break;
     case "Heal":
       maxDamageRecieved = activeEnemyObj.damagePerAttack + 3;
-      hitchance = 60;
+      hitchance = 0;
       maxDamage = 0;
       document.getElementById('healContainer').classList.remove('hideMe');
       break;
@@ -140,7 +140,7 @@ function calculateInfo(){
   //if damage can be given to the enemy from the selected attack
   if(damageGiven){
     document.getElementById('Currenthitchance').classList.remove('hideMe');
-    document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
+    //document.getElementById('hitchanceValue').innerHTML = hitchance + "%";
     document.getElementById('MaxDamageValue').innerHTML = maxDamage + "HP";
     document.getElementById('CurrentDamageGiven').classList.remove('hideMe');
     document.getElementById('hitboxesContainer').classList.remove('hideMe');
@@ -178,8 +178,8 @@ function updateHitbox(){
   var maxDmgChange = activeEnemyObj.bodyParts[selectedHitbox].baseDamagePerHit;
 
   if(hitchanceChange >= 0){
-      document.getElementById('addHitchance').innerHTML = '+' + hitchanceChange +"%";
-      document.getElementById('addHitchance').style.color = "lime";
+      document.getElementById('hitchanceValue').innerHTML = hitchanceChange +"%";
+      //document.getElementById('hitchanceValue').style.color = "lime";
   }
   else{
     document.getElementById('addHitchance').innerHTML = hitchanceChange +"%";

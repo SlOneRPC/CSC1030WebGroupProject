@@ -385,7 +385,7 @@ function addRooms()
       )
     ],
     [
-      createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 15, 0)], 40)
+      createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway03", "east","You step out of the storage unit into a hallway and arrive at a junction. ",false,"")
@@ -418,7 +418,7 @@ function addRooms()
       )
     ],
     [
-      createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 15, 0)], 40)
+        createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway12", "south","You walk through the doorway and enter into the hallway",true,"A locked door prevents your passage."),
@@ -453,7 +453,7 @@ function addRooms()
         "You Re-enter the kitchen and find the pots and pans lying on the floor just like you left it with the stove still quietly burning."
       ),
     ],
-     [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 15, 0)], 40)],//Enemies Value
+     [  createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
      [//Exits to current room
        createExitObject("mess hall","north","You walk out of the kitchen through the unlocked door into another room.",true,"A locked door prevents your passage."),
        createExitObject("hallway04", "south"," You slip out of the kitchen back into one of the ship's long hallways",false,"")
@@ -483,7 +483,7 @@ function addRooms()
       ),
     ],
     [
-      createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 60, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 20, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+      createEnemyObject("Breather","",0, 0, 30, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway12", "north","You step out of the mess hall into another one of the ship's long corridors.",false,""),
@@ -551,7 +551,7 @@ function addRooms()
        ),
      ],
      [
-       createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 60, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 20, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+      createEnemyObject("Breather","",0, 0, 30, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 1, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
      ],//Enemies Value
      [//Exits to current room
 
@@ -582,7 +582,7 @@ function addRooms()
         "Entering the research lab you find the scattered projects on the floor as you left them."
       ),
     ],
-    [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 15, 0)], 40)],//Enemies Value
+    [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
     [//Exits to current room
       createExitObject("hallway09", "south","With the rubble cleared you make your way out of the research lab and into another hallway.",false,""),
       createExitObject("hallway13", "west","You leave the research lab and enter back into the hallway.",false,"")
@@ -614,7 +614,7 @@ function addRooms()
       ),
     ],
     [
-        createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 60, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 20, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+        createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway11", "south", " ",true,"A locked door bars your exit from the room."),
@@ -650,7 +650,7 @@ function addRooms()
          "The hallway lies quiet."
        ),
      ],
-     [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 15, 0)], 40)],//Enemies Value
+     [  createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
      [//Exits to current room
        createExitObject("hallway02", "north", "You continue up the hallway north.",false,""),
        createExitObject("hallway04", "east","You crawl into the vent, it is dark and narrow with very little room to move. Pushing forward you emerge in a hallway.",true,"A vent stands in your way, you cannot continue this path."),
@@ -745,7 +745,7 @@ function addRooms()
         "You re-enter the dark hallway finding it cluttered with the same debris."
       ),
     ],
-    [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 15, 0)], 40)],//Enemies Value
+    [  createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
     [//Exits to current room
       createExitObject("kitchen", "north","You head north to the end of the hallway into a room.",false,""),
       createExitObject("hallway05", "east","You head east into another one of the ships long hallways. ",false,""),
@@ -780,7 +780,7 @@ function addRooms()
         "You enter the hallway once more it lies quiet."
       ),
     ],
-     [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 15, 0)], 40)],//Enemies Value
+     [  createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
      [//Exits to current room
        createExitObject("hallway04", "west","You head north to the end of the hallway into a room.",false,""),
        createExitObject("armory","south","You step out of the hallway and walk into a room.",false,""),
@@ -815,7 +815,7 @@ function addRooms()
       ),
     ],
      [
-         createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 60, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 20, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+          createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
      ],//Enemies Value
      [//Exits to current room
        createExitObject("armory", "north","you head north out of the dim hallway back into the armory.",false,""),
@@ -885,7 +885,7 @@ function addRooms()
       ),
     ],
     [
-      createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 15, 0)], 40)
+        createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)
     ], //Enemies Value
     [//Exits to current room
       createExitObject("maintenance bay", "north"," You head north out of the hallway into a room",false,""),
@@ -2078,6 +2078,7 @@ function useItem(words)
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
           document.getElementById("healthBar").style.width= newHealth + '%';
           document.getElementById("healthKitCount").innerHTML= "x"+newHealthKitCount;
+          updateHP();
         }
         else{
           window.healType(1);
@@ -2103,6 +2104,7 @@ function useItem(words)
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
           document.getElementById("healthBar").style.width=newHealth;
           document.getElementById("healthPackCount").innerHTML= "x"+newHealthPackCount;
+          updateHP();
         }
         else{
           window.healType(0);
