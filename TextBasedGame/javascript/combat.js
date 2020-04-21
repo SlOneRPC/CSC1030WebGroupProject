@@ -260,6 +260,7 @@ function exectuteCombat(){
     updateHP();
      if(window.player.health<=0){
        //TODO you lose end game
+       gameFinished(false);
      }
      else if(activeEnemyObj.health<=0){
        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to kill the enemy stone dead, making it look up to the great space eyes of the sky</span>";
@@ -267,6 +268,7 @@ function exectuteCombat(){
        leaveCombat();
        //remove the enemy from the room once its dead
        player.currentRoom.enemies.splice(0,1);
+       // updates enemy defeated count
        player.stats.enemiesDefeated++;
      }
      else if(currentCombat == "Escape"){

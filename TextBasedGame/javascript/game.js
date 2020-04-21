@@ -23,7 +23,7 @@ var sounds=[];
 
 function statUpdate(){
   // enemies killed - once player returns from combat, +1 to killed value
-  // -> Calculated in Combat.js
+  // -> Calculated further down
   // rooms Entered - use Room.roomDiscovered value - boolean
   rooms.forEach((item, i) => {
     if(item.roomDiscovered){
@@ -1734,6 +1734,7 @@ function sneakAttack()
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Hit the enemy for all of its health</span>";
       player.currentRoom.enemies.splice(0, 1);
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to kill the enemy stone dead, making it look up to the great space eyes of the sky</span>";
+      player.stats.enemiesDefeated++;
     }
     else
     {
@@ -1743,6 +1744,7 @@ function sneakAttack()
       {
         player.currentRoom.enemies.splice(0, 1);
         document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to kill the enemy stone dead, making it look up to the great space eyes of the sky</span>";
+        player.stats.enemiesDefeated++;
       }
       else
       {
@@ -2489,7 +2491,7 @@ function move(words)
     player.currentRoom.interactables.forEach((item, i) => {
       if(item.interactableName === "escape pod")
       {
-        gameFinished();
+        gameFinished(true);
       }
     });
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>Where on earth is that?</span>";
