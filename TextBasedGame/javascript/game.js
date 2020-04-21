@@ -2072,6 +2072,7 @@ function removeBlockage(blockedPath)
 function checkInventory(item)
 {
   for(var i=0; i<player.inventory.length;i++){
+
     if(player.inventory[i].item.itemName === item){
       return true;
     }

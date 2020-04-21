@@ -8,10 +8,7 @@ var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
 var inCombat = false;
-var healthLossSound;
-var gunSound;
-gunSound = new sound("sounds/gunSound.mp3")
-healthLossSound =  new sound("sounds/losehealth.mp3");
+
 var timer;
 var countdown = 10;
 
@@ -94,24 +91,6 @@ function equipWeaponDrop(ev){
   ev.preventDefault();
 }
 
-function sound(src)
-{
-  this.sound = document.createElement("audio");
-  this.sound.src = src;
-
-  this.sound.setAttribute("preload", "auto");
-  this.sound.setAttribute("controls", "none");
-  this.sound.style.display = "none";
-  console.log(volume);
-  this.sound.volume= volume;
-  document.body.appendChild(this.sound);
-  this.play = function(){
-    this.sound.play();
-  }
-  this.stop = function(){
-    this.sound.pause();
-  }
-}
 
 function updateCombatType(){
   //combat type change
