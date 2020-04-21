@@ -637,7 +637,7 @@ function addRooms()
     ],
     [//Items in the current room
 
-      createDataPadObject("sticky note","A sticky note about the missing data card","The note reads: 'Control panel broken 17:09, new data card required, there may be a spare in the research lab – Benny Harvey'","images/stickynote.png")
+      createDataPadObject("sticky note","A sticky note about the missing data card","The note reads: 'Control panel broken 17:09, new data card required, there may be a spare in the research lab - Benny Harvey'","images/stickynote.png")
     ],
     [
       createPuzzleLockObject("console","You inspect the console, and see a flashing yellow screen along with an error message: ERROR MISSING DATACARD INSERT NEW DATA CARD","insert data card","You insert the data card into the reactor control panel, and the screen begins to flash green and an alert appears."),
@@ -1691,7 +1691,6 @@ function passwordMatch(words, interactable)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>As you complete the password a large container lights up as robot steps out of it whirring the phrase 'assisting for combat... ready'</span>";
     robotBoolean = true;
-    sessionStorage.setItem("robotStop",true);
   }
   else
   {
@@ -1901,6 +1900,7 @@ function removeItemFromInventory(item)
 function losehealthSound(){
   healthLossSound.play();
 }
+
 function reload()
 {
     var ammoCount =  document.getElementById("energyCellCount").innerHTML;
@@ -2024,19 +2024,20 @@ function removeInteractable(interactableName,room)
 }
 function processCustomCommand(interactable)
 {
-  //insert data card typed
-//  document.getElementById("text-display").innerHTML += "<br>> interactableName:" + interactable.interactableName;
   if(interactable.interactableName==="console")
   {
-  //  document.getElementById("text-display").innerHTML += "<br>> MATCH";
-  //  document.getElementById("text-display").innerHTML+="<br>> "+ player.currentRoom.roomName;
     if(checkInventory("data card") && player.currentRoom.roomName === "reactor room")
     {
       removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
       removeInteractable("console",player.currentRoom);
-      player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
-      player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
+      player.currentRoom.interactables.push(createInteractableObject
+      ("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
+      player.currentRoom.interactables.push(createLeverObject
+      ("master switch",
+       "You Inspect the switch, pulling it should reset the ship's power."
+       ,"pull master switch",
+       false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
       document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
       document.getElementById("powerObj").style.display="none";
     }
@@ -2058,7 +2059,6 @@ function processCustomCommand(interactable)
   }
   else if(interactable.interactableName === "escape pod" ){
     if(player.currentRoom.roomName === "hangar bay" ){
-      //--pop
       gameFinished(true);
     }
   }
