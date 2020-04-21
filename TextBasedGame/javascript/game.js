@@ -7,6 +7,10 @@ var footstepSounds = [];
 var selectedItem='';
 var pickUpItemSound;
 var pickUpAmmoSound;
+var reloadSound;
+var healthGainSound;
+var healthLossSound;
+var gunSound;
 var footstep1;
 var footstep2;
 var footstep3;
@@ -76,6 +80,11 @@ function populateSoundArray()
 {
   pickUpItemSound = new sound("sounds/pickUpItem.mp3");
   pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
+  gunSound = new sound("sounds/gunSound.mp3")
+  reloadSound = new sound("sounds/reload.mp3") ;
+  healthGainSound =  new sound("sounds/gainhealth.mp3");
+  healthLossSound =  new sound("sounds/losehealth.mp3");
+
   sounds.push(footstep1);
   sounds.push(footstep2);
   sounds.push(footstep3);
@@ -86,6 +95,10 @@ function populateSoundArray()
   sounds.push(footstep8);
   sounds.push(pickUpItemSound);
   sounds.push(pickUpAmmoSound);
+  sounds.push(healthGainSound);
+  sounds.push(healthLossSound);
+  sounds.push(reloadSound);
+  sounds.push(gunSound);
 
 }
 function gameStart()
@@ -1789,6 +1802,7 @@ function sneakAttack()
 
 function dropItem(itemName)
 {
+
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
       equipFists();
@@ -1830,6 +1844,10 @@ function removeItemFromInventory(item)
   vicinity(player.currentRoom);
 }
 
+function losehealthSound(){
+  healthLossSound.play();
+}
+
 function reload()
 {
     var ammoCount =  document.getElementById("energyCellCount").innerHTML;
@@ -1851,6 +1869,7 @@ function reload()
           player.equippedWeapon.ammo = player.equippedWeapon.ammo + cellsNeeded;
           document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
           document.getElementById("energyCellCount").innerHTML =  "x" + ammo;
+          reloadSound.play();
         }
         else{
           ammo=0;
@@ -2045,7 +2064,7 @@ function removeBlockage(blockedPath)
 function checkInventory(item)
 {
   for(var i=0; i<player.inventory.length;i++){
-    document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+  //  document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
     if(player.inventory[i].item.itemName === item){
       return true;
     }
@@ -2075,6 +2094,7 @@ function useItem(words)
           if(newHealth>100){
             newHealth=100;
           }
+          healthGainSound.play();
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
           document.getElementById("healthBar").style.width= newHealth + '%';
           document.getElementById("healthKitCount").innerHTML= "x"+newHealthKitCount;
@@ -2101,6 +2121,7 @@ function useItem(words)
           if(newHealth>100){
             newHealth=100;
           }
+            healthGainSound.play();
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
           document.getElementById("healthBar").style.width=newHealth;
           document.getElementById("healthPackCount").innerHTML= "x"+newHealthPackCount;

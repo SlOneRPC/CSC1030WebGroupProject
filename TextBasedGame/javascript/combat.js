@@ -8,6 +8,10 @@ var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
 var inCombat = false;
+var healthLossSound;
+var gunSound;
+gunSound = new sound("sounds/gunSound.mp3")
+healthLossSound =  new sound("sounds/losehealth.mp3");
 
 function combatSetupV2(){
   //hide container
@@ -81,6 +85,24 @@ function equipWeaponDrop(ev){
   ev.preventDefault();
 }
 
+function sound(src)
+{
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  console.log(volume);
+  this.sound.volume= volume;
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
+}
 
 function updateCombatType(){
   //combat type change
@@ -237,6 +259,7 @@ function exectuteCombat(){
       }
       else {
         document.getElementById('text-display').innerHTML += '</br>>You aim your gun at the enemy';
+        gunSound.play();
       }
 
       damageDealt = Math.floor(Math.random()*maxDamage);
@@ -248,8 +271,6 @@ function exectuteCombat(){
       document.getElementById('text-display').innerHTML += '</br>>You miss!';
 
     }
-
-
     if(window.robotBoolean===true)
     {
       document.getElementById('text-display').innerHTML += '</br>>Your trusty robot buddy takes a shot';
@@ -287,8 +308,11 @@ function exectuteCombat(){
         window.player.health += healHP;
       }
     }
-
+    var temp=window.player.health;
     window.player.health -= damageRecieved;
+    if(temp>window.player.health){
+      losehealthSound();
+    }
     activeEnemyObj.health -= damageDealt;
     updateHP();
      if(window.player.health<=0){
