@@ -29,7 +29,7 @@
       #main-container{
         background-color: #111010;
         display: block;
-        width: 400px;
+        width: 450px;
         text-align: center;
         height: 500px;
         border: 1px solid red;
@@ -60,7 +60,8 @@
     <script type="text/javascript" src="javascript/timer.js"></script>
     <script type="text/javascript" src="javascript/gameEnd.js"></script>
   </head>
-  <body>
+  <body onload="gameFinishedStats();">
+
     <div id="space">
         <div class="stars"></div>
         <div class="stars"></div>
@@ -80,11 +81,6 @@
           Rooms Entered: <span id="roomsEntered"></span> <br>
           Items Collected: <span id="itemsCollected"></span><br>
         </p>
-        <script>
-          alert("game");
-          gameFinishedStats(true);
-          alert("over");
-        </script>
         <p>
           Achievements: <br><span id="speedDemon" class="acheivements">Speed-Demon</span><br>
           <span id="warrior" class="acheivements">Warrior</span> <br>

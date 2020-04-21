@@ -1,23 +1,22 @@
 // this method displays the stats of the last game run to the user
-function gameFinishedStats(ending){
+function gameFinishedStats(){
 
   // formatting the page appropriately
-  //alert(sessionStorage.getItem("ending") + "ch");
-  alert(ending);
-  if(ending === true)//sessionStorage.getItem("ending") === true){ // - user beats the game
+  if(sessionStorage.getItem("ending") === "true"){ // - user beats the game
     gameWon();
   }
+
   else{ // - user loses the game
     gameOver();
   }
-/*
+
   var stats = JSON.parse(sessionStorage.getItem('stats'));
 
   document.getElementById("timeSpent").textContent = sessionStorage.getItem("timeSpent");
   document.getElementById("enemiesKilled").textContent = stats.enemiesDefeated;
   document.getElementById("roomsEntered").textContent = stats.areasExplored;
   document.getElementById("itemsCollected").textContent = stats.itemsCollected;
-*/
+
   // calculates if the user earned any achievements
   achievements();
 }
@@ -25,20 +24,18 @@ function gameFinishedStats(ending){
 // called if the user beats the game
 function gameWon(){
   // title
-  alert("CHESS");/*
   document.getElementById("title").innerHTML = "Game Completed"
   document.getElementById("title").style.color = "#4edaf9";//"#2380dc";
   // border + div
   document.getElementById("main-container").style.width = "525px";
   document.getElementById("main-container").style.borderColor = "#4edaf9";//"#2380dc";
   document.getElementById("main-container").style.boxShadow = "0 0 10px 2px #4edaf9";//#2380dc";
-*/
+
 }
 
 // called if user loses the game
 function gameOver(){
 
-  //document.getElementById("main-container").style.width = "450px";
 }
 
 // method used to restart the game - loads start page  - edit start menu to include user name - sessionStorage variable maybe
@@ -52,6 +49,7 @@ function achievements(){ // if not done by 3pm - think about removing
   if(sessionStorage.getItem("timeSpent") > 180){
 
   }
+  // if robotBoolean== true, digital love
 
   // checks if they defeated a certain number of enemies
   if(stats.enemiesDefeated>9){
@@ -66,7 +64,7 @@ function achievements(){ // if not done by 3pm - think about removing
   // checks if the user has picked up a certain number of items
   if(stats.itemsCollected > 9){
 */
-  }
+
 }
 
 // tasks - grading certain achievements,
