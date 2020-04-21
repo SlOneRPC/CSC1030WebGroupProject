@@ -1691,6 +1691,7 @@ function passwordMatch(words, interactable)
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>As you complete the password a large container lights up as robot steps out of it whirring the phrase 'assisting for combat... ready'</span>";
     robotBoolean = true;
+    sessionStorage.setItem("robotStop",true);
   }
   else
   {
