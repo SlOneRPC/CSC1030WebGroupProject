@@ -1204,6 +1204,7 @@ function displayAllEnemies()
 }
 function outputCurrentRoomDesc()
 {
+  var scanBool = false;
   directionColourResetBlue();
   document.getElementById("gameMap").src="images/"+player.currentRoom.mapFilePath;
   if(player.currentRoom.roomDiscovered===false)
@@ -1217,11 +1218,19 @@ function outputCurrentRoomDesc()
     var availableDirections = [];
     player.currentRoom.exits.forEach((item, i) => {
       availableDirections.push(item.orientation);
+      scanBool = true;
     });
+
+  }
+  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>>" +roomDesc + "</span>";
+  if(scanBool === true)
+  {
+    document.getElementById("text-display").innerHTML += "</br>";
     directionColourAllRed();
     scanning(availableDirections);
+    document.getElementById("text-display").innerHTML += "</br>";
+
   }
-  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextObjective'>>" +roomDesc + "</span>";
 
   if(player.currentRoom.enemies.length > 0)
   {
@@ -1231,6 +1240,7 @@ function outputCurrentRoomDesc()
   else
   {
     askPlayer();
+    document.getElementById("text-display").innerHTML += "</br>";
   }
   randomPlaceHolderText();
   scrollBarAnchor();
@@ -1376,6 +1386,7 @@ function outputCurrentRoomExits()
   directionColourAllRed();
   document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
   scanning(availableDirections);
+  document.getElementById("text-display").innerHTML += "</br>";
   scrollBarAnchor();
 }
 function scanning(availableDirections)
@@ -1424,13 +1435,12 @@ function directionEnemyCaution(availableDirections)
            {
               document.getElementById(item.orientation).style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
               document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>*Enemy "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of detection*" + "</span>";
+
            }
          }
        });
     }
   });
-  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
-
   directionBlocked(availableDirections);
 }
 function roomDetectionCalculator(room)
@@ -1550,9 +1560,34 @@ function processCommands(input)
   else if(words[0] == ("pick") && words[1] == ("up") || words.includes("pickup"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    words.splice(0,2);
-    var pickedUpItem = words.toString().replace(/,/g," ");
-    pickUpItems(player.currentRoom,pickedUpItem,false);
+    if(words.includes("pickup"))
+    {
+      if(words.length === 1)
+      {
+        document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>Make sure you type in the item you want</span>";
+
+      }
+      else
+      {
+        words.splice(0,2);
+        var pickedUpItem = words.toString().replace(/,/g," ");
+        pickUpItems(player.currentRoom,pickedUpItem,false);
+      }
+    }
+    else
+    {
+      if(words.length === 2)
+      {
+        document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>Make sure you type in the item you want</span>";
+
+      }
+      else
+      {
+        words.splice(0,2);
+        var pickedUpItem = words.toString().replace(/,/g," ");
+        pickUpItems(player.currentRoom,pickedUpItem,false);
+      }
+    }
   }
   else if(words.includes("use"))
   {
@@ -1569,10 +1604,18 @@ function processCommands(input)
   else if(words.includes("take"))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>" +input+"</span>";
-    words.splice(0,1);
-    var pickedUpItem = words.toString().replace(/,/g," ");
+    if(words.length === 1)
+    {
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>Make sure you type in the item you want</span>";
 
-    pickUpItems(player.currentRoom,pickedUpItem,false);
+    }
+    else
+    {
+      words.splice(0,1);
+      var pickedUpItem = words.toString().replace(/,/g," ");
+
+      pickUpItems(player.currentRoom,pickedUpItem,false);
+    }
   }
   else if(words.includes("read"))
   {
@@ -1867,7 +1910,7 @@ function reload()
       console.log(cellsNeeded);
       if(player.equippedWeapon.magSize == player.equippedWeapon.ammo)
       {
-          document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>> Your weapon is already loaded!"
+          document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>Your weapon is already loaded!"
       }
       else
       {
@@ -1877,18 +1920,22 @@ function reload()
           document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
           document.getElementById("energyCellCount").innerHTML =  "x" + ammo;
           reloadSound.play();
+          document.getElementById("text-display").innerHTML +="</br><span id='userTextRight'>>You reload your weapon"
         }
         else{
           ammo=0;
           player.equippedWeapon.ammo= player.equippedWeapon.ammo + ammo;
           document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
           document.getElementById("energyCellCount").innerHTML =  "x" + ammo;
+          document.getElementById("text-display").innerHTML +="</br><span id='userTextRight'>>You reload your weapon"
+          reloadSound.play();
         }
       }
     }
     else{
-      document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>> You dont have any energy cells to reload!"
+      document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>>You dont have any energy cells to reload!"
     }
+    scrollBarAnchor();
 }
 
 function equipFists(){
@@ -2240,6 +2287,7 @@ function useItem(words)
   }
   scrollBarAnchor();
 }
+
 function examineInteractables(roomInteractables, words)
 {
   if(roomInteractables >= 1)
@@ -2256,13 +2304,18 @@ function examineInteractables(roomInteractables, words)
         {
 
         }
-        document.getElementById("text-display").innerHTML += "</br><span>>"+interactable.description+"</span>";
+        document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>>"+interactable.description+"</span>";
       }
     });
   }
   else
   {
-    document.getElementById("text-display").innerHTML += "</br><span>>There is nothing to interact with in this room</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id = 'userTextWrong'>>There is nothing to interact with in this room</span>";
+  }
+  if(words.length < 1)
+  {
+    document.getElementById("text-display").innerHTML += "</br><span id = 'userTextWrong'>>Please enter what you want to examine</span>";
+
   }
   scrollBarAnchor();
 }
@@ -2354,13 +2407,13 @@ function pickUpItems(playerRoom,words,dragged)
             addItemToInventory(item.item);
           }
         }
-
-
       }
       scrollBarAnchor();
       vicinity(playerRoom);
-    });
+  });
+
 }
+
 function search(playerRoom)
 {
   document.getElementById("text-display").innerHTML += "</br><span id='userTextNormal'>>Searching the vicinity you find that...</span>";
@@ -2586,9 +2639,9 @@ function goDirection(direction)
 
             newCurrent = returnNewRoom(roomExit.exitRoomName);
             document.getElementById("text-display").innerHTML +="</br><span id = 'userTextNormal'>>"+ roomExit.description + "</span>";
-            document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
-            document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>//////////////Entering "+ newCurrent.roomName+"</span>";
-            document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
+            document.getElementById("text-display").innerHTML += "</br>";
+            document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>>>Entering "+ newCurrent.roomName+"</span>";
+            document.getElementById("text-display").innerHTML += "</br>";
 
             player.currentRoom = newCurrent;
             if(player.currentRoom.roomDiscovered==true)
