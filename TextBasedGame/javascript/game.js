@@ -1031,7 +1031,7 @@ function addRooms()
     [], //Enemies Value
     [//Exits to current room
       createExitObject("hallway11", "north","You head north up the hallway.",false,""),
-      createExitObject("storage unit 02", "west","",true,"You attempt to go west up the hallway and are stopped by a locked dorr you can't go that way."),
+      createExitObject("storage unit 02", "west","",true,"You attempt to go west up the hallway and are stopped by a locked door you can't go that way."),
       createExitObject("mess hall", "south","You head south down the hallway and enter into a room.",false,"")
     ],
     [//Items in the current room
@@ -2072,10 +2072,7 @@ function removeBlockage(blockedPath)
 function checkInventory(item)
 {
   for(var i=0; i<player.inventory.length;i++){
-<<<<<<< HEAD
-=======
   //  document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
->>>>>>> 473cc805b0a9e8efdc1bd80195d6bb448df0b167
     if(player.inventory[i].item.itemName === item){
       return true;
     }
