@@ -560,7 +560,7 @@ function addRooms()
 
      ],
      [
-       createInteractableObject("Escape pod","You inspect the escape pod and it appears to be fully functional, so time to get out of here!","go escape pod"),
+       createInteractableObject("escape pod","You inspect the escape pod and it appears to be fully functional, so time to get out of here!","go escape pod"),
      ], //Number of interactable items in the room
      false, //Has Room been entered/Discovered?
      "map_hangarbay.png"
@@ -1622,6 +1622,7 @@ function passwordMatch(words, interactable)
   if(words.includes(interactable.password))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>As you complete the password a large container lights up as robot steps out of it whirring the phrase 'assisting for combat... ready'</span>";
+    robotBoolean = true;
   }
   else
   {
@@ -2482,7 +2483,7 @@ function move(words)
     direction += "west";
     checkDirection++;
   }
-  if(words.includes("escape pod") || words.includes("escape pod"))
+  if(words.includes("escape pod") || words.includes("escapepod"))
   {
     player.currentRoom.interactables.forEach((item, i) => {
       if(item.interactableName === "escape pod")
