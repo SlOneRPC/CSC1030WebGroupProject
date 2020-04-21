@@ -74,10 +74,30 @@
           );
 
       }
+      /* Tooltip container */
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+      }
 
-
-      #digitalLove{
+      /* Tooltip text */
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
         text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+
+        top: -5px;
+        left: 105%;
+      }
+
+      /* Show the tooltip text when you mouse over the tooltip container */
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
       }
 
       #main-container{
@@ -141,11 +161,11 @@
         <div class="achievements">
           <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements: <br>
-            <span id="speedDemon" class="leftAlign" onhover="achievementInfo('speedDemon');">Speed Demon</span>&nbsp;
-            <span id="warrior" class="rightAlign" onhover="achievementInfo('warrior');">Warrior</span>&nbsp;
-            <span id="explorer" class="leftAlign" onhover="achievementInfo('explorer');">Explorer</span>&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="collector" class="rightAlign" onhover="achievementInfo('collector');">Collector</span>
-            &nbsp;&nbsp;<span id="digitalLove" onhover="achievementInfo('digitalLove');">Digital Love</span>
+            <span id="speedDemon" class="tooltiptext" onhover="achievementInfo('speedDemon');">Speed Demon</span>&nbsp;
+            <span id="warrior" class="tooltiptext" onhover="achievementInfo('warrior');">Warrior</span>&nbsp;
+            <span id="explorer" class="tooltiptext" onhover="achievementInfo('explorer');">Explorer</span>&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="collector" class="tooltiptext" onhover="achievementInfo('collector');">Collector</span>
+            &nbsp;&nbsp;<span id="digitalLove" class="tooltiptext" onhover="achievementInfo('digitalLove');">Digital Love</span>
           </p>
         </div>
         <div class="row">
