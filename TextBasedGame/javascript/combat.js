@@ -234,6 +234,20 @@ function exectuteCombat(){
       damageDealt = 0;
     }
 
+
+    if(window.robotBoolean===true)
+    {
+      document.getElementById('text-display').innerHTML += '</br>>Your trusty robot buddy takes a shot';
+      if(Math.floor(Math.random()*100) <= 40 ){//hit the enemy
+        damageDealt = Math.floor(Math.random()*7);
+        document.getElementById('text-display').innerHTML += '</br>>He hits the enemy! He deals ' + damageDealt + ' damage';
+      }
+      else{//missed the enemy
+        document.getElementById('text-display').innerHTML += '</br>>He misses';
+
+        damageDealt = 0;
+      }
+    }
     //calculate damage recieved
     if(Math.floor(Math.random()*100) <= 60){
       damageRecieved = Math.floor(Math.random()*maxDamageRecieved);
@@ -262,7 +276,7 @@ function exectuteCombat(){
        //TODO you lose end game
      }
      else if(activeEnemyObj.health<=0){
-       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to kill the enemy stone dead, making it look up to the great space eyes of the sky</span>";
+       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to successfully defeat the enemy</span>";
        window.scrollBarAnchor();
        leaveCombat();
        //remove the enemy from the room once its dead
@@ -291,4 +305,5 @@ function exectuteCombat(){
       document.getElementById('turnOverview').classList.remove('hideMe');
     }
   }
+  window.scrollBarAnchor();
 }
