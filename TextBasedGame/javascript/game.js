@@ -1774,6 +1774,7 @@ function dropItem(itemName)
     removeItemFromInventory(item);
     unHighlightSelected();
     player.currentRoom.roomItems.push(item);
+    vicinity(player.currentRoom);
     document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'>>Dropped "+itemName+"</span>";
 
   }
