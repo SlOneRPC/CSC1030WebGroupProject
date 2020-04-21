@@ -115,7 +115,7 @@ function gameStart()
  player.charClass = sessionStorage.getItem("class");
  addRooms();
  populateFootstepArray();
- document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship.</li>";
+ document.getElementById("objectivesList").innerHTML="<li id='startObj'>Find a way off the ship. Get to the HANGAR BAY</li>";
  var width = document.getElementById('playerHealth').offsetWidth;
  document.getElementById("healthBar").style.width= player.health + '%';
  document.getElementById("currentWeapon").innerHTML="Equipped Weapon: Fist";
