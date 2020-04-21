@@ -34,7 +34,7 @@ function combatSetupV2(){
   updateHP();
   updateCombatType();
   document.getElementById('healMethod').innerHTML = 'None, please select one first';
-
+  document.getElementById('countdownTimer').innerHTML = "9";
   timer = setInterval('countdownTimer()', 1000);
   countdownTime = 9;
 }
@@ -229,9 +229,17 @@ function exectuteCombat(){
   }
   else if(currentCombat == "Heal" && window.player.health >=100){
     document.getElementById('combatError').innerHTML = 'Already full health!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else if(currentCombat == "Weapon" && window.player.equippedWeapon.ammo<=0){
     document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else{
     clearInterval(timer);
