@@ -1,6 +1,5 @@
 // this method displays the stats of the last game run to the user
 function gameFinishedStats(){
-
   // formatting the page appropriately
 
   if(sessionStorage.getItem("ending") === "true"){ // - user beats the game
@@ -23,7 +22,7 @@ function gameWon(){
   document.getElementById("title").innerHTML = "Game Completed"
   document.getElementById("title").style.color = "#4edaf9";//"#2380dc";
   // border + div
-  document.getElementById("main-container").style.width = "525px";
+
   document.getElementById("main-container").style.borderColor = "#4edaf9";//"#2380dc";
   document.getElementById("main-container").style.boxShadow = "0 0 10px 2px #4edaf9";//#2380dc";
 
@@ -73,24 +72,5 @@ function achievements(){
   }
   else{
     document.getElementById("digitalLove").style.color = "red";
-  }
-}
-
-// displays how to get achievements
-function achievementInfo(title){
-  if(title === "speedDemon"){
-    desc = "Beat the game in under 3 minutes";
-  }
-  else if(title === "warrior"){
-    desc = "Defeat more than 3 Enemies";
-  }
-  else if(title ==="explorer"){
-    desc = "Explore 20 Rooms around the Map"
-  }
-  else if(title === "collector"){
-    desc = "Collect more than 6 images";
-  }
-  else if(title === "digitalLove"){
-    desc = "release the robot friend";
   }
 }

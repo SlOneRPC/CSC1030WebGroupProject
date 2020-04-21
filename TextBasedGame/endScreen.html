@@ -11,7 +11,8 @@
       #wrapper{
         width: 100%;
         overflow: hidden;
-        font-family: verdana;
+        font-family: "Rajdhani",verdana;
+        font-size: 0.9vw;
       }
 
       .center{
@@ -84,15 +85,15 @@
       /* Tooltip text */
       .tooltip .tooltiptext {
         visibility: hidden;
-        width: 120px;
+        width: 20%;
         background-color: black;
         color: #fff;
         text-align: center;
         padding: 5px 0;
         border-radius: 6px;
-
-        top: -5px;
-        left: 105%;
+        font-size: 0.5vw;
+        top: 150%;
+        margin-top: 60px;
       }
 
       /* Show the tooltip text when you mouse over the tooltip container */
@@ -103,9 +104,9 @@
       #main-container{
         background-color: #111010;
         display: block;
-        width: 800px;
+        width: 40%;
         text-align: center;
-        height: 400px;
+        height: 500px;
         border: 1px solid red;
         box-shadow: 0 0 10px 2px red;
         border-radius: 15%;
@@ -113,7 +114,9 @@
         font-size: 120%;
       }
 
-
+      #title{
+        padding-bottom: 0px;
+      }
 
     .restartButton:hover{
         box-shadow: 0 0 10px 2px #4edaf9;
@@ -150,14 +153,23 @@
         </div>
 
         <div class="achievements">
-          <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements: <br>
-            <span id="speedDemon" class="tooltip" onhover="achievementInfo('speedDemon');">Speed Demon</span>&nbsp;
-            <span id="warrior" class="tooltip" onhover="achievementInfo('warrior');">Warrior</span>&nbsp;
-            <span id="explorer" class="tooltip" onhover="achievementInfo('explorer');">Explorer</span>&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="collector" class="tooltip" onhover="achievementInfo('collector');">Collector</span>
-            &nbsp;&nbsp;<span id="digitalLove" class="tooltip" onhover="achievementInfo('digitalLove');">Digital Love</span>
-          </p>
+          <p id="title">Achievements:</p>
+            <div id="speedDemon" class="tooltip">Speed Demon
+              <span class="tooltiptext">Beat the game in under 3 minutes</span>
+            </div>
+            <div id="warrior" class="tooltip" onhover="achievementInfo('warrior');">Warrior
+              <span class="tooltiptext">Defeat more than 3 Enemies</span>
+            </div>
+            <div id="explorer" class="tooltip" onhover="achievementInfo('explorer');">Explorer
+              <span class="tooltiptext">Explore 20 Rooms around the Map</span>
+            </div>
+            <div id="collector" class="tooltip" onhover="achievementInfo('collector');">Collector
+              <span class="tooltiptext">Collect more than 6 items</span>
+            </div>
+            <div id="digitalLove" class="tooltip" onhover="achievementInfo('digitalLove');">Digital Love
+              <span class="tooltiptext">Release your robot friend</span>
+            </div>
+            <p></p>
         </div>
         <div class="row">
         <button name="playAgainBtn" class="restartButton" onclick="restartGame();">Play Again</button>
