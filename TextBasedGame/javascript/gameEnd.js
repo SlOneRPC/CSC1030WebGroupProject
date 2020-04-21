@@ -2,9 +2,10 @@
 function gameFinishedStats(){
 
   // formatting the page appropriately
-  if(sessionStorage.getItem("ending") == true){ // - user beats the game
+  if(sessionStorage.getItem("ending") === "true"){ // - user beats the game
     gameWon();
   }
+
   else{ // - user loses the game
     gameOver();
   }
@@ -35,7 +36,6 @@ function gameWon(){
 // called if user loses the game
 function gameOver(){
 
-  document.getElementById("main-container").style.width = "450px";
 }
 
 // method used to restart the game - loads start page  - edit start menu to include user name - sessionStorage variable maybe
@@ -43,12 +43,13 @@ function restartGame(){
   window.location.href = "test.html";
 }
 
-function achievements(){
-
+function achievements(){ // if not done by 3pm - think about removing
+/*
   // checks if the user completed the game in under the time limit
   if(sessionStorage.getItem("timeSpent") > 180){
 
   }
+  // if robotBoolean== true, digital love
 
   // checks if they defeated a certain number of enemies
   if(stats.enemiesDefeated>9){
@@ -62,8 +63,8 @@ function achievements(){
 
   // checks if the user has picked up a certain number of items
   if(stats.itemsCollected > 9){
+*/
 
-  }
 }
 
 // tasks - grading certain achievements,

@@ -314,7 +314,7 @@ function exectuteCombat(){
     updateHP();
      if(window.player.health<=0){
        //TODO you lose end game
-       window.gameFinishedStats();
+       gameFinished(false);
      }
      else if(activeEnemyObj.health<=0){
        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to successfully defeat the enemy</span>";
@@ -322,6 +322,7 @@ function exectuteCombat(){
        leaveCombat();
        //remove the enemy from the room once its dead
        player.currentRoom.enemies.splice(0,1);
+       // updates enemy defeated count
        player.stats.enemiesDefeated++;
      }
      else if(currentCombat == "Escape"){
