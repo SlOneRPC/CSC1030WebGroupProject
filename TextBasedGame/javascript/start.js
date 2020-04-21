@@ -138,7 +138,7 @@ function changeTextDescription()
     resetClass();
     document.getElementById("playerImg").src="images/spacecowboyicon.png";
     document.getElementById("playerClassStat").innerHTML="Occupation: "+"SpaceCowboy";
-    document.getElementById("playerBonusesStat").innerHTML="Bonuses: "+"</br><span class='yellowText'>-Starts with explosives to open break rubble</br>-Has more health </br>-Is cool</br></span><span class='redText'>-Can be detected easily</span>";
+    document.getElementById("playerBonusesStat").innerHTML="Bonuses: "+"</br><span class='yellowText'>-Starts with explosives to open break rubble</br>-Has more health </br>-Is cool</span>";
 
   }
   document.getElementById("CharacterDesc").innerHTML = desc;

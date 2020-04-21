@@ -16,6 +16,8 @@ function combatSetupV2(){
   document.getElementById('gameInput').classList.add('disabledbutton');
   document.getElementById('easyButtons').classList.add('disabledbutton');
   document.getElementById('gameInputButton').classList.add('disabledbutton');
+  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>Combat Log</span>";
+
   //get the enemy object
   activeEnemyObj = window.player.currentRoom.enemies[0];
   enemyMaxHealth = activeEnemyObj.health;
@@ -201,6 +203,8 @@ function leaveCombat(){
   document.getElementById('gameInputButton').classList.remove('disabledbutton');
   document.getElementById('other1').classList.remove('disabledbutton');
   inCombat = false;
+  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>End of combat log</span>";
+
 }
 
 //combat start button press
@@ -233,32 +237,32 @@ function exectuteCombat(){
     if(Math.floor(Math.random()*100) <= hitchance && currentCombat != "Heal" && currentCombat != "Escape"){//hit the enemy
       if(window.player.equippedWeapon.item.itemName === "fist")
       {
-        document.getElementById('text-display').innerHTML += '</br>>You aim your fists at the enemy';
+        document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You aim your fists at the enemy</span>";
       }
       else {
-        document.getElementById('text-display').innerHTML += '</br>>You aim your gun at the enemy';
+        document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You aim your gun at the enemy</span>";
       }
 
       damageDealt = Math.floor(Math.random()*maxDamage);
-      document.getElementById('text-display').innerHTML += '</br>>You successfully hit the enemy dealing ' + damageDealt + ' damage';
+      document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You successfully hit the enemy dealing " + damageDealt + " damage'</span>";
 
     }
     else{//missed the enemy
       damageDealt = 0;
-      document.getElementById('text-display').innerHTML += '</br>>You miss!';
+      document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>You miss!</span>";
 
     }
 
 
     if(window.robotBoolean===true)
     {
-      document.getElementById('text-display').innerHTML += '</br>>Your trusty robot buddy takes a shot';
+      document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>Your trusty <span id = 'userTextNormal'>robot</span> buddy takes a shot</span>";
       if(Math.floor(Math.random()*100) <= 40 ){//hit the enemy
         damageDealt = Math.floor(Math.random()*7);
-        document.getElementById('text-display').innerHTML += '</br>>He hits the enemy! He deals ' + damageDealt + ' damage';
+        document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>He hits the enemy! He deals " + damageDealt + " damage</span>";
       }
       else{//missed the enemy
-        document.getElementById('text-display').innerHTML += '</br>>He misses';
+        document.getElementById('text-display').innerHTML += "</br>>He misses";
 
         damageDealt = 0;
       }
@@ -266,12 +270,12 @@ function exectuteCombat(){
     //calculate damage recieved
     if(Math.floor(Math.random()*100) <= 60){
       damageRecieved = Math.floor(Math.random()*maxDamageRecieved);
-      document.getElementById('text-display').innerHTML += '</br>>The ' +activeEnemyObj.enemyType+' hits you for ' + damageDealt + ' damage';
+      document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>The " +activeEnemyObj.enemyType+" hits you for " + damageDealt + " damage</span>";
 
     }
     else{//enemy missed
       damageRecieved = 0;
-      document.getElementById('text-display').innerHTML += '</br>>The '+activeEnemyObj.enemyType+' misses you';
+      document.getElementById('text-display').innerHTML += "</br><span id='userTextRight'>>The "+activeEnemyObj.enemyType+" misses you</span>";
 
     }
 
@@ -296,6 +300,8 @@ function exectuteCombat(){
      }
      else if(activeEnemyObj.health<=0){
        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to successfully defeat the enemy</span>";
+
+
        window.scrollBarAnchor();
        leaveCombat();
        //remove the enemy from the room once its dead
