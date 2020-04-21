@@ -37,14 +37,14 @@
   <body>
     <div id="titleContainer" class="centre">
         <img src="images/Crawl Animated x 3.gif" alt="Crawl Gif">
-        <img id = "spaceImg" src="images/spaceblue.png" alt="Space Image">
+        <img id = "spaceImg" src="images/spaceblue.png" alt="Space Image" style="overflow:hidden">
     </div>
     <div id="wrapper" class="centre">
       <div id="characterCreator">
         <strong>Character Creator:</strong>
         <br>
           <label for="name" style= "font-size: 0.75em; color:white" >Character Name:</label>
-          <input type="text" id="name" name="name" class="input" maxlength="15" onkeydown="checkLength();">
+          <input type="text" id="name" name="name" class="input" maxlength="15" onkeydown="checkLength();" onkeyup="changeNameLabel();">
 
           <div class="characterClass">
             <label for="Class" style= "font-size: 0.75em; color:white" >Class:</label>
@@ -54,19 +54,31 @@
             <label for="Class" class="input" id="engiLabel">Engineer</label>
             <input type="radio" name="charClass" value="SpaceCowboy" id="SpaceCowboy" onchange="changeTextDescription();">
             <label for="Class" class="input" id="spaceLabel">Space Cowboy</label>
-            <div id ="row">
+            <div id ="row" class="centre">
               <div id="description" style="">
                 <label style="font-size: 0.75em; font-weight:bolder; color: #27910E;">Description: </br> (Click on a class to see)</label>
                 <p id="CharacterDesc" style="font-size: 0.75em;  color: #27910E;"></p>
               </div>
-              <div id="buttonDiv">
-                <button id = "button" onclick="startGame();">Play</button>
-              </div>
-            </div>
-            <div id="row">
-              fffff
             </div>
           </div>
+      </div>
+      <div id="overview">
+        <div id="title">
+          Overview:
+        </div>
+        <div id="overviewCard">
+          <div id="playerProfile">
+               <div id=playerCharStat>
+                 <img style=" float:left;max-width:100%;max-height:100%;" id="playerImg" src="images/playerIcon.png" alt="player image"></img>
+               </div>
+               <div id=playerInfoStat>
+                 <p style=""id="playerNameStat">Name:</p>
+                 <p style=""id="playerClassStat">Occupation:</p>
+                 <p style=""id="playerBonusesStat">Bonuses:</p>
+               </div>
+         </div>
+        </div>
+          <button id = "button" class="centre" onclick="startGame();">Play</button>
       </div>
     </div>
   </body>

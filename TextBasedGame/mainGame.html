@@ -131,12 +131,16 @@
   <body>
     <div id="wrapper" class = "hideMe">
       <div id="settings-wrapper">
-          <p id="volumeText">Volume:</p>
-          <button type="button" style="float:right; cursor:pointer;" class="settingButtons" onclick="gameFinishedStats();">End Game</button>
-          <button type="button" style="float:right; cursor:pointer;" class="settingButtons" onclick="pause();" id="pausebtn">Pause Game</button>
-          <input style="cursor:pointer;" type="range" id="volumeControl" min="0" max="1" step="0.1">
-          <!--just putting timer in here for 'time' being (FUCK OFF DAVID (LUKE))-->
-
+        <div id="volumeBox">
+          <div id="volumeLabel">
+            <p id="volumeText">Volume:</p>
+          </div>
+          <div id="volumeControlContainer">
+                <input style="cursor:pointer;" type="range" id="volumeControl" min="0" max="1" step="0.1">
+          </div>
+        </div>
+        <button type="button" style="float:right; cursor:pointer;" class="settingButtons" onclick="gameFinishedStats();">End Game</button>
+        <button type="button" style="float:right; cursor:pointer;" class="settingButtons" onclick="pause();" id="pausebtn">Pause Game</button>
       </div>
       <div id="container">
         <div id="playerContainer" class="smallerScroll">
@@ -358,6 +362,7 @@
                    </div>
                    <h3 id="CurrentDamageRecieved">Max Damage Recieved: <span id=MaxDamageRecievedValue></span></h3>
                    <h3 id="CurrentHealthGained" class="hideMe">Health Gained: <span id=HealthGainedValue></span></h3>
+                   <h3 style="color:red;">Turn time remaining: <span id="countdownTimer"></span> seconds</h3>
                    <button type="button" name="button" onclick="exectuteCombat();" class="combatButton">End Turn</button>
                    <h3 style="color:red;" id="combatError" class="hideMe"></h3>
                  </div>

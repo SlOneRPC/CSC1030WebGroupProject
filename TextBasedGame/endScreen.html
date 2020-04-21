@@ -31,7 +31,7 @@
         display: block;
         width: 400px;
         text-align: center;
-        height: 500px;
+        height: 400px;
         border: 1px solid red;
         box-shadow: 0 0 10px 2px red;
         border-radius: 30%;
@@ -60,7 +60,8 @@
     <script type="text/javascript" src="javascript/timer.js"></script>
     <script type="text/javascript" src="javascript/gameEnd.js"></script>
   </head>
-  <body>
+  <body onload="gameFinishedStats();">
+
     <div id="space">
         <div class="stars"></div>
         <div class="stars"></div>
@@ -80,15 +81,7 @@
           Rooms Entered: <span id="roomsEntered"></span> <br>
           Items Collected: <span id="itemsCollected"></span><br>
         </p>
-        <script>
-          gameFinishedStats();
-        </script>
-        <p>
-          Achievements: <br><span id="speedDemon" class="acheivements">Speed-Demon</span><br>
-          <span id="warrior" class="acheivements">Warrior</span> <br>
-          <span id="explorer" class="acheivements">Explorer</span> <br>
-          <span id="collector" class="acheivements">Collector</span>
-        </p>
+
         <button name="playAgainBtn" onclick="restartGame();">Play Again</button>
       </div>
     </div>

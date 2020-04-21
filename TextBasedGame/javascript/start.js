@@ -25,12 +25,20 @@ function startGame(){
 
 function checkLength(){
   var value = document.getElementById("name").value;
-  if(value.length > -1)
+  if(value.length > 0)
   {
     document.getElementById("name").style="background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px)";
     document.getElementById("characterCreator").style="box-shadow: 0 0 10px 2px #4edaf9";
-
+    document.getElementById("playerNameStat").innerHTML="Name: ";
+    changeNameLabel();
   }
+  changeNameLabel();
+}
+
+
+function changeNameLabel()
+{
+  document.getElementById("playerNameStat").innerHTML="Name: "+document.getElementById("name").value;
 }
 // this method checks if the user has input a name and selected a class, if not lets them know that
 function inputValidation(){
@@ -80,6 +88,8 @@ function resetClass()
   document.getElementById("spaceLabel").style="background: repeating-linear-gradient(180deg,#082316,#082316 10px,#05170E 10px,#05170E 20px)";
 }
 
+
+
 function charStart()
 {
   if (document.getElementById("Hacker").checked)
@@ -109,16 +119,27 @@ function changeTextDescription()
   {
     desc = "Tasked with maintaining the ship’s computer systems, he knows his tech like the back of his hand and will use it to keep himself up and running from whatever is out there.";
     resetClass();
+    document.getElementById("playerImg").src="images/hackericon.png";
+    document.getElementById("playerClassStat").innerHTML="Occupation: "+"Hacker";
+    document.getElementById("playerBonusesStat").innerHTML="Bonuses: "+"</br><span class='yellowText'>-Starts with hacking tool to open locked doors</br>-Is a nerd</b></span>";
   }
   else if(charStart() == "Engineer")
   {
     desc = "Armed with his blowtorch, he uses his know how to hold the ship together, and with his smarts, he can take on anything in his path.";
     resetClass();
+    document.getElementById("playerImg").src="images/engineericon.png";
+    document.getElementById("playerClassStat").innerHTML="Occupation: "+"Engineer";
+    document.getElementById("playerBonusesStat").innerHTML="Bonuses: "+"</br><span class='yellowText'>-Starts with blowtorch to open vents</br>-Fixerupper</span>";
+
   }
   else if(charStart() =="SpaceCowboy")
   {
     desc = "Travelling through space is a risky business to most, but unlike the rest, he can outshoot bandits, criminals and things that go bump in the night before they have the chance to blink.";
     resetClass();
+    document.getElementById("playerImg").src="images/spacecowboyicon.png";
+    document.getElementById("playerClassStat").innerHTML="Occupation: "+"SpaceCowboy";
+    document.getElementById("playerBonusesStat").innerHTML="Bonuses: "+"</br><span class='yellowText'>-Starts with explosives to open break rubble</br>-Has more health </br>-Is cool</span>";
+
   }
   document.getElementById("CharacterDesc").innerHTML = desc;
 }

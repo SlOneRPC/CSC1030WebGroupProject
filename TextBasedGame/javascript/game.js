@@ -7,6 +7,10 @@ var footstepSounds = [];
 var selectedItem='';
 var pickUpItemSound;
 var pickUpAmmoSound;
+var reloadSound;
+var healthGainSound;
+var healthLossSound;
+var gunSound;
 var footstep1;
 var footstep2;
 var footstep3;
@@ -76,6 +80,11 @@ function populateSoundArray()
 {
   pickUpItemSound = new sound("sounds/pickUpItem.mp3");
   pickUpAmmoSound = new sound("sounds/pickUpAmmo.mp3");
+  gunSound = new sound("sounds/gunSound.mp3")
+  reloadSound = new sound("sounds/reload.mp3") ;
+  healthGainSound =  new sound("sounds/gainhealth.mp3");
+  healthLossSound =  new sound("sounds/losehealth.mp3");
+
   sounds.push(footstep1);
   sounds.push(footstep2);
   sounds.push(footstep3);
@@ -86,6 +95,10 @@ function populateSoundArray()
   sounds.push(footstep8);
   sounds.push(pickUpItemSound);
   sounds.push(pickUpAmmoSound);
+  sounds.push(healthGainSound);
+  sounds.push(healthLossSound);
+  sounds.push(reloadSound);
+  sounds.push(gunSound);
 
 }
 function gameStart()
@@ -152,7 +165,8 @@ function gameStart()
  }
  player.currentRoom = newCurrent;
  document.getElementById("gameMap").src="images/"+player.currentRoom.mapFilePath;
- document.getElementById("text-display").innerHTML +="<span id = 'userTextRight'>>You find yourself in the "+player.currentRoom.roomName+". </span>";
+ document.getElementById("text-display").innerHTML +="<span id = 'userTextNormal'>>You find yourself in the "+player.currentRoom.roomName+". </span>";
+ document.getElementById("text-display").innerHTML +="</br><span id = 'userTextNormal'>>Pick up your gadget and weapon by clicking search (you can also scroll down in the inventory to see your nearby pickups)</span>";
  document.getElementById("currentRoomDisplay").innerHTML +=player.currentRoom.roomName;
  populateSoundArray();
 }
@@ -385,7 +399,7 @@ function addRooms()
       )
     ],
     [
-      createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0)], 40)
+      createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway03", "east","You step out of the storage unit into a hallway and arrive at a junction. ",false,"")
@@ -418,7 +432,7 @@ function addRooms()
       )
     ],
     [
-      createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0)], 40)
+        createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway12", "south","You walk through the doorway and enter into the hallway",true,"A locked door prevents your passage."),
@@ -432,7 +446,7 @@ function addRooms()
     [
        createBlockedPathObject("vent","You try to open the vent and remove its screws but they don't budge, you might be able to cut it open with something?","use blowtorch on vent","reactor room","Using your blowtorch you succesfully burn through the vent supports, it falls to the floor leaving the dark vent open.","vent05"),
        createBlockedPathObject("pile of rubble","You approach the rubble and quickly see there is no way through it, you might be able to clear it with something?","use explosives on rubble","hallway11","You plant the explosives in the centre of the rubble and duck into an alcove, the explosives detonate leaving the way clear","rubble04"),
-       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway13","Using your hacking-tool you succesfully hack into the door controls and open the door.","door05"),
+       createBlockedPathObject("locked door","You walk towards the door and see that the control panel has locked, you might be able to unlock it with something?","use hacking-tool on door","hallway12","Using your hacking-tool you successfully hack into the door controls and open the door.","door05"),
     ], //Number of interactable items in the room
     false, //Has Room been entered/Discovered?
     "map_s-unit2.png"
@@ -453,7 +467,7 @@ function addRooms()
         "You Re-enter the kitchen and find the pots and pans lying on the floor just like you left it with the stove still quietly burning."
       ),
     ],
-     [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0)], 40)],//Enemies Value
+     [  createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
      [//Exits to current room
        createExitObject("mess hall","north","You walk out of the kitchen through the unlocked door into another room.",true,"A locked door prevents your passage."),
        createExitObject("hallway04", "south"," You slip out of the kitchen back into one of the ship's long hallways",false,"")
@@ -483,7 +497,7 @@ function addRooms()
       ),
     ],
     [
-      createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 60, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 20, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+      createEnemyObject("Breather","",0, 0, 30, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway12", "north","You step out of the mess hall into another one of the ship's long corridors.",false,""),
@@ -551,17 +565,17 @@ function addRooms()
        ),
      ],
      [
-       createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 60, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 20, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+      createEnemyObject("Breather","",0, 0, 30, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 1, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
      ],//Enemies Value
      [//Exits to current room
 
-       createExitObject("hallway14", "east","You leave the hangar bay and enter back into the hallway.",false),
+       createExitObject("hallway14", "west","You leave the hangar bay and enter back into the hallway.",false),
      ],
      [//Items in the current room
 
      ],
      [
-       createInteractableObject("Escape pod","You inspect the escape pod and it appears to be fully functional, so time to get out of here!","go escape pod"),
+       createInteractableObject("escape pod","You inspect the escape pod and it appears to be fully functional, so time to get out of here!","go escape pod"),
      ], //Number of interactable items in the room
      false, //Has Room been entered/Discovered?
      "map_hangarbay.png"
@@ -582,7 +596,7 @@ function addRooms()
         "Entering the research lab you find the scattered projects on the floor as you left them."
       ),
     ],
-    [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0)], 40)],//Enemies Value
+    [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
     [//Exits to current room
       createExitObject("hallway09", "south","With the rubble cleared you make your way out of the research lab and into another hallway.",false,""),
       createExitObject("hallway13", "west","You leave the research lab and enter back into the hallway.",false,"")
@@ -614,7 +628,7 @@ function addRooms()
       ),
     ],
     [
-        createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 60, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 20, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+        createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
     ],//Enemies Value
     [//Exits to current room
       createExitObject("hallway11", "south", " ",true,"A locked door bars your exit from the room."),
@@ -650,7 +664,7 @@ function addRooms()
          "The hallway lies quiet."
        ),
      ],
-     [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0)], 40)],//Enemies Value
+     [  createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
      [//Exits to current room
        createExitObject("hallway02", "north", "You continue up the hallway north.",false,""),
        createExitObject("hallway04", "east","You crawl into the vent, it is dark and narrow with very little room to move. Pushing forward you emerge in a hallway.",true,"A vent stands in your way, you cannot continue this path."),
@@ -745,7 +759,7 @@ function addRooms()
         "You re-enter the dark hallway finding it cluttered with the same debris."
       ),
     ],
-    [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0)], 40)],//Enemies Value
+    [  createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
     [//Exits to current room
       createExitObject("kitchen", "north","You head north to the end of the hallway into a room.",false,""),
       createExitObject("hallway05", "east","You head east into another one of the ships long hallways. ",false,""),
@@ -773,14 +787,14 @@ function addRooms()
     [//Room Descriptions
       createDescriptionObject(
         "first-entry",
-        "You step into the hallway, it is barren, damaged cables hang loose from the ceiling sparking, best watch your step ."
+        "You step into the hallway, it is barren, damaged cables hang loose from the ceiling sparking, best watch your step."
       ),
       createDescriptionObject(
         "second-entry",
         "You enter the hallway once more it lies quiet."
       ),
     ],
-     [createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0)], 40)],//Enemies Value
+     [  createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)],//Enemies Value
      [//Exits to current room
        createExitObject("hallway04", "west","You head north to the end of the hallway into a room.",false,""),
        createExitObject("armory","south","You step out of the hallway and walk into a room.",false,""),
@@ -815,7 +829,7 @@ function addRooms()
       ),
     ],
      [
-         createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 60, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 20, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
+          createEnemyObject("Breather","",0, 0, 70, 20, "Talons", [createBodyPartObject("Eyes","The eyes of the breather", 70, 5, 0),createBodyPartObject("Torso","The Torso of the breather", 25, 65, 0),createBodyPartObject("Left Leg","The left leg of the breather", 10, 40, 0),createBodyPartObject("Right Leg","The right leg of the breather", 10, 40, 0),createBodyPartObject("Head","The Head of the breather", 70, 15, 0),createBodyPartObject("Left Arm","The left arm of the breather", 10, 40, 0),createBodyPartObject("Right Arm","The right arm of the breather", 10, 40, 0)], 60)
      ],//Enemies Value
      [//Exits to current room
        createExitObject("armory", "north","you head north out of the dim hallway back into the armory.",false,""),
@@ -885,7 +899,7 @@ function addRooms()
       ),
     ],
     [
-      createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 20, 0)], 40)
+        createEnemyObject("Scuttler","will jump at your head",0, 0, 20, 10, "Talons", [createBodyPartObject("Body","The Body of the scuttler", 5, 60, 0),createBodyPartObject("Legs","The legs of the scuttler", 7, 40, 0)], 40)
     ], //Enemies Value
     [//Exits to current room
       createExitObject("maintenance bay", "north"," You head north out of the hallway into a room",false,""),
@@ -1017,7 +1031,7 @@ function addRooms()
     [], //Enemies Value
     [//Exits to current room
       createExitObject("hallway11", "north","You head north up the hallway.",false,""),
-      createExitObject("storage unit 02", "west","",true,"You attempt to go west up the hallway and are stopped by a locked dorr you can't go that way."),
+      createExitObject("storage unit 02", "west","",true,"You attempt to go west up the hallway and are stopped by a locked door you can't go that way."),
       createExitObject("mess hall", "south","You head south down the hallway and enter into a room.",false,"")
     ],
     [//Items in the current room
@@ -1208,17 +1222,17 @@ function outputCurrentRoomDesc()
     scanning(availableDirections);
   }
   document.getElementById("text-display").innerHTML += "</br><span id = 'userTextObjective'>>" +roomDesc + "</span>";
+
   if(player.currentRoom.enemies.length > 0)
   {
     enemyDetectionRoll(0);
+
   }
   else
   {
-
+    askPlayer();
   }
   randomPlaceHolderText();
-  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextObjective'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
-  askPlayer();
   scrollBarAnchor();
 }
 function outputSmallEnemyDescriptions()
@@ -1288,8 +1302,7 @@ function enemyDetectionRoll(reRollFlag)
   {
     if(roll <= item.detection)
     {
-      document.getElementById("text-display").innerHTML += "</br>> Enemy has spotted you";
-      document.getElementById("text-display").innerHTML += "</br>> It rolled: " + roll;
+      document.getElementById("text-display").innerHTML += "</br><span id='userTextCaution'>!You have been spotted by an enemy!</span>";
       //call method to beign combat system
       window.combatSetupV2();
     }
@@ -1300,16 +1313,19 @@ function enemyDetectionRoll(reRollFlag)
         if(item.ambientDescription === 0)
         {
           enemyDetection();
+          askPlayer();
         }
         else
         {
           document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>"+ item.ambientDescription +"</span>";
+          askPlayer();
         }
       }
       else if (reRollFlag === 1)
       {
         document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>You pick up the item without getting spotted by the creature in your room</span>";
         returnType = true;
+
       }
       else {
         document.getElementById("text-display").innerHTML += "</br><span id= 'userTextCaution'>>You examine the item without getting spotted by the creature in your room</span>";
@@ -1317,22 +1333,23 @@ function enemyDetectionRoll(reRollFlag)
       }
     }
   });
-  document.getElementById("text-display").innerHTML += "</br>>" + roll;
   return returnType;
 }
 function outputCurrentRoomExits()
 {
 //  document.getElementById("text-display").innerHTML += player.currentRoom.roomDescription;
    //var currentRoom=player.currentRoom.roomName;
-   document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
 
    var availableDirections = [];
    if(player.currentRoom.type=="hallway"){
-     document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>" + ">You look around the hallway, "+ "</span>";
+     document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>" + ">You look around the hallway, "+ "</span>";
+        document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
    }
    else{
-    document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>" + ">You look around the " + player.currentRoom.roomName+"," + "</span>";
-   }
+    document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>" + ">You look around the " + player.currentRoom.roomName+"," + "</span>";
+    document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
+}
+
    player.currentRoom.exits.forEach((item, i)=> {
    if(player.currentRoom.type=="hallway")
    {
@@ -1355,9 +1372,10 @@ function outputCurrentRoomExits()
    availableDirections.push(item.orientation);
   });
   ;
+
   directionColourAllRed();
+  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
   scanning(availableDirections);
-  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
   scrollBarAnchor();
 }
 function scanning(availableDirections)
@@ -1405,12 +1423,14 @@ function directionEnemyCaution(availableDirections)
            if(room.enemies.length > 0)
            {
               document.getElementById(item.orientation).style = "background: repeating-linear-gradient(180deg,#25082A,#25082A 10px,#44174C 10px,#44174C 20px); color: #C14CD6";
-              document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>>This scanner indicates there is an enemy to the "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of you being detected" + "</span>";
+              document.getElementById("text-display").innerHTML += "</br><span id = 'userTextCaution'>*Enemy "+ item.orientation +" with a " + roomDetectionCalculator(room) + "% chance of detection*" + "</span>";
            }
          }
        });
     }
   });
+  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
+
   directionBlocked(availableDirections);
 }
 function roomDetectionCalculator(room)
@@ -1623,6 +1643,7 @@ function passwordMatch(words, interactable)
   if(words.includes(interactable.password))
   {
     document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>As you complete the password a large container lights up as robot steps out of it whirring the phrase 'assisting for combat... ready'</span>";
+    robotBoolean = true;
   }
   else
   {
@@ -1630,6 +1651,7 @@ function passwordMatch(words, interactable)
   }
 
 }
+
 function read(words)
 {
   var selectedItem;
@@ -1637,6 +1659,7 @@ function read(words)
   {
     var stickyNote = false;
     var passwordPad = false;
+    var tornMap= false;
     if(words.includes("passpad")  || words.includes("pass") || words.includes("pad"))
     {
       passwordPad = true;
@@ -1644,6 +1667,9 @@ function read(words)
     else if (words.includes("sticky") || words.includes("note"))
     {
       stickyNote = true;
+    }
+    else if(words.includes("tornmap")|| words.includes("torn")|| words.includes("map")){
+      tornMap=true;
     }
     if(passwordPad === true)
     {
@@ -1663,6 +1689,15 @@ function read(words)
         }
       });
     }
+    else if(tornMap === true)
+    {
+      player.inventory.forEach((item, i) => {
+        if(item.item.itemName === "torn map")
+        {
+          selectedItem = item;
+        }
+      });
+    }
     document.getElementById("text-display").innerHTML += "</br><span id='userTextObjective'>>This item reads: "+selectedItem.information+"</span>";
   }
   else
@@ -1671,6 +1706,7 @@ function read(words)
   }
 
 }
+
 function sneakAttackEnemy(words)
 {
   if(player.currentRoom.enemies.length > 0)
@@ -1684,7 +1720,7 @@ function sneakAttackEnemy(words)
         hitchance = 60;
         if(randomNumber(100)<= hitchance)
         {
-          attack();
+          sneakAttack();
         }
         else
         {
@@ -1696,7 +1732,7 @@ function sneakAttackEnemy(words)
         hitchance = 80;
         if(randomNumber(100)<= hitchance)
         {
-          attack();
+          sneakAttack();
         }
         else
         {
@@ -1707,7 +1743,7 @@ function sneakAttackEnemy(words)
     else
     {
       document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You aim your fists at the imperceptive enemy</span>";
-      attack();
+      sneakAttack();
     }
   }
   else
@@ -1715,7 +1751,7 @@ function sneakAttackEnemy(words)
     document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>There are no enemies in this room to sneak attack'</span>";
   }
 }
-function attack()
+function sneakAttack()
 {
   document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You successfully hit the enemy</span>";
   if(player.equippedWeapon.item.itemName !== "fist")
@@ -1770,8 +1806,10 @@ function attack()
   }
   scrollBarAnchor();
 }
+
 function dropItem(itemName)
 {
+
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
       equipFists();
@@ -1788,6 +1826,7 @@ function dropItem(itemName)
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that item in your inventory!</span>";
   }
 }
+
 function removeItem(itemName)
 {
   for(var i=0;i<player.inventory.length; i ++)
@@ -1798,6 +1837,7 @@ function removeItem(itemName)
     }
   }
 }
+
 function removeItemFromInventory(item)
 {
   var elements = document.querySelectorAll("#inventory td");
@@ -1810,32 +1850,39 @@ function removeItemFromInventory(item)
   }
   vicinity(player.currentRoom);
 }
+
+function losehealthSound(){
+  healthLossSound.play();
+}
+
 function reload()
 {
     var ammoCount =  document.getElementById("energyCellCount").innerHTML;
     //document.getElementById("text-display").innerHTML += "<br>"+   ammoCount;
     ammoCount =ammoCount.substring(1, ammoCount.length);
-    var newAmmo =parseInt(ammoCount);
-    if(newAmmo>0)
+    var ammo =parseInt(ammoCount);
+    if(ammo>0)
     {
       var cellsNeeded=  player.equippedWeapon.magSize-player.equippedWeapon.ammo;//As in to reload weapon completely
+      console.log(cellsNeeded);
       if(player.equippedWeapon.magSize == player.equippedWeapon.ammo)
       {
           document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>> Your weapon is already loaded!"
       }
       else
       {
-        if(newAmmo >= cellsNeeded){
-          newAmmo=newAmmo-cellsNeeded;
+        if(ammo >= cellsNeeded){
+          ammo=ammo-cellsNeeded;
           player.equippedWeapon.ammo = player.equippedWeapon.ammo + cellsNeeded;
           document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
-          document.getElementById("energyCellCount").innerHTML =  "x" + newAmmo;
+          document.getElementById("energyCellCount").innerHTML =  "x" + ammo;
+          reloadSound.play();
         }
         else{
-          newAmmo=0;
-          player.equippedWeapon.ammo= player.equippedWeapon.ammo + newAmmo;
+          ammo=0;
+          player.equippedWeapon.ammo= player.equippedWeapon.ammo + ammo;
           document.getElementById("currentWeaponMag").innerHTML=player.equippedWeapon.ammo+"/"+player.equippedWeapon.magSize;
-          document.getElementById("energyCellCount").innerHTML =  "x" + newAmmo;
+          document.getElementById("energyCellCount").innerHTML =  "x" + ammo;
         }
       }
     }
@@ -1872,6 +1919,7 @@ function equipWeapon(weaponName)
   else{
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You can't equip that!</span>";
   }
+  scrollBarAnchor();
 }
 function unequipWeapon()
 {
@@ -1931,20 +1979,20 @@ function processCustomCommand(interactable)
   document.getElementById("text-display").innerHTML += "<br>> interactableName:" + interactable.interactableName;
   if(interactable.interactableName==="console")
   {
-    document.getElementById("text-display").innerHTML += "<br>> MATCH";
-    document.getElementById("text-display").innerHTML+="<br>> "+ player.currentRoom.roomName;
+  //  document.getElementById("text-display").innerHTML += "<br>> MATCH";
+  //  document.getElementById("text-display").innerHTML+="<br>> "+ player.currentRoom.roomName;
     if(checkInventory("data card") && player.currentRoom.roomName === "reactor room")
     {
       removeItem("data card");
       document.getElementById("text-display").innerHTML += "</br>>" + interactable.descriptionUnlocked;
       removeInteractable("console",player.currentRoom);
-      document.getElementById("powerObj").style.display="none";
       player.currentRoom.interactables.push(createInteractableObject("alert","You inspect the console alert it reads: 'SHIP POWER LOSSES DETECTED: RESET MASTER SWITCH'","no"));
       player.currentRoom.interactables.push(createLeverObject("master switch", "You Inspect the switch, pulling it should reset the ship's power.","pull master switch",false,"You pull the master switch and hear the hum of the ship as it's systems come back online. Hopefully the hangar bay door is open now."));
       document.getElementById("objectivesList").innerHTML+="<li id='switchObj'>Reset the master switch.</li>";
+      document.getElementById("powerObj").style.display="none";
     }
   }
-  else if(interactable.interactableName === "Master Switch" )
+  else if(interactable.interactableName === "master switch" )
   {
     if( player.currentRoom.roomName === "reactor room" )
     {
@@ -1959,7 +2007,7 @@ function processCustomCommand(interactable)
       document.getElementById("objectivesList").innerHTML="<li id='hangarObj'>Return to the hanger bay.</li>";
     }
   }
-  else if(interactable.interactableName === "Escape Pod" ){
+  else if(interactable.interactableName === "escape pod" ){
     if(player.currentRoom.roomName === "hangar bay" ){
       //--pop
       gameFinished(true);
@@ -1982,12 +2030,12 @@ function customCommandInput(words)
   var stop = false;
   var i = 0;
   do{
-      document.getElementById("text-display").innerHTML+= "<br>> words:"+words;
-      document.getElementById("text-display").innerHTML+= "<br>> custom command:"+player.currentRoom.interactables[i].customCommand;
+    //  document.getElementById("text-display").innerHTML+= "<br>> words:"+words;
+    //  document.getElementById("text-display").innerHTML+= "<br>> custom command:"+player.currentRoom.interactables[i].customCommand;
       if(player.currentRoom.interactables[i].customCommand === words)
       {
         stop = true;
-        document.getElementById("text-display").innerHTML+="MATCH";
+      //  document.getElementById("text-display").innerHTML+="MATCH";
         return player.currentRoom.interactables[i];
       }
       i++;
@@ -2024,7 +2072,10 @@ function removeBlockage(blockedPath)
 function checkInventory(item)
 {
   for(var i=0; i<player.inventory.length;i++){
-    document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+<<<<<<< HEAD
+=======
+  //  document.getElementById("text-display").innerHTML+= "<br>> item:"+player.inventory[i].item.itemName;
+>>>>>>> 0322a2383e7bdc34d4516f1ec36059c89f9e6253
     if(player.inventory[i].item.itemName === item){
       return true;
     }
@@ -2054,9 +2105,11 @@ function useItem(words)
           if(newHealth>100){
             newHealth=100;
           }
+          healthGainSound.play();
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
           document.getElementById("healthBar").style.width= newHealth + '%';
           document.getElementById("healthKitCount").innerHTML= "x"+newHealthKitCount;
+          updateHP();
         }
         else{
           window.healType(1);
@@ -2079,9 +2132,11 @@ function useItem(words)
           if(newHealth>100){
             newHealth=100;
           }
+            healthGainSound.play();
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
           document.getElementById("healthBar").style.width=newHealth;
           document.getElementById("healthPackCount").innerHTML= "x"+newHealthPackCount;
+          updateHP();
         }
         else{
           window.healType(0);
@@ -2309,9 +2364,8 @@ function pickUpItems(playerRoom,words,dragged)
 }
 function search(playerRoom)
 {
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
-
-  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>Searching the vicinity you find that...</span>";
+  document.getElementById("text-display").innerHTML += "</br><span id='userTextNormal'>>Searching the vicinity you find that...</span>";
+  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
   if(playerRoom.roomItems.length >=1)
   {
     playerRoom.roomItems.forEach((item, i) => {
@@ -2354,7 +2408,7 @@ function search(playerRoom)
       document.getElementById("text-display").innerHTML += "</br><span id = 'userTextInteractable'>>There is nothing interesting to interact with</span>";
     }
   }
-    document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>";
+  document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
   scrollBarAnchor();
 }
 function getDetailsOfItem(imgPath)
@@ -2482,6 +2536,16 @@ function move(words)
     direction += "west";
     checkDirection++;
   }
+  if(words.includes("escape") && words.includes("pod") || words.includes("escapepod"))
+  {
+    player.currentRoom.interactables.forEach((item, i) => {
+      if(item.interactableName === "escape pod")
+      {
+        gameFinished();
+      }
+    });
+    document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>Where on earth is that?</span>";
+  }
   if(checkDirection===1)
   {
     goDirection(direction);
@@ -2522,7 +2586,11 @@ function goDirection(direction)
           {
 
             newCurrent = returnNewRoom(roomExit.exitRoomName);
-            document.getElementById("text-display").innerHTML +="</br><span id = 'userTextRight'>>"+ roomExit.description + "</span>";
+            document.getElementById("text-display").innerHTML +="</br><span id = 'userTextNormal'>>"+ roomExit.description + "</span>";
+            document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
+            document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>//////////////Entering "+ newCurrent.roomName+"</span>";
+            document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>------------------------------------------</span>";
+
             player.currentRoom = newCurrent;
             if(player.currentRoom.roomDiscovered==true)
             {
