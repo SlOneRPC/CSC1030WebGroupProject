@@ -1854,7 +1854,6 @@ function removeItemFromInventory(item)
 function losehealthSound(){
   healthLossSound.play();
 }
-
 function reload()
 {
     var ammoCount =  document.getElementById("energyCellCount").innerHTML;
@@ -1890,7 +1889,6 @@ function reload()
       document.getElementById("text-display").innerHTML +="</br><span id='userTextWrong'>> You dont have any energy cells to reload!"
     }
 }
-
 function equipFists()
 {
   document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'> Equipped fists."+"</span>";
@@ -1898,7 +1896,6 @@ function equipFists()
   document.getElementById("currentWeaponMag").innerHTML="0/0";
   document.getElementById("equippedWeapon").src= 'images/fist.png';
 }
-
 function equipWeapon(weaponName)
 {
   if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
@@ -1922,7 +1919,6 @@ function equipWeapon(weaponName)
   }
   scrollBarAnchor();
 }
-
 function unequipWeapon()
 {
   // if(weaponName == "pistol" || weaponName == "smg"|| weaponName == "shotgun"|| weaponName == "plasma cannon"|| weaponName == "revolver"){
@@ -2026,7 +2022,6 @@ function clearExit(blockedPath,room)
         }
       }
 }
-
 function customCommandInput(words)
 {
   var stop = false;
@@ -2046,7 +2041,6 @@ function customCommandInput(words)
     //return null;
   }
 }
-
 function removeBlockage(blockedPath)
 {
   var availableDirections = [];
@@ -2099,7 +2093,7 @@ function useItem(words)
       if(newHealthKitCount>0)
       {
         if(!window.inCombat){
-          newHealthKitCount=newHealthKitCount-newHealthKitCount;
+          newHealthKitCount=newHealthKitCount-1;
           var newHealth = player.health + 50;
           if(newHealth>100){
             player.health=100;
