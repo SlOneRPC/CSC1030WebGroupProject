@@ -8,6 +8,8 @@ var maxDamageRecieved;
 var weaponDisabled = false;
 var activeEnemyObj;
 var inCombat = false;
+var timer;
+var countdown = 10;
 
 function combatSetupV2(){
   //hide container
@@ -34,6 +36,12 @@ function combatSetupV2(){
   updateHP();
   updateCombatType();
   document.getElementById('healMethod').innerHTML = 'None, please select one first';
+  document.getElementById('countdownTimer').innerHTML = "9";
+
+  sessionStorage.removeItem("pausedStatus");
+  sessionStorage.setItem("pausedStatus", false);
+  timer = setInterval('countdownTimer()', 1000);
+  countdownTime = 9;
 }
 
 function updateHP(){
@@ -212,26 +220,39 @@ function nextRound(){
   //show combat hide overview
   document.getElementById('turnOptions').classList.remove('hideMe');
   document.getElementById('turnOverview').classList.add('hideMe');
-
+  document.getElementById('countdownTimer').innerHTML = "9";
+  timer = setInterval('countdownTimer()', 1000);
 }
 
 function exectuteCombat(){
-
   document.getElementById('combatError').classList.add('hideMe');
   document.getElementById('combatError').classList.remove('hideMe');
   if(currentCombat == "Heal" && healHP == 0){
     document.getElementById('combatError').innerHTML = 'No heal method selected!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else if(currentCombat == "Heal" && window.player.health >=100){
     document.getElementById('combatError').innerHTML = 'Already full health!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else if(currentCombat == "Weapon" && window.player.equippedWeapon.ammo<=0){
     document.getElementById('combatError').innerHTML = 'No ammo in the mag try reloading!';
+    if(countdown<=0){
+      currentCombat = "Melee";
+      exectuteCombat();
+    }
   }
   else{
+    clearInterval(timer);
     document.getElementById('combatError').classList.add('hideMe');
-    var damageRecieved;
-    var damageDealt;
+    var damageRecieved=0;
+    var damageDealt=0;
 
     //calculate damage dealt
     if(Math.floor(Math.random()*100) <= hitchance && currentCombat != "Heal" && currentCombat != "Escape"){//hit the enemy
@@ -297,6 +318,7 @@ function exectuteCombat(){
     updateHP();
      if(window.player.health<=0){
        //TODO you lose end game
+       gameFinished(false);
      }
      else if(activeEnemyObj.health<=0){
        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You manage to successfully defeat the enemy</span>";
@@ -306,6 +328,7 @@ function exectuteCombat(){
        leaveCombat();
        //remove the enemy from the room once its dead
        player.currentRoom.enemies.splice(0,1);
+       // updates enemy defeated count
        player.stats.enemiesDefeated++;
      }
      else if(currentCombat == "Escape"){
@@ -328,7 +351,20 @@ function exectuteCombat(){
 
       document.getElementById('turnOptions').classList.add('hideMe');
       document.getElementById('turnOverview').classList.remove('hideMe');
+      countdown = 9;
     }
   }
   window.scrollBarAnchor();
+}
+
+function countdownTimer(){
+  var combatPaused = sessionStorage.getItem("pausedStatus");
+  if(countdown <= 0){
+    clearInterval(timer);
+    exectuteCombat();
+  }
+  else if(combatPaused == 'false'){
+    countdown = countdown-1;
+    document.getElementById('countdownTimer').innerHTML = countdown;
+  }
 }
