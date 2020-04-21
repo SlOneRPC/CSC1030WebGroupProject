@@ -1791,6 +1791,8 @@ function dropItem(itemName)
 {
   if(checkInventory(itemName)){
     if(itemName===player.equippedWeapon.item.itemName){
+      var fists = createWeaponObject("fist",0, 0, 5, "melee", ["punch"], "Its clobbering time","images/fist.png")
+      player.equippedWeapon=fists;
       equipFists();
     }
     item=player.inventory[getItemPosFromInventory(itemName)];
@@ -2433,6 +2435,7 @@ function unHighlightSelected(){
   if(previous != null){
     previous.style.backgroundColor = '#272727';
   }
+  document.getElementById('equipBtn').classList.add('hideMe');
 }
 
 function useSelected(){
