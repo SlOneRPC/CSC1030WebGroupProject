@@ -43,8 +43,8 @@ onchange{
     overflow: hidden;
     /*background-color: #0f180e;*/
     background-color: #111010;
-    width: 55%;
-    height: 55%;
+    width: 50%;
+
     text-align: left;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
@@ -53,13 +53,99 @@ onchange{
     box-shadow: 0 0 10px 2px red;
     font-family: 'Rajdhani', sans-serif;
     padding: 1%;
-    margin: auto;
+    /* margin: auto; */
+    float: left;
     top: 1%;
     margin-top: 1%;
     color: #2AAA50;
     font-size: 2.7vw;
 }
 
+#overview{
+  width: 30%;
+  float: left;
+  background-color: #001010;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  box-shadow: 0 0 10px 2px #4edaf9;
+  margin-left: 10%;
+  top: 1%;
+  margin-top: 1%;
+  font-weight: bolder;
+  font-family: 'Rajdhani', sans-serif;
+  color: #4edaf9;
+
+}
+
+#playerProfile{
+  /* border: 1px solid white; */
+  display: block;
+  overflow: hidden;
+  margin: auto;
+  width: auto;
+  padding-left: 3%;
+  padding-right: 5%;
+  padding-top: 5%;
+  padding-bottom: 1%;
+margin-bottom: 3%;
+    }
+
+#playerCharStat{
+  float:left;
+  width:40%;
+}
+
+#playerInfoStat{
+  width:60%;
+  float: left;
+  font-size: 1.2vw;
+  padding-left: 3%;
+}
+
+#playerNameStat{
+  position: relative;
+  left:3%;
+  margin:0;
+  text-align:left;
+}
+
+#playerBonusesStat{
+  position: relative;
+  left:3%;
+  margin:0;
+  text-align:left;
+}
+
+.yellowText{
+  color: gold;
+}
+
+.redText{
+  color: red;
+}
+
+#playerClassStat{
+  position: relative;
+  left:3%;
+  margin:0;
+  text-align:left;
+}
+#title{
+  text-align: center;
+  font-size: 3vw;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  background: repeating-linear-gradient(
+      45deg,
+      #1B1A1A,
+      #1B1A1A 10px,
+      #0F0F0F 10px,
+      #0F0F0F 20px
+      );
+      margin-bottom: 3%;
+}
 .input{
   font-size: 1.4vw;
   background: repeating-linear-gradient(
@@ -79,7 +165,7 @@ onchange{
 
 #description{
   font-size: 1.5vw;
-  float:left;
+  /* float:left; */
   margin:auto;
   overflow:hidden;
   background: repeating-linear-gradient(
@@ -95,8 +181,14 @@ onchange{
   font-family: 'Orbitron', sans-serif;
   padding: 1%;
   margin-top: 2%;
-  width: 60%;
-  height: 220px;
+  width: 70%;
+  height: 25%;
+}
+
+#overViewCard{
+  width: 100%;
+
+
 }
 
 #characterClass
@@ -104,11 +196,18 @@ onchange{
 
 }
 
+#spaceImg:hover{
+  -webkit-animation: swayCrazy 3s ease-in-out infinite;
+  animation: swayCrazy 3s ease-in-out infinite;
+}
 
 #row{
-  clear:left;
-  overflow: auto;
-
+  float: :left;
+  overflow: hidden;
+  width:100%;
+  display: inline-block;
+  padding-top: 3%;
+  padding-bottom: 3%;
 }
 
 #buttonDiv
@@ -122,7 +221,6 @@ onchange{
 }
 
 
-
 #characterCreator:hover{
   box-shadow: 0 0 10px 2px #4edaf9;
 }
@@ -134,8 +232,10 @@ onchange{
 
 #wrapper
 {
-    width: 100%;
+    width: 95%;
     padding: 2%;
+    display: block;
+    padding-left: 7%;
 }
 
 #button
@@ -148,9 +248,9 @@ onchange{
   float: right;
   font-size: 50px; */
   width: 90%;
-  height: 15%;
+  height: 50px;
   border-radius: 25px;
-  font-size: 2vw;
+  font-size: 1.6vw;
   border: 2px solid black;
   font-family: 'Orbitron', sans-serif;
   cursor: pointer;
@@ -163,6 +263,7 @@ onchange{
         #05170E 10px,
         #05170E 20px
         );
+        margin-bottom: 3%;r
 }
 
 #button:hover{
@@ -205,5 +306,26 @@ onchange{
   50% {
     -webkit-transform: translate(-20px, -20px) rotate(4deg);
             transform: translate(-20px, -20px) rotate(4deg);
+  }
+}
+
+@keyframes swayCrazy{
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: translate(-20px, -20px) rotate(360deg);
+            transform: translate(-20px, -20px) rotate(360deg);
+  }
+}
+@-webkit-keyframes swayCrazy {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: translate(-20px, -20px) rotate(360deg);
+            transform: translate(-20px, -20px) rotate(360deg);
   }
 }
