@@ -130,6 +130,7 @@ function gameStart()
  {
    document.getElementById("playerImg").src="images/engineericon.png";
    rooms.forEach((item, i) => {
+     if(item.roomName == "quarters")
      {
        document.getElementById("starterText").innerHTML += "<span = class = 'textAnimStart'>>You've been sleeping after a long shift, when you are suddenly thrown to the floor </br>with a bang that could wake the dead.</br></span></br><span = class = 'textAnimStart2'>>Stumbling to your feet, bleary-eyed, with no idea what's going on you realise everyone around you is missing.</br></span></br><span = class = 'textAnimStart3'>>Whatever is going on, it isn't going to be fun.</span>"
        newCurrent = item;
