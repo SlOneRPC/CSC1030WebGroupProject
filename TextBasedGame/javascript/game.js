@@ -2482,6 +2482,16 @@ function move(words)
     direction += "west";
     checkDirection++;
   }
+  if(words.includes("escape pod") || words.includes("escape pod"))
+  {
+    player.currentRoom.interactables.forEach((item, i) => {
+      if(item.interactableName === "escape pod")
+      {
+        gameFinished();
+      }
+    });
+    document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>Where on earth is that?</span>";
+  }
   if(checkDirection===1)
   {
     goDirection(direction);
