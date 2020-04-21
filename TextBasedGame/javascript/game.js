@@ -2155,6 +2155,7 @@ function useItem(words)
         else{
           window.healType(1);
         }
+        document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You feel rejuvenated, you gain 50HP </span>";
       }
       else{
         document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have any health kits!</span>";
@@ -2183,6 +2184,7 @@ function useItem(words)
         else{
           window.healType(0);
         }
+          document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>You feel rejuvenated, you gain 25HP </span>";
       }
       else{
           document.getElementById("text-display").innerHTML += "</br><span id='userTextWrong'>>You don't have any health packs!</span>";
