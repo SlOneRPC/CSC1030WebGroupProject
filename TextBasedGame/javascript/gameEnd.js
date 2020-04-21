@@ -17,8 +17,6 @@ function gameFinishedStats(){
   document.getElementById("roomsEntered").textContent = stats.areasExplored;
   document.getElementById("itemsCollected").textContent = stats.itemsCollected;
 
-  // calculates if the user earned any achievements
-  achievements();
 }
 
 // called if the user beats the game
@@ -42,31 +40,3 @@ function gameOver(){
 function restartGame(){
   window.location.href = "test.html";
 }
-
-function achievements(){ // if not done by 3pm - think about removing
-/*
-  // checks if the user completed the game in under the time limit
-  if(sessionStorage.getItem("timeSpent") > 180){
-
-  }
-  // if robotBoolean== true, digital love
-
-  // checks if they defeated a certain number of enemies
-  if(stats.enemiesDefeated>9){
-
-  }
-
-  // checks if they went into a certain number of rooms
-  if(stats.areasExplored>10){
-
-  }
-
-  // checks if the user has picked up a certain number of items
-  if(stats.itemsCollected > 9){
-*/
-
-}
-
-// tasks - grading certain achievements,
-
-// acheivements - 10 enemies defeated (warrior), 15 rooms explored (explorer), completed in 3 mins (speed demon), 10+ items collected (hoarder)
