@@ -1,8 +1,8 @@
 // this method displays the stats of the last game run to the user
-function gameFinishedStats(ending){
+function gameFinishedStats(){
 
   // formatting the page appropriately
-  if(sessionStorage.getItem("ending")){ // - user beats the game
+  if(sessionStorage.getItem("ending") == true){ // - user beats the game
     gameWon();
   }
   else{ // - user loses the game
@@ -32,6 +32,8 @@ function gameWon(){
 }
 
 function gameOver(){ //- mightn't be needed
+
+  document.getElementById("main-container").style.width = "450px";
 }
 
 // method used to restart the game - loads start page  - edit start menu to include user name - sessionStorage variable maybe

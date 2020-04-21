@@ -29,6 +29,7 @@ function onTimer()
   if (timeRemaining <= -1)
   {
     clearInterval(timer);
+    sessionStorage.setItem("ending", false);
     gameFinished(false);
   }
 }
