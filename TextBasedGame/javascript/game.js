@@ -1775,6 +1775,7 @@ function dropItem(itemName)
     unHighlightSelected();
     player.currentRoom.roomItems.push(item);
     document.getElementById("text-display").innerHTML+="</br><span id='userTextRight'>>Dropped "+itemName+"</span>";
+
   }
   else{
     document.getElementById("text-display").innerHTML+= "</br><span id='userTextWrong'>>You don't have that item in your inventory!</span>";
@@ -1801,7 +1802,7 @@ function removeItemFromInventory(item)
     //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
       //document.getElementById("text-display").innerHTML+="MATCH"
 
-      elements[i].innerHTML ="  ";
+      elements[i].innerHTML ="";
     //  document.getElementById("text-display").innerHTML+=  elements[i].innerHTML;
       break;
     }
