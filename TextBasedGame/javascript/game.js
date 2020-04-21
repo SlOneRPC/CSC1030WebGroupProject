@@ -1180,6 +1180,17 @@ function updateObjectives()
         document.getElementById("text-display").innerHTML+="</br><span id = 'userTextObjective'>+++New Objective+++";
   }
 }
+
+function displayAllEnemies()
+{
+  if(player.currentRoom.enemies.length > 0)
+  {
+    player.currentRoom.enemies.forEach((item, i) => {
+      document.getElementById("text-display").innerHTML += "</br>>" +item.enemyType;
+    });
+
+  }
+}
 function getRoomTextDesc(currentRoom,entry)
 {
   var roomDesc="";
@@ -1191,16 +1202,6 @@ function getRoomTextDesc(currentRoom,entry)
     }
   }
   return roomDesc;
-}
-function displayAllEnemies()
-{
-  if(player.currentRoom.enemies.length > 0)
-  {
-    player.currentRoom.enemies.forEach((item, i) => {
-      document.getElementById("text-display").innerHTML += "</br>>" +item.enemyType;
-    });
-
-  }
 }
 function outputCurrentRoomDesc()
 {
@@ -1220,7 +1221,6 @@ function outputCurrentRoomDesc()
       availableDirections.push(item.orientation);
       scanBool = true;
     });
-
   }
   document.getElementById("text-display").innerHTML += "</br><span id = 'userTextNormal'>>" +roomDesc + "</span>";
   if(scanBool === true)
@@ -1229,9 +1229,7 @@ function outputCurrentRoomDesc()
     directionColourAllRed();
     scanning(availableDirections);
     document.getElementById("text-display").innerHTML += "</br>";
-
   }
-
   if(player.currentRoom.enemies.length > 0)
   {
     enemyDetectionRoll(0);
@@ -2026,7 +2024,7 @@ function removeInteractable(interactableName,room)
 function processCustomCommand(interactable)
 {
   //insert data card typed
-  document.getElementById("text-display").innerHTML += "<br>> interactableName:" + interactable.interactableName;
+//  document.getElementById("text-display").innerHTML += "<br>> interactableName:" + interactable.interactableName;
   if(interactable.interactableName==="console")
   {
   //  document.getElementById("text-display").innerHTML += "<br>> MATCH";
