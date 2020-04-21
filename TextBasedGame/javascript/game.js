@@ -2100,7 +2100,10 @@ function useItem(words)
           newHealthKitCount=newHealthKitCount-newHealthKitCount;
           var newHealth = player.health + 50;
           if(newHealth>100){
-            newHealth=100;
+            player.health=100;
+          }
+          else {
+            player.health = newHealth;
           }
           healthGainSound.play();
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
@@ -2127,7 +2130,10 @@ function useItem(words)
           newHealthPackCount=newHealthPackCount-1;
           var newHealth = player.health + 25;
           if(newHealth>100){
-            newHealth=100;
+            player.health=100;
+          }
+          else {
+            player.health = newHealth;
           }
             healthGainSound.play();
           document.getElementById("healthStat").innerHTML= "Health: "+newHealth +"%";
