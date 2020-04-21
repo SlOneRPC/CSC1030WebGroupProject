@@ -19,8 +19,9 @@ function combatSetupV2(){
   document.getElementById('gameInput').classList.add('disabledbutton');
   document.getElementById('easyButtons').classList.add('disabledbutton');
   document.getElementById('gameInputButton').classList.add('disabledbutton');
-  document.getElementById('other1').classList.add('disabledbutton');
-  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>Combat Log</span>";
+  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>Combat Log<<<</span>";
+  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>You have entered combat with an enemy!</span>";
+
 
   //get the enemy object
   activeEnemyObj = window.player.currentRoom.enemies[0];
@@ -183,6 +184,7 @@ function getHitboxes(){
     opt.text = enemyHitboxArray[i].partName + " | +" + enemyHitboxArray[i].percentageToHit + "% hitchance | +" + enemyHitboxArray[i].baseDamagePerHit + " max damage"; // set the text
     hitboxes.appendChild(opt); // add it to the select
   }
+  document.getElementById("hitboxes").selectedIndex = 0;
 }
 
 function updateHitbox(){
@@ -213,7 +215,7 @@ function leaveCombat(){
   document.getElementById('gameInputButton').classList.remove('disabledbutton');
   document.getElementById('other1').classList.remove('disabledbutton');
   inCombat = false;
-  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>>>>>>>>>>>>>>>>End of combat log</span>";
+  document.getElementById("text-display").innerHTML += "</br><span id='userTextRight'>>>>End of combat log<<<<</span>";
 
 }
 
