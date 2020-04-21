@@ -85,7 +85,13 @@ function equipWeaponDrop(ev){
     for(var i=0; i<player.inventory.length;i++){
       //check that the item is a weapon
       if(player.inventory[i].item.itemType === "Weapon" && player.inventory[i].item.itemName == itemName[0]){
-        window.equipWeapon(itemName[0]);
+
+        if(player.inventory[i].item.itemName.includes(window.selectedItem)){
+          window.useSelected();
+        }
+        else{
+          window.equipWeapon(itemName[0]);
+        }
         break;
       }
     }
